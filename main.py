@@ -27,7 +27,8 @@ async def get_ip(request: Request):
         "flag_url": f"https://flagcdn.com/256x192/{geo.get('country_code', 'xx').lower()}.png"
     }
 
-    return templates.TemplateResponse("index.html", {
-        "request": request,
+    return render_template("index.html", ip=ip, city=data.get("city"), country=data.get("country_name"),
+                       latitude=data.get("latitude"), longitude=data.get("longitude"),
+                       flag_url=flag_url)
         **ip_info
     })

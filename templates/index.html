@@ -51,7 +51,9 @@
         <div class="info"><strong>City:</strong> {{ city }}</div>
         <div class="info"><strong>Region:</strong> {{ region }}</div>
         <div class="info"><strong>Country:</strong> {{ country }} 
-            <img class="flag" src="{{ flag_url }}" alt="Flag">
+            <p>Flag URL: {{ flag_url }}</p>
+                <img class="flag" src="{{ flag_url }}" alt="Flag" width="96" height="72" onerror="this.style.display='none'">
+
         </div>
         <div class="info"><strong>Coordinates:</strong> {{ latitude }}, {{ longitude }}</div>
         <div class="info"><strong>Provider:</strong> {{ org }}</div>
