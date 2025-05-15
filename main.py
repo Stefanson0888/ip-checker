@@ -1,34 +1,27 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+
+from flask import Flask, render_template, request
 import requests
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+app = Flask(__name__)
 
-@app.get("/", response_class=HTMLResponse)
-async def get_ip(request: Request):
-    forwarded = request.headers.get("x-forwarded-for")
-    client_ip = forwarded.split(",")[0] if forwarded else request.client.host
+@app.route("/")
+def index():
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
 
-    geo = requests.get(f"https://ipapi.co/{client_ip}/json/").json()
+    try:
+        response = requests.get(f"https://ipapi.co/{ip}/json/")
+        data = response.json()
+    except Exception:
+        data = {}
 
-    ip_info = {
-        "ip": client_ip,
-        "city": geo.get("city", "Unknown"),
-        "region": geo.get("region", "Unknown"),
-        "country": geo.get("country_name", "Unknown"),
-        "country_code": geo.get("country_code", "xx"),
-        "latitude": geo.get("latitude", ""),
-        "longitude": geo.get("longitude", ""),
-        "org": geo.get("org", "Unknown"),
-        "flag_url": f"https://flagcdn.com/256x192/{geo.get('country_code', 'xx').lower()}.png"
-    }
+    country_code = data.get("country_code", "").lower()
+    flag_url = f"https://flagcdn.com/256x192/{country_code}.png" if country_code else ""
 
-    return render_template("index.html", ip=ip, city=data.get("city"), country=data.get("country_name"),
-                       latitude=data.get("latitude"), longitude=data.get("longitude"),
-                       flag_url=flag_url)
-        **ip_info
-    })
+    return render_template("index.html",
+                           ip=ip,
+                           city=data.get("city", "Unknown"),
+                           region=data.get("region", "Unknown"),
+                           country=data.get("country_name", "Unknown"),
+                           latitude=data.get("latitude"),
+                           longitude=data.get("longitude"),
+                           flag_url=flag_url)

@@ -1,81 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Your IP Info</title>
-    <link rel="icon" href="/static/favicon.ico">
+    <title>IP Checker</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2em;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 2em;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .info {
-            margin: 1em 0;
-        }
-
-        img.flag {
-            width: 64px;
-            height: auto;
-        }
-
-        #map {
-            height: 300px;
-            margin-top: 1em;
-            border-radius: 8px;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .flag { margin-top: 20px; }
+        #map { height: 400px; width: 80%; margin: 0 auto; margin-top: 20px; }
     </style>
-
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Підключення Leaflet для карти -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Your IP Info</h1>
-        <div class="info"><strong>IP:</strong> {{ ip }}</div>
-        <div class="info"><strong>City:</strong> {{ city }}</div>
-        <div class="info"><strong>Region:</strong> {{ region }}</div>
-        <div class="info"><strong>Country:</strong> {{ country }} 
-            <p>Flag URL: {{ flag_url }}</p>
-                <img class="flag" src="{{ flag_url }}" alt="Flag" width="96" height="72" onerror="this.style.display='none'">
+    <h1>Твоя IP-адреса: {{ ip }}</h1>
+    <p><strong>Місто:</strong> {{ city }}</p>
+    <p><strong>Регіон:</strong> {{ region }}</p>
+    <p><strong>Країна:</strong> {{ country }}</p>
 
-        </div>
-        <div class="info"><strong>Coordinates:</strong> {{ latitude }}, {{ longitude }}</div>
-        <div class="info"><strong>Provider:</strong> {{ org }}</div>
+    {% if flag_url %}
+        <img class="flag" src="{{ flag_url }}" alt="Flag" width="128" height="96">
+    {% else %}
+        <p>Прапор не знайдено</p>
+    {% endif %}
 
+    {% if latitude and longitude %}
         <div id="map"></div>
-    </div>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        const latitude = {{ latitude }};
-        const longitude = {{ longitude }};
-
-        const map = L.map('map').setView([latitude, longitude], 10);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker([latitude, longitude]).addTo(map)
-            .bindPopup('Your Location')
-            .openPopup();
-    </script>
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+        <script>
+            var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
+                .bindPopup("Ти тут!")
+                .openPopup();
+        </script>
+    {% endif %}
 </body>
 </html>
