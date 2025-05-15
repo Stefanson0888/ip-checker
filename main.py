@@ -13,33 +13,21 @@ async def get_ip(request: Request):
     forwarded = request.headers.get("x-forwarded-for")
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
-    geo = requests.get(f"https://ipinfo.io/{client_ip}/json").json()
+    geo = requests.get(f"https://ipapi.co/{client_ip}/json/").json()
 
     ip_info = {
         "ip": client_ip,
         "city": geo.get("city", "Unknown"),
         "region": geo.get("region", "Unknown"),
-        "country": geo.get("country", "Unknown"),
+        "country": geo.get("country_name", "Unknown"),
+        "country_code": geo.get("country_code", "xx"),
+        "latitude": geo.get("latitude", ""),
+        "longitude": geo.get("longitude", ""),
         "org": geo.get("org", "Unknown"),
-        "hostname": geo.get("hostname", "Unknown"),
-        "loc": geo.get("loc", ""),
+        "flag_url": f"https://flagcdn.com/256x192/{geo.get('country_code', 'xx').lower()}.png"
     }
 
     return templates.TemplateResponse("index.html", {
         "request": request,
         **ip_info
     })
-
-from flask import Flask, render_template, request
-import requests
-
-app = Flask(__name__)
-
-@app.route("/")
-def index():
-    ip = request.remote_addr
-    response = requests.get(f"https://ipapi.co/{ip}/json/")
-    data = response.json()
-    return render_template("index.html", ip=ip, city=data.get("city"), country=data.get("country_name"),
-                           latitude=data.get("latitude"), longitude=data.get("longitude"),
-                           flag_url=f"https://flagcdn.com/256x192/{data.get('country_code').lower()}.png")
