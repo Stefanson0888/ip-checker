@@ -29,3 +29,17 @@ async def get_ip(request: Request):
         "request": request,
         **ip_info
     })
+
+from flask import Flask, render_template, request
+import requests
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    ip = request.remote_addr
+    response = requests.get(f"https://ipapi.co/{ip}/json/")
+    data = response.json()
+    return render_template("index.html", ip=ip, city=data.get("city"), country=data.get("country_name"),
+                           latitude=data.get("latitude"), longitude=data.get("longitude"),
+                           flag_url=f"https://flagcdn.com/256x192/{data.get('country_code').lower()}.png")
