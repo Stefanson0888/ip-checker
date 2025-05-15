@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your IP Address</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 40px; }
+        .info { margin: 20px auto; max-width: 600px; text-align: left; font-size: 18px; }
+        .map { height: 300px; width: 100%; max-width: 600px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <h1>Your IP Address:</h1>
+    <div class="info">
+        <p><strong>IP:</strong> {{ ip }}</p>
+        <p><strong>Hostname:</strong> {{ hostname }}</p>
+        <p><strong>ISP / ASN:</strong> {{ org }}</p>
+        <p><strong>Location:</strong> {{ city }}, {{ region }}, {{ country }}</p>
+    </div>
+
+    {% if loc %}
+    <div id="map" class="map"></div>
+    {% endif %}
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        {% if loc %}
+        const loc = "{{ loc }}".split(",");
+        const map = L.map('map').setView(loc, 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker(loc).addTo(map).bindPopup("You are here").openPopup();
+        {% endif %}
+    </script>
+</body>
+</html>
