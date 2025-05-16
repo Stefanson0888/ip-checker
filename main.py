@@ -13,22 +13,18 @@ async def get_ip(request: Request):
     forwarded = request.headers.get("x-forwarded-for")
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
-    response = requests.get(f"https://ipwho.is/{client_ip}")
-    try:
-        data = response.json()
-    except ValueError:
-        data = {}
-    print(data)
+    response = requests.get(f"https://ipwhois.io/json/{client_ip}")
+    data = response.json()
 
-    flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
+    flag_url = data.get("flag", {}).get("img")
 
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "ip": client_ip,
-        "city": data.get("city", "Unknown"),
-        "region": data.get("region", "Unknown"),
-        "country": data.get("country_name", "Unknown"),
-        "latitude": data.get("latitude"),
-        "longitude": data.get("longitude"),
-        "flag_url": flag_url,
+    rreturn templates.TemplateResponse("index.html", {
+    "request": request,
+    "ip": client_ip,
+    "city": data.get("city", "Unknown"),
+    "region": data.get("region", "Unknown"),
+    "country": data.get("country_name", "Unknown"),  # <- Ось тут фікс
+    "latitude": data.get("latitude"),
+    "longitude": data.get("longitude"),
+    "flag_url": flag_url,
     })

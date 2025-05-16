@@ -18,10 +18,11 @@
     <p><strong>Країна:</strong> {{ country }}</p>
 
     {% if flag_url %}
-        <img class="flag" src="{{ flag_url }}" alt="Flag" width="128" height="96">
-    {% else %}
-        <p>Прапор не знайдено</p>
-    {% endif %}
+    <img src="{{ flag_url }}" alt="Country flag" width="100">
+{% else %}
+    <p>Прапор не знайдено</p>
+{% endif %}
+
 
     {% if latitude and longitude %}
         <div id="map"></div>
