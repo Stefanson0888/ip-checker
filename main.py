@@ -18,6 +18,7 @@ async def get_ip(request: Request):
         data = response.json()
     except ValueError:
         data = {}
+    print(data)
 
     flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
 
