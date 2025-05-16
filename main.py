@@ -26,7 +26,7 @@ async def get_ip(request: Request):
         "ip": client_ip,
         "city": data.get("city", "Unknown"),
         "region": data.get("region", "Unknown"),
-        "country": data.get("country_name", "Unknown"),
+        "country": data.get("country", "Unknown"),
         "latitude": data.get("latitude"),
         "longitude": data.get("longitude"),
         "flag_url": flag_url,
