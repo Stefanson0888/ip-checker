@@ -18,7 +18,7 @@ async def get_ip(request: Request):
 
     flag_url = data.get("flag", {}).get("img")
 
-    rreturn templates.TemplateResponse("index.html", {
+    return templates.TemplateResponse("index.html", {
     "request": request,
     "ip": client_ip,
     "city": data.get("city", "Unknown"),
