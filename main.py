@@ -14,8 +14,21 @@ async def get_ip(request: Request):
     forwarded = request.headers.get("x-forwarded-for")
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
-    response = requests.get(f"https://ipapi.co/{client_ip}/json/")
-    data = response.json()
+    # Якщо IP локальний, використовуємо запит без IP
+    if client_ip in ["127.0.0.1", "::1"]:
+        ip_api_url = "https://ipapi.co/json/"
+    else:
+        ip_api_url = f"https://ipapi.co/{client_ip}/json/"
+
+    try:
+        response = requests.get(ip_api_url, timeout=5)
+        if response.status_code == 200:
+            data = response.json()
+        else:
+            data = {}
+    except Exception as e:
+        print("IP API error:", e)
+        data = {}
 
     flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
 
