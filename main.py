@@ -10,14 +10,13 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
-    # Отримуємо IP клієнта (але ipwhois визначає сам, тож це лише для показу)
     forwarded = request.headers.get("x-forwarded-for")
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
+    response = requests.get(f"https://ipwho.is/{client_ip}")
     try:
-        response = requests.get("https://ipwhois.io/json")
         data = response.json()
-    except Exception:
+    except ValueError:
         data = {}
 
     flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
@@ -27,7 +26,7 @@ async def get_ip(request: Request):
         "ip": client_ip,
         "city": data.get("city", "Unknown"),
         "region": data.get("region", "Unknown"),
-        "country": data.get("country_name", "Unknown"),  # <- важливо: country_name
+        "country": data.get("country_name", "Unknown"),
         "latitude": data.get("latitude"),
         "longitude": data.get("longitude"),
         "flag_url": flag_url,
