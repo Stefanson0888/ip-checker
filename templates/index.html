@@ -4,32 +4,37 @@
     <meta charset="UTF-8">
     <title>IP Checker</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 30px; }
         .flag { margin-top: 20px; }
-        #map { height: 400px; width: 80%; margin: 0 auto; margin-top: 20px; }
+        .info { margin: 20px auto; max-width: 600px; text-align: left; }
+        #map { height: 400px; width: 80%; margin: 20px auto; }
     </style>
-    <!-- Підключення Leaflet для карти -->
+    <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
 </head>
 <body>
     <h1>Твоя IP-адреса: {{ ip }}</h1>
-    <p><strong>Тип IP:</strong> {{ ip_type }}</p>
-    <p><strong>Місто:</strong> {{ city }}</p>
-    <p><strong>Регіон:</strong> {{ region }}</p>
-    <p><strong>Країна:</strong> {{ country }}</p>
 
-    {% if flag_url %}
-        <img src="{{ flag_url }}" alt="Country flag" width="100">
-    {% else %}
-        <p>Прапор не знайдено</p>
-    {% endif %}
-
-    <hr style="margin: 30px 0;">
-
-    <p><strong>Інтернет-провайдер (ISP):</strong> {{ isp }}</p>
-    <p><strong>ASN:</strong> {{ asn }}</p>
-    <p><strong>Організація:</strong> {{ org }}</p>
-    <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+    <div class="info">
+        <p><strong>Тип IP:</strong> {{ type }}</p>
+        <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
+        <p><strong>ASN:</strong> {{ asn }}</p>
+        <p><strong>Хост-нейм:</strong> {{ hostname }}</p>
+        <p><strong>VPN:</strong> {{ 'Так' if is_vpn else 'Ні' }}</p>
+        <p><strong>Проксі:</strong> {{ 'Так' if is_proxy else 'Ні' }}</p>
+        <p><strong>Tor:</strong> {{ 'Так' if is_tor else 'Ні' }}</p>
+        <p><strong>Браузер:</strong> {{ browser }}</p>
+        <p><strong>Операційна система:</strong> {{ os }}</p>
+        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        <p><strong>Місто:</strong> {{ city }}</p>
+        <p><strong>Регіон:</strong> {{ region }}</p>
+        <p><strong>Країна:</strong> {{ country }}</p>
+        {% if flag_url %}
+            <img src="{{ flag_url }}" alt="Прапор країни" width="100">
+        {% else %}
+            <p>Прапор не знайдено</p>
+        {% endif %}
+    </div>
 
     {% if latitude and longitude %}
         <div id="map"></div>
