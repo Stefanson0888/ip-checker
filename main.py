@@ -15,6 +15,7 @@ async def get_ip(request: Request):
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
     response = requests.get(f"https://ipwho.is/{client_ip}")
+    print(data)
     try:
         data = response.json()
     except ValueError:
@@ -45,7 +46,7 @@ async def get_ip(request: Request):
         "timezone": data.get("timezone", "Unknown"),
         "zip": data.get("postal", "Unknown"),
         "currency": data.get("currency", {}).get("name", "Unknown"),
-        "languages": data.get("languages", []),
+        "languages": data.get("languages", [{}])[0].get("name", "Unknown"),
         "latitude": data.get("latitude"),
         "longitude": data.get("longitude"),
         "flag_url": flag_url,
