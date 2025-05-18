@@ -3,7 +3,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import requests
-from user_agents import parse
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -20,29 +19,25 @@ async def get_ip(request: Request):
     except ValueError:
         data = {}
 
-    # User-Agent
-    user_agent_string = request.headers.get("user-agent", "")
-    user_agent = parse(user_agent_string)
-
     flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
+
+    # Нові дані
+    timezone = data.get("timezone", {}).get("id", "Unknown")
+    country_code = data.get("country_code", "Unknown")
+    currency = data.get("currency", {}).get("name", "Unknown")
+    languages = [lang.get("name") for lang in data.get("location", {}).get("languages", [])]
 
     return templates.TemplateResponse("index.html", {
         "request": request,
         "ip": client_ip,
-        "type": data.get("type", "Unknown"),
-        "isp": data.get("connection", {}).get("isp", "Unknown"),
-        "asn": data.get("connection", {}).get("asn", "Unknown"),
-        "hostname": data.get("connection", {}).get("domain", "Unknown"),
-        "is_proxy": data.get("security", {}).get("proxy", False),
-        "is_vpn": data.get("security", {}).get("vpn", False),
-        "is_tor": data.get("security", {}).get("tor", False),
-        "user_agent": user_agent_string,
-        "browser": user_agent.browser.family,
-        "os": user_agent.os.family,
         "city": data.get("city", "Unknown"),
         "region": data.get("region", "Unknown"),
         "country": data.get("country", "Unknown"),
         "latitude": data.get("latitude"),
         "longitude": data.get("longitude"),
         "flag_url": flag_url,
+        "timezone": timezone,
+        "country_code": country_code,
+        "currency": currency,
+        "languages": languages,
     })
