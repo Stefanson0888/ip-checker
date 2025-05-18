@@ -17,10 +17,8 @@ async def get_ip(request: Request):
     response = requests.get(f"https://ipwho.is/{client_ip}")
     try:
         data = response.json()
-        print(data)
     except ValueError:
         data = {}
-        print(data)
 
     user_agent_string = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_string)
