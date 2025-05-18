@@ -20,6 +20,7 @@ async def get_ip(request: Request):
     except ValueError:
         data = {}
 
+    # User-Agent
     user_agent_string = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_string)
 
@@ -41,12 +42,12 @@ async def get_ip(request: Request):
         "city": data.get("city", "Unknown"),
         "region": data.get("region", "Unknown"),
         "country": data.get("country", "Unknown"),
-        "country_code": data.get("country_code", "Unknown"),
-        "timezone": data.get("timezone", "Unknown"),
-        "zip": data.get("postal", "Unknown"),
-        "currency": data.get("currency", {}).get("name", "Unknown"),
-        "languages": data.get("languages", [{}])[0].get("name", "Unknown"),
         "latitude": data.get("latitude"),
         "longitude": data.get("longitude"),
         "flag_url": flag_url,
+        "timezone": data.get("timezone", {}).get("id", "Unknown"),
+        "calling_code": data.get("calling_code", "Unknown"),
+        "postal": data.get("postal", "Unknown"),
+        "currency": data.get("currency", {}).get("name", "Unknown"),
+        "language": "Unknown"  # API не надає інформацію про мову
     })
