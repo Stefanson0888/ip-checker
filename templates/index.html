@@ -13,16 +13,23 @@
 </head>
 <body>
     <h1>Твоя IP-адреса: {{ ip }}</h1>
+    <p><strong>Тип IP:</strong> {{ ip_type }}</p>
     <p><strong>Місто:</strong> {{ city }}</p>
     <p><strong>Регіон:</strong> {{ region }}</p>
     <p><strong>Країна:</strong> {{ country }}</p>
 
     {% if flag_url %}
-    <img src="{{ flag_url }}" alt="Country flag" width="100">
-{% else %}
-    <p>Прапор не знайдено</p>
-{% endif %}
+        <img src="{{ flag_url }}" alt="Country flag" width="100">
+    {% else %}
+        <p>Прапор не знайдено</p>
+    {% endif %}
 
+    <hr style="margin: 30px 0;">
+
+    <p><strong>Інтернет-провайдер (ISP):</strong> {{ isp }}</p>
+    <p><strong>ASN:</strong> {{ asn }}</p>
+    <p><strong>Організація:</strong> {{ org }}</p>
+    <p><strong>User-Agent:</strong> {{ user_agent }}</p>
 
     {% if latitude and longitude %}
         <div id="map"></div>
