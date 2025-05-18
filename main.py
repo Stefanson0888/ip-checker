@@ -1,66 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>IP Checker</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 30px; }
-        .flag { margin-top: 20px; }
-        #map { height: 400px; width: 80%; margin: 0 auto; margin-top: 20px; }
-        .info-block { margin: 10px 0; }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-</head>
-<body>
-    <h1>Твоя IP-адреса: {{ ip }}</h1>
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+import requests
+from user_agents import parse
 
-    <div class="info-block"><strong>Тип IP:</strong> {{ type }}</div>
-    <div class="info-block"><strong>Провайдер (ISP):</strong> {{ isp }}</div>
-    <div class="info-block"><strong>ASN:</strong> {{ asn }}</div>
-    <div class="info-block"><strong>Хост-нейм:</strong> {{ hostname }}</div>
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
-    <div class="info-block"><strong>Проксі:</strong> {{ "Так" if is_proxy else "Ні" }}</div>
-    <div class="info-block"><strong>VPN:</strong> {{ "Так" if is_vpn else "Ні" }}</div>
-    <div class="info-block"><strong>Tor:</strong> {{ "Так" if is_tor else "Ні" }}</div>
+@app.get("/", response_class=HTMLResponse)
+async def get_ip(request: Request):
+    forwarded = request.headers.get("x-forwarded-for")
+    client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
-    <div class="info-block"><strong>Браузер:</strong> {{ browser }}</div>
-    <div class="info-block"><strong>Операційна система:</strong> {{ os }}</div>
-    <div class="info-block"><strong>User-Agent:</strong> {{ user_agent }}</div>
+    response = requests.get(f"https://ipwho.is/{client_ip}")
+    try:
+        data = response.json()
+    except ValueError:
+        data = {}
 
-    <div class="info-block"><strong>Місто:</strong> {{ city }}</div>
-    <div class="info-block"><strong>Регіон:</strong> {{ region }}</div>
-    <div class="info-block"><strong>Країна:</strong> {{ country }}</div>
-    <div class="info-block"><strong>Код країни:</strong> {{ country_code }}</div>
-    <div class="info-block"><strong>Часовий пояс:</strong> {{ timezone }}</div>
-    <div class="info-block"><strong>Поштовий індекс (ZIP):</strong> {{ zip }}</div>
-    <div class="info-block"><strong>Валюта:</strong> {{ currency }}</div>
+    user_agent_string = request.headers.get("user-agent", "")
+    user_agent = parse(user_agent_string)
 
-    <div class="info-block"><strong>Мови:</strong> 
-        {% if languages %}
-            {{ ", ".join(languages) }}
-        {% else %}
-            Невідомо
-        {% endif %}
-    </div>
+    flag_url = f"https://flagcdn.com/256x192/{data.get('country_code','').lower()}.png" if data.get('country_code') else None
 
-    {% if flag_url %}
-        <img src="{{ flag_url }}" alt="Country flag" width="100" class="flag">
-    {% else %}
-        <p>Прапор не знайдено</p>
-    {% endif %}
-
-    {% if latitude and longitude %}
-        <div id="map"></div>
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-        <script>
-            var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-            L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-                .bindPopup("Ти тут!")
-                .openPopup();
-        </script>
-    {% endif %}
-</body>
-</html>
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "ip": client_ip,
+        "type": data.get("type", "Unknown"),
+        "isp": data.get("connection", {}).get("isp", "Unknown"),
+        "asn": data.get("connection", {}).get("asn", "Unknown"),
+        "hostname": data.get("connection", {}).get("domain", "Unknown"),
+        "is_proxy": data.get("security", {}).get("proxy", False),
+        "is_vpn": data.get("security", {}).get("vpn", False),
+        "is_tor": data.get("security", {}).get("tor", False),
+        "user_agent": user_agent_string,
+        "browser": user_agent.browser.family,
+        "os": user_agent.os.family,
+        "city": data.get("city", "Unknown"),
+        "region": data.get("region", "Unknown"),
+        "country": data.get("country", "Unknown"),
+        "country_code": data.get("country_code", "Unknown"),
+        "timezone": data.get("timezone", "Unknown"),
+        "zip": data.get("postal", "Unknown"),
+        "currency": data.get("currency", {}).get("name", "Unknown"),
+        "languages": data.get("languages", []),
+        "latitude": data.get("latitude"),
+        "longitude": data.get("longitude"),
+        "flag_url": flag_url,
+    })
