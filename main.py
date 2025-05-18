@@ -15,11 +15,12 @@ async def get_ip(request: Request):
     client_ip = forwarded.split(",")[0] if forwarded else request.client.host
 
     response = requests.get(f"https://ipwho.is/{client_ip}")
-    print(data)
     try:
         data = response.json()
+        print(data)
     except ValueError:
         data = {}
+        print(data)
 
     user_agent_string = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_string)
