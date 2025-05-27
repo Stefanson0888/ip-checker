@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -17,6 +18,13 @@ async def fetch_ip_info(ip: str) -> dict:
             return response.json()
     except httpx.HTTPError:
         return {}
+@app.get("/robots.txt", include_in_schema=False)
+async def robots_txt():
+    return FileResponse("static/robots.txt", media_type="text/plain")
+
+@app.get("/sitemap.xml", include_in_schema=False)
+async def sitemap_xml():
+    return FileResponse("static/sitemap.xml", media_type="application/xml")
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):

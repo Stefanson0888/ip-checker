@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /static/
+Disallow: /api/
+Allow: /
+
+Sitemap: https://ip-checker-vlez.onrender.com/sitemap.xml
