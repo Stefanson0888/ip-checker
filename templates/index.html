@@ -57,9 +57,16 @@
         }
         .toggle-button {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             font-size: 14px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .toggle-button:hover {
+            background-color: #e0e0e0;
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -101,12 +108,17 @@
             </div>
 
             <!-- Блок для банерної реклами -->
-            <div class="ad-banner" style="margin-top: 40px;">
-                <!-- Приклад партнерського банера -->
-                <a href="https://example-partner.com/?ref=yourid" target="_blank">
-                    <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама" style="width:100%; max-width: 234px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            <div class="ad-banner" style="margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="https://example1.com" target="_blank">
+                    <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1"
+                         style="width: 234px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                </a>
+                <a href="https://example2.com" target="_blank">
+                    <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2"
+                         style="width: 234px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
                 </a>
             </div>
+            
         </div>
 
         <!-- Права колонка -->
