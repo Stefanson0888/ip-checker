@@ -72,6 +72,38 @@
             max-width: 100%;
             height: auto;
         }
+        .right-block {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+             gap: 20px;
+        }
+
+        .ad-banners a {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .ad-banners img {
+            width: 100%;
+            max-width: 234px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Адаптація для мобільних */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .map-block, .ad-banners img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
 
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -145,6 +177,20 @@
                 .bindPopup("Ти тут!")
                 .openPopup();
         {% endif %}
+
+        <!-- Банери -->
+    <div class="ad-banners">
+        <a href="https://example-partner.com/?ref=1" target="_blank">
+            <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
+        </a>
+        <a href="https://example-partner.com/?ref=2" target="_blank">
+            <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2">
+        </a>
+        <a href="https://example-partner.com/?ref=3" target="_blank">
+            <img src="{{ url_for('static', path='ads/banner3.png') }}" alt="Реклама 3">
+        </a>
+    </div>
+</div>
 
         function toggleDetails() {
             var el = document.getElementById("additional-info");
