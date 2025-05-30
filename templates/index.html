@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IP Checker — Дізнайся свою IP-адресу та місцезнаходження</title>
     <meta name="description" content="Миттєво визнач свою IP-адресу, геолокацію, інтернет-провайдера, браузер, країну і багато іншого. Без зайвої інформації.">
     <meta name="keywords" content="IP, IP Checker, моя IP, дізнатися IP, IP адреса, геолокація, ip lookup, whois">
@@ -23,13 +23,15 @@
     <meta name="twitter:image" content="https://ip-checker-vlez.onrender.com/static/img/og-image.png">
 
     <!-- Favicon -->
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 30px auto;
             max-width: 1200px;
+            padding: 0 15px;
         }
         .container {
             display: flex;
@@ -43,6 +45,7 @@
         .map-block {
             width: 400px;
             height: 300px;
+            flex-shrink: 0;
         }
         .flag {
             margin-top: 10px;
@@ -68,49 +71,23 @@
         .toggle-button:hover {
             background-color: #e0e0e0;
         }
-        .ad-banner img {
-            max-width: 100%;
-            height: auto;
-        }
-        .right-block {
-            flex: 1;
-            min-width: 300px;
+        .ad-banner {
+            margin-top: 40px;
             display: flex;
-            flex-direction: column;
-             gap: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-
-        .ad-banners a {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .ad-banners img {
-            width: 100%;
-            max-width: 234px;
+        .ad-banner img {
+            width: 234px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: block;
-            margin: 0 auto;
         }
-
-        /* Адаптація для мобільних */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .map-block, .ad-banners img {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-        }
-
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
 </head>
 <body>
 
     <h1>Твоя IP-адреса: {{ ip }}</h1>
+
     <div class="container">
         <!-- Ліва колонка -->
         <div class="info-block">
@@ -144,21 +121,18 @@
                 <p><strong>User-Agent:</strong> {{ user_agent }}</p>
             </div>
 
-            <!-- Блок для банерної реклами -->
-            <div class="ad-banner" style="margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap;">
+            <!-- Реклама -->
+            <div class="ad-banner">
                 <a href="https://example1.com" target="_blank">
-                    <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1"
-                         style="width: 234px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
                 </a>
                 <a href="https://example2.com" target="_blank">
-                    <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2"
-                         style="width: 234px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2">
                 </a>
             </div>
-            
         </div>
 
-        <!-- Права колонка -->
+        <!-- Права колонка: карта -->
         {% if latitude and longitude %}
         <div class="map-block">
             <div id="map"></div>
@@ -177,20 +151,6 @@
                 .bindPopup("Ти тут!")
                 .openPopup();
         {% endif %}
-
-        <!-- Банери -->
-    <div class="ad-banners">
-        <a href="https://example-partner.com/?ref=1" target="_blank">
-            <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
-        </a>
-        <a href="https://example-partner.com/?ref=2" target="_blank">
-            <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2">
-        </a>
-        <a href="https://example-partner.com/?ref=3" target="_blank">
-            <img src="{{ url_for('static', path='ads/banner3.png') }}" alt="Реклама 3">
-        </a>
-    </div>
-</div>
 
         function toggleDetails() {
             var el = document.getElementById("additional-info");
