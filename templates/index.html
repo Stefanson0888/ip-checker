@@ -89,15 +89,12 @@
             min-width: 300px;
             flex: 1;
         }
-
         .ad-column a img {
             width: 100%;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-
-        /* Мобільна адаптація */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -107,82 +104,81 @@
                 width: 100%;
             }
         }
-
     </style>
 </head>
 <body>
 
-    <h1>Твоя IP-адреса: {{ ip }}</h1>
+<h1>Твоя IP-адреса: {{ ip }}</h1>
 
-    <div class="container">
-        <!-- Ліва колонка -->
-        <div class="info-block">
-            <p><strong>Місто:</strong> {{ city }}</p>
-            <p><strong>Регіон:</strong> {{ region }}</p>
-            <p><strong>Країна:</strong> {{ country }}</p>
-            <p><strong>Тип:</strong> {{ type }}</p>
-            <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
-            <p><strong>Організація (ASN):</strong> {{ asn }}</p>
-            <p><strong>Домен:</strong> {{ hostname }}</p>
+<div class="container">
+    <!-- Ліва колонка -->
+    <div class="info-block">
+        <p><strong>Місто:</strong> {{ city }}</p>
+        <p><strong>Регіон:</strong> {{ region }}</p>
+        <p><strong>Країна:</strong> {{ country }}</p>
+        <p><strong>Тип:</strong> {{ type }}</p>
+        <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
+        <p><strong>Організація (ASN):</strong> {{ asn }}</p>
+        <p><strong>Домен:</strong> {{ hostname }}</p>
 
-            {% if flag_url %}
-                <div class="flag">
-                    <img src="{{ flag_url }}" alt="Country flag" width="100">
-                </div>
-            {% endif %}
-
-            <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
-
-            <div id="additional-info" class="details" style="display: none;">
-                <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-                <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-                <p><strong>Код країни:</strong> {{ calling_code }}</p>
-                <p><strong>Мова:</strong> {{ language }}</p>
-                <p><strong>Валюта:</strong> {{ currency }}</p>
-                <p><strong>Браузер:</strong> {{ browser }}</p>
-                <p><strong>ОС:</strong> {{ os }}</p>
-                <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-                <p><strong>VPN:</strong> {{ is_vpn }}</p>
-                <p><strong>Tor:</strong> {{ is_tor }}</p>
-                <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        {% if flag_url %}
+            <div class="flag">
+                <img src="{{ flag_url }}" alt="Country flag" width="100">
             </div>
-
-
-        <!-- Права колонка: карта -->
-        <div class="right-block">
-            {% if latitude and longitude %}
-            <div class="map-block">
-                <div id="map"></div>
-            </div>
-            {% endif %}
-            <div class="ad-column">
-                <a href="https://example1.com" target="_blank">
-                    <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
-                </a>
-                <a href="https://example2.com" target="_blank">
-                    <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2">
-                </a>
-            </div>
-        </div>
-        
-    </div>
-
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script>
-        {% if latitude and longitude %}
-            var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-            L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-                .bindPopup("Ти тут!")
-                .openPopup();
         {% endif %}
 
-        function toggleDetails() {
-            var el = document.getElementById("additional-info");
-            el.style.display = el.style.display === "none" ? "block" : "none";
-        }
-    </script>
+        <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+
+        <div id="additional-info" class="details" style="display: none;">
+            <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
+            <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
+            <p><strong>Код країни:</strong> {{ calling_code }}</p>
+            <p><strong>Мова:</strong> {{ language }}</p>
+            <p><strong>Валюта:</strong> {{ currency }}</p>
+            <p><strong>Браузер:</strong> {{ browser }}</p>
+            <p><strong>ОС:</strong> {{ os }}</p>
+            <p><strong>Проксі:</strong> {{ is_proxy }}</p>
+            <p><strong>VPN:</strong> {{ is_vpn }}</p>
+            <p><strong>Tor:</strong> {{ is_tor }}</p>
+            <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        </div>
+    </div> <!-- Кінець .info-block -->
+
+    <!-- Права колонка -->
+    <div class="right-block">
+        {% if latitude and longitude %}
+        <div class="map-block">
+            <div id="map"></div>
+        </div>
+        {% endif %}
+        <div class="ad-column">
+            <a href="https://example1.com" target="_blank">
+                <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
+            </a>
+            <a href="https://example2.com" target="_blank">
+                <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2">
+            </a>
+        </div>
+    </div> <!-- Кінець .right-block -->
+
+</div> <!-- Кінець .container -->
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    {% if latitude and longitude %}
+        var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
+            .bindPopup("Ти тут!")
+            .openPopup();
+    {% endif %}
+
+    function toggleDetails() {
+        var el = document.getElementById("additional-info");
+        el.style.display = el.style.display === "none" ? "block" : "none";
+    }
+</script>
 </body>
 </html>
