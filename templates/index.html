@@ -82,6 +82,32 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .right-block {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 300px;
+            flex: 1;
+        }
+
+        .ad-column a img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Мобільна адаптація */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .map-block,
+            .right-block {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -121,8 +147,15 @@
                 <p><strong>User-Agent:</strong> {{ user_agent }}</p>
             </div>
 
-            <!-- Реклама -->
-            <div class="ad-banner">
+
+        <!-- Права колонка: карта -->
+        <div class="right-block">
+            {% if latitude and longitude %}
+            <div class="map-block">
+                <div id="map"></div>
+            </div>
+            {% endif %}
+            <div class="ad-column">
                 <a href="https://example1.com" target="_blank">
                     <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1">
                 </a>
@@ -131,13 +164,7 @@
                 </a>
             </div>
         </div>
-
-        <!-- Права колонка: карта -->
-        {% if latitude and longitude %}
-        <div class="map-block">
-            <div id="map"></div>
-        </div>
-        {% endif %}
+        
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
