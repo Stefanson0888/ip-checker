@@ -30,5 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
         mapContainer.style.display = "none";
       }
     });
-  });
+    function toggleDetails() {
+        const details = document.getElementById("additional-info");
+        if (details.style.display === "none" || details.style.display === "") {
+          details.style.display = "block";
+        } else {
+          details.style.display = "none";
+        }
+      }
+});
+
   
