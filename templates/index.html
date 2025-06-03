@@ -2,80 +2,36 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>IP Checker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Checker</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+    <div class="banner">🔍 Перевір свій IP</div>
+
     <div class="container">
-        <h1>Ваш IP: {{ ip }}</h1>
+        <div class="ad-column left-ad">🟨 Банер зліва</div>
 
-        <div class="info">
-            <p><strong>Місто:</strong> {{ city }}</p>
-            <p><strong>Країна:</strong> {{ country }}</p>
-            <p><strong>Провайдер:</strong> {{ org }}</p>
-        </div>
+        <div class="main-content">
+            <h1>Ваша IP-адреса: <span id="ip">завантаження...</span></h1>
 
-        <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+            <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
 
-        <div class="additional-info" id="additional-info" style="display: none;">
-            <p><strong>Регіон:</strong> {{ region }}</p>
-            <p><strong>Широта:</strong> {{ lat }}</p>
-            <p><strong>Довгота:</strong> {{ lon }}</p>
-            <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-            <p><strong>Пошта (приблизно):</strong> {{ zip }}</p>
-        </div>
+            <div id="additional-info" style="display: none;">
+                <p><strong>Місто:</strong> <span id="city">...</span></p>
+                <p><strong>Країна:</strong> <span id="country">...</span></p>
+                <p><strong>Організація:</strong> <span id="org">...</span></p>
+            </div>
 
-        <div class="map-block">
-            <button id="toggle-map-btn">Показати карту</button>
-            <div id="map-wrapper" style="display: none; margin-top: 20px;">
-                <div id="map" style="height: 300px; border-radius: 10px;"></div>
+            <div id="map-container">
+                <div id="map"></div>
             </div>
         </div>
+
+        <div class="ad-column right-ad">🟨 Банер справа</div>
     </div>
 
-    <script>
-        const toggleButton = document.getElementById("toggle-map-btn");
-        const mapWrapper = document.getElementById("map-wrapper");
-        let mapInitialized = false;
-        let map;
-
-        toggleButton.addEventListener("click", function () {
-            if (mapWrapper.style.display === "none" || mapWrapper.style.display === "") {
-                mapWrapper.style.display = "block";
-                toggleButton.textContent = "Сховати карту";
-                if (!mapInitialized) {
-                    map = L.map('map').setView([{{ lat }}, {{ lon }}], 10);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19,
-                        attribution: '&copy; OpenStreetMap'
-                    }).addTo(map);
-                    L.marker([{{ lat }}, {{ lon }}]).addTo(map)
-                        .bindPopup("Ваше приблизне розташування")
-                        .openPopup();
-                    mapInitialized = true;
-                }
-            } else {
-                mapWrapper.style.display = "none";
-                toggleButton.textContent = "Показати карту";
-            }
-        });
-
-        function toggleDetails() {
-            const details = document.getElementById("additional-info");
-            if (details.style.display === "none" || details.style.display === "") {
-                details.style.display = "block";
-            } else {
-                details.style.display = "none";
-            }
-        }
-    </script>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-o9N1j6kG8z2zP1F7kRbPj0if+1N1Kpq4bW/ML45jU9M="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-o9N1j6kG8z2zP1F7kRbPj0if+1N1Kpq4bW/ML45jU9M="
-            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/main.js"></script>
 </body>
 </html>

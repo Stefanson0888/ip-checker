@@ -1,43 +1,31 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.getElementById("toggle-map-btn");
-    const mapContainer = document.getElementById("map-wrapper");
-  
-    // Прочитай координати з елементів, переданих з бекенду
-    const latitude = parseFloat(document.getElementById("latitude").textContent);
-    const longitude = parseFloat(document.getElementById("longitude").textContent);
-  
-    let mapInitialized = false;
-    let map;
-  
-    toggleButton.addEventListener("click", function () {
-      if (mapContainer.style.display === "none") {
-        mapContainer.style.display = "block";
-  
-        if (!mapInitialized) {
-          map = L.map('map').setView([latitude, longitude], 10);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-          }).addTo(map);
-          L.marker([latitude, longitude]).addTo(map)
-            .bindPopup("You are here!")
-            .openPopup();
-  
-          mapInitialized = true;
-        } else {
-          map.invalidateSize();
-        }
-      } else {
-        mapContainer.style.display = "none";
-      }
-    });
-    function toggleDetails() {
-        const details = document.getElementById("additional-info");
-        if (details.style.display === "none" || details.style.display === "") {
-          details.style.display = "block";
-        } else {
-          details.style.display = "none";
-        }
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("https://ipapi.co/json/")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("ip").textContent = data.ip;
+            document.getElementById("city").textContent = data.city;
+            document.getElementById("country").textContent = data.country_name;
+            document.getElementById("org").textContent = data.org;
+
+            const map = L.map("map").setView([data.latitude, data.longitude], 10);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
+            L.marker([data.latitude, data.longitude]).addTo(map)
+                .bindPopup(`Ваше розташування<br>${data.city}, ${data.country_name}`)
+                .openPopup();
+        })
+        .catch(error => {
+            document.getElementById("ip").textContent = "Не вдалося отримати дані";
+            console.error(error);
+        });
 });
 
-  
+function toggleDetails() {
+    const info = document.getElementById("additional-info");
+    if (info.style.display === "none" || info.style.display === "") {
+        info.style.display = "block";
+    } else {
+        info.style.display = "none";
+    }
+}
