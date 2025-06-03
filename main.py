@@ -31,7 +31,7 @@ async def get_ip(request: Request):
     forwarded_for = request.headers.get("x-forwarded-for")
     client_ip = forwarded_for.split(",")[0] if forwarded_for else request.client.host
 
-    ip_data = await fetch_ip_info(client_ip)
+    ip_data = await fetch_ip_info(client_ip) or {}
 
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
