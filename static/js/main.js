@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const toggleButton = document.getElementById("toggle-map-btn");
-    const mapContainer = document.getElementById("map-container");
+    const mapContainer = document.getElementById("map-wrapper");
   
     // Прочитай координати з елементів, переданих з бекенду
     const latitude = parseFloat(document.getElementById("latitude").textContent);
