@@ -168,28 +168,14 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-  <script>
-    function toggleDetails() {
-      const el = document.getElementById("additional-info");
-      el.style.display = el.style.display === "none" ? "block" : "none";
-    }
+<script>
+    {% if latitude and longitude %}
+        window.addEventListener('DOMContentLoaded', () => {
+            initMap({{ latitude }}, {{ longitude }});
+        });
+    {% endif %}
+</script>
+<script src="{{ url_for('static', path='js/main.js') }}"></script>
 
-    function initMap() {
-      const mapContainer = document.getElementById("map");
-      mapContainer.style.display = "block";
-
-      const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
-      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-        .bindPopup("Ти тут!")
-        .openPopup();
-
-      // При повторному натисканні кнопку приховати
-      const button = mapContainer.previousElementSibling;
-      button.style.display = "none";
-    }
-  </script>
 </body>
 </html>
