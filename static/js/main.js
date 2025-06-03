@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           details.style.display = "none";
         }
-      }
+    }
 });
 
   

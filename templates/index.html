@@ -1,194 +1,81 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IP Checker — Дізнай свою IP-адресу та місцезнаходження</title>
-
-  <meta name="description" content="Миттєво дізнайся свою IP-адресу, геолокацію, провайдера, браузер і більше. Швидко. Без реклами.">
-  <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
-  <meta name="author" content="IP Checker">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ip-checker-vlez.onrender.com/" />
-  <meta property="og:title" content="IP Checker — Дізнай свою IP-адресу" />
-  <meta property="og:description" content="Швидко дізнайся IP, місцезнаходження та дані браузера." />
-  <meta property="og:image" content="https://ip-checker-vlez.onrender.com/static/img/og-image.png" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="IP Checker — Швидке визначення IP" />
-  <meta name="twitter:description" content="Твоя IP-адреса, місто, провайдер та ще багато — миттєво!" />
-  <meta name="twitter:image" content="https://ip-checker-vlez.onrender.com/static/img/og-image.png" />
-
-  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js">
-</script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px auto;
-      max-width: 1200px;
-      padding: 0 15px;
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-
-    .info-block {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .map-block {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-    }
-
-    .flag {
-      margin-top: 10px;
-    }
-
-    .flag img {
-      width: 100px;
-      height: auto;
-    }
-
-    .details {
-      margin-top: 20px;
-    }
-
-    .toggle-button {
-      margin-top: 20px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background-color: #f0f0f0;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .toggle-button:hover {
-      background-color: #e0e0e0;
-    }
-
-    .right-block {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .ad-column a img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      loading: lazy;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .map-block,
-      .right-block {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>IP Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
-
 <body>
-  <h1>Твоя IP-адреса: {{ ip }}</h1>
+    <div class="container">
+        <h1>Ваш IP: {{ ip }}</h1>
 
-  <div class="container">
-    <div class="info-block">
-      <p><strong>Місто:</strong> {{ city }}</p>
-      <p><strong>Регіон:</strong> {{ region }}</p>
-      <p><strong>Країна:</strong> {{ country }}</p>
-      <p><strong>Тип:</strong> {{ type }}</p>
-      <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
-      <p><strong>Організація (ASN):</strong> {{ asn }}</p>
-      <p><strong>Домен:</strong> {{ hostname }}</p>
-
-      {% if flag_url %}
-      <div class="flag" aria-label="Прапор країни">
-        <img src="{{ flag_url }}" alt="Прапор {{ country }}" loading="lazy" />
-      </div>
-      {% endif %}
-
-      <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
-
-      <div id="additional-info" class="details" style="display: none;">
-        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-        <p><strong>Код країни:</strong> {{ calling_code }}</p>
-        <p><strong>Мова:</strong> {{ language }}</p>
-        <p><strong>Валюта:</strong> {{ currency }}</p>
-        <p><strong>Браузер:</strong> {{ browser }}</p>
-        <p><strong>ОС:</strong> {{ os }}</p>
-        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-        <p><strong>VPN:</strong> {{ is_vpn }}</p>
-        <p><strong>Tor:</strong> {{ is_tor }}</p>
-        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
-      </div>
-    </div>
-
-    <span id="latitude" style="display: none;">{{ latitude }}</span>
-    <span id="longitude" style="display: none;">{{ longitude }}</span>
-
-
-    <div class="right-block">
-      {% if latitude and longitude %}
-      <div class="map-block" id="map-container">
-        <button id="toggle-map-btn">Показати карту</button>
-      
-        <div id="map-wrapper" style="display: none; margin-top: 20px;">
-          <div id="map" style="height: 300px; border-radius: 10px;"></div>
+        <div class="info">
+            <p><strong>Місто:</strong> {{ city }}</p>
+            <p><strong>Країна:</strong> {{ country }}</p>
+            <p><strong>Провайдер:</strong> {{ org }}</p>
         </div>
-      </div>      
-      {% endif %}
 
-      <div class="ad-column">
-        <a href="https://example1.com" target="_blank" rel="noopener">
-          <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1" />
-        </a>
-        <a href="https://example2.com" target="_blank" rel="noopener">
-          <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2" />
-        </a>
-      </div>
+        <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+
+        <div class="additional-info" id="additional-info" style="display: none;">
+            <p><strong>Регіон:</strong> {{ region }}</p>
+            <p><strong>Широта:</strong> {{ lat }}</p>
+            <p><strong>Довгота:</strong> {{ lon }}</p>
+            <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
+            <p><strong>Пошта (приблизно):</strong> {{ zip }}</p>
+        </div>
+
+        <div class="map-block">
+            <button id="toggle-map-btn">Показати карту</button>
+            <div id="map-wrapper" style="display: none; margin-top: 20px;">
+                <div id="map" style="height: 300px; border-radius: 10px;"></div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-<script>
-    {% if latitude and longitude %}
-        window.addEventListener('DOMContentLoaded', () => {
-            initMap({{ latitude }}, {{ longitude }});
+    <script>
+        const toggleButton = document.getElementById("toggle-map-btn");
+        const mapWrapper = document.getElementById("map-wrapper");
+        let mapInitialized = false;
+        let map;
+
+        toggleButton.addEventListener("click", function () {
+            if (mapWrapper.style.display === "none" || mapWrapper.style.display === "") {
+                mapWrapper.style.display = "block";
+                toggleButton.textContent = "Сховати карту";
+                if (!mapInitialized) {
+                    map = L.map('map').setView([{{ lat }}, {{ lon }}], 10);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; OpenStreetMap'
+                    }).addTo(map);
+                    L.marker([{{ lat }}, {{ lon }}]).addTo(map)
+                        .bindPopup("Ваше приблизне розташування")
+                        .openPopup();
+                    mapInitialized = true;
+                }
+            } else {
+                mapWrapper.style.display = "none";
+                toggleButton.textContent = "Показати карту";
+            }
         });
-    {% endif %}
-</script>
-<script src="{{ url_for('static', path='js/main.js') }}"></script>
 
+        function toggleDetails() {
+            const details = document.getElementById("additional-info");
+            if (details.style.display === "none" || details.style.display === "") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-o9N1j6kG8z2zP1F7kRbPj0if+1N1Kpq4bW/ML45jU9M="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-o9N1j6kG8z2zP1F7kRbPj0if+1N1Kpq4bW/ML45jU9M="
+            crossorigin=""></script>
 </body>
 </html>
