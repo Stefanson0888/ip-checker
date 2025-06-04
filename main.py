@@ -28,9 +28,9 @@ async def sitemap_xml():
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
-    forwarded_for = request.headers.get("x-forwarded-for")
-    client_ip = forwarded_for.split(",")[0] if forwarded_for else request.client.host
-
+    from utils.ip import get_client_ip
+    client_ip = get_client_ip(request)
+    
     ip_data = await fetch_ip_info(client_ip) or {}
 
     user_agent_str = request.headers.get("user-agent", "")
