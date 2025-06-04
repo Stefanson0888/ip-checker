@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from utils.ip import get_client_ip, fetch_ip_info
 from user_agents import parse
 import httpx
 
@@ -28,9 +29,8 @@ async def sitemap_xml():
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
-    from utils.ip import get_client_ip
-    client_ip = get_client_ip(request)
-    
+    client_ip = await get_client_ip(request)
+
     ip_data = await fetch_ip_info(client_ip) or {}
 
     user_agent_str = request.headers.get("user-agent", "")
