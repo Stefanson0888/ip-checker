@@ -129,7 +129,8 @@
       </div>
       {% endif %}
 
-      <button class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+      <button id="details-toggle-button" class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+
 
       <div id="additional-info" class="details" style="display: none;">
         <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
