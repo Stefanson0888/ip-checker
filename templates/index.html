@@ -44,14 +44,15 @@
     }
 
     .map-block {
-      width: 100%;
-      height: 370px;
+      width: 400px;
+      position: relative;
     }
 
     #map {
       width: 100%;
       height: 100%;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
 
     .flag {
@@ -168,22 +169,18 @@
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
-    function toggleDetails() {
-      const el = document.getElementById("additional-info");
-      const button = document.querySelector(".toggle-button");
-      const isHidden = el.style.display === "none";
-      
-      el.style.display = isHidden ? "block" : "none";
-      button.textContent = isHidden ? "Сховати додаткову інформацію" : "Показати додаткову інформацію";
-    }
-
+    
     let mapInitialized = false;
     let mapVisible = false;
     let mapInstance = null;
 
     function toggleDetails() {
       const el = document.getElementById("additional-info");
-      el.style.display = el.style.display === "none" ? "block" : "none";
+      const button = document.getElementById("details-toggle-button");
+      const isHidden = el.style.display === "none";
+
+      el.style.display = isHidden ? "block" : "none";
+      button.textContent = isHidden ? "Сховати додаткову інформацію" : "Показати додаткову інформацію";
     }
 
     function toggleMap() {
@@ -204,6 +201,7 @@
       mapVisible = !mapVisible;
       mapContainer.style.display = mapVisible ? "block" : "none";
       button.textContent = mapVisible ? "Сховати карту" : "Показати карту";
+
       if (mapVisible) {
         mapInstance.invalidateSize();
       }
