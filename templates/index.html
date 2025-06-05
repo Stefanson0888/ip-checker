@@ -45,8 +45,7 @@
 
     .map-block {
       width: 100%;
-      max-width: 400px;
-      height: 300px;
+      height: 400px;
     }
 
     #map {
@@ -96,7 +95,6 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
-      loading: lazy;
     }
 
     @media (max-width: 768px) {
@@ -151,7 +149,7 @@
     <div class="right-block">
       {% if latitude and longitude %}
       <div class="map-block" id="map-container">
-        <button class="toggle-button" onclick="initMap()">Показати карту</button>
+        <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
         <div id="map" style="display: none;"></div>
       </div>
       {% endif %}
@@ -171,24 +169,43 @@
   <script>
     function toggleDetails() {
       const el = document.getElementById("additional-info");
+      const button = document.querySelector(".toggle-button");
+      const isHidden = el.style.display === "none";
+      
+      el.style.display = isHidden ? "block" : "none";
+      button.textContent = isHidden ? "Сховати додаткову інформацію" : "Показати додаткову інформацію";
+    }
+
+    let mapInitialized = false;
+    let mapVisible = false;
+    let mapInstance = null;
+
+    function toggleDetails() {
+      const el = document.getElementById("additional-info");
       el.style.display = el.style.display === "none" ? "block" : "none";
     }
 
-    function initMap() {
+    function toggleMap() {
       const mapContainer = document.getElementById("map");
-      mapContainer.style.display = "block";
+      const button = document.getElementById("map-toggle-button");
 
-      const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
-      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-        .bindPopup("Ти тут!")
-        .openPopup();
+      if (!mapInitialized) {
+        mapInstance = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(mapInstance);
+        L.marker([{{ latitude }}, {{ longitude }}]).addTo(mapInstance)
+          .bindPopup("Ти тут!")
+          .openPopup();
+        mapInitialized = true;
+      }
 
-      // При повторному натисканні кнопку приховати
-      const button = mapContainer.previousElementSibling;
-      button.style.display = "none";
+      mapVisible = !mapVisible;
+      mapContainer.style.display = mapVisible ? "block" : "none";
+      button.textContent = mapVisible ? "Сховати карту" : "Показати карту";
+      if (mapVisible) {
+        mapInstance.invalidateSize();
+      }
     }
   </script>
 </body>
