@@ -9,14 +9,12 @@
   <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
   <meta name="author" content="IP Checker">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ip-checker-vlez.onrender.com/" />
   <meta property="og:title" content="IP Checker — Дізнай свою IP-адресу" />
   <meta property="og:description" content="Швидко дізнайся IP, місцезнаходження та дані браузера." />
   <meta property="og:image" content="https://ip-checker-vlez.onrender.com/static/img/og-image.png" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="IP Checker — Швидке визначення IP" />
   <meta name="twitter:description" content="Твоя IP-адреса, місто, провайдер та ще багато — миттєво!" />
@@ -24,12 +22,18 @@
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 30px auto;
       max-width: 1200px;
       padding: 0 15px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
     }
 
     .container {
@@ -39,12 +43,13 @@
     }
 
     .info-block {
-      flex: 1;
+      flex: 2;
       min-width: 300px;
     }
 
     .map-block {
-      width: 400px;
+      width: 100%;
+      height: 400px;
       position: relative;
     }
 
@@ -64,10 +69,6 @@
       height: auto;
     }
 
-    .details {
-      margin-top: 20px;
-    }
-
     .toggle-button {
       margin-top: 20px;
       padding: 8px 16px;
@@ -83,11 +84,22 @@
       background-color: #e0e0e0;
     }
 
+    .details {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease;
+    }
+
+    .details.open {
+      max-height: 1000px;
+      margin-top: 20px;
+    }
+
     .right-block {
+      flex: 1.2;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      flex: 1;
       min-width: 300px;
     }
 
@@ -95,7 +107,7 @@
       width: 100%;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -103,8 +115,13 @@
         flex-direction: column;
       }
 
-      .map-block,
       .right-block {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .map-block,
+      .ad-column {
         width: 100%;
       }
     }
@@ -130,10 +147,9 @@
       </div>
       {% endif %}
 
-      <button id="details-toggle-button" class="toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
 
-
-      <div id="additional-info" class="details" style="display: none;">
+      <div id="additional-info" class="details">
         <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
         <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
         <p><strong>Код країни:</strong> {{ calling_code }}</p>
@@ -150,7 +166,7 @@
 
     <div class="right-block">
       {% if latitude and longitude %}
-      <div class="map-block" id="map-container">
+      <div class="map-block">
         <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
         <div id="map" style="display: none;"></div>
       </div>
@@ -169,18 +185,22 @@
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
-    
     let mapInitialized = false;
     let mapVisible = false;
     let mapInstance = null;
 
     function toggleDetails() {
-      const el = document.getElementById("additional-info");
+      const details = document.getElementById("additional-info");
       const button = document.getElementById("details-toggle-button");
-      const isHidden = el.style.display === "none";
+      const isOpen = details.classList.contains("open");
 
-      el.style.display = isHidden ? "block" : "none";
-      button.textContent = isHidden ? "Сховати додаткову інформацію" : "Показати додаткову інформацію";
+      if (isOpen) {
+        details.classList.remove("open");
+        button.textContent = "Показати додаткову інформацію";
+      } else {
+        details.classList.add("open");
+        button.textContent = "Сховати додаткову інформацію";
+      }
     }
 
     function toggleMap() {
