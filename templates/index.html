@@ -49,16 +49,14 @@
 
     .map-block {
       width: 100%;
-      height: 400px;
       z-index: 0;
       position: relative;
     }
 
     #map {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      height: 400px;
     }
 
     .flag {
@@ -169,14 +167,18 @@
       {% if latitude and longitude %}
       <div class="map-block">
         <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
+
+        <!-- Банери після кнопки -->
+        <div id="ads-container" class="ad-column">
+          {% include "partials/ads.html" %}
+        </div>
+
+        <!-- Карта -->
         <div id="map" style="display: none;"></div>
       </div>
       {% endif %}
-
-      {% include "partials/ads.html" %}
-      </div>
     </div>
-  </div>
+  </div> <!-- Кінець .container -->
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
@@ -219,6 +221,9 @@
 
       if (mapVisible) {
         mapInstance.invalidateSize();
+        setTimeout(() => {
+          mapContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 200);
       }
     }
   </script>
