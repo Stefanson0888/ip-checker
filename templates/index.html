@@ -167,15 +167,15 @@
       {% if latitude and longitude %}
       <div class="map-block">
         <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
-
-        <!-- Банери після кнопки -->
+      
+        <!-- Карта спочатку -->
+        <div id="map" style="display: none;"></div>
+      
+        <!-- Потім банери -->
         <div id="ads-container" class="ad-column">
           {% include "partials/ads.html" %}
         </div>
-
-        <!-- Карта -->
-        <div id="map" style="display: none;"></div>
-      </div>
+      </div>      
       {% endif %}
     </div>
   </div> <!-- Кінець .container -->
