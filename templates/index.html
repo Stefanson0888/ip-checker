@@ -50,6 +50,7 @@
     .map-block {
       width: 100%;
       height: 400px;
+      z-index: 0;
       position: relative;
     }
 
@@ -162,6 +163,9 @@
         <p><strong>Tor:</strong> {{ is_tor }}</p>
         <p><strong>User-Agent:</strong> {{ user_agent }}</p>
       </div>
+
+      {% include "partials/ads.html" %}
+
     </div>
 
     <div class="right-block">
