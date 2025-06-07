@@ -163,9 +163,6 @@
         <p><strong>Tor:</strong> {{ is_tor }}</p>
         <p><strong>User-Agent:</strong> {{ user_agent }}</p>
       </div>
-
-      {% include "partials/ads.html" %}
-
     </div>
 
     <div class="right-block">
@@ -176,14 +173,7 @@
       </div>
       {% endif %}
 
-      <div class="ad-column">
-        <a href="https://example1.com" target="_blank" rel="noopener">
-          <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1" />
-        </a>
-        <a href="https://example2.com" target="_blank" rel="noopener">
-          <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2" />
-        </a>
-      </div>
+      {% include "partials/ads.html" %}
     </div>
   </div>
 
