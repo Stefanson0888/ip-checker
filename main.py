@@ -36,7 +36,7 @@ async def get_ip(request: Request):
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
     ip_data = await fetch_ip_info(ip) or {}
-    
+
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
@@ -76,5 +76,7 @@ async def lookup_ip(request: Request, ip: str = Query(...)):
         "language": ip_data.get("languages", "Unknown"),
         "flag_url": flag_url,
     }
+
+    print("Context:", context)
 
     return templates.TemplateResponse("index.html", context)
