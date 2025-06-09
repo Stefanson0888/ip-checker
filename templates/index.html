@@ -158,6 +158,20 @@
   </style>
 </head>
 
+<script>
+  // Показати/сховати карту на мобільних
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleMapBtn = document.getElementById("toggleMapBtn");
+    const mapContainer = document.getElementById("mapContainer");
+
+    if (toggleMapBtn) {
+      toggleMapBtn.addEventListener("click", function () {
+        mapContainer.classList.toggle("hidden");
+      });
+    }
+  });
+</script>
+
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
@@ -200,6 +214,27 @@
         <p><strong>User-Agent:</strong> {{ user_agent }}</p>
       </div>
     </div>
+
+    <!-- Кнопка для мобільних -->
+    <div class="block md:hidden text-center mb-4">
+      <button id="toggleMapBtn"
+        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition">
+        Показати мапу
+      </button>
+    </div>
+
+    <!-- Карта, яка прихована на мобільних -->
+    <div id="mapContainer" class="hidden md:block w-full h-64 mb-4">
+      {% if latitude and longitude %}
+      <iframe
+        class="w-full h-full rounded-xl shadow-lg"
+        src="https://maps.google.com/maps?q={{ latitude }},{{ longitude }}&z=12&output=embed"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+      {% endif %}
+    </div>
+
 
     <div class="right-block">
       {% if latitude and longitude %}
