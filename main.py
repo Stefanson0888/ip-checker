@@ -82,6 +82,4 @@ def render_ip_template(request: Request, ip_data: dict, ip: str):
         "flag_url": flag_url,
     }
 
-    print("Context:", context)  # DEBUG
-
     return templates.TemplateResponse("index.html", context)
