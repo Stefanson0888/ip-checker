@@ -113,7 +113,7 @@
       width: 100%;
       height: 400px;
       margin-top: 20px;
-      display: none;
+      display: block;
       transition: all 0.3s ease;
     }
 
@@ -204,17 +204,15 @@
     <div class="right-block">
       {% if latitude and longitude %}
       <div class="map-block">
-        <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
-
-        <div id="ads-container" class="ad-column">
-          {% include "partials/ads.html" %}
-        </div>
-
         <div id="map"></div>
       </div>
       {% endif %}
+
+      <div id="ads-container" class="ad-column">
+        {% include "partials/ads.html" %}
+      </div>
     </div>
-  </div>
+
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
@@ -231,6 +229,17 @@
       const saved = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", saved);
       document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
+    
+      // Ініціалізація карти
+      {% if latitude and longitude %}
+      const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
+        .bindPopup("Ти тут!")
+        .openPopup();
+      {% endif %}
     });
 
     // Додаткова інформація
