@@ -1,82 +1,92 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IP Checker</title>
-    <link href="{{ url_for('static', path='output.css') }}" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP Checker</title>
+  <link href="{{ url_for('static', path='output.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 300px;
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+<body class="bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
+  <main class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- LEFT COLUMN -->
+      <div class="md:col-span-2">
+        <h1 class="text-3xl font-bold mb-4">Інформація про вашу IP-адресу</h1>
 
-    <div class="min-h-screen flex flex-col md:flex-row items-start justify-center p-4">
-        <!-- LEFT BLOCK -->
-        <div class="left-block w-full md:w-2/3 mb-8 md:mb-0 md:mr-4">
-            <h1 class="text-3xl font-bold mb-4">Інформація про вашу IP-адресу</h1>
-            {% if ip %}
-                <p><strong>IP-адреса:</strong> {{ ip }}</p>
-                <p><strong>Місто:</strong> {{ city }}</p>
-                <p><strong>Регіон:</strong> {{ region }}</p>
-                <p><strong>Країна:</strong> {{ country_name }}</p>
-                <p><strong>Провайдер (ISP):</strong> {{ org }}</p>
-            {% else %}
-                <p>Не вдалося отримати IP-адресу</p>
-            {% endif %}
+        {% if ip %}
+        <div class="space-y-2">
+          <p><strong>IP-адреса:</strong> {{ ip }}</p>
+          <p><strong>Місто:</strong> {{ city }}</p>
+          <p><strong>Регіон:</strong> {{ region }}</p>
+          <p><strong>Країна:</strong> {{ country_name }}</p>
+          <p><strong>Провайдер (ISP):</strong> {{ org }}</p>
+        </div>
+        {% else %}
+        <p>Не вдалося отримати IP-адресу</p>
+        {% endif %}
 
-            <!-- Ручне введення IP -->
-            <form action="/" method="get" class="mt-6 flex flex-col sm:flex-row gap-2">
-                <input type="text" name="ip" placeholder="Введіть інший IP..." class="px-4 py-2 border rounded-md text-black" />
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Перевірити</button>
-            </form>
+        <!-- Input -->
+        <form action="/" method="get" class="mt-6 flex flex-col sm:flex-row gap-2">
+          <input type="text" name="ip" placeholder="Введіть інший IP..." class="px-4 py-2 border rounded-md text-black" />
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">Перевірити</button>
+        </form>
+
+        {% if latitude and longitude %}
+        <!-- TOGGLE MAP BUTTON ONLY ON MOBILE -->
+        <div class="md:hidden mt-6">
+          <button id="toggleMapBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Показати мапу
+          </button>
         </div>
 
-        <!-- RIGHT BLOCK -->
-        <div class="right-block w-full md:w-1/3">
-            {% if latitude and longitude %}
-                <!-- Кнопка для мобільних -->
-                <div class="block md:hidden text-center mb-4">
-                    <button id="toggleMapBtn"
-                        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition">
-                        Показати мапу
-                    </button>
-                </div>
-
-                <!-- Контейнер з мапою -->
-                <div id="mapContainer" class="hidden md:block w-full h-64 mb-4">
-                    <iframe
-                        class="w-full h-full rounded-xl shadow-lg"
-                        src="https://maps.google.com/maps?q={{ latitude }},{{ longitude }}&z=10&output=embed"
-                        allowfullscreen loading="lazy">
-                    </iframe>
-                </div>
-            {% endif %}
-
-            <!-- Банерна зона -->
-            <div id="ads-container" class="ad-column">
-                {% include "partials/ads.html" %}
-            </div>
+        <!-- MAP CONTAINER -->
+        <div id="mapCard" class="mt-6 hidden md:block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+          <div id="map" class="rounded-md"></div>
         </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="ad-column">
+        {% include "partials/ads.html" %}
+      </div>
     </div>
+  </main>
 
-    <!-- Footer -->
-    <footer class="text-center mt-10 text-sm text-gray-500 dark:text-gray-400">
-        &copy; {{ year }} IP Checker. Усі права захищено.
-    </footer>
+  <footer class="text-center mt-10 text-sm text-gray-500 dark:text-gray-400">
+    &copy; {{ year }} IP Checker. Усі права захищено.
+  </footer>
 
-    <!-- Toggle карта -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggleBtn = document.getElementById("toggleMapBtn");
-            const mapContainer = document.getElementById("mapContainer");
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById("toggleMapBtn");
+      const mapCard = document.getElementById("mapCard");
 
-            if (toggleBtn && mapContainer) {
-                toggleBtn.addEventListener("click", () => {
-                    mapContainer.classList.toggle("hidden");
-                    toggleBtn.textContent = mapContainer.classList.contains("hidden")
-                        ? "Показати мапу"
-                        : "Сховати мапу";
-                });
-            }
+      if (toggleBtn && mapCard) {
+        toggleBtn.addEventListener("click", () => {
+          mapCard.classList.toggle("hidden");
+          toggleBtn.textContent = mapCard.classList.contains("hidden")
+            ? "Показати мапу"
+            : "Сховати мапу";
         });
-    </script>
+      }
+
+      {% if latitude and longitude %}
+      const map = L.map("map").setView([{{ latitude }}, {{ longitude }}], 10);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map);
+      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map);
+      {% endif %}
+    });
+  </script>
 </body>
 </html>
