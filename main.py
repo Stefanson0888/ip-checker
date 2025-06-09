@@ -1,10 +1,8 @@
-from fastapi import FastAPI, Request
-from fastapi import Query
-from fastapi.responses import FileResponse
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Query
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip, fetch_ip_info
+from utils.ip import get_client_ip
 from user_agents import parse
 import httpx
 
@@ -20,6 +18,7 @@ async def fetch_ip_info(ip: str) -> dict:
             return response.json()
     except httpx.HTTPError:
         return {}
+
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
     return FileResponse("static/robots.txt", media_type="text/plain")
@@ -32,11 +31,14 @@ async def sitemap_xml():
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip) or {}
+    return render_ip_template(request, ip_data, client_ip)
 
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
     ip_data = await fetch_ip_info(ip) or {}
+    return render_ip_template(request, ip_data, ip)
 
+def render_ip_template(request: Request, ip_data: dict, ip: str):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
@@ -46,13 +48,16 @@ async def lookup_ip(request: Request, ip: str = Query(...)):
     currency = ip_data.get("currency", {})
 
     flag_url = (
-        f"https://flagcdn.com/256x192/{ip_data.get('country_code','').lower()}.png"
+        f"https://flagcdn.com/256x192/{ip_data.get('country_code', '').lower()}.png"
         if ip_data.get("country_code") else None
     )
 
+    languages_raw = ip_data.get("languages", [])
+    language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
+
     context = {
         "request": request,
-        "ip": client_ip,
+        "ip": ip,
         "type": ip_data.get("type", "Unknown"),
         "isp": connection.get("isp", "Unknown"),
         "asn": connection.get("asn", "Unknown"),
@@ -73,10 +78,10 @@ async def lookup_ip(request: Request, ip: str = Query(...)):
         "longitude": ip_data.get("longitude"),
         "timezone": timezone.get("id", "Unknown"),
         "currency": currency.get("code", "Unknown"),
-        "language": ip_data.get("languages", "Unknown"),
+        "language": language,
         "flag_url": flag_url,
     }
 
-    print("Context:", context)
+    print("Context:", context)  # DEBUG
 
     return templates.TemplateResponse("index.html", context)
