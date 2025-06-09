@@ -1,92 +1,281 @@
 <!DOCTYPE html>
 <html lang="uk">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IP Checker</title>
-    <link href="{{ url_for('static', path='output.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-      #map {
-        height: 300px;
-        width: 100%;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IP Checker — Дізнай свою IP-адресу та місцезнаходження</title>
+
+  <meta name="description" content="Миттєво дізнай свою IP-адресу, геолокацію, провайдера, браузер і більше. Швидко. Без реклами.">
+  <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --button-bg: #f0f0f0;
+      --button-hover: #e0e0e0;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #ffffff;
+      --button-bg: #333333;
+      --button-hover: #444444;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      margin: 30px auto;
+      max-width: 1200px;
+      padding: 0 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-color);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .info-block {
+      flex: 2;
+      min-width: 300px;
+    }
+
+    .map-block {
+      width: 100%;
+      position: relative;
+    }
+
+    .toggle-button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .toggle-button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .details {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease;
+    }
+
+    .details.open {
+      max-height: 1000px;
+      margin-top: 20px;
+    }
+
+    .right-block {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 300px;
+    }
+
+    .ad-column a img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: block;
+    }
+
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    .flag img {
+      width: 100px;
+      height: auto;
+    }
+
+    form.ip-lookup {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    form.ip-lookup input {
+      padding: 8px;
+      font-size: 14px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    form.ip-lookup button {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
       }
-    </style>
-  </head>
-  <body
-    class="bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300"
-  >
-    <main class="container mx-auto px-4 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- LEFT COLUMN -->
-        <div class="md:col-span-2">
-          <h1 class="text-3xl font-bold mb-4">
-            Інформація про вашу IP-адресу
-          </h1>
 
-          {% if ip %}
-          <div class="space-y-2">
-            <p><strong>IP-адреса:</strong> {{ ip }}</p>
-            <p><strong>Місто:</strong> {{ city }}</p>
-            <p><strong>Регіон:</strong> {{ region }}</p>
-            <p><strong>Країна:</strong> {{ country_name }}</p>
-            <p><strong>Провайдер (ISP):</strong> {{ org }}</p>
-          </div>
-          {% else %}
-          <p>Не вдалося отримати IP-адресу</p>
-          {% endif %}
+      .right-block {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
 
-          <!-- Input -->
-          <form
-            action="/"
-            method="get"
-            class="mt-6 flex flex-col sm:flex-row gap-2"
-          >
-            <input
-              type="text"
-              name="ip"
-              placeholder="Введіть інший IP..."
-              class="px-4 py-2 border rounded-md text-black"
-            />
-            <button
-              type="submit"
-              class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-            >
-              Перевірити
-            </button>
-          </form>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
-          {% if latitude and longitude %}
-          <!-- MAP ALWAYS VISIBLE ABOVE ADS -->
-          <div id="mapCard" class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-            <div id="map" class="rounded-md"></div>
-          </div>
-          {% endif %}
-        </div>
+  <h1>Твоя IP-адреса: {{ ip }}</h1>
 
-        <!-- RIGHT COLUMN -->
-        <div class="ad-column">
+  <form class="ip-lookup" action="/lookup" method="get">
+    <input type="text" name="ip" placeholder="Введи IP-адресу для перевірки" required />
+    <button type="submit">Перевірити</button>
+  </form>
+
+  <div class="container">
+    <div class="info-block">
+      <p><strong>Місто:</strong> {{ city }}</p>
+      <p><strong>Регіон:</strong> {{ region }}</p>
+      <p><strong>Країна:</strong> {{ country }}</p>
+      <p><strong>Тип:</strong> {{ type }}</p>
+      <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
+      <p><strong>Організація (ASN):</strong> {{ asn }}</p>
+      <p><strong>Домен:</strong> {{ hostname }}</p>
+
+      {% if flag_url %}
+      <div class="flag" aria-label="Прапор країни">
+        <img src="{{ flag_url }}" alt="Прапор {{ country }}" loading="lazy" />
+      </div>
+      {% endif %}
+
+      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+
+      <div id="additional-info" class="details">
+        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
+        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
+        <p><strong>Код країни:</strong> {{ calling_code }}</p>
+        <p><strong>Мова:</strong> {{ language }}</p>
+        <p><strong>Валюта:</strong> {{ currency }}</p>
+        <p><strong>Браузер:</strong> {{ browser }}</p>
+        <p><strong>ОС:</strong> {{ os }}</p>
+        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
+        <p><strong>VPN:</strong> {{ is_vpn }}</p>
+        <p><strong>Tor:</strong> {{ is_tor }}</p>
+        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+      </div>
+    </div>
+
+    <div class="right-block">
+      {% if latitude and longitude %}
+      <div class="map-block">
+        <button class="toggle-button" id="map-toggle-button" onclick="toggleMap()">Показати карту</button>
+
+        <div id="ads-container" class="ad-column">
           {% include "partials/ads.html" %}
         </div>
+
+        <div id="map"></div>
       </div>
-    </main>
-
-    <footer
-      class="text-center mt-10 text-sm text-gray-500 dark:text-gray-400"
-    >
-      &copy; {{ year }} IP Checker. Усі права захищено.
-    </footer>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-      {% if latitude and longitude %}
-      const map = L.map("map").setView([{{ latitude }}, {{ longitude }}], 10);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        attribution: '&copy; OpenStreetMap contributors',
-      }).addTo(map);
-      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map);
       {% endif %}
-    </script>
-  </body>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    // Темна тема
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const newTheme = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", saved);
+      document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
+    });
+
+    // Додаткова інформація
+    function toggleDetails() {
+      const details = document.getElementById("additional-info");
+      const button = document.getElementById("details-toggle-button");
+      const isOpen = details.classList.contains("open");
+
+      if (isOpen) {
+        details.classList.remove("open");
+        button.textContent = "Показати додаткову інформацію";
+      } else {
+        details.classList.add("open");
+        button.textContent = "Сховати додаткову інформацію";
+      }
+    }
+
+    // Карта
+    let mapInitialized = false;
+    let mapVisible = false;
+    let mapInstance = null;
+
+    function toggleMap() {
+      const mapContainer = document.getElementById("map");
+      const button = document.getElementById("map-toggle-button");
+
+      if (!mapInitialized) {
+        mapInstance = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(mapInstance);
+        L.marker([{{ latitude }}, {{ longitude }}]).addTo(mapInstance)
+          .bindPopup("Ти тут!")
+          .openPopup();
+        mapInitialized = true;
+      }
+
+      mapVisible = !mapVisible;
+      mapContainer.style.display = mapVisible ? "block" : "none";
+      button.textContent = mapVisible ? "Сховати карту" : "Показати карту";
+
+      if (mapVisible) {
+        mapInstance.invalidateSize();
+      }
+    }
+  </script>
+</body>
 </html>
