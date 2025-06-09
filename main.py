@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi import Query
 from fastapi.responses import FileResponse
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -30,9 +31,12 @@ async def sitemap_xml():
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
-
     ip_data = await fetch_ip_info(client_ip) or {}
 
+@app.get("/lookup", response_class=HTMLResponse)
+async def lookup_ip(request: Request, ip: str = Query(...)):
+    ip_data = await fetch_ip_info(ip) or {}
+    
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
