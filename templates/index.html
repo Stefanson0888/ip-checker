@@ -17,6 +17,7 @@
       --text-color: #000000;
       --button-bg: #f0f0f0;
       --button-hover: #e0e0e0;
+      --button-text: #000000;
     }
 
     [data-theme="dark"] {
@@ -24,6 +25,7 @@
       --text-color: #ffffff;
       --button-bg: #3a7bfd;
       --button-hover: #5c8dfc;
+      --button-text: #ffffff;
     }
 
     body {
@@ -77,6 +79,7 @@
       border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      color: var(--button-text);
     }
 
     .toggle-button:hover {
