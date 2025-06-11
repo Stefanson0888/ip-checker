@@ -200,6 +200,17 @@
         <p><strong>Проксі:</strong> {{ is_proxy }}</p>
         <p><strong>VPN:</strong> {{ is_vpn }}</p>
         <p><strong>Tor:</strong> {{ is_tor }}</p>
+        {% if iphub_block is not none %}
+  <p><strong>VPN (IPHUB):</strong>
+    {% if iphub_block == 1 %}
+      <span style="color: red;">Так (можливо VPN або проксі)</span>
+    {% elif iphub_block == 0 %}
+      <span style="color: green;">Ні</span>
+    {% elif iphub_block == 2 %}
+      <span style="color: orange;">Невідомо (non-residential)</span>
+    {% endif %}
+  </p>
+{% endif %}
         <p><strong>User-Agent:</strong> {{ user_agent }}</p>
       </div>
     </div>

@@ -6,6 +6,21 @@ from utils.ip import get_client_ip
 from user_agents import parse
 import httpx
 
+IPHUB_API_KEY = Mjg2NzE6VlhnM2NqZGdNZTlhbjhhYTBEckNmTjdEb09Cc0JhaUQ=
+
+async def fetch_iphub_info(ip: str) -> dict:
+    url = f"http://v2.api.iphub.info/ip/{ip}"
+    headers = {"X-Key": IPHUB_API_KEY}
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, headers=headers)
+            if response.status_code == 200:
+                return response.json()
+    except Exception as e:
+        print(f"IPHub error: {e}")
+    return {}
+
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -31,14 +46,16 @@ async def sitemap_xml():
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip) or {}
-    return render_ip_template(request, ip_data, client_ip)
+    iphub_data = await fetch_iphub_info(client_ip) or {}
+    return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
     ip_data = await fetch_ip_info(ip) or {}
-    return render_ip_template(request, ip_data, ip)
+    iphub_data = await fetch_iphub_info(client_ip) or {}
+    return render_ip_template(request, ip_data, ip, iphub_data)
 
-def render_ip_template(request: Request, ip_data: dict, ip: str):
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
@@ -80,6 +97,10 @@ def render_ip_template(request: Request, ip_data: dict, ip: str):
         "currency": currency.get("code", "Unknown"),
         "language": language,
         "flag_url": flag_url,
+        "iphub_block": iphub_data.get("block") if iphub_data else None,
+        "iphub_isp": iphub_data.get("isp") if iphub_data else None,
+        "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
+
     }
 
     return templates.TemplateResponse("index.html", context)
