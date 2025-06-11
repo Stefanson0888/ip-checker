@@ -1,4 +1,4 @@
-IPHUB_API_KEY = Mjg2NzE6VlhnM2NqZGdNZTlhbjhhYTBEckNmTjdEb09Cc0JhaUQ=
+IPHUB_API_KEY = "Mjg2NzE6VlhnM2NqZGdNZTlhbjhhYTBEckNmTjdEb09Cc0JhaUQ="
 
 async def fetch_iphub_info(ip: str) -> dict:
     url = f"http://v2.api.iphub.info/ip/{ip}"
