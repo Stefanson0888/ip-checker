@@ -1,11 +1,3 @@
-from fastapi import FastAPI, Request, Query
-from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip
-from user_agents import parse
-import httpx
-
 IPHUB_API_KEY = Mjg2NzE6VlhnM2NqZGdNZTlhbjhhYTBEckNmTjdEb09Cc0JhaUQ=
 
 async def fetch_iphub_info(ip: str) -> dict:
@@ -20,6 +12,13 @@ async def fetch_iphub_info(ip: str) -> dict:
         print(f"IPHub error: {e}")
     return {}
 
+from fastapi import FastAPI, Request, Query
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from utils.ip import get_client_ip
+from user_agents import parse
+import httpx
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
