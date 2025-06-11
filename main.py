@@ -51,7 +51,7 @@ async def get_ip(request: Request):
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
     ip_data = await fetch_ip_info(ip) or {}
-    iphub_data = await fetch_iphub_info(client_ip) or {}
+    iphub_data = await fetch_iphub_info(ip) or {}
     return render_ip_template(request, ip_data, ip, iphub_data)
 
 def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
