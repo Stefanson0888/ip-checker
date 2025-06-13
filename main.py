@@ -17,7 +17,7 @@ async def fetch_iphub_info(ip: str) -> dict:
             if response.status_code == 200:
                 return response.json()
             else:
-                print(f"IPHub returned status {response.status_code}:{response text}")
+                print(f"IPHub returned status {response.status_code}:{response.text}")
     except Exception as e:
         print(f"IPHub error: {e}")
     return {}
