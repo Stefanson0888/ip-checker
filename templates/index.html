@@ -200,7 +200,7 @@
         <p><strong>Проксі:</strong> {{ is_proxy }}</p>
         <p><strong>VPN:</strong> {{ is_vpn }}</p>
         <p><strong>Tor:</strong> {{ is_tor }}</p>
-        {% if iphub_block is not none %}
+{% if iphub_block is not none %}
   <p><strong>VPN (IPHUB):</strong>
     {% if iphub_block == 1 %}
       <span style="color: red;">Так (можливо VPN або проксі)</span>

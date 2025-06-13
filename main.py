@@ -16,6 +16,8 @@ async def fetch_iphub_info(ip: str) -> dict:
             response = await client.get(url, headers=headers)
             if response.status_code == 200:
                 return response.json()
+            else:
+                print(f"IPHub returned status {response.status_code}:{response text}")
     except Exception as e:
         print(f"IPHub error: {e}")
     return {}
@@ -53,7 +55,7 @@ async def sitemap_xml():
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip) or {}
-    iphub_data = await fetch_iphub_info(client_ip) or {}
+    iphub_data = await fetch_iphub_info(ip) or {}
     return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
