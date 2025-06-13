@@ -1,8 +1,12 @@
-import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
+
+if not IPHUB_API_KEY:
+    raise ValueError("IPHUB_API_KEY is not set. Check your .env or environment variables.")
+
 
 async def fetch_iphub_info(ip: str) -> dict:
     url = f"http://v2.api.iphub.info/ip/{ip}"
