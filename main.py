@@ -1,4 +1,8 @@
-IPHUB_API_KEY = "Mjg2NzE6VlhnM2NqZGdNZTlhbjhhYTBEckNmTjdEb09Cc0JhaUQ="
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 
 async def fetch_iphub_info(ip: str) -> dict:
     url = f"http://v2.api.iphub.info/ip/{ip}"
