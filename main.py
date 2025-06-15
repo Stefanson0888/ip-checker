@@ -53,17 +53,10 @@ async def sitemap_xml():
 
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
-    try:
-        client_ip = await get_client_ip(request)
-        print(f"Client IP: {client_ip}")
-        ip_data = await fetch_ip_info(client_ip) or {}
-        print(f"IPWhois data: {ip_data}")
-        iphub_data = await fetch_iphub_info(client_ip) or {}
-        print(f"IPHUB data: {iphub_data}")
-        return render_ip_template(request, ip_data, client_ip, iphub_data)
-    except Exception as e:
-        print(f"Error in get_ip: {e}")
-        raise
+    client_ip = await get_client_ip(request)
+    ip_data = await fetch_ip_info(client_ip) or {}
+    iphub_data = await fetch_iphub_info(client_ip) or {}
+    return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
