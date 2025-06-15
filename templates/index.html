@@ -65,6 +65,37 @@
       min-width: 300px;
     }
 
+    .map-block {
+      width: 100%;
+    }
+
+    .toggle-button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      color: var(--button-text);
+    }
+
+    .toggle-button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .details {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease;
+    }
+
+    .details.open {
+      max-height: 1000px;
+      margin-top: 20px;
+    }
+
     .right-block {
       flex: 1.2;
       display: flex;
@@ -84,7 +115,6 @@
       width: 100%;
       height: 400px;
       margin-top: 20px;
-      display: block;
     }
 
     .flag img {
@@ -113,12 +143,16 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      color: var(--button-text);
     }
 
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
+      }
+
+      .right-block {
+        flex-direction: column;
+        gap: 30px;
       }
     }
   </style>
@@ -131,7 +165,7 @@
 
   <form class="ip-lookup" action="/lookup" method="get">
     <input type="text" name="ip" placeholder="Введи IP-адресу для перевірки" required />
-    <button type="submit">Перевірити</button>
+    <button type="submit" class="toggle-button">Перевірити</button>
   </form>
 
   <div class="container">
@@ -150,33 +184,39 @@
       </div>
       {% endif %}
 
-      <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-      <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-      <p><strong>Код країни:</strong> {{ calling_code }}</p>
-      <p><strong>Мова:</strong> {{ language }}</p>
-      <p><strong>Валюта:</strong> {{ currency }}</p>
-      <p><strong>Браузер:</strong> {{ browser }}</p>
-      <p><strong>ОС:</strong> {{ os }}</p>
-      <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-      <p><strong>VPN:</strong> {{ is_vpn }}</p>
-      <p><strong>Tor:</strong> {{ is_tor }}</p>
-      {% if iphub_block is not none %}
+      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+
+      <div id="additional-info" class="details">
+        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
+        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
+        <p><strong>Код країни:</strong> {{ calling_code }}</p>
+        <p><strong>Мова:</strong> {{ language }}</p>
+        <p><strong>Валюта:</strong> {{ currency }}</p>
+        <p><strong>Браузер:</strong> {{ browser }}</p>
+        <p><strong>ОС:</strong> {{ os }}</p>
+        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
+        <p><strong>VPN:</strong> {{ is_vpn }}</p>
+        <p><strong>Tor:</strong> {{ is_tor }}</p>
+        {% if iphub_block is not none %}
         <p><strong>VPN (IPHUB):</strong>
           {% if iphub_block == 1 %}
-            <span style="color: red;">Так (можливо VPN або проксі)</span>
+          <span style="color: red;">Так (можливо VPN або проксі)</span>
           {% elif iphub_block == 0 %}
-            <span style="color: green;">Ні</span>
+          <span style="color: green;">Ні</span>
           {% elif iphub_block == 2 %}
-            <span style="color: orange;">Невідомо (non-residential)</span>
+          <span style="color: orange;">Невідомо (non-residential)</span>
           {% endif %}
         </p>
-      {% endif %}
-      <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        {% endif %}
+        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+      </div>
     </div>
 
     <div class="right-block">
       {% if latitude and longitude %}
-      <div id="map"></div>
+      <div class="map-block">
+        <div id="map"></div>
+      </div>
       {% endif %}
 
       <div id="ads-container" class="ad-column">
@@ -210,6 +250,20 @@
         .openPopup();
       {% endif %}
     });
+
+    function toggleDetails() {
+      const details = document.getElementById("additional-info");
+      const button = document.getElementById("details-toggle-button");
+      const isOpen = details.classList.contains("open");
+
+      if (isOpen) {
+        details.classList.remove("open");
+        button.textContent = "Показати додаткову інформацію";
+      } else {
+        details.classList.add("open");
+        button.textContent = "Сховати додаткову інформацію";
+      }
+    }
   </script>
 </body>
 </html>
