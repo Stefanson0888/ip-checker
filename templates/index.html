@@ -65,38 +65,6 @@
       min-width: 300px;
     }
 
-    .map-block {
-      width: 100%;
-      position: relative;
-    }
-
-    .toggle-button {
-      margin-top: 20px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background-color: var(--button-bg);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      color: var(--button-text);
-    }
-
-    .toggle-button:hover {
-      background-color: var(--button-hover);
-    }
-
-    .details {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.5s ease;
-    }
-
-    .details.open {
-      max-height: 1000px;
-      margin-top: 20px;
-    }
-
     .right-block {
       flex: 1.2;
       display: flex;
@@ -117,7 +85,6 @@
       height: 400px;
       margin-top: 20px;
       display: block;
-      transition: all 0.3s ease;
     }
 
     .flag img {
@@ -146,16 +113,12 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      color: var(--button-text);
     }
 
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-      }
-
-      .right-block {
-        flex-direction: column;
-        gap: 30px;
       }
     }
   </style>
@@ -168,7 +131,7 @@
 
   <form class="ip-lookup" action="/lookup" method="get">
     <input type="text" name="ip" placeholder="Введи IP-адресу для перевірки" required />
-    <button type="submit" class="toggle-button">Перевірити</button>
+    <button type="submit">Перевірити</button>
   </form>
 
   <div class="container">
@@ -187,50 +150,43 @@
       </div>
       {% endif %}
 
-      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
-
-      <div id="additional-info" class="details">
-        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-        <p><strong>Код країни:</strong> {{ calling_code }}</p>
-        <p><strong>Мова:</strong> {{ language }}</p>
-        <p><strong>Валюта:</strong> {{ currency }}</p>
-        <p><strong>Браузер:</strong> {{ browser }}</p>
-        <p><strong>ОС:</strong> {{ os }}</p>
-        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-        <p><strong>VPN:</strong> {{ is_vpn }}</p>
-        <p><strong>Tor:</strong> {{ is_tor }}</p>
-{% if iphub_block is not none %}
-  <p><strong>VPN (IPHUB):</strong>
-    {% if iphub_block == 1 %}
-      <span style="color: red;">Так (можливо VPN або проксі)</span>
-    {% elif iphub_block == 0 %}
-      <span style="color: green;">Ні</span>
-    {% elif iphub_block == 2 %}
-      <span style="color: orange;">Невідомо (non-residential)</span>
-    {% endif %}
-  </p>
-{% endif %}
-        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
-      </div>
+      <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
+      <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
+      <p><strong>Код країни:</strong> {{ calling_code }}</p>
+      <p><strong>Мова:</strong> {{ language }}</p>
+      <p><strong>Валюта:</strong> {{ currency }}</p>
+      <p><strong>Браузер:</strong> {{ browser }}</p>
+      <p><strong>ОС:</strong> {{ os }}</p>
+      <p><strong>Проксі:</strong> {{ is_proxy }}</p>
+      <p><strong>VPN:</strong> {{ is_vpn }}</p>
+      <p><strong>Tor:</strong> {{ is_tor }}</p>
+      {% if iphub_block is not none %}
+        <p><strong>VPN (IPHUB):</strong>
+          {% if iphub_block == 1 %}
+            <span style="color: red;">Так (можливо VPN або проксі)</span>
+          {% elif iphub_block == 0 %}
+            <span style="color: green;">Ні</span>
+          {% elif iphub_block == 2 %}
+            <span style="color: orange;">Невідомо (non-residential)</span>
+          {% endif %}
+        </p>
+      {% endif %}
+      <p><strong>User-Agent:</strong> {{ user_agent }}</p>
     </div>
 
     <div class="right-block">
       {% if latitude and longitude %}
-      <div class="map-block">
-        <div id="map"></div>
-      </div>
+      <div id="map"></div>
       {% endif %}
 
       <div id="ads-container" class="ad-column">
         {% include "partials/ads.html" %}
       </div>
     </div>
-
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
-    // Темна тема
     function toggleTheme() {
       const current = document.documentElement.getAttribute("data-theme");
       const newTheme = current === "dark" ? "light" : "dark";
@@ -243,8 +199,7 @@
       const saved = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", saved);
       document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
-    
-      // Ініціалізація карти
+
       {% if latitude and longitude %}
       const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -255,50 +210,6 @@
         .openPopup();
       {% endif %}
     });
-
-    // Додаткова інформація
-    function toggleDetails() {
-      const details = document.getElementById("additional-info");
-      const button = document.getElementById("details-toggle-button");
-      const isOpen = details.classList.contains("open");
-
-      if (isOpen) {
-        details.classList.remove("open");
-        button.textContent = "Показати додаткову інформацію";
-      } else {
-        details.classList.add("open");
-        button.textContent = "Сховати додаткову інформацію";
-      }
-    }
-
-    // Карта
-    let mapInitialized = false;
-    let mapVisible = false;
-    let mapInstance = null;
-
-    function toggleMap() {
-      const mapContainer = document.getElementById("map");
-      const button = document.getElementById("map-toggle-button");
-
-      if (!mapInitialized) {
-        mapInstance = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(mapInstance);
-        L.marker([{{ latitude }}, {{ longitude }}]).addTo(mapInstance)
-          .bindPopup("Ти тут!")
-          .openPopup();
-        mapInitialized = true;
-      }
-
-      mapVisible = !mapVisible;
-      mapContainer.style.display = mapVisible ? "block" : "none";
-      button.textContent = mapVisible ? "Сховати карту" : "Показати карту";
-
-      if (mapVisible) {
-        mapInstance.invalidateSize();
-      }
-    }
   </script>
 </body>
 </html>
