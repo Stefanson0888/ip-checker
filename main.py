@@ -1,78 +1,43 @@
 from dotenv import load_dotenv
 import os
-import httpx
-import re
-from slowapi import Limiter
-from slowapi.util import get_remote_address
-from slowapi.errors import RateLimitExceeded
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import JSONResponse
-from fastapi import FastAPI, Request, Query, status
-from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip, fetch_ip_info
-from user_agents import parse
+import httpx 
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
+
+# Змінна для відстеження стану IPHub API
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
-# -----------------------------
-# Rate Limiter
-# -----------------------------
-limiter = Limiter(key_func=get_remote_address)
-
-# -----------------------------
-# FastAPI app
-# -----------------------------
-app = FastAPI()
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, lambda r, e: JSONResponse(
-    status_code=429, content={"detail": "Too many requests"}
-))
-
-# -----------------------------
-# Middleware
-# -----------------------------
-app.add_middleware(HTTPSRedirectMiddleware)  # redirect HTTP -> HTTPS
-app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=["yourdomain.app", "www.yourdomain.app", "127.0.0.1", "localhost"]  # ❗ Заміни на свій домен
-)
-
-# -----------------------------
-# Static & Templates
-# -----------------------------
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
-
-# -----------------------------
-# IPHub fetch
-# -----------------------------
 async def fetch_iphub_info(ip: str) -> dict:
-    global IPHUB_ENABLED
+    global IPHUB_ENABLED  # ✅ Перенесено на початок функції
+    
+    # Якщо IPHub відключений, повертаємо пустий словник
     if not IPHUB_ENABLED:
         return {}
+        
     url = f"https://v2.api.iphub.info/ip/{ip}"
     headers = {"X-Key": IPHUB_API_KEY}
+    
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
+        async with httpx.AsyncClient(timeout=10.0) as client:  # додав timeout
             response = await client.get(url, headers=headers)
+            
             if response.status_code == 200:
                 return response.json()
             elif response.status_code == 403:
+                # Невалідний API ключ - відключаємо IPHub
                 IPHUB_ENABLED = False
                 print(f"❌ IPHub API key invalid - disabling IPHub service")
+                print(f"Response: {response.text}")
                 return {}
             elif response.status_code == 429:
+                # Rate limit exceeded
                 print(f"⚠️ IPHub rate limit exceeded: {response.text}")
                 return {}
             else:
                 print(f"⚠️ IPHub returned status {response.status_code}: {response.text}")
                 return {}
+                
     except httpx.TimeoutException:
         print(f"⏰ IPHub timeout for IP {ip}")
         return {}
@@ -80,9 +45,17 @@ async def fetch_iphub_info(ip: str) -> dict:
         print(f"❌ IPHub error: {e}")
         return {}
 
-# -----------------------------
-# Routes
-# -----------------------------
+from fastapi import FastAPI, Request, Query
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from utils.ip import get_client_ip, fetch_ip_info
+from user_agents import parse
+
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
     return FileResponse("static/robots.txt", media_type="text/plain")
@@ -92,7 +65,6 @@ async def sitemap_xml():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
 
 @app.get("/", response_class=HTMLResponse)
-@limiter.limit("30/minute")
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip) or {}
@@ -100,23 +72,11 @@ async def get_ip(request: Request):
     return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
-@limiter.limit("30/minute")
 async def lookup_ip(request: Request, ip: str = Query(...)):
-    # 🔐 Валідація IP
-    if not re.match(r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$", ip):
-        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"detail": "Invalid IP format"})
-
     ip_data = await fetch_ip_info(ip) or {}
     iphub_data = await fetch_iphub_info(ip) or {}
     return render_ip_template(request, ip_data, ip, iphub_data)
 
-@app.get("/iphub-status")
-async def iphub_status():
-    return {"enabled": IPHUB_ENABLED, "api_key_present": bool(IPHUB_API_KEY)}
-
-# -----------------------------
-# Template Renderer
-# -----------------------------
 def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
@@ -165,3 +125,11 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     }
 
     return templates.TemplateResponse("index.html", context)
+
+# Додаткова функція для перевірки стану IPHub (опціонально)
+@app.get("/iphub-status")
+async def iphub_status():
+    return {
+        "enabled": IPHUB_ENABLED,
+        "api_key_present": bool(IPHUB_API_KEY)
+    }

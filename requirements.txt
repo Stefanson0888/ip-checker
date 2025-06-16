@@ -5,4 +5,3 @@ jinja2
 user-agents
 httpx
 python-dotenv
-slowapi
