@@ -141,6 +141,17 @@
       cursor: pointer;
     }
 
+    .extra-info-container {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .extra-info-container.expanded {
+      max-height: 1000px; /* достатньо велике значення, яке покриє весь контент */
+    }
+
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -153,6 +164,18 @@
     }
   </style>
 </head>
+
+<script>
+  const toggleBtn = document.getElementById("toggle-extra");
+  const extraInfo = document.getElementById("extra-info");
+  let isExpanded = false;
+
+  toggleBtn.addEventListener("click", () => {
+    isExpanded = !isExpanded;
+    extraInfo.classList.toggle("expanded", isExpanded);
+    toggleBtn.textContent = isExpanded ? "Показати менше" : "Показати більше";
+  });
+</script>
 
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
