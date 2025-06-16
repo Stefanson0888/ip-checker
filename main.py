@@ -34,15 +34,6 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-async def fetch_ip_info(ip: str) -> dict:
-    url = f"https://ipwho.is/{ip}"
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url)
-            return response.json()
-    except httpx.HTTPError:
-        return {}
-
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
     return FileResponse("static/robots.txt", media_type="text/plain")
