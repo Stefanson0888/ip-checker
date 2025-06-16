@@ -9,6 +9,8 @@ IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
+    global IPHUB_ENABLED  # ✅ Перенесено на початок функції
+    
     # Якщо IPHub відключений, повертаємо пустий словник
     if not IPHUB_ENABLED:
         return {}
@@ -24,7 +26,6 @@ async def fetch_iphub_info(ip: str) -> dict:
                 return response.json()
             elif response.status_code == 403:
                 # Невалідний API ключ - відключаємо IPHub
-                global IPHUB_ENABLED
                 IPHUB_ENABLED = False
                 print(f"❌ IPHub API key invalid - disabling IPHub service")
                 print(f"Response: {response.text}")
