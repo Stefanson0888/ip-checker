@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IP Checker — Дізнай свою IP-адресу та місцезнаходження</title>
+  <title>IP Checker — Дізнайся свою IP-адресу та місцезнаходження</title>
 
   <meta name="description" content="Миттєво дізнай свою IP-адресу, геолокацію, провайдера, браузер і більше. Швидко. Без реклами.">
   <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
@@ -89,11 +89,7 @@
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.5s ease;
-    }
-
-    .details.open {
-      max-height: 1000px;
-      margin-top: 20px;
+      margin-top: 0;
     }
 
     .right-block {
@@ -257,9 +253,13 @@
       const isOpen = details.classList.contains("open");
 
       if (isOpen) {
+        details.style.maxHeight = "0";
+        details.style.marginTop = "0";
         details.classList.remove("open");
         button.textContent = "Показати додаткову інформацію";
       } else {
+        details.style.maxHeight = details.scrollHeight + "px";
+        details.style.marginTop = "20px";
         details.classList.add("open");
         button.textContent = "Сховати додаткову інформацію";
       }
