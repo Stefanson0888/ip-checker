@@ -88,8 +88,17 @@
     .details {
       overflow: hidden;
       max-height: 0;
-      transition: max-height 0.5s ease;
       margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      transition: max-height 0.4s ease-out; margin-top 0.4s ease-out, padding 0.4s ease-out; 
+    }
+
+    .details.open {
+      max-height: 800px;
+      margin-top: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .right-block {
@@ -141,17 +150,6 @@
       cursor: pointer;
     }
 
-    .extra-info-container {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .extra-info-container.expanded {
-      max-height: 1000px; /* достатньо велике значення, яке покриє весь контент */
-    }
-
-
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -164,18 +162,6 @@
     }
   </style>
 </head>
-
-<script>
-  const toggleBtn = document.getElementById("toggle-extra");
-  const extraInfo = document.getElementById("extra-info");
-  let isExpanded = false;
-
-  toggleBtn.addEventListener("click", () => {
-    isExpanded = !isExpanded;
-    extraInfo.classList.toggle("expanded", isExpanded);
-    toggleBtn.textContent = isExpanded ? "Показати менше" : "Показати більше";
-  });
-</script>
 
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -275,28 +261,18 @@
       {% endif %}
     });
 
-  function toggleDetails() {
-    const details = document.getElementById("additional-info");
-    const button = document.getElementById("details-toggle-button");
-    const isOpen = details.classList.contains("open");
-
-    if (isOpen) {
-      // ПРИМУСОВИЙ REFLOW ПЕРЕД ЗГОРТАННЯМ
-      details.style.maxHeight = details.scrollHeight + "px";
-      details.offsetHeight; // 🧠 Форсуємо рендер
-
-      // ТЕПЕР ЗГОРТАЄМО
-      details.style.maxHeight = "0";
-      details.style.marginTop = "0";
-      details.classList.remove("open");
-      button.textContent = "Показати додаткову інформацію";
-    } else {
-      details.style.maxHeight = details.scrollHeight + "px";
-      details.style.marginTop = "20px";
-      details.classList.add("open");
-      button.textContent = "Сховати додаткову інформацію";
+    function toggleDetails() {
+      const details = document.getElementById("additional-info");
+      const button = document.getElementById("details-toggle-button");
+  
+      details.classList.toggle("open");
+  
+      if (details.classList.contains("open")) {
+        button.textContent = "Сховати додаткову інформацію";
+      } else {
+        button.textContent = "Показати додаткову інформацію";
+      }
     }
-  }
   </script>
 </body>
 </html>
