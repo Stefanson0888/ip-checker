@@ -5,23 +5,44 @@ import httpx
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 
-if not IPHUB_API_KEY:
-    raise ValueError("IPHUB_API_KEY is not set. Check your .env or environment variables.")
-
+# Змінна для відстеження стану IPHub API
+IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
+    # Якщо IPHub відключений, повертаємо пустий словник
+    if not IPHUB_ENABLED:
+        return {}
+        
     url = f"https://v2.api.iphub.info/ip/{ip}"
     headers = {"X-Key": IPHUB_API_KEY}
+    
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=10.0) as client:  # додав timeout
             response = await client.get(url, headers=headers)
+            
             if response.status_code == 200:
                 return response.json()
+            elif response.status_code == 403:
+                # Невалідний API ключ - відключаємо IPHub
+                global IPHUB_ENABLED
+                IPHUB_ENABLED = False
+                print(f"❌ IPHub API key invalid - disabling IPHub service")
+                print(f"Response: {response.text}")
+                return {}
+            elif response.status_code == 429:
+                # Rate limit exceeded
+                print(f"⚠️ IPHub rate limit exceeded: {response.text}")
+                return {}
             else:
-                print(f"IPHub returned status {response.status_code}:{response.text}")
+                print(f"⚠️ IPHub returned status {response.status_code}: {response.text}")
+                return {}
+                
+    except httpx.TimeoutException:
+        print(f"⏰ IPHub timeout for IP {ip}")
+        return {}
     except Exception as e:
-        print(f"IPHub error: {e}")
-    return {}
+        print(f"❌ IPHub error: {e}")
+        return {}
 
 from fastapi import FastAPI, Request, Query
 from fastapi.responses import FileResponse, HTMLResponse
@@ -100,7 +121,14 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "iphub_block": iphub_data.get("block") if iphub_data else None,
         "iphub_isp": iphub_data.get("isp") if iphub_data else None,
         "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
-
     }
 
     return templates.TemplateResponse("index.html", context)
+
+# Додаткова функція для перевірки стану IPHub (опціонально)
+@app.get("/iphub-status")
+async def iphub_status():
+    return {
+        "enabled": IPHUB_ENABLED,
+        "api_key_present": bool(IPHUB_API_KEY)
+    }
