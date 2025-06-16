@@ -5,11 +5,6 @@ import httpx
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 
-# Діагностичні принти
-print(f"🔍 IPHUB_API_KEY loaded: {'Yes' if IPHUB_API_KEY else 'No'}")
-print(f"🔍 IPHUB_API_KEY length: {len(IPHUB_API_KEY) if IPHUB_API_KEY else 0}")
-print(f"🔍 IPHUB_ENABLED: {IPHUB_ENABLED}")
-
 # Змінна для відстеження стану IPHub API
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
