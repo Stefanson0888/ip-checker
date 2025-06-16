@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import httpx 
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
@@ -9,7 +10,7 @@ if not IPHUB_API_KEY:
 
 
 async def fetch_iphub_info(ip: str) -> dict:
-    url = f"http://v2.api.iphub.info/ip/{ip}"
+    url = f"https://v2.api.iphub.info/ip/{ip}"
     headers = {"X-Key": IPHUB_API_KEY}
     try:
         async with httpx.AsyncClient() as client:
@@ -26,9 +27,8 @@ from fastapi import FastAPI, Request, Query
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip
+from utils.ip import get_client_ip, fetch_ip_info
 from user_agents import parse
-import httpx
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

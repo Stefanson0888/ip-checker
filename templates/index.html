@@ -231,6 +231,11 @@
       document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
     }
 
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       const saved = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", saved);
