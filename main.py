@@ -188,6 +188,10 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "lang": language
     }
 
+    print("🌐 Current language:", language)
+    print("🔑 Loaded translate keys:", list(TRANSLATIONS.get(language, {}).keys()))
+
+
     return templates.TemplateResponse("index.html", context)
 
 @app.get("/iphub-status")
