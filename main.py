@@ -1,94 +1,43 @@
 from dotenv import load_dotenv
 import os
-import httpx
-import json
-from pathlib import Path
-from urllib.parse import urljoin
-
-from fastapi import FastAPI, Request, Query
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip, fetch_ip_info
-from user_agents import parse
+import httpx 
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
+
+# Змінна для відстеження стану IPHub API
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
-# Load translations
-def load_translations():
-    translations = {}
-    locales_dir = Path("locales")
-    if not locales_dir.exists():
-        print("⚠️ Папка locales не знайдена! Створіть її з файлами перекладів")
-        return {lang: {} for lang in ['en', 'uk', 'de', 'hi']}
-
-    for lang in ['en', 'de', 'uk', 'hi']:
-        lang_file = locales_dir / lang / "messages.json"
-        if lang_file.exists():
-            try:
-                with open(lang_file, 'r', encoding='utf-8') as f:
-                    translations[lang] = json.load(f)
-                print(f"✅ Завантажено переклад: {lang}")
-            except Exception as e:
-                print(f"❌ Помилка завантаження {lang}: {e}")
-                translations[lang] = {}
-        else:
-            print(f"⚠️ Файл {lang_file} не знайдено")
-            translations[lang] = {}
-
-    return translations
-
-TRANSLATIONS = load_translations()
-
-def get_language_from_request(request) -> str:
-    path = request.url.path
-    for lang in ['de', 'uk', 'hi', 'en']:
-        if path.startswith(f'/{lang}/') or path == f'/{lang}':
-            return lang
-
-    accept_lang = request.headers.get('accept-language', '').lower()
-    for lang in ['uk', 'de', 'hi']:
-        if lang in accept_lang:
-            return lang
-    return 'en'
-
-def translate(key: str, lang: str) -> str:
-    return TRANSLATIONS.get(lang, {}).get(key, key)
-
-def get_language_info(lang: str) -> dict:
-    languages = {
-        'en': {"code": "en", "name": "English", "flag": "🇺🇸", "url": "/", "hreflang": "en", "locale": "en_US"},
-        'de': {"code": "de", "name": "Deutsch", "flag": "🇩🇪", "url": "/de/", "hreflang": "de", "locale": "de_DE"},
-        'uk': {"code": "uk", "name": "Українська", "flag": "🇺🇦", "url": "/uk/", "hreflang": "uk", "locale": "uk_UA"},
-        'hi': {"code": "hi", "name": "हिन्दी", "flag": "🇮🇳", "url": "/hi/", "hreflang": "hi", "locale": "hi_IN"}
-    }
-    return languages.get(lang, languages['en'])
-
 async def fetch_iphub_info(ip: str) -> dict:
-    global IPHUB_ENABLED
+    global IPHUB_ENABLED  # ✅ Перенесено на початок функції
+    
+    # Якщо IPHub відключений, повертаємо пустий словник
     if not IPHUB_ENABLED:
         return {}
-
+        
     url = f"https://v2.api.iphub.info/ip/{ip}"
     headers = {"X-Key": IPHUB_API_KEY}
-
+    
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
+        async with httpx.AsyncClient(timeout=10.0) as client:  # додав timeout
             response = await client.get(url, headers=headers)
+            
             if response.status_code == 200:
                 return response.json()
             elif response.status_code == 403:
+                # Невалідний API ключ - відключаємо IPHub
                 IPHUB_ENABLED = False
-                print("❌ IPHub API key invalid - disabling IPHub service")
+                print(f"❌ IPHub API key invalid - disabling IPHub service")
+                print(f"Response: {response.text}")
                 return {}
             elif response.status_code == 429:
-                print("⚠️ IPHub rate limit exceeded")
+                # Rate limit exceeded
+                print(f"⚠️ IPHub rate limit exceeded: {response.text}")
                 return {}
             else:
-                print(f"⚠️ IPHub returned status {response.status_code}")
+                print(f"⚠️ IPHub returned status {response.status_code}: {response.text}")
                 return {}
+                
     except httpx.TimeoutException:
         print(f"⏰ IPHub timeout for IP {ip}")
         return {}
@@ -96,11 +45,16 @@ async def fetch_iphub_info(ip: str) -> dict:
         print(f"❌ IPHub error: {e}")
         return {}
 
+from fastapi import FastAPI, Request, Query
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from utils.ip import get_client_ip, fetch_ip_info
+from user_agents import parse
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-templates.env.globals['translate'] = translate
-templates.env.globals['get_language_info'] = get_language_info
 
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
@@ -111,29 +65,19 @@ async def sitemap_xml():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
 
 @app.get("/", response_class=HTMLResponse)
-@app.get("/en/", response_class=HTMLResponse)
-@app.get("/de/", response_class=HTMLResponse)
-@app.get("/uk/", response_class=HTMLResponse)
-@app.get("/hi/", response_class=HTMLResponse)
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip) or {}
     iphub_data = await fetch_iphub_info(client_ip) or {}
-    language = get_language_from_request(request)
-    return render_ip_template(request, ip_data, client_ip, iphub_data, language)
+    return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
-@app.get("/en/lookup", response_class=HTMLResponse)
-@app.get("/de/lookup", response_class=HTMLResponse)
-@app.get("/uk/lookup", response_class=HTMLResponse)
-@app.get("/hi/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
     ip_data = await fetch_ip_info(ip) or {}
     iphub_data = await fetch_iphub_info(ip) or {}
-    language = get_language_from_request(request)
-    return render_ip_template(request, ip_data, ip, iphub_data, language)
+    return render_ip_template(request, ip_data, ip, iphub_data)
 
-def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, language: str = 'uk'):
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
@@ -142,14 +86,13 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     timezone = ip_data.get("timezone", {})
     currency = ip_data.get("currency", {})
 
-    flag_url = f"https://flagcdn.com/256x192/{ip_data.get('country_code', '').lower()}.png" if ip_data.get("country_code") else None
-    languages_raw = ip_data.get("languages", [])
-    language_display = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
+    flag_url = (
+        f"https://flagcdn.com/256x192/{ip_data.get('country_code', '').lower()}.png"
+        if ip_data.get("country_code") else None
+    )
 
-    langs = ['en', 'de', 'uk', 'hi']
-    hreflang_urls = {
-        lang: urljoin(str(request.base_url), f"{lang}/" if lang != 'en' else "") for lang in langs
-    }
+    languages_raw = ip_data.get("languages", [])
+    language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
 
     context = {
         "request": request,
@@ -174,44 +117,19 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "longitude": ip_data.get("longitude"),
         "timezone": timezone.get("id", "Unknown"),
         "currency": currency.get("code", "Unknown"),
-        "language": language_display,
+        "language": language,
         "flag_url": flag_url,
         "iphub_block": iphub_data.get("block") if iphub_data else None,
         "iphub_isp": iphub_data.get("isp") if iphub_data else None,
         "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
-        "current_language": language,
-        "language_info": get_language_info(language),
-        "available_languages": langs,
-        "page_title": translate("title", language),
-        "page_description": translate("description", language),
-        "hreflang_urls": hreflang_urls,
-        "lang": language
     }
-
-    print("🌐 Current language:", language)
-    print("🔑 Loaded translate keys:", list(TRANSLATIONS.get(language, {}).keys()))
-
 
     return templates.TemplateResponse("index.html", context)
 
+# Додаткова функція для перевірки стану IPHub (опціонально)
 @app.get("/iphub-status")
 async def iphub_status():
     return {
         "enabled": IPHUB_ENABLED,
         "api_key_present": bool(IPHUB_API_KEY)
     }
-
-@app.get("/api/translations/{language}")
-async def get_translations(language: str):
-    if language not in ['en', 'de', 'uk', 'hi']:
-        language = 'en'
-    return {
-        "language": language,
-        "translations": TRANSLATIONS.get(language, {}),
-        "language_info": get_language_info(language)
-    }
-
-@app.get("/index")
-@app.get("/index.html")
-async def redirect_to_main(request: Request):
-    return RedirectResponse(url="/", status_code=301)
