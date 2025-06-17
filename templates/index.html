@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
+{% for code, href in hreflang_urls.items() %}
+<link rel="alternate" hreflang="{{ code }}" href="{{ href }}" />
+{% endfor %}
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />

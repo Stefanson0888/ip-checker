@@ -184,7 +184,8 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "available_languages": langs,
         "page_title": translate("title", language),
         "page_description": translate("description", language),
-        "hreflang_urls": hreflang_urls
+        "hreflang_urls": hreflang_urls,
+        "lang": language
     }
 
     return templates.TemplateResponse("index.html", context)
