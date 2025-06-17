@@ -1,10 +1,77 @@
-<!-- templates/partials/ads.html -->
+<!-- templates/partials/ads.html - Проста версія для тестування -->
+
 <div class="ad-column">
-    <a href="https://example.com/partner1" target="_blank" rel="nofollow">
-      <img src="{{ url_for('static', path='ads/banner1.png') }}" alt="Реклама 1" />
-    </a>
-    <a href="https://example.com/partner2" target="_blank" rel="nofollow">
-      <img src="{{ url_for('static', path='ads/banner2.png') }}" alt="Реклама 2" />
-    </a>
+  <!-- Top banner placeholder -->
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin: 20px 0; text-align: center;">
+    <h3>🛡️ Protect Your Privacy</h3>
+    <p>Hide your IP address with a trusted VPN service</p>
+    <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; display: inline-block; margin-top: 10px;">
+      <strong>Coming Soon: VPN Partners</strong>
+    </div>
   </div>
-  
+
+  <!-- Sidebar placeholder -->
+  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+    <h4>🏆 Top VPN Services</h4>
+    <div style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>NordVPN</strong></div>
+        <div style="text-align: center;">
+          <div>⭐⭐⭐⭐⭐</div>
+          <div style="color: #2ecc71; font-weight: bold;">$3.49/mo</div>
+        </div>
+        <div style="background: #ccc; padding: 6px 12px; border-radius: 6px; font-size: 12px;">
+          Soon
+        </div>
+      </div>
+    </div>
+    
+    <div style="padding: 12px 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>ExpressVPN</strong></div>
+        <div style="text-align: center;">
+          <div>⭐⭐⭐⭐⭐</div>
+          <div style="color: #2ecc71; font-weight: bold;">$6.67/mo</div>
+        </div>
+        <div style="background: #ccc; padding: 6px 12px; border-radius: 6px; font-size: 12px;">
+          Soon
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hosting placeholder -->
+  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+    <h4>💻 Web Hosting Deals</h4>
+    <div style="text-align: center; padding: 15px;">
+      <div style="color: #e74c3c; font-weight: bold; font-size: 18px;">75% OFF</div>
+      <div style="margin: 8px 0;">Starting at <strong>$2.99/mo</strong></div>
+      <div style="font-size: 14px; color: #7f8c8d;">Free Domain + SSL</div>
+      <div style="background: #ccc; padding: 8px 16px; border-radius: 6px; margin-top: 10px; display: inline-block;">
+        Coming Soon
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA placeholder -->
+  <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 30px 0;">
+    <h3>🚀 Ready to Protect Your Privacy?</h3>
+    <p style="margin: 10px 0 20px 0; opacity: 0.9;">Affiliate partnerships coming soon!</p>
+    <div style="background: rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 8px; display: inline-block;">
+      <strong>Launching Soon</strong>
+    </div>
+  </div>
+</div>
+
+<style>
+.ad-column {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ad-column > div {
+    margin: 15px 0;
+  }
+}
+</style>
