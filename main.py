@@ -5,14 +5,11 @@ import ipaddress
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
-
-# Змінна для відстеження стану IPHub API
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
     global IPHUB_ENABLED
     
-    # Якщо IPHub відключений, повертаємо пустий словник
     if not IPHUB_ENABLED:
         return {}
         
@@ -26,13 +23,10 @@ async def fetch_iphub_info(ip: str) -> dict:
             if response.status_code == 200:
                 return response.json()
             elif response.status_code == 403:
-                # Невалідний API ключ - відключаємо IPHub
                 IPHUB_ENABLED = False
                 print(f"❌ IPHub API key invalid - disabling IPHub service")
-                print(f"Response: {response.text}")
                 return {}
             elif response.status_code == 429:
-                # Rate limit exceeded
                 print(f"⚠️ IPHub rate limit exceeded: {response.text}")
                 return {}
             else:
@@ -47,10 +41,15 @@ async def fetch_iphub_info(ip: str) -> dict:
         return {}
 
 from fastapi import FastAPI, Request, Query, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from utils.ip import get_client_ip, fetch_ip_info, validate_ip_address
+from utils.i18n import (
+    get_language_from_request, get_language_from_path, 
+    Translator, get_language_urls, get_hreflang_urls,
+    SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE
+)
 from user_agents import parse
 
 app = FastAPI()
@@ -65,36 +64,58 @@ async def robots_txt():
 async def sitemap_xml():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
 
+# Головна сторінка (англійська за замовчуванням)
 @app.get("/", response_class=HTMLResponse)
-async def get_ip(request: Request):
+async def get_ip_default(request: Request):
+    return await get_ip_with_language(request, DEFAULT_LANGUAGE)
+
+# Мовні версії головної сторінки
+@app.get("/{lang}/", response_class=HTMLResponse)
+async def get_ip_with_lang(request: Request, lang: str):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await get_ip_with_language(request, lang)
+
+async def get_ip_with_language(request: Request, lang: str):
     client_ip = await get_client_ip(request)
     ip_data = await fetch_ip_info(client_ip)
     
-    # Обробка помилок API
     if "error" in ip_data:
         ip_data = {"error": ip_data["error"]}
     
     iphub_data = await fetch_iphub_info(client_ip)
-    return render_ip_template(request, ip_data, client_ip, iphub_data)
+    return render_ip_template(request, ip_data, client_ip, iphub_data, lang)
 
+# Lookup (англійська за замовчуванням)
 @app.get("/lookup", response_class=HTMLResponse)
-async def lookup_ip(request: Request, ip: str = Query(...)):
-    # Валідація IP адреси
+async def lookup_ip_default(request: Request, ip: str = Query(...)):
+    return await lookup_ip_with_language(request, ip, DEFAULT_LANGUAGE)
+
+# Мовні версії lookup
+@app.get("/{lang}/lookup", response_class=HTMLResponse)
+async def lookup_ip_with_lang(request: Request, lang: str, ip: str = Query(...)):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await lookup_ip_with_language(request, ip, lang)
+
+async def lookup_ip_with_language(request: Request, ip: str, lang: str):
     if not validate_ip_address(ip):
         raise HTTPException(status_code=400, detail="Invalid IP address format")
     
     ip_data = await fetch_ip_info(ip)
     
-    # Обробка помилок API
     if "error" in ip_data:
         ip_data = {"error": ip_data["error"]}
     
     iphub_data = await fetch_iphub_info(ip)
-    return render_ip_template(request, ip_data, ip, iphub_data)
+    return render_ip_template(request, ip_data, ip, iphub_data, lang)
 
-def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
+    
+    # Створюємо об'єкт для перекладів
+    _ = Translator(lang)
 
     # Обробка помилок API
     if "error" in ip_data:
@@ -105,6 +126,10 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "user_agent": user_agent_str,
             "browser": user_agent.browser.family,
             "os": user_agent.os.family,
+            "lang": lang,
+            "_": _,
+            "language_urls": get_language_urls(str(request.url.path), lang),
+            "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path))
         }
         return templates.TemplateResponse("error.html", context)
 
@@ -124,36 +149,40 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     context = {
         "request": request,
         "ip": ip,
-        "type": ip_data.get("type", "Unknown"),
-        "isp": connection.get("isp", "Unknown"),
-        "asn": connection.get("asn", "Unknown"),
-        "hostname": connection.get("domain", "Unknown"),
+        "type": ip_data.get("type", _("unknown")),
+        "isp": connection.get("isp", _("unknown")),
+        "asn": connection.get("asn", _("unknown")),
+        "hostname": connection.get("domain", _("unknown")),
         "is_proxy": security.get("proxy", False),
         "is_vpn": security.get("vpn", False),
         "is_tor": security.get("tor", False),
         "user_agent": user_agent_str,
         "browser": user_agent.browser.family,
         "os": user_agent.os.family,
-        "city": ip_data.get("city", "Unknown"),
-        "region": ip_data.get("region", "Unknown"),
-        "country": ip_data.get("country", "Unknown"),
-        "country_code": ip_data.get("country_code", "Unknown"),
-        "postal": ip_data.get("postal", "Unknown"),
-        "calling_code": ip_data.get("calling_code", "Unknown"),
+        "city": ip_data.get("city", _("unknown")),
+        "region": ip_data.get("region", _("unknown")),
+        "country": ip_data.get("country", _("unknown")),
+        "country_code": ip_data.get("country_code", _("unknown")),
+        "postal": ip_data.get("postal", _("unknown")),
+        "calling_code": ip_data.get("calling_code", _("unknown")),
         "latitude": ip_data.get("latitude"),
         "longitude": ip_data.get("longitude"),
-        "timezone": timezone.get("id", "Unknown"),
-        "currency": currency.get("code", "Unknown"),
+        "timezone": timezone.get("id", _("unknown")),
+        "currency": currency.get("code", _("unknown")),
         "language": language,
         "flag_url": flag_url,
         "iphub_block": iphub_data.get("block") if iphub_data else None,
         "iphub_isp": iphub_data.get("isp") if iphub_data else None,
         "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
+        # i18n контекст
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls(str(request.url.path), lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path))
     }
 
     return templates.TemplateResponse("index.html", context)
 
-# Додаткова функція для перевірки стану IPHub (опціонально)
 @app.get("/iphub-status")
 async def iphub_status():
     return {
@@ -161,7 +190,6 @@ async def iphub_status():
         "api_key_present": bool(IPHUB_API_KEY)
     }
 
-# Health check endpoint
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "IP Checker"}
