@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
-{% for code, href in hreflang_urls.items() %}
-<link rel="alternate" hreflang="{{ code }}" href="{{ href }}" />
-{% endfor %}
 <head>
+
+  {% for code, href in hreflang_urls.items() %}
+  <link rel="alternate" hreflang="{{ code }}" href="{{ href }}" />
+  {% endfor %}
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ translate["meta_title"] }}</title>
@@ -143,7 +145,7 @@
       flex: 1;
       min-width: 200px;
       border: 1px solid #ccc;
-      border border-radius: 4px;
+      border-radius: 4px;
       background-color: var(--bg-color);
       color: var(--text-color);
     }
