@@ -8,6 +8,46 @@
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQVVJP6BZN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    // Основна конфігурація
+    gtag('config', 'G-CQVVJP6BZN', {
+      // Відстеження мови
+      custom_map: {
+        'custom_parameter_1': 'language'
+      },
+      language: '{{ lang }}',
+      page_title: '{{ _("title") }}',
+      // Анонімізація IP (GDPR compliance)
+      anonymize_ip: true,
+      // Додаткові параметри
+      site_speed_sample_rate: 100
+    });
+
+    // Custom event для перемикання мови
+    function trackLanguageSwitch(newLang) {
+      gtag('event', 'language_switch', {
+        'event_category': 'engagement',
+        'event_label': newLang,
+        'value': 1
+      });
+    }
+
+    // Custom event для IP lookup
+    function trackIPLookup(ip) {
+      gtag('event', 'ip_lookup', {
+        'event_category': 'tool_usage',
+        'event_label': 'manual_lookup',
+        'custom_parameter_1': '{{ lang }}'
+      });
+    }
+  </script>
+
   <!-- hreflang для SEO -->
   {% for hreflang, url in hreflang_urls.items() %}
   <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
@@ -227,6 +267,7 @@
         'uk': '🇺🇦 UK'
       } %}
       <a href="{{ lang_url }}" 
+         onclick="trackLanguageSwitch('{{ lang_code }}')"
          class="{% if lang_code == lang %}active{% endif %}"
          title="{{ lang_names[lang_code] }}">
         {{ lang_names[lang_code] }}
@@ -236,7 +277,7 @@
 
   <h1>{{ _("your_ip") }}: {{ ip }}</h1>
 
-  <form class="ip-lookup" action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get">
+  <form class="ip-lookup" action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get" onsubmit="trackIPLookup(this.ip.value)">
     <input type="text" name="ip" placeholder="{{ _('check_ip_placeholder') }}" required />
     <button type="submit" class="toggle-button">{{ _("check_button") }}</button>
   </form>
@@ -306,6 +347,13 @@
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
       document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
+      
+      // Track theme change
+      gtag('event', 'theme_change', {
+        'event_category': 'engagement',
+        'event_label': newTheme,
+        'custom_parameter_1': '{{ lang }}'
+      });
     }
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -326,6 +374,13 @@
       L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
         .bindPopup("{{ _('you_are_here') }}")
         .openPopup();
+      
+      // Track map interaction
+      gtag('event', 'map_view', {
+        'event_category': 'engagement',
+        'event_label': 'map_loaded',
+        'custom_parameter_1': '{{ lang }}'
+      });
       {% endif %}
     });
 
@@ -334,12 +389,21 @@
       const button = document.getElementById("details-toggle-button");
   
       details.classList.toggle("open");
-  
-      if (details.classList.contains("open")) {
+      
+      const isOpen = details.classList.contains("open");
+      
+      if (isOpen) {
         button.textContent = "{{ _('hide_details') }}";
       } else {
         button.textContent = "{{ _('show_details') }}";
       }
+      
+      // Track details toggle
+      gtag('event', 'details_toggle', {
+        'event_category': 'engagement',
+        'event_label': isOpen ? 'opened' : 'closed',
+        'custom_parameter_1': '{{ lang }}'
+      });
     }
   </script>
 </body>

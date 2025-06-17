@@ -6,6 +6,27 @@
   <title>{{ _("error_api") }} - IP Checker</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQVVJP6BZN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    gtag('config', 'G-CQVVJP6BZN', {
+      language: '{{ lang }}',
+      page_title: '{{ _("error_api") }}',
+      anonymize_ip: true
+    });
+
+    // Track error event
+    gtag('event', 'error_page', {
+      'event_category': 'error',
+      'event_label': '{{ error[:50] }}',
+      'custom_parameter_1': '{{ lang }}'
+    });
+  </script>
+  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -68,6 +89,7 @@
         'uk': '🇺🇦 UK'
       } %}
       <a href="{{ lang_url }}" 
+         onclick="gtag('event', 'language_switch', {'event_category': 'engagement', 'event_label': '{{ lang_code }}'})"
          class="{% if lang_code == lang %}active{% endif %}">
         {{ lang_names[lang_code] }}
       </a>
@@ -81,7 +103,9 @@
     <p>{{ _("error_invalid_ip") }}</p>
   </div>
   
-  <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-button">{{ _("back_to_home") }}</a>
+  <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" 
+     onclick="gtag('event', 'back_to_home', {'event_category': 'navigation', 'event_label': 'from_error'})"
+     class="back-button">{{ _("back_to_home") }}</a>
   
   <div style="margin-top: 40px; color: #666;">
     <p><strong>{{ _("browser") }}:</strong> {{ browser }}</p>
