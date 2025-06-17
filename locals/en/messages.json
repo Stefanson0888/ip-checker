@@ -1,0 +1,23 @@
+{
+    "title": "IP Checker - Find Your IP Address and Location",
+    "description": "Instantly discover your IP address, geolocation, ISP, browser and more. Fast. No ads.",
+    "your_ip": "Your IP Address",
+    "city": "City",
+    "region": "Region", 
+    "country": "Country",
+    "ip_type": "Type",
+    "isp": "Internet Service Provider",
+    "organization": "Organization",
+    "domain": "Domain",
+    "timezone": "Timezone",
+    "postal_code": "Postal Code",
+    "country_code": "Country Code",
+    "language": "Language",
+    "currency": "Currency",
+    "browser": "Browser",
+    "os": "Operating System",
+    "proxy": "Proxy",
+    "vpn": "VPN",
+    "tor": "Tor",
+    "user_agent": "User-Agent"
+  }
