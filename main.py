@@ -1,289 +1,135 @@
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-import httpx
-import json
+from dotenv import load_dotenv
 import os
-from pathlib import Path
+import httpx 
+
+load_dotenv()
+IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
+
+# Змінна для відстеження стану IPHub API
+IPHUB_ENABLED = bool(IPHUB_API_KEY)
+
+async def fetch_iphub_info(ip: str) -> dict:
+    global IPHUB_ENABLED  # ✅ Перенесено на початок функції
+    
+    # Якщо IPHub відключений, повертаємо пустий словник
+    if not IPHUB_ENABLED:
+        return {}
+        
+    url = f"https://v2.api.iphub.info/ip/{ip}"
+    headers = {"X-Key": IPHUB_API_KEY}
+    
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:  # додав timeout
+            response = await client.get(url, headers=headers)
+            
+            if response.status_code == 200:
+                return response.json()
+            elif response.status_code == 403:
+                # Невалідний API ключ - відключаємо IPHub
+                IPHUB_ENABLED = False
+                print(f"❌ IPHub API key invalid - disabling IPHub service")
+                print(f"Response: {response.text}")
+                return {}
+            elif response.status_code == 429:
+                # Rate limit exceeded
+                print(f"⚠️ IPHub rate limit exceeded: {response.text}")
+                return {}
+            else:
+                print(f"⚠️ IPHub returned status {response.status_code}: {response.text}")
+                return {}
+                
+    except httpx.TimeoutException:
+        print(f"⏰ IPHub timeout for IP {ip}")
+        return {}
+    except Exception as e:
+        print(f"❌ IPHub error: {e}")
+        return {}
+
+from fastapi import FastAPI, Request, Query
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from utils.ip import get_client_ip, fetch_ip_info
+from user_agents import parse
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
-# Завантаження перекладів
-def load_translations():
-    """Завантажуємо всі переклади з папки locales"""
-    translations = {}
-    locales_dir = Path("locales")
-    
-    if not locales_dir.exists():
-        print("⚠️ Папка locales не знайдена! Створіть її з файлами перекладів")
-        return {"en": {}, "uk": {}, "de": {}, "hi": {}}
-    
-    for lang in ['en', 'de', 'uk', 'hi']:
-        lang_file = locales_dir / lang / "messages.json"
-        if lang_file.exists():
-            with open(lang_file, 'r', encoding='utf-8') as f:
-                translations[lang] = json.load(f)
-        else:
-            print(f"⚠️ Файл {lang_file} не знайдено")
-            translations[lang] = {}
-    
-    return translations
+@app.get("/robots.txt", include_in_schema=False)
+async def robots_txt():
+    return FileResponse("static/robots.txt", media_type="text/plain")
 
-# Завантажуємо переклади при старті
-TRANSLATIONS = load_translations()
+@app.get("/sitemap.xml", include_in_schema=False)
+async def sitemap_xml():
+    return FileResponse("static/sitemap.xml", media_type="application/xml")
 
-def get_language(request: Request) -> str:
-    """Визначаємо мову користувача"""
-    # Спочатку перевіряємо URL шлях
-    path = request.url.path
-    if path.startswith('/de/') or path == '/de':
-        return 'de'
-    if path.startswith('/uk/') or path == '/uk': 
-        return 'uk'
-    if path.startswith('/hi/') or path == '/hi':
-        return 'hi'
-    
-    # Потім дивимось на заголовок Accept-Language
-    accept_lang = request.headers.get('accept-language', '').lower()
-    if 'de' in accept_lang:
-        return 'de'
-    if 'uk' in accept_lang:
-        return 'uk' 
-    if 'hi' in accept_lang:
-        return 'hi'
-    
-    # За замовчуванням - англійська
-    return 'en'
-
-def translate(key: str, lang: str) -> str:
-    """Функція для перекладу тексту"""
-    return TRANSLATIONS.get(lang, {}).get(key, key)
-
-def get_ip_info(ip: str):
-    """Отримуємо інформацію про IP"""
-    try:
-        # Ваш існуючий код для отримання IP інформації
-        response = httpx.get(f"http://ip-api.com/json/{ip}")
-        if response.status_code == 200:
-            return response.json()
-    except Exception as e:
-        print(f"Помилка отримання IP інформації: {e}")
-    return {}
-
-def get_iphub_info(ip: str):
-    """Отримуємо інформацію з IPHub (VPN/Proxy detection)"""
-    try:
-        headers = {"X-Key": "YOUR_IPHUB_API_KEY"}  # Замініть на ваш ключ
-        response = httpx.get(f"http://v2.api.iphub.info/ip/{ip}", headers=headers)
-        if response.status_code == 200:
-            return response.json()
-    except Exception as e:
-        print(f"Помилка IPHub: {e}")
-    return {}
-
-def generate_html(ip_data: dict, ip: str, iphub_data: dict, lang: str) -> str:
-    """Генеруємо HTML з перекладами"""
-    
-    # Функція для безпечного отримання значень
-    def safe_get(data, key, default="Unknown"):
-        return data.get(key, default) if data else default
-    
-    # Перекладаємо булеві значення
-    def translate_bool(value):
-        if value is True:
-            return "True" 
-        elif value is False:
-            return "False"
-        return translate("unknown", lang)
-    
-    html = f"""
-    <!DOCTYPE html>
-    <html lang="{lang}">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{translate('title', lang)}</title>
-        <meta name="description" content="{translate('description', lang)}">
-        
-        <!-- SEO теги для різних мов -->
-        <link rel="alternate" hreflang="en" href="https://yoursite.com/">
-        <link rel="alternate" hreflang="de" href="https://yoursite.com/de/">
-        <link rel="alternate" hreflang="uk" href="https://yoursite.com/uk/">
-        <link rel="alternate" hreflang="hi" href="https://yoursite.com/hi/">
-        
-        <style>
-            body {{
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                background: #f5f5f5;
-            }}
-            .container {{
-                background: white;
-                padding: 30px;
-                border-radius: 10px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }}
-            .ip-address {{
-                font-size: 2em;
-                font-weight: bold;
-                color: #2563eb;
-                text-align: center;
-                margin: 20px 0;
-            }}
-            .info-grid {{
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                margin-top: 20px;
-            }}
-            .info-item {{
-                padding: 10px;
-                background: #f8f9fa;
-                border-radius: 5px;
-            }}
-            .info-label {{
-                font-weight: bold;
-                color: #6b7280;
-                font-size: 0.9em;
-            }}
-            .info-value {{
-                margin-top: 5px;
-                font-size: 1.1em;
-            }}
-            .language-switcher {{
-                text-align: center;
-                margin-bottom: 20px;
-            }}
-            .language-switcher a {{
-                margin: 0 10px;
-                text-decoration: none;
-                padding: 5px 10px;
-                border-radius: 5px;
-                background: #e5e7eb;
-            }}
-            .language-switcher a.active {{
-                background: #2563eb;
-                color: white;
-            }}
-            @media (max-width: 600px) {{
-                .info-grid {{
-                    grid-template-columns: 1fr;
-                }}
-            }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <!-- Перемикач мов -->
-            <div class="language-switcher">
-                <a href="/" {"class='active'" if lang == 'en' else ""}>🇺🇸 EN</a>
-                <a href="/de/" {"class='active'" if lang == 'de' else ""}>🇩🇪 DE</a>
-                <a href="/uk/" {"class='active'" if lang == 'uk' else ""}>🇺🇦 UK</a>
-                <a href="/hi/" {"class='active'" if lang == 'hi' else ""}>🇮🇳 HI</a>
-            </div>
-            
-            <h1>{translate('title', lang)}</h1>
-            
-            <div class="ip-address">{translate('your_ip', lang)}: {ip}</div>
-            
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">{translate('city', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'city')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('region', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'regionName')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('country', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'country')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('ip_type', lang)}</div>
-                    <div class="info-value">IPv4</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('isp', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'isp')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('organization', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'org')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('timezone', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'timezone')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('postal_code', lang)}</div>
-                    <div class="info-value">{safe_get(ip_data, 'zip')}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('vpn', lang)}</div>
-                    <div class="info-value">{translate_bool(iphub_data.get('block') == 1)}</div>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">{translate('proxy', lang)}</div>
-                    <div class="info-value">{translate_bool(iphub_data.get('block') == 1)}</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Google Analytics (додайте свій код) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){{dataLayer.push(arguments);}}
-            gtag('js', new Date());
-            gtag('config', 'GA_MEASUREMENT_ID');
-        </script>
-    </body>
-    </html>
-    """
-    return html
-
-# Маршрути для різних мов
 @app.get("/", response_class=HTMLResponse)
-@app.get("/en/", response_class=HTMLResponse) 
-@app.get("/de/", response_class=HTMLResponse)
-@app.get("/uk/", response_class=HTMLResponse)
-@app.get("/hi/", response_class=HTMLResponse)
 async def get_ip(request: Request):
-    """Головна сторінка з визначенням мови"""
-    
-    # Отримуємо IP користувача
-    client_ip = request.client.host
-    if client_ip == "127.0.0.1":
-        # Для локального тестування використовуємо зовнішній IP
-        try:
-            response = httpx.get("https://httpbin.org/ip")
-            client_ip = response.json().get("origin", "").split(",")[0].strip()
-        except:
-            client_ip = "8.8.8.8"  # Fallback IP
-    
-    # Визначаємо мову
-    language = get_language(request)
-    
-    # Отримуємо дані про IP
-    ip_data = get_ip_info(client_ip)
-    iphub_data = get_iphub_info(client_ip)
-    
-    # Генеруємо і повертаємо HTML
-    html_content = generate_html(ip_data, client_ip, iphub_data, language)
-    return HTMLResponse(content=html_content)
+    client_ip = await get_client_ip(request)
+    ip_data = await fetch_ip_info(client_ip) or {}
+    iphub_data = await fetch_iphub_info(client_ip) or {}
+    return render_ip_template(request, ip_data, client_ip, iphub_data)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.get("/lookup", response_class=HTMLResponse)
+async def lookup_ip(request: Request, ip: str = Query(...)):
+    ip_data = await fetch_ip_info(ip) or {}
+    iphub_data = await fetch_iphub_info(ip) or {}
+    return render_ip_template(request, ip_data, ip, iphub_data)
+
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
+    user_agent_str = request.headers.get("user-agent", "")
+    user_agent = parse(user_agent_str)
+
+    connection = ip_data.get("connection", {})
+    security = ip_data.get("security", {})
+    timezone = ip_data.get("timezone", {})
+    currency = ip_data.get("currency", {})
+
+    flag_url = (
+        f"https://flagcdn.com/256x192/{ip_data.get('country_code', '').lower()}.png"
+        if ip_data.get("country_code") else None
+    )
+
+    languages_raw = ip_data.get("languages", [])
+    language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
+
+    context = {
+        "request": request,
+        "ip": ip,
+        "type": ip_data.get("type", "Unknown"),
+        "isp": connection.get("isp", "Unknown"),
+        "asn": connection.get("asn", "Unknown"),
+        "hostname": connection.get("domain", "Unknown"),
+        "is_proxy": security.get("proxy", False),
+        "is_vpn": security.get("vpn", False),
+        "is_tor": security.get("tor", False),
+        "user_agent": user_agent_str,
+        "browser": user_agent.browser.family,
+        "os": user_agent.os.family,
+        "city": ip_data.get("city", "Unknown"),
+        "region": ip_data.get("region", "Unknown"),
+        "country": ip_data.get("country", "Unknown"),
+        "country_code": ip_data.get("country_code", "Unknown"),
+        "postal": ip_data.get("postal", "Unknown"),
+        "calling_code": ip_data.get("calling_code", "Unknown"),
+        "latitude": ip_data.get("latitude"),
+        "longitude": ip_data.get("longitude"),
+        "timezone": timezone.get("id", "Unknown"),
+        "currency": currency.get("code", "Unknown"),
+        "language": language,
+        "flag_url": flag_url,
+        "iphub_block": iphub_data.get("block") if iphub_data else None,
+        "iphub_isp": iphub_data.get("isp") if iphub_data else None,
+        "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
+    }
+
+    return templates.TemplateResponse("index.html", context)
+
+# Додаткова функція для перевірки стану IPHub (опціонально)
+@app.get("/iphub-status")
+async def iphub_status():
+    return {
+        "enabled": IPHUB_ENABLED,
+        "api_key_present": bool(IPHUB_API_KEY)
+    }
