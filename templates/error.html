@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Помилка - IP Checker</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px auto;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+    }
+    .error-container {
+      background: #f8f9fa;
+      border-left: 4px solid #dc3545;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .error-title {
+      color: #dc3545;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .back-button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1 class="error-title">Помилка перевірки IP</h1>
+    <p><strong>IP адреса:</strong> {{ ip }}</p>
+    <p><strong>Помилка:</strong> {{ error }}</p>
+    <p>Перевір правильність введеної IP адреси та спробуй ще раз.</p>
+  </div>
+  
+  <a href="/" class="back-button">← Повернутися на головну</a>
+  
+  <div style="margin-top: 40px; color: #666;">
+    <p><strong>Браузер:</strong> {{ browser }}</p>
+    <p><strong>ОС:</strong> {{ os }}</p>
+  </div>
+</body>
+</html>

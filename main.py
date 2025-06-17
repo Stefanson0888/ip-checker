@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import httpx 
+import ipaddress
 
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
@@ -9,7 +10,7 @@ IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
-    global IPHUB_ENABLED  # ✅ Перенесено на початок функції
+    global IPHUB_ENABLED
     
     # Якщо IPHub відключений, повертаємо пустий словник
     if not IPHUB_ENABLED:
@@ -19,7 +20,7 @@ async def fetch_iphub_info(ip: str) -> dict:
     headers = {"X-Key": IPHUB_API_KEY}
     
     try:
-        async with httpx.AsyncClient(timeout=10.0) as client:  # додав timeout
+        async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(url, headers=headers)
             
             if response.status_code == 200:
@@ -45,11 +46,11 @@ async def fetch_iphub_info(ip: str) -> dict:
         print(f"❌ IPHub error: {e}")
         return {}
 
-from fastapi import FastAPI, Request, Query
+from fastapi import FastAPI, Request, Query, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from utils.ip import get_client_ip, fetch_ip_info
+from utils.ip import get_client_ip, fetch_ip_info, validate_ip_address
 from user_agents import parse
 
 app = FastAPI()
@@ -67,19 +68,45 @@ async def sitemap_xml():
 @app.get("/", response_class=HTMLResponse)
 async def get_ip(request: Request):
     client_ip = await get_client_ip(request)
-    ip_data = await fetch_ip_info(client_ip) or {}
-    iphub_data = await fetch_iphub_info(client_ip) or {}
+    ip_data = await fetch_ip_info(client_ip)
+    
+    # Обробка помилок API
+    if "error" in ip_data:
+        ip_data = {"error": ip_data["error"]}
+    
+    iphub_data = await fetch_iphub_info(client_ip)
     return render_ip_template(request, ip_data, client_ip, iphub_data)
 
 @app.get("/lookup", response_class=HTMLResponse)
 async def lookup_ip(request: Request, ip: str = Query(...)):
-    ip_data = await fetch_ip_info(ip) or {}
-    iphub_data = await fetch_iphub_info(ip) or {}
+    # Валідація IP адреси
+    if not validate_ip_address(ip):
+        raise HTTPException(status_code=400, detail="Invalid IP address format")
+    
+    ip_data = await fetch_ip_info(ip)
+    
+    # Обробка помилок API
+    if "error" in ip_data:
+        ip_data = {"error": ip_data["error"]}
+    
+    iphub_data = await fetch_iphub_info(ip)
     return render_ip_template(request, ip_data, ip, iphub_data)
 
 def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
+
+    # Обробка помилок API
+    if "error" in ip_data:
+        context = {
+            "request": request,
+            "ip": ip,
+            "error": ip_data["error"],
+            "user_agent": user_agent_str,
+            "browser": user_agent.browser.family,
+            "os": user_agent.os.family,
+        }
+        return templates.TemplateResponse("error.html", context)
 
     connection = ip_data.get("connection", {})
     security = ip_data.get("security", {})
@@ -133,3 +160,8 @@ async def iphub_status():
         "enabled": IPHUB_ENABLED,
         "api_key_present": bool(IPHUB_API_KEY)
     }
+
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "IP Checker"}

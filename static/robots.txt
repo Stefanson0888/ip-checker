@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /static/
 Disallow: /api/
+Disallow: /iphub-status
 Allow: /
 
-Sitemap: https://ip-checker-vlez.onrender.com/sitemap.xml
+Sitemap: https://checkip.app/sitemap.xml
