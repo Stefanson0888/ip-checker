@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IP Checker — Дізнайся свою IP-адресу та місцезнаходження</title>
+  <title>{{ _("title") }}</title>
 
-  <meta name="description" content="Миттєво дізнай свою IP-адресу, геолокацію, провайдера, браузер і більше. Швидко. Без реклами.">
-  <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
+  <meta name="description" content="{{ _('description') }}">
+  <meta name="keywords" content="{{ _('keywords') }}">
+
+  <!-- hreflang для SEO -->
+  {% for hreflang, url in hreflang_urls.items() %}
+  <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
+  {% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls.get('en', '/') }}" />
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -49,9 +55,38 @@
       color: var(--text-color);
     }
 
+    .language-switcher {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .language-switcher a {
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text-color);
+      background: rgba(58, 123, 253, 0.1);
+      font-size: 12px;
+      transition: background 0.2s;
+    }
+
+    .language-switcher a:hover {
+      background: rgba(58, 123, 253, 0.2);
+    }
+
+    .language-switcher a.active {
+      background: var(--button-bg);
+      color: white;
+    }
+
     h1 {
       font-size: 28px;
       margin-bottom: 20px;
+      margin-top: 60px;
     }
 
     .container {
@@ -152,6 +187,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      color: var(--button-text);
     }
 
     @media (max-width: 768px) {
@@ -163,6 +199,16 @@
         flex-direction: column;
         gap: 30px;
       }
+
+      .language-switcher {
+        position: static;
+        margin-bottom: 20px;
+        justify-content: center;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
@@ -170,54 +216,72 @@
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
-  <h1>Твоя IP-адреса: {{ ip }}</h1>
+  <!-- Перемикач мов -->
+  <div class="language-switcher">
+    {% for lang_code, lang_url in language_urls.items() %}
+      {% set lang_names = {
+        'en': '🇺🇸 EN',
+        'de': '🇩🇪 DE', 
+        'pl': '🇵🇱 PL',
+        'hi': '🇮🇳 HI',
+        'uk': '🇺🇦 UK'
+      } %}
+      <a href="{{ lang_url }}" 
+         class="{% if lang_code == lang %}active{% endif %}"
+         title="{{ lang_names[lang_code] }}">
+        {{ lang_names[lang_code] }}
+      </a>
+    {% endfor %}
+  </div>
 
-  <form class="ip-lookup" action="/lookup" method="get">
-    <input type="text" name="ip" placeholder="Введи IP-адресу для перевірки" required />
-    <button type="submit" class="toggle-button">Перевірити</button>
+  <h1>{{ _("your_ip") }}: {{ ip }}</h1>
+
+  <form class="ip-lookup" action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get">
+    <input type="text" name="ip" placeholder="{{ _('check_ip_placeholder') }}" required />
+    <button type="submit" class="toggle-button">{{ _("check_button") }}</button>
   </form>
 
   <div class="container">
     <div class="info-block">
-      <p><strong>Місто:</strong> {{ city }}</p>
-      <p><strong>Регіон:</strong> {{ region }}</p>
-      <p><strong>Країна:</strong> {{ country }}</p>
-      <p><strong>Тип:</strong> {{ type }}</p>
-      <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
-      <p><strong>Організація (ASN):</strong> {{ asn }}</p>
-      <p><strong>Домен:</strong> {{ hostname }}</p>
+      <p><strong>{{ _("city") }}:</strong> {{ city }}</p>
+      <p><strong>{{ _("region") }}:</strong> {{ region }}</p>
+      <p><strong>{{ _("country") }}:</strong> {{ country }}</p>
+      <p><strong>{{ _("type") }}:</strong> {{ type }}</p>
+      <p><strong>{{ _("isp") }}:</strong> {{ isp }}</p>
+      <p><strong>{{ _("organization") }}:</strong> {{ asn }}</p>
+      <p><strong>{{ _("domain") }}:</strong> {{ hostname }}</p>
 
       {% if flag_url %}
-      <div class="flag" aria-label="Прапор країни">
-        <img src="{{ flag_url }}" alt="Прапор {{ country }}" loading="lazy" />
+      <div class="flag" aria-label="{{ _('flag_alt', country=country) }}">
+        <img src="{{ flag_url }}" alt="{{ _('flag_alt', country=country) }}" loading="lazy" />
       </div>
       {% endif %}
 
-      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">{{ _("show_details") }}</button>
 
       <div id="additional-info" class="details">
-        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-        <p><strong>Код країни:</strong> {{ calling_code }}</p>
-        <p><strong>Мова:</strong> {{ language }}</p>
-        <p><strong>Валюта:</strong> {{ currency }}</p>
-        <p><strong>Браузер:</strong> {{ browser }}</p>
-        <p><strong>ОС:</strong> {{ os }}</p>
-        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-        <p><strong>VPN:</strong> {{ is_vpn }}</p>
-        <p><strong>Tor:</strong> {{ is_tor }}</p>
+        <p><strong>{{ _("timezone") }}:</strong> {{ timezone }}</p>
+        <p><strong>{{ _("postal") }}:</strong> {{ postal }}</p>
+        <p><strong>{{ _("country_code") }}:</strong> {{ calling_code }}</p>
+        <p><strong>{{ _("language") }}:</strong> {{ language }}</p>
+        <p><strong>{{ _("currency") }}:</strong> {{ currency }}</p>
+        <p><strong>{{ _("browser") }}:</strong> {{ browser }}</p>
+        <p><strong>{{ _("os") }}:</strong> {{ os }}</p>
+        <p><strong>{{ _("proxy") }}:</strong> {{ is_proxy }}</p>
+        <p><strong>{{ _("vpn") }}:</strong> {{ is_vpn }}</p>
+        <p><strong>{{ _("tor") }}:</strong> {{ is_tor }}</p>
         {% if iphub_block is not none %}
-        <p><strong>VPN (IPHUB):</strong>
+        <p><strong>{{ _("iphub_vpn") }}:</strong>
           {% if iphub_block == 1 %}
-          <span style="color: red;">Так (можливо VPN або проксі)</span>
+          <span style="color: red;">{{ _("iphub_yes") }}</span>
           {% elif iphub_block == 0 %}
-          <span style="color: green;">Ні</span>
+          <span style="color: green;">{{ _("iphub_no") }}</span>
           {% elif iphub_block == 2 %}
-          <span style="color: orange;">Невідомо (non-residential)</span>
+          <span style="color: orange;">{{ _("iphub_unknown") }}</span>
           {% endif %}
         </p>
         {% endif %}
-        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        <p><strong>{{ _("user_agent") }}:</strong> {{ user_agent }}</p>
       </div>
     </div>
 
@@ -260,7 +324,7 @@
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
       L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-        .bindPopup("Ти тут!")
+        .bindPopup("{{ _('you_are_here') }}")
         .openPopup();
       {% endif %}
     });
@@ -272,9 +336,9 @@
       details.classList.toggle("open");
   
       if (details.classList.contains("open")) {
-        button.textContent = "Сховати додаткову інформацію";
+        button.textContent = "{{ _('hide_details') }}";
       } else {
-        button.textContent = "Показати додаткову інформацію";
+        button.textContent = "{{ _('show_details') }}";
       }
     }
   </script>
