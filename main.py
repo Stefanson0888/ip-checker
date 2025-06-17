@@ -131,34 +131,6 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "_": _,
             "language_urls": get_language_urls(str(request.url.path), lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID
-    }
-
-    return templates.TemplateResponse("index.html", context)
-
-@app.get("/iphub-status")
-async def iphub_status():
-    return {
-        "enabled": IPHUB_ENABLED,
-        "api_key_present": bool(IPHUB_API_KEY)
-    }
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "IP Checker"}
-
-# Analytics endpoint для відстеження подій
-@app.post("/analytics/event")
-async def track_event(request: Request):
-    """Endpoint для додаткового трекінгу подій"""
-    try:
-        data = await request.json()
-        # Тут можна додати серверний трекінг або логування
-        print(f"📊 Analytics event: {data}")
-        return {"status": "success"}
-    except Exception as e:
-        print(f"❌ Analytics error: {e}")
-        return {"status": "error"}reflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
             "google_analytics_id": GOOGLE_ANALYTICS_ID
         }
         return templates.TemplateResponse("error.html", context)
@@ -208,4 +180,32 @@ async def track_event(request: Request):
         "lang": lang,
         "_": _,
         "language_urls": get_language_urls(str(request.url.path), lang),
-        "h
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
+        "google_analytics_id": GOOGLE_ANALYTICS_ID
+    }
+
+    return templates.TemplateResponse("index.html", context)
+
+@app.get("/iphub-status")
+async def iphub_status():
+    return {
+        "enabled": IPHUB_ENABLED,
+        "api_key_present": bool(IPHUB_API_KEY)
+    }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "IP Checker"}
+
+# Analytics endpoint для відстеження подій
+@app.post("/analytics/event")
+async def track_event(request: Request):
+    """Endpoint для додаткового трекінгу подій"""
+    try:
+        data = await request.json()
+        # Тут можна додати серверний трекінг або логування
+        print(f"📊 Analytics event: {data}")
+        return {"status": "success"}
+    except Exception as e:
+        print(f"❌ Analytics error: {e}")
+        return {"status": "error"}
