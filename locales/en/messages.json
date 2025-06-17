@@ -35,5 +35,10 @@
   "no": "No",
   "flag": "Flag",
   "coordinates": "Coordinates",
-  "asn": "ASN"
+  "asn": "ASN",
+  "flag_alt": "Country Flag",
+  "show_additional_info": "Show Additional Information",
+  "hide_additional_info": "Hide Additional Information",
+  "you_are_here": "You are here"
+
 }
