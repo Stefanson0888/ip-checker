@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IP Checker — Дізнайся свою IP-адресу та місцезнаходження</title>
+  <title>{{ translate["meta_title"] }}</title>
 
-  <meta name="description" content="Миттєво дізнай свою IP-адресу, геолокацію, провайдера, браузер і більше. Швидко. Без реклами.">
-  <meta name="keywords" content="IP, IP Checker, IP адреса, геолокація, провайдер, whois, ip lookup">
+  <meta name="description" content="{{ translate['meta_description'] }}">
+  <meta name="keywords" content="{{ translate['meta_keywords'] }}">
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -170,54 +170,56 @@
 <body>
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
-  <h1>Твоя IP-адреса: {{ ip }}</h1>
+  <h1>{{ translate["your_ip"] }}: {{ ip }}</h1>
 
   <form class="ip-lookup" action="/lookup" method="get">
-    <input type="text" name="ip" placeholder="Введи IP-адресу для перевірки" required />
-    <button type="submit" class="toggle-button">Перевірити</button>
+    <input type="text" name="ip" placeholder="{{ translate['enter_ip'] }}" required />
+    <button type="submit" class="toggle-button">{{ translate['check'] }}</button>
   </form>
 
   <div class="container">
     <div class="info-block">
-      <p><strong>Місто:</strong> {{ city }}</p>
-      <p><strong>Регіон:</strong> {{ region }}</p>
-      <p><strong>Країна:</strong> {{ country }}</p>
-      <p><strong>Тип:</strong> {{ type }}</p>
-      <p><strong>Провайдер (ISP):</strong> {{ isp }}</p>
-      <p><strong>Організація (ASN):</strong> {{ asn }}</p>
-      <p><strong>Домен:</strong> {{ hostname }}</p>
+      <p><strong>{{ translate["city"] }}:</strong> {{ city }}</p>
+      <p><strong>{{ translate["region"] }}:</strong> {{ region }}</p>
+      <p><strong>{{ translate["country"] }}:</strong> {{ country }}</p>
+      <p><strong>{{ translate["type"] }}:</strong> {{ type }}</p>
+      <p><strong>{{ translate["isp"] }}:</strong> {{ isp }}</p>
+      <p><strong>{{ translate["asn"] }}:</strong> {{ asn }}</p>
+      <p><strong>{{ translate["hostname"] }}:</strong> {{ hostname }}</p>
 
       {% if flag_url %}
-      <div class="flag" aria-label="Прапор країни">
-        <img src="{{ flag_url }}" alt="Прапор {{ country }}" loading="lazy" />
+      <div class="flag" aria-label="{{ translate['flag_alt'] }}">
+        <img src="{{ flag_url }}" alt="{{ translate['flag_alt'] }} {{ country }}" loading="lazy" />
       </div>
       {% endif %}
 
-      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">Показати додаткову інформацію</button>
+      <button class="toggle-button" id="details-toggle-button" onclick="toggleDetails()">
+        {{ translate["show_additional_info"] }}
+      </button>
 
       <div id="additional-info" class="details">
-        <p><strong>Часовий пояс:</strong> {{ timezone }}</p>
-        <p><strong>Поштовий індекс:</strong> {{ postal }}</p>
-        <p><strong>Код країни:</strong> {{ calling_code }}</p>
-        <p><strong>Мова:</strong> {{ language }}</p>
-        <p><strong>Валюта:</strong> {{ currency }}</p>
-        <p><strong>Браузер:</strong> {{ browser }}</p>
-        <p><strong>ОС:</strong> {{ os }}</p>
-        <p><strong>Проксі:</strong> {{ is_proxy }}</p>
-        <p><strong>VPN:</strong> {{ is_vpn }}</p>
-        <p><strong>Tor:</strong> {{ is_tor }}</p>
+        <p><strong>{{ translate["timezone"] }}:</strong> {{ timezone }}</p>
+        <p><strong>{{ translate["postal"] }}:</strong> {{ postal }}</p>
+        <p><strong>{{ translate["calling_code"] }}:</strong> {{ calling_code }}</p>
+        <p><strong>{{ translate["language"] }}:</strong> {{ language }}</p>
+        <p><strong>{{ translate["currency"] }}:</strong> {{ currency }}</p>
+        <p><strong>{{ translate["browser"] }}:</strong> {{ browser }}</p>
+        <p><strong>{{ translate["os"] }}:</strong> {{ os }}</p>
+        <p><strong>{{ translate["is_proxy"] }}:</strong> {{ is_proxy }}</p>
+        <p><strong>{{ translate["is_vpn"] }}:</strong> {{ is_vpn }}</p>
+        <p><strong>{{ translate["is_tor"] }}:</strong> {{ is_tor }}</p>
         {% if iphub_block is not none %}
-        <p><strong>VPN (IPHUB):</strong>
+        <p><strong>{{ translate["vpn_iphub"] }}:</strong>
           {% if iphub_block == 1 %}
-          <span style="color: red;">Так (можливо VPN або проксі)</span>
+          <span style="color: red;">{{ translate["iphub_yes"] }}</span>
           {% elif iphub_block == 0 %}
-          <span style="color: green;">Ні</span>
+          <span style="color: green;">{{ translate["iphub_no"] }}</span>
           {% elif iphub_block == 2 %}
-          <span style="color: orange;">Невідомо (non-residential)</span>
+          <span style="color: orange;">{{ translate["iphub_unknown"] }}</span>
           {% endif %}
         </p>
         {% endif %}
-        <p><strong>User-Agent:</strong> {{ user_agent }}</p>
+        <p><strong>{{ translate["user_agent"] }}:</strong> {{ user_agent }}</p>
       </div>
     </div>
 
@@ -249,34 +251,30 @@
       document.documentElement.setAttribute("data-theme", savedTheme);
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const saved = localStorage.getItem("theme") || "light";
-      document.documentElement.setAttribute("data-theme", saved);
-      document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
+    function toggleDetails() {
+      const details = document.getElementById("additional-info");
+      const button = document.getElementById("details-toggle-button");
 
-      {% if latitude and longitude %}
+      details.classList.toggle("open");
+
+      if (details.classList.contains("open")) {
+        button.textContent = "{{ translate['hide_additional_info'] }}";
+      } else {
+        button.textContent = "{{ translate['show_additional_info'] }}";
+      }
+    }
+
+    {% if latitude and longitude %}
+    document.addEventListener("DOMContentLoaded", () => {
       const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
       L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-        .bindPopup("Ти тут!")
+        .bindPopup("{{ translate['you_are_here'] }}")
         .openPopup();
-      {% endif %}
     });
-
-    function toggleDetails() {
-      const details = document.getElementById("additional-info");
-      const button = document.getElementById("details-toggle-button");
-  
-      details.classList.toggle("open");
-  
-      if (details.classList.contains("open")) {
-        button.textContent = "Сховати додаткову інформацію";
-      } else {
-        button.textContent = "Показати додаткову інформацію";
-      }
-    }
+    {% endif %}
   </script>
 </body>
 </html>
