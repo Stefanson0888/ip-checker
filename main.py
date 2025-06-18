@@ -114,6 +114,35 @@ async def lookup_ip_with_language(request: Request, ip: str, lang: str):
 def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
+
+    # ДОДАЙ ЦЕ В render_ip_template функцію
+
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
+    user_agent_str = request.headers.get("user-agent", "")
+    user_agent = parse(user_agent_str)
+    
+    # Детекція типу користувача для персоналізованої реклами
+    is_tech_user = False
+    referrer = request.headers.get("referer", "").lower()
+    
+    # Перевіряємо User-Agent на ознаки розробника
+    tech_user_agents = [
+        'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
+        'insomnia', 'httpie', 'python-requests', 'node', 'npm'
+    ]
+    
+    # Перевіряємо Referer на tech сайти
+    tech_referrers = [
+        'github.com', 'stackoverflow.com', 'aws.amazon.com', 
+        'digitalocean.com', 'hetzner.com', 'cloudflare.com',
+        'netlify.com', 'vercel.com', 'heroku.com'
+    ]
+    
+    # Детекція tech користувача
+    is_tech_user = (
+        any(term in user_agent_str.lower() for term in tech_user_agents) or
+        any(term in referrer for term in tech_referrers)
+    )
     
     # Створюємо об'єкт для перекладів
     _ = Translator(lang)
@@ -131,7 +160,10 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "_": _,
             "language_urls": get_language_urls(str(request.url.path), lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-            "google_analytics_id": GOOGLE_ANALYTICS_ID
+            "google_analytics_id": GOOGLE_ANALYTICS_ID,
+            "is_tech_user": is_tech_user,
+            "country_code": ip_data.get("country_code", "Unknown"),
+            "security": {},  # Порожній для error page
         }
         return templates.TemplateResponse("error.html", context)
 
@@ -181,7 +213,9 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "_": _,
         "language_urls": get_language_urls(str(request.url.path), lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "is_tech_user": is_tech_user,
+        "security": security,  # Для conditional security widgets
     }
 
     return templates.TemplateResponse("index.html", context)

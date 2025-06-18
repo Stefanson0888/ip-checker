@@ -34,5 +34,26 @@
   "error_invalid_ip": "Invalid IP address format",
   "error_api": "Error checking IP",
   "back_to_home": "← Back to Home",
-  "unknown": "Unknown"
+  "unknown": "Unknown",
+  
+  "protect_your_privacy": "Protect Your Online Privacy",
+  "hide_ip_with_vpn": "Hide your IP address with a trusted VPN",
+  "get_nordvpn": "Get NordVPN 68% OFF",
+  "top_vpn_services": "🏆 Top VPN Services",
+  "try_free": "Try Free",
+  "get_deal": "Get Deal",
+  "web_hosting_deals": "💻 Web Hosting Deals",
+  "starting_at": "Starting at",
+  "free_domain_ssl": "Free Domain + SSL",
+  "claim_deal": "Claim Deal",
+  "detected_proxy_vpn": "Proxy/VPN Detected",
+  "enhance_security_further": "Enhance your security further with premium antivirus",
+  "get_malwarebytes": "Get Malwarebytes",
+  "ready_to_protect_privacy": "Ready to Protect Your Privacy?",
+  "join_millions_users": "Join 14+ million users worldwide",
+  "get_nordvpn_now": "Get NordVPN Now",
+  "try_expressvpn": "Try ExpressVPN",
+  "secure_your_connection": "Secure Your Connection",
+  "hide_ip_from_trackers": "Hide your IP from trackers and hackers",
+  "get_vpn_protection": "Get VPN Protection"
 }

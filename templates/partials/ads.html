@@ -1,77 +1,423 @@
-<!-- templates/partials/ads.html - Проста версія для тестування -->
+<!-- templates/partials/ads.html - Оптимізована версія -->
 
-<div class="ad-column">
-  <!-- Top banner placeholder -->
-  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin: 20px 0; text-align: center;">
-    <h3>🛡️ Protect Your Privacy</h3>
-    <p>Hide your IP address with a trusted VPN service</p>
-    <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; display: inline-block; margin-top: 10px;">
-      <strong>Coming Soon: VPN Partners</strong>
+<!-- Банер після IP адреси (Above the fold) -->
+<div class="ad-banner-top">
+  {% if country_code in ['US', 'CA', 'GB'] %}
+    <!-- Англомовні країни - Premium VPN -->
+    <div class="premium-vpn-banner">
+      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
+        <div class="vpn-banner-content">
+          <div class="vpn-icon">🛡️</div>
+          <div class="vpn-text">
+            <h3>{{ _("protect_your_privacy") }}</h3>
+            <p>{{ _("hide_ip_with_vpn") }}</p>
+            <span class="cta-button">{{ _("get_nordvpn") }} →</span>
+          </div>
+        </div>
+      </a>
     </div>
-  </div>
+  {% elif country_code in ['DE', 'AT', 'CH'] %}
+    <!-- Німецькомовні - Privacy Focus -->
+    <div class="privacy-banner">
+      <a href="https://affiliate.cyberghostvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('cyberghost', 'top-banner', '{{ country }}')">
+        <div class="vpn-banner-content">
+          <div class="vpn-icon">🇩🇪</div>
+          <div class="vpn-text">
+            <h3>{{ _("datenschutz_first") }}</h3>
+            <p>{{ _("german_vpn_solution") }}</p>
+            <span class="cta-button">{{ _("jetzt_schuetzen") }} →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% elif country_code in ['PL', 'CZ', 'SK'] %}
+    <!-- Східна Європа - Budget VPN -->
+    <div class="budget-banner">
+      <a href="https://affiliate.cyberghostvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('cyberghost', 'top-banner', '{{ country }}')">
+        <div class="vpn-banner-content">
+          <div class="vpn-icon">💰</div>
+          <div class="vpn-text">
+            <h3>{{ _("affordable_privacy") }}</h3>
+            <p>{{ _("budget_vpn_solution") }}</p>
+            <span class="cta-button">{{ _("start_now") }} →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% elif country_code in ['IN', 'BD', 'PK'] %}
+    <!-- Індія - Local pricing -->
+    <div class="india-banner">
+      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
+        <div class="vpn-banner-content">
+          <div class="vpn-icon">🇮🇳</div>
+          <div class="vpn-text">
+            <h3>{{ _("secure_your_connection") }}</h3>
+            <p>{{ _("starting_from_rupees") }}</p>
+            <span class="cta-button">{{ _("get_discount") }} →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% else %}
+    <!-- Fallback - Universal -->
+    <div class="universal-banner">
+      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
+        <div class="vpn-banner-content">
+          <div class="vpn-icon">🌍</div>
+          <div class="vpn-text">
+            <h3>{{ _("protect_your_privacy") }}</h3>
+            <p>{{ _("secure_internet_worldwide") }}</p>
+            <span class="cta-button">{{ _("get_vpn") }} →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% endif %}
+</div>
 
-  <!-- Sidebar placeholder -->
-  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-    <h4>🏆 Top VPN Services</h4>
-    <div style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div><strong>NordVPN</strong></div>
-        <div style="text-align: center;">
-          <div>⭐⭐⭐⭐⭐</div>
-          <div style="color: #2ecc71; font-weight: bold;">$3.49/mo</div>
-        </div>
-        <div style="background: #ccc; padding: 6px 12px; border-radius: 6px; font-size: 12px;">
-          Soon
-        </div>
+<!-- Sidebar - Secondary offers -->
+<div class="ad-column-sidebar">
+  
+  <!-- VPN Comparison Block -->
+  <div class="vpn-comparison-widget">
+    <h4>{{ _("top_vpn_services") }}</h4>
+    
+    {% if country_code in ['US', 'CA', 'GB'] %}
+    <!-- Premium market comparison -->
+    <div class="vpn-option">
+      <div class="vpn-logo">Nord</div>
+      <div class="vpn-details">
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">$3.49/mo</div>
       </div>
+      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("try_free") }}</a>
     </div>
     
-    <div style="padding: 12px 0;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div><strong>ExpressVPN</strong></div>
-        <div style="text-align: center;">
-          <div>⭐⭐⭐⭐⭐</div>
-          <div style="color: #2ecc71; font-weight: bold;">$6.67/mo</div>
-        </div>
-        <div style="background: #ccc; padding: 6px 12px; border-radius: 6px; font-size: 12px;">
-          Soon
-        </div>
+    <div class="vpn-option">
+      <div class="vpn-logo">Express</div>
+      <div class="vpn-details">
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">$6.67/mo</div>
       </div>
+      <a href="https://affiliate.expressvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('expressvpn', 'sidebar', '{{ country }}')">{{ _("get_deal") }}</a>
     </div>
+    
+    {% elif country_code in ['DE', 'AT', 'CH'] %}
+    <!-- German market -->
+    <div class="vpn-option">
+      <div class="vpn-logo">CyberGhost</div>
+      <div class="vpn-details">
+        <div class="rating">⭐⭐⭐⭐</div>
+        <div class="price">€2.19/Monat</div>
+      </div>
+      <a href="https://affiliate.cyberghostvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('cyberghost', 'sidebar', '{{ country }}')">{{ _("jetzt_testen") }}</a>
+    </div>
+    
+    <div class="vpn-option">
+      <div class="vpn-logo">Nord</div>
+      <div class="vpn-details">
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">€3.49/Monat</div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("angebot_holen") }}</a>
+    </div>
+    
+    {% else %}
+    <!-- Universal options -->
+    <div class="vpn-option">
+      <div class="vpn-logo">Nord</div>
+      <div class="vpn-details">
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price">$3.49/mo</div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("get_vpn") }}</a>
+    </div>
+    {% endif %}
   </div>
 
-  <!-- Hosting placeholder -->
-  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-    <h4>💻 Web Hosting Deals</h4>
-    <div style="text-align: center; padding: 15px;">
-      <div style="color: #e74c3c; font-weight: bold; font-size: 18px;">75% OFF</div>
-      <div style="margin: 8px 0;">Starting at <strong>$2.99/mo</strong></div>
-      <div style="font-size: 14px; color: #7f8c8d;">Free Domain + SSL</div>
-      <div style="background: #ccc; padding: 8px 16px; border-radius: 6px; margin-top: 10px; display: inline-block;">
-        Coming Soon
+  <!-- Hosting offer (for tech users) -->
+  {% if is_tech_user %}
+  <div class="hosting-widget">
+    <h4>{{ _("web_hosting_deals") }}</h4>
+    <div class="hosting-option">
+      <div class="hosting-logo">
+        <img src="/static/hostinger-logo.png" alt="Hostinger" width="80">
       </div>
+      <div class="hosting-details">
+        <div class="discount">75% OFF</div>
+        <div class="price">{{ _("starting_at") }} $2.99/mo</div>
+        <div class="features">{{ _("free_domain_ssl") }}</div>
+      </div>
+      <a href="https://affiliate.hostinger.com/your-link" class="hosting-cta" onclick="trackAffiliateClick('hostinger', 'sidebar', '{{ country }}')">{{ _("claim_deal") }}</a>
     </div>
   </div>
+  {% endif %}
 
-  <!-- Bottom CTA placeholder -->
-  <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 30px 0;">
-    <h3>🚀 Ready to Protect Your Privacy?</h3>
-    <p style="margin: 10px 0 20px 0; opacity: 0.9;">Affiliate partnerships coming soon!</p>
-    <div style="background: rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 8px; display: inline-block;">
-      <strong>Launching Soon</strong>
+  <!-- Security software (conditional) -->
+  {% if security.proxy or security.vpn or security.tor %}
+  <div class="security-widget">
+    <h4>🛡️ {{ _("detected_proxy_vpn") }}</h4>
+    <p>{{ _("enhance_security_further") }}</p>
+    <a href="https://affiliate.malwarebytes.com/your-link" class="security-cta" onclick="trackAffiliateClick('malwarebytes', 'security-alert', '{{ country }}')">
+      {{ _("get_malwarebytes") }}
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Bottom CTA (after details) -->
+<div class="ad-banner-bottom">
+  {% if country_code in ['US', 'CA', 'GB'] %}
+  <div class="bottom-cta premium">
+    <h3>🚀 {{ _("ready_to_protect_privacy") }}</h3>
+    <p>{{ _("join_millions_users") }}</p>
+    <div class="cta-buttons">
+      <a href="https://affiliate.nordvpn.com/your-link" class="btn primary" onclick="trackAffiliateClick('nordvpn', 'bottom-cta', '{{ country }}')">
+        {{ _("get_nordvpn_now") }}
+      </a>
+      <a href="https://affiliate.expressvpn.com/your-link" class="btn secondary" onclick="trackAffiliateClick('expressvpn', 'bottom-cta', '{{ country }}')">
+        {{ _("try_expressvpn") }}
+      </a>
     </div>
   </div>
+  {% else %}
+  <div class="bottom-cta standard">
+    <h3>🔒 {{ _("secure_your_connection") }}</h3>
+    <p>{{ _("hide_ip_from_trackers") }}</p>
+    <a href="https://affiliate.nordvpn.com/your-link" class="btn primary" onclick="trackAffiliateClick('nordvpn', 'bottom-cta', '{{ country }}')">
+      {{ _("get_vpn_protection") }}
+    </a>
+  </div>
+  {% endif %}
 </div>
 
 <style>
-.ad-column {
-  width: 100%;
+/* Banner Styles */
+.ad-banner-top {
+  margin: 20px 0;
+  padding: 0;
 }
 
-/* Responsive adjustments */
+.vpn-banner-content {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.vpn-banner-content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.vpn-icon {
+  font-size: 48px;
+  margin-right: 20px;
+}
+
+.vpn-text h3 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.vpn-text p {
+  margin: 0 0 12px 0;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Sidebar Widgets */
+.ad-column-sidebar > div {
+  background: var(--bg-color);
+  border: 1px solid rgba(58, 123, 253, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.vpn-comparison-widget h4,
+.hosting-widget h4,
+.security-widget h4 {
+  margin: 0 0 15px 0;
+  color: var(--text-color);
+  font-size: 18px;
+}
+
+.vpn-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.vpn-option:last-child {
+  border-bottom: none;
+}
+
+.vpn-logo {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.vpn-details {
+  flex: 1;
+  text-align: center;
+}
+
+.rating {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.price {
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+.vpn-cta {
+  background: var(--button-bg);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Bottom CTA */
+.ad-banner-bottom {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.bottom-cta {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.bottom-cta h3 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.bottom-cta p {
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: white;
+  color: #f5576c;
+}
+
+.btn.secondary {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 2px solid white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .ad-column > div {
-    margin: 15px 0;
+  .vpn-banner-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .vpn-icon {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
   }
 }
 </style>
+
+<script>
+// Analytics tracking for affiliate clicks
+function trackAffiliateClick(partner, placement, country) {
+  gtag('event', 'affiliate_click', {
+    'event_category': 'monetization',
+    'event_label': partner,
+    'custom_parameter_1': placement,
+    'custom_parameter_2': country,
+    'value': 1
+  });
+  
+  // Optional: Server-side tracking
+  fetch('/analytics/event', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      event: 'affiliate_click',
+      partner: partner,
+      placement: placement,
+      country: country,
+      timestamp: new Date().toISOString()
+    })
+  });
+}
+
+// Detect tech users (for hosting offers)
+function detectTechUser() {
+  const techIndicators = [
+    /developer/i, /programmer/i, /engineer/i, /github/i, 
+    /aws/i, /cloud/i, /server/i, /hosting/i
+  ];
+  
+  const userAgent = navigator.userAgent;
+  const referrer = document.referrer;
+  
+  return techIndicators.some(pattern => 
+    pattern.test(userAgent) || pattern.test(referrer)
+  );
+}
+
+// Set tech user flag
+window.addEventListener('DOMContentLoaded', () => {
+  window.isTechUser = detectTechUser();
+});
+</script>
