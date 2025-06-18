@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ _("privacy_policy") }} - IP Checker</title>
+  <meta name="description" content="{{ _('privacy_policy_description') }}">
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ google_analytics_id }}', {
+      language: '{{ lang }}',
+      anonymize_ip: true
+    });
+  </script>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --button-bg: #3a7bfd;
+      --button-hover: #5c8dfc;
+      --button-text: #ffffff;
+      --border-color: #e9ecef;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #ffffff;
+      --button-bg: #3a7bfd;
+      --button-hover: #5c8dfc;
+      --button-text: #ffffff;
+      --border-color: #333;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      color: var(--button-bg);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .last-updated {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    h2 {
+      color: var(--text-color);
+      font-size: 1.5rem;
+      margin-top: 40px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--button-bg);
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: var(--text-color);
+      font-size: 1.2rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p, li {
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .highlight-box {
+      background: rgba(58, 123, 253, 0.1);
+      border: 1px solid var(--button-bg);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .contact-info {
+      background: var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--button-bg);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 30px;
+      padding: 8px 0;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .language-switcher a {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 0 5px;
+      background: rgba(58, 123, 253, 0.1);
+      color: var(--text-color);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .language-switcher a:hover,
+    .language-switcher a.active {
+      background: var(--button-bg);
+      color: white;
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+        font-size: 16px; /* Prevent zoom on iOS */
+      }
+      
+      .container {
+        padding: 0 10px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+        margin-top: 30px;
+      }
+      
+      .highlight-box,
+      .contact-info {
+        padding: 15px;
+      }
+      
+      .language-switcher a {
+        margin: 2px;
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_ip_checker") }}</a>
+    
+    <div class="header">
+      <h1>{{ _("privacy_policy") }}</h1>
+      <div class="last-updated">{{ _("last_updated") }}: {{ _("june_2025") }}</div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>{{ _("privacy_summary") }}:</strong> {{ _("privacy_summary_text") }}
+    </div>
+
+    <h2>{{ _("information_we_collect") }}</h2>
+    <h3>{{ _("automatically_collected") }}</h3>
+    <ul>
+      <li><strong>{{ _("ip_address") }}:</strong> {{ _("ip_address_desc") }}</li>
+      <li><strong>{{ _("browser_info") }}:</strong> {{ _("browser_info_desc") }}</li>
+      <li><strong>{{ _("location_data") }}:</strong> {{ _("location_data_desc") }}</li>
+      <li><strong>{{ _("usage_analytics") }}:</strong> {{ _("usage_analytics_desc") }}</li>
+    </ul>
+
+    <h3>{{ _("cookies_tracking") }}</h3>
+    <p>{{ _("cookies_desc") }}</p>
+    <ul>
+      <li><strong>{{ _("essential_cookies") }}:</strong> {{ _("essential_cookies_desc") }}</li>
+      <li><strong>{{ _("analytics_cookies") }}:</strong> {{ _("analytics_cookies_desc") }}</li>
+      <li><strong>{{ _("preference_cookies") }}:</strong> {{ _("preference_cookies_desc") }}</li>
+    </ul>
+
+    <h2>{{ _("how_we_use_info") }}</h2>
+    <ul>
+      <li>{{ _("provide_ip_services") }}</li>
+      <li>{{ _("improve_website") }}</li>
+      <li>{{ _("security_fraud_prevention") }}</li>
+      <li>{{ _("comply_legal_requirements") }}</li>
+      <li>{{ _("show_relevant_offers") }}</li>
+    </ul>
+
+    <h2>{{ _("data_sharing") }}</h2>
+    <h3>{{ _("third_party_services") }}</h3>
+    <ul>
+      <li><strong>Google Analytics:</strong> {{ _("google_analytics_desc") }}</li>
+      <li><strong>{{ _("hosting_providers") }}:</strong> {{ _("hosting_providers_desc") }}</li>
+      <li><strong>{{ _("affiliate_partners") }}:</strong> {{ _("affiliate_partners_desc") }}</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>{{ _("important_note") }}:</strong> {{ _("no_personal_data_sale") }}
+    </div>
+
+    <h2>{{ _("your_rights") }}</h2>
+    <h3>{{ _("gdpr_rights") }} ({{ _("eu_residents") }})</h3>
+    <ul>
+      <li><strong>{{ _("right_access") }}:</strong> {{ _("right_access_desc") }}</li>
+      <li><strong>{{ _("right_rectification") }}:</strong> {{ _("right_rectification_desc") }}</li>
+      <li><strong>{{ _("right_erasure") }}:</strong> {{ _("right_erasure_desc") }}</li>
+      <li><strong>{{ _("right_portability") }}:</strong> {{ _("right_portability_desc") }}</li>
+      <li><strong>{{ _("right_object") }}:</strong> {{ _("right_object_desc") }}</li>
+    </ul>
+
+    <h3>{{ _("opt_out_options") }}</h3>
+    <ul>
+      <li><strong>{{ _("analytics_opt_out") }}:</strong> {{ _("analytics_opt_out_desc") }}</li>
+      <li><strong>{{ _("cookies_disable") }}:</strong> {{ _("cookies_disable_desc") }}</li>
+    </ul>
+
+    <h2>{{ _("data_security") }}</h2>
+    <p>{{ _("data_security_desc") }}</p>
+
+    <h2>{{ _("data_retention") }}</h2>
+    <p>{{ _("data_retention_desc") }}</p>
+
+    <h2>{{ _("international_transfers") }}</h2>
+    <p>{{ _("international_transfers_desc") }}</p>
+
+    <h2>{{ _("children_privacy") }}</h2>
+    <p>{{ _("children_privacy_desc") }}</p>
+
+    <h2>{{ _("policy_changes") }}</h2>
+    <p>{{ _("policy_changes_desc") }}</p>
+
+    <div class="contact-info">
+      <h2>{{ _("contact_us") }}</h2>
+      <p>{{ _("privacy_questions_desc") }}</p>
+      <p>
+        <strong>{{ _("email") }}:</strong> privacy@your-domain.app<br>
+        <strong>{{ _("response_time") }}:</strong> {{ _("within_48_hours") }}
+      </p>
+    </div>
+
+    <!-- Language switcher -->
+    <div class="language-switcher">
+      <p><strong>{{ _("privacy_policy_languages") }}:</strong></p>
+      {% for lang_code, lang_url in language_urls.items() %}
+        {% set lang_names = {
+          'en': '🇺🇸 English',
+          'de': '🇩🇪 Deutsch', 
+          'pl': '🇵🇱 Polski',
+          'hi': '🇮🇳 हिन्दी',
+          'uk': '🇺🇦 Українська'
+        } %}
+        <a href="{{ lang_url }}privacy" 
+           class="{% if lang_code == lang %}active{% endif %}">
+          {{ lang_names[lang_code] }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    // Theme detection
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</body>
+</html>

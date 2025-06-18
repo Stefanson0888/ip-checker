@@ -58,5 +58,21 @@
   "try_expressvpn": "Wypróbuj ExpressVPN",
   "secure_your_connection": "Zabezpiecz swoje połączenie",
   "hide_ip_from_trackers": "Ukryj swój IP przed śledzącymi i hakerami",
-  "get_vpn_protection": "Uzyskaj ochronę VPN"
+  "get_vpn_protection": "Uzyskaj ochronę VPN",
+
+  "privacy_policy": "Polityka Prywatności", 
+  "privacy_policy_description": "Jak zbieramy, używamy i chronimy Twoje dane podczas korzystania z naszej usługi sprawdzania IP.",
+  "back_to_ip_checker": "Powrót do sprawdzania IP",
+  "last_updated": "Ostatnia aktualizacja",
+  "june_2025": "18 czerwca 2025",
+  "privacy_summary": "Podsumowanie Prywatności",
+  "privacy_summary_text": "Zbieramy Twój adres IP i podstawowe informacje o przeglądarce, aby świadczyć nasze usługi. Używamy Google Analytics i współpracujemy z zaufanymi partnerami. Nigdy nie sprzedajemy Twoich danych osobowych.",
+  "information_we_collect": "1. Jakie informacje zbieramy",
+  "how_we_use_info": "2. Jak używamy Twoich informacji",
+  "data_sharing": "3. Udostępnianie danych i strony trzecie", 
+  "your_rights": "4. Twoje prawa i wybory",
+  "data_security": "5. Bezpieczeństwo danych",
+  "contact_us": "Kontakt",
+
+  "footer_disclaimer": "Ta usługa zapewnia geolokalizację IP w celach informacyjnych. Dokładność może się różnić. Szanujemy Twoją prywatność i współpracujemy z zaufanymi partnerami, aby zwiększyć Twoje bezpieczeństwo online."
 }

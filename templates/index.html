@@ -249,6 +249,21 @@
       h1 {
         margin-top: 20px;
       }
+
+    @media (max-width: 768px) {
+      footer {
+        margin-top: 30px !important;
+        padding: 20px 0 !important;
+      }
+  
+      footer a {
+        display: block !important;
+        margin: 8px 0 !important;
+      }
+  
+      footer span {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -406,5 +421,29 @@
       });
     }
   </script>
+  <!-- Footer -->
+  <footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
+      <div style="margin-bottom: 20px;">
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}privacy" 
+           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+           onclick="gtag('event', 'privacy_policy_click', {'event_category': 'navigation'})">
+          {{ _("privacy_policy") }}
+        </a>
+        <span style="margin: 0 15px; color: #dee2e6;">•</span>
+        <a href="mailto:privacy@your-domain.app" 
+           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+           onclick="gtag('event', 'contact_click', {'event_category': 'engagement'})">
+          {{ _("contact_us") }}
+        </a>
+        <span style="margin: 0 15px; color: #dee2e6;">•</span>
+        <span style="font-size: 0.9rem;">© 2025 IP Checker</span>
+      </div>
+      
+      <div style="font-size: 0.8rem; color: #adb5bd; line-height: 1.4;">
+        {{ _("footer_disclaimer") }}
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

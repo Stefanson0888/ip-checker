@@ -243,3 +243,30 @@ async def track_event(request: Request):
     except Exception as e:
         print(f"❌ Analytics error: {e}")
         return {"status": "error"}
+
+# Privacy Policy - англійська за замовчуванням  
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy_policy_default(request: Request):
+    return await privacy_policy_with_language(request, DEFAULT_LANGUAGE)
+
+# Privacy Policy - мовні версії
+@app.get("/{lang}/privacy", response_class=HTMLResponse) 
+async def privacy_policy_with_lang(request: Request, lang: str):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await privacy_policy_with_language(request, lang)
+
+async def privacy_policy_with_language(request: Request, lang: str):
+    """Render Privacy Policy page"""
+    _ = Translator(lang)
+    
+    context = {
+        "request": request,
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls("/privacy", lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/privacy"),
+        "google_analytics_id": GOOGLE_ANALYTICS_ID
+    }
+    
+    return templates.TemplateResponse("privacy.html", context)

@@ -1,164 +1,173 @@
-<!-- templates/partials/ads.html - Оптимізована версія -->
+<!-- templates/partials/ads.html - Mobile-First версія -->
 
-<!-- Банер після IP адреси (Above the fold) -->
-<div class="ad-banner-top">
+<!-- Mobile-first banner (показується зверху на мобільних) -->
+<div class="mobile-priority-banner">
   {% if country_code in ['US', 'CA', 'GB'] %}
-    <!-- Англомовні країни - Premium VPN -->
-    <div class="premium-vpn-banner">
-      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
-        <div class="vpn-banner-content">
-          <div class="vpn-icon">🛡️</div>
-          <div class="vpn-text">
-            <h3>{{ _("protect_your_privacy") }}</h3>
-            <p>{{ _("hide_ip_with_vpn") }}</p>
-            <span class="cta-button">{{ _("get_nordvpn") }} →</span>
-          </div>
+    <div class="mobile-vpn-card premium">
+      <div class="vpn-content">
+        <div class="vpn-icon">🛡️</div>
+        <div class="vpn-text">
+          <h3>{{ _("protect_your_privacy") }}</h3>
+          <p>{{ _("hide_ip_with_vpn") }}</p>
+          <div class="price-tag">68% OFF</div>
         </div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="mobile-cta-button" 
+         onclick="trackAffiliateClick('nordvpn', 'mobile-top', '{{ country }}')">
+        {{ _("get_nordvpn") }}
       </a>
     </div>
   {% elif country_code in ['DE', 'AT', 'CH'] %}
-    <!-- Німецькомовні - Privacy Focus -->
-    <div class="privacy-banner">
-      <a href="https://affiliate.cyberghostvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('cyberghost', 'top-banner', '{{ country }}')">
-        <div class="vpn-banner-content">
-          <div class="vpn-icon">🇩🇪</div>
-          <div class="vpn-text">
-            <h3>{{ _("datenschutz_first") }}</h3>
-            <p>{{ _("german_vpn_solution") }}</p>
-            <span class="cta-button">{{ _("jetzt_schuetzen") }} →</span>
-          </div>
+    <div class="mobile-vpn-card german">
+      <div class="vpn-content">
+        <div class="vpn-icon">🇩🇪</div>
+        <div class="vpn-text">
+          <h3>{{ _("datenschutz_first") }}</h3>
+          <p>{{ _("german_vpn_solution") }}</p>
+          <div class="price-tag">€2.19/Monat</div>
         </div>
+      </div>
+      <a href="https://affiliate.cyberghostvpn.com/your-link" 
+         class="mobile-cta-button" 
+         onclick="trackAffiliateClick('cyberghost', 'mobile-top', '{{ country }}')">
+        {{ _("jetzt_schuetzen") }}
       </a>
     </div>
   {% elif country_code in ['PL', 'CZ', 'SK'] %}
-    <!-- Східна Європа - Budget VPN -->
-    <div class="budget-banner">
-      <a href="https://affiliate.cyberghostvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('cyberghost', 'top-banner', '{{ country }}')">
-        <div class="vpn-banner-content">
-          <div class="vpn-icon">💰</div>
-          <div class="vpn-text">
-            <h3>{{ _("affordable_privacy") }}</h3>
-            <p>{{ _("budget_vpn_solution") }}</p>
-            <span class="cta-button">{{ _("start_now") }} →</span>
-          </div>
+    <div class="mobile-vpn-card budget">
+      <div class="vpn-content">
+        <div class="vpn-icon">💰</div>
+        <div class="vpn-text">
+          <h3>{{ _("affordable_privacy") }}</h3>
+          <p>{{ _("budget_vpn_solution") }}</p>
+          <div class="price-tag">15 zł/miesiąc</div>
         </div>
+      </div>
+      <a href="https://affiliate.cyberghostvpn.com/your-link" 
+         class="mobile-cta-button" 
+         onclick="trackAffiliateClick('cyberghost', 'mobile-top', '{{ country }}')">
+        {{ _("start_now") }}
       </a>
     </div>
   {% elif country_code in ['IN', 'BD', 'PK'] %}
-    <!-- Індія - Local pricing -->
-    <div class="india-banner">
-      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
-        <div class="vpn-banner-content">
-          <div class="vpn-icon">🇮🇳</div>
-          <div class="vpn-text">
-            <h3>{{ _("secure_your_connection") }}</h3>
-            <p>{{ _("starting_from_rupees") }}</p>
-            <span class="cta-button">{{ _("get_discount") }} →</span>
-          </div>
+    <div class="mobile-vpn-card india">
+      <div class="vpn-content">
+        <div class="vpn-icon">🇮🇳</div>
+        <div class="vpn-text">
+          <h3>{{ _("secure_your_connection") }}</h3>
+          <p>{{ _("starting_from_rupees") }}</p>
+          <div class="price-tag">₹199/माह</div>
         </div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="mobile-cta-button" 
+         onclick="trackAffiliateClick('nordvpn', 'mobile-top', '{{ country }}')">
+        {{ _("get_discount") }}
       </a>
     </div>
   {% else %}
-    <!-- Fallback - Universal -->
-    <div class="universal-banner">
-      <a href="https://affiliate.nordvpn.com/your-link" target="_blank" rel="nofollow sponsored" onclick="trackAffiliateClick('nordvpn', 'top-banner', '{{ country }}')">
-        <div class="vpn-banner-content">
-          <div class="vpn-icon">🌍</div>
-          <div class="vpn-text">
-            <h3>{{ _("protect_your_privacy") }}</h3>
-            <p>{{ _("secure_internet_worldwide") }}</p>
-            <span class="cta-button">{{ _("get_vpn") }} →</span>
-          </div>
+    <div class="mobile-vpn-card universal">
+      <div class="vpn-content">
+        <div class="vpn-icon">🌍</div>
+        <div class="vpn-text">
+          <h3>{{ _("protect_your_privacy") }}</h3>
+          <p>{{ _("secure_internet_worldwide") }}</p>
+          <div class="price-tag">68% OFF</div>
         </div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="mobile-cta-button" 
+         onclick="trackAffiliateClick('nordvpn', 'mobile-top', '{{ country }}')">
+        {{ _("get_vpn") }}
       </a>
     </div>
   {% endif %}
 </div>
 
-<!-- Sidebar - Secondary offers -->
-<div class="ad-column-sidebar">
+<!-- Inline banner (між результатами) -->
+<div class="inline-banner-wrapper">
+  {% if is_tech_user %}
+  <div class="inline-hosting-banner">
+    <div class="hosting-content">
+      <div class="hosting-icon">💻</div>
+      <div class="hosting-text">
+        <h4>{{ _("web_hosting_deals") }}</h4>
+        <p>{{ _("free_domain_ssl") }}</p>
+        <span class="discount-badge">75% OFF</span>
+      </div>
+      <a href="https://affiliate.hostinger.com/your-link" 
+         class="inline-cta-button"
+         onclick="trackAffiliateClick('hostinger', 'inline', '{{ country }}')">
+        {{ _("claim_deal") }}
+      </a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Sidebar content (desktop and tablet) -->
+<div class="desktop-sidebar">
   
-  <!-- VPN Comparison Block -->
-  <div class="vpn-comparison-widget">
+  <!-- VPN Comparison Widget -->
+  <div class="sidebar-widget vpn-comparison">
     <h4>{{ _("top_vpn_services") }}</h4>
     
     {% if country_code in ['US', 'CA', 'GB'] %}
-    <!-- Premium market comparison -->
     <div class="vpn-option">
-      <div class="vpn-logo">Nord</div>
-      <div class="vpn-details">
-        <div class="rating">⭐⭐⭐⭐⭐</div>
-        <div class="price">$3.49/mo</div>
+      <div class="vpn-info">
+        <div class="vpn-name">NordVPN</div>
+        <div class="vpn-rating">⭐⭐⭐⭐⭐</div>
+        <div class="vpn-price">$3.49/mo</div>
       </div>
-      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("try_free") }}</a>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="sidebar-cta"
+         onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">
+        {{ _("try_free") }}
+      </a>
     </div>
     
     <div class="vpn-option">
-      <div class="vpn-logo">Express</div>
-      <div class="vpn-details">
-        <div class="rating">⭐⭐⭐⭐⭐</div>
-        <div class="price">$6.67/mo</div>
+      <div class="vpn-info">
+        <div class="vpn-name">ExpressVPN</div>
+        <div class="vpn-rating">⭐⭐⭐⭐⭐</div>
+        <div class="vpn-price">$6.67/mo</div>
       </div>
-      <a href="https://affiliate.expressvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('expressvpn', 'sidebar', '{{ country }}')">{{ _("get_deal") }}</a>
+      <a href="https://affiliate.expressvpn.com/your-link" 
+         class="sidebar-cta"
+         onclick="trackAffiliateClick('expressvpn', 'sidebar', '{{ country }}')">
+        {{ _("get_deal") }}
+      </a>
     </div>
-    
-    {% elif country_code in ['DE', 'AT', 'CH'] %}
-    <!-- German market -->
-    <div class="vpn-option">
-      <div class="vpn-logo">CyberGhost</div>
-      <div class="vpn-details">
-        <div class="rating">⭐⭐⭐⭐</div>
-        <div class="price">€2.19/Monat</div>
-      </div>
-      <a href="https://affiliate.cyberghostvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('cyberghost', 'sidebar', '{{ country }}')">{{ _("jetzt_testen") }}</a>
-    </div>
-    
-    <div class="vpn-option">
-      <div class="vpn-logo">Nord</div>
-      <div class="vpn-details">
-        <div class="rating">⭐⭐⭐⭐⭐</div>
-        <div class="price">€3.49/Monat</div>
-      </div>
-      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("angebot_holen") }}</a>
-    </div>
-    
     {% else %}
-    <!-- Universal options -->
     <div class="vpn-option">
-      <div class="vpn-logo">Nord</div>
-      <div class="vpn-details">
-        <div class="rating">⭐⭐⭐⭐⭐</div>
-        <div class="price">$3.49/mo</div>
+      <div class="vpn-info">
+        <div class="vpn-name">NordVPN</div>
+        <div class="vpn-rating">⭐⭐⭐⭐⭐</div>
+        <div class="vpn-price">{{ _("starting_at") }} $3.49/mo</div>
       </div>
-      <a href="https://affiliate.nordvpn.com/your-link" class="vpn-cta" onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">{{ _("get_vpn") }}</a>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="sidebar-cta"
+         onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">
+        {{ _("get_vpn") }}
+      </a>
     </div>
     {% endif %}
   </div>
 
-  <!-- Hosting offer (for tech users) -->
-  {% if is_tech_user %}
-  <div class="hosting-widget">
-    <h4>{{ _("web_hosting_deals") }}</h4>
-    <div class="hosting-option">
-      <div class="hosting-logo">
-        <img src="/static/hostinger-logo.png" alt="Hostinger" width="80">
-      </div>
-      <div class="hosting-details">
-        <div class="discount">75% OFF</div>
-        <div class="price">{{ _("starting_at") }} $2.99/mo</div>
-        <div class="features">{{ _("free_domain_ssl") }}</div>
-      </div>
-      <a href="https://affiliate.hostinger.com/your-link" class="hosting-cta" onclick="trackAffiliateClick('hostinger', 'sidebar', '{{ country }}')">{{ _("claim_deal") }}</a>
-    </div>
-  </div>
-  {% endif %}
-
-  <!-- Security software (conditional) -->
+  <!-- Security Alert Widget -->
   {% if security.proxy or security.vpn or security.tor %}
-  <div class="security-widget">
-    <h4>🛡️ {{ _("detected_proxy_vpn") }}</h4>
-    <p>{{ _("enhance_security_further") }}</p>
-    <a href="https://affiliate.malwarebytes.com/your-link" class="security-cta" onclick="trackAffiliateClick('malwarebytes', 'security-alert', '{{ country }}')">
+  <div class="sidebar-widget security-alert">
+    <div class="alert-content">
+      <div class="alert-icon">🛡️</div>
+      <div class="alert-text">
+        <h4>{{ _("detected_proxy_vpn") }}</h4>
+        <p>{{ _("enhance_security_further") }}</p>
+      </div>
+    </div>
+    <a href="https://affiliate.malwarebytes.com/your-link" 
+       class="security-cta"
+       onclick="trackAffiliateClick('malwarebytes', 'security-alert', '{{ country }}')">
       {{ _("get_malwarebytes") }}
     </a>
   </div>
@@ -166,82 +175,181 @@
 
 </div>
 
-<!-- Bottom CTA (after details) -->
-<div class="ad-banner-bottom">
-  {% if country_code in ['US', 'CA', 'GB'] %}
-  <div class="bottom-cta premium">
+<!-- Bottom mobile CTA -->
+<div class="bottom-mobile-cta">
+  <div class="bottom-cta-content">
     <h3>🚀 {{ _("ready_to_protect_privacy") }}</h3>
     <p>{{ _("join_millions_users") }}</p>
-    <div class="cta-buttons">
-      <a href="https://affiliate.nordvpn.com/your-link" class="btn primary" onclick="trackAffiliateClick('nordvpn', 'bottom-cta', '{{ country }}')">
+    <div class="bottom-cta-buttons">
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         class="bottom-cta-primary"
+         onclick="trackAffiliateClick('nordvpn', 'bottom-mobile', '{{ country }}')">
         {{ _("get_nordvpn_now") }}
       </a>
-      <a href="https://affiliate.expressvpn.com/your-link" class="btn secondary" onclick="trackAffiliateClick('expressvpn', 'bottom-cta', '{{ country }}')">
+      {% if country_code in ['US', 'CA', 'GB'] %}
+      <a href="https://affiliate.expressvpn.com/your-link" 
+         class="bottom-cta-secondary"
+         onclick="trackAffiliateClick('expressvpn', 'bottom-mobile', '{{ country }}')">
         {{ _("try_expressvpn") }}
       </a>
+      {% endif %}
     </div>
   </div>
-  {% else %}
-  <div class="bottom-cta standard">
-    <h3>🔒 {{ _("secure_your_connection") }}</h3>
-    <p>{{ _("hide_ip_from_trackers") }}</p>
-    <a href="https://affiliate.nordvpn.com/your-link" class="btn primary" onclick="trackAffiliateClick('nordvpn', 'bottom-cta', '{{ country }}')">
-      {{ _("get_vpn_protection") }}
-    </a>
-  </div>
-  {% endif %}
 </div>
 
 <style>
-/* Banner Styles */
-.ad-banner-top {
-  margin: 20px 0;
-  padding: 0;
+/* Mobile-First CSS */
+
+/* Mobile Priority Banner */
+.mobile-priority-banner {
+  margin: 15px 0;
+  display: block;
 }
 
-.vpn-banner-content {
+.mobile-vpn-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.mobile-vpn-card:active {
+  transform: scale(0.98);
+}
+
+.mobile-vpn-card.german {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.mobile-vpn-card.budget {
+  background: linear-gradient(135deg, #26de81 0%, #20bf6b 100%);
+}
+
+.mobile-vpn-card.india {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+}
+
+.vpn-content {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.vpn-banner-content:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  margin-bottom: 15px;
 }
 
 .vpn-icon {
-  font-size: 48px;
-  margin-right: 20px;
+  font-size: 2.5rem;
+  margin-right: 15px;
+  flex-shrink: 0;
 }
 
 .vpn-text h3 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: bold;
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .vpn-text p {
-  margin: 0 0 12px 0;
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
   opacity: 0.9;
 }
 
-.cta-button {
-  background: rgba(255,255,255,0.2);
-  padding: 8px 16px;
-  border-radius: 6px;
+.price-tag {
+  background: rgba(255,255,255,0.25);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: bold;
   display: inline-block;
 }
 
-/* Sidebar Widgets */
-.ad-column-sidebar > div {
+.mobile-cta-button {
+  display: block;
+  width: 100%;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.mobile-cta-button:active {
+  background: white;
+  transform: scale(0.97);
+}
+
+/* Inline Banner */
+.inline-banner-wrapper {
+  margin: 25px 0;
+}
+
+.inline-hosting-banner {
+  background: rgba(58, 123, 253, 0.05);
+  border-left: 4px solid #3a7bfd;
+  border-radius: 0 8px 8px 0;
+  padding: 15px;
+}
+
+.hosting-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hosting-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.hosting-text {
+  flex: 1;
+}
+
+.hosting-text h4 {
+  margin: 0 0 4px 0;
+  color: #3a7bfd;
+  font-size: 1rem;
+}
+
+.hosting-text p {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.discount-badge {
+  background: #e74c3c;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.inline-cta-button {
+  background: #3a7bfd;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Desktop Sidebar - скритий на мобільних */
+.desktop-sidebar {
+  display: none;
+}
+
+.sidebar-widget {
   background: var(--bg-color);
   border: 1px solid rgba(58, 123, 253, 0.1);
   border-radius: 12px;
@@ -250,12 +358,10 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.vpn-comparison-widget h4,
-.hosting-widget h4,
-.security-widget h4 {
+.sidebar-widget h4 {
   margin: 0 0 15px 0;
   color: var(--text-color);
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 
 .vpn-option {
@@ -270,114 +376,214 @@
   border-bottom: none;
 }
 
-.vpn-logo {
-  font-weight: bold;
-  font-size: 16px;
+.vpn-info .vpn-name {
+  font-weight: 600;
+  margin-bottom: 2px;
 }
 
-.vpn-details {
-  flex: 1;
-  text-align: center;
+.vpn-info .vpn-rating {
+  font-size: 0.7rem;
+  margin-bottom: 2px;
 }
 
-.rating {
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
-.price {
-  font-weight: bold;
+.vpn-info .vpn-price {
+  font-size: 0.85rem;
   color: #2ecc71;
+  font-weight: 600;
 }
 
-.vpn-cta {
+.sidebar-cta {
   background: var(--button-bg);
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
   text-decoration: none;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* Bottom CTA */
-.ad-banner-bottom {
-  margin: 30px 0;
+/* Security Alert */
+.security-alert {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.alert-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+
+.alert-text h4 {
+  margin: 0 0 5px 0;
+  color: white;
+}
+
+.alert-text p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.security-cta {
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: block;
   text-align: center;
 }
 
-.bottom-cta {
+/* Bottom Mobile CTA */
+.bottom-mobile-cta {
+  margin: 30px 0;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
-  padding: 30px;
   border-radius: 12px;
+  padding: 25px 20px;
+  text-align: center;
 }
 
-.bottom-cta h3 {
-  margin: 0 0 10px 0;
-  font-size: 24px;
+.bottom-cta-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
 }
 
-.bottom-cta p {
+.bottom-cta-content p {
   margin: 0 0 20px 0;
   opacity: 0.9;
+  font-size: 0.95rem;
 }
 
-.cta-buttons {
+.bottom-cta-buttons {
   display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.btn {
-  padding: 12px 24px;
+.bottom-cta-primary,
+.bottom-cta-secondary {
+  padding: 14px 20px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: 1rem;
   transition: all 0.3s ease;
 }
 
-.btn.primary {
+.bottom-cta-primary {
   background: white;
   color: #f5576c;
 }
 
-.btn.secondary {
+.bottom-cta-secondary {
   background: rgba(255,255,255,0.2);
   color: white;
   border: 2px solid white;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+.bottom-cta-primary:active,
+.bottom-cta-secondary:active {
+  transform: scale(0.97);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .vpn-banner-content {
-    flex-direction: column;
-    text-align: center;
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .bottom-cta-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .bottom-cta-primary,
+  .bottom-cta-secondary {
+    flex: 0 0 auto;
+    min-width: 140px;
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .inline-banner-wrapper {
+    display: none; /* Приховати inline banner на desktop */
+  }
+  
+  .bottom-mobile-cta {
+    display: none; /* Приховати mobile CTA на desktop */
+  }
+  
+  .desktop-sidebar {
+    max-width: 300px; /* Обмежити ширину sidebar */
+  }
+  
+  .mobile-vpn-card {
+    padding: 25px;
   }
   
   .vpn-icon {
-    margin-right: 0;
-    margin-bottom: 15px;
+    font-size: 3rem;
+    margin-right: 20px;
   }
   
-  .cta-buttons {
-    flex-direction: column;
+  .vpn-text h3 {
+    font-size: 1.4rem;
   }
   
-  .btn {
-    width: 100%;
+  .vpn-text p {
+    font-size: 1rem;
   }
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+  .mobile-cta-button,
+  .inline-cta-button,
+  .bottom-cta-primary,
+  .bottom-cta-secondary {
+    min-height: 44px; /* iOS recommended touch target */
+  }
+  
+  .sidebar-cta {
+    min-height: 36px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .mobile-vpn-card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .inline-hosting-banner {
+  background: rgba(58, 123, 253, 0.15);
+  border-left-color: #5c8dfc;
+}
+
+[data-theme="dark"] .hosting-text h4 {
+  color: #5c8dfc;
+}
+
+[data-theme="dark"] .hosting-text p {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .sidebar-widget {
+  background: #2a2a2a;
+  border-color: #444;
 }
 </style>
 
 <script>
-// Analytics tracking for affiliate clicks
+// Analytics tracking
 function trackAffiliateClick(partner, placement, country) {
   gtag('event', 'affiliate_click', {
     'event_category': 'monetization',
@@ -387,37 +593,48 @@ function trackAffiliateClick(partner, placement, country) {
     'value': 1
   });
   
-  // Optional: Server-side tracking
-  fetch('/analytics/event', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      event: 'affiliate_click',
-      partner: partner,
-      placement: placement,
-      country: country,
-      timestamp: new Date().toISOString()
-    })
+  // Additional mobile-specific tracking
+  const isMobile = window.innerWidth < 768;
+  const deviceType = isMobile ? 'mobile' : 'desktop';
+  
+  gtag('event', 'affiliate_click_device', {
+    'event_category': 'monetization',
+    'event_label': `${partner}_${deviceType}`,
+    'custom_parameter_1': placement,
+    'custom_parameter_2': country,
+    'value': 1
   });
 }
 
-// Detect tech users (for hosting offers)
-function detectTechUser() {
-  const techIndicators = [
-    /developer/i, /programmer/i, /engineer/i, /github/i, 
-    /aws/i, /cloud/i, /server/i, /hosting/i
-  ];
+// Mobile optimization helpers
+document.addEventListener('DOMContentLoaded', function() {
+  // Prevent zoom on iOS when focusing inputs
+  const metaViewport = document.querySelector('meta[name="viewport"]');
+  if (metaViewport) {
+    metaViewport.setAttribute('content', 
+      'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+    );
+  }
   
-  const userAgent = navigator.userAgent;
-  const referrer = document.referrer;
+  // Lazy load non-critical banners
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
   
-  return techIndicators.some(pattern => 
-    pattern.test(userAgent) || pattern.test(referrer)
-  );
-}
-
-// Set tech user flag
-window.addEventListener('DOMContentLoaded', () => {
-  window.isTechUser = detectTechUser();
+  document.querySelectorAll('.bottom-mobile-cta, .desktop-sidebar').forEach(el => {
+    observer.observe(el);
+  });
 });
-</script>
+</script>mobile-priority-banner {
+    display: none; /* Приховати mobile banner на планшетах */
+  }
+  
+  .desktop-sidebar {
+    display: block; /* Показати sidebar на планшетах */
+  }
+  
+  .

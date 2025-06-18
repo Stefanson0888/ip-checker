@@ -57,5 +57,16 @@
   "get_nordvpn_now": "अभी NordVPN पाएं",
   "try_expressvpn": "ExpressVPN आज़माएं",
   "hide_ip_from_trackers": "ट्रैकर्स और हैकर्स से अपना IP छुपाएं",
-  "get_vpn_protection": "VPN सुरक्षा पाएं"
+  "get_vpn_protection": "VPN सुरक्षा पाएं",
+
+  "privacy_policy": "गोपनीयता नीति",
+  "privacy_policy_description": "हमारी IP चेकर सेवा का उपयोग करते समय हम आपका डेटा कैसे एकत्र, उपयोग और सुरक्षित करते हैं।",
+  "back_to_ip_checker": "IP चेकर पर वापस जाएं",
+  "last_updated": "अंतिम अपडेट",
+  "june_2025": "18 जून 2025",
+  "privacy_summary": "गोपनीयता सारांश",
+  "information_we_collect": "1. हम कौन सी जानकारी एकत्र करते हैं",
+  "contact_us": "संपर्क करें",
+
+  "footer_disclaimer": "यह सेवा सूचनात्मक उद्देश्यों के लिए IP भौगोलिक स्थान प्रदान करती है। सटीकता भिन्न हो सकती है। हम आपकी गोपनीयता का सम्मान करते हैं और आपकी ऑनलाइन सुरक्षा बढ़ाने के लिए विश्वसनीय भागीदारों के साथ काम करते हैं।"
 }
