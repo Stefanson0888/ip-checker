@@ -253,5 +253,9 @@
   "connect_with_us": "Connect With Us",
   "stay_updated": "Stay updated with the latest features and improvements!",
   "website": "Website",
-  "back_to_main": "Back to Main"
+  "back_to_main": "Back to Main",
+
+  "email": "Email",
+  "response_time": "Response Time",
+  "within_48_hours": "Within 48 hours"
 }

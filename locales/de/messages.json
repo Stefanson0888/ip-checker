@@ -195,5 +195,9 @@
   "connect_with_us": "Verbinden Sie sich mit uns",
   "stay_updated": "Bleiben Sie über die neuesten Features auf dem Laufenden!",
   "website": "Website",
-  "back_to_main": "Zurück zur Hauptseite"
+  "back_to_main": "Zurück zur Hauptseite",
+
+  "email": "E-Mail",
+  "response_time": "Antwortzeit", 
+  "within_48_hours": "Innerhalb von 48 Stunden"
 }
