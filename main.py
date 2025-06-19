@@ -270,3 +270,57 @@ async def privacy_policy_with_language(request: Request, lang: str):
     }
     
     return templates.TemplateResponse("privacy.html", context)
+
+# Terms of Service - англійська за замовчуванням  
+@app.get("/terms", response_class=HTMLResponse)
+async def terms_of_service_default(request: Request):
+    return await terms_of_service_with_language(request, DEFAULT_LANGUAGE)
+
+# Terms of Service - мовні версії
+@app.get("/{lang}/terms", response_class=HTMLResponse) 
+async def terms_of_service_with_lang(request: Request, lang: str):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await terms_of_service_with_language(request, lang)
+
+async def terms_of_service_with_language(request: Request, lang: str):
+    """Render Terms of Service page"""
+    _ = Translator(lang)
+    
+    context = {
+        "request": request,
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls("/terms", lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/terms"),
+        "google_analytics_id": GOOGLE_ANALYTICS_ID
+    }
+    
+    return templates.TemplateResponse("terms.html", context)
+
+# Contact - англійська за замовчуванням  
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_default(request: Request):
+    return await contact_with_language(request, DEFAULT_LANGUAGE)
+
+# Contact - мовні версії
+@app.get("/{lang}/contact", response_class=HTMLResponse) 
+async def contact_with_lang(request: Request, lang: str):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await contact_with_language(request, lang)
+
+async def contact_with_language(request: Request, lang: str):
+    """Render Contact page"""
+    _ = Translator(lang)
+    
+    context = {
+        "request": request,
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls("/contact", lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/contact"),
+        "google_analytics_id": GOOGLE_ANALYTICS_ID
+    }
+    
+    return templates.TemplateResponse("contact.html", context)

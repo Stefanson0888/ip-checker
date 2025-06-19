@@ -421,7 +421,6 @@
       });
     }
   </script>
-  <!-- Footer -->
   <footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
       <div style="margin-bottom: 20px;">
@@ -431,7 +430,13 @@
           {{ _("privacy_policy") }}
         </a>
         <span style="margin: 0 15px; color: #dee2e6;">•</span>
-        <a href="mailto:privacy@your-domain.app" 
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}terms" 
+           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+           onclick="gtag('event', 'terms_click', {'event_category': 'navigation'})">
+          {{ _("terms_of_service") }}
+        </a>
+        <span style="margin: 0 15px; color: #dee2e6;">•</span>
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}contact" 
            style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
            onclick="gtag('event', 'contact_click', {'event_category': 'engagement'})">
           {{ _("contact_us") }}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ _("privacy_policy") }} - IP Checker</title>
+    <title>{{ _("terms_of_service") }} - IP Checker</title>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
@@ -13,7 +13,7 @@
         gtag('js', new Date());
         gtag('config', '{{ google_analytics_id }}', {
             language: '{{ lang }}',
-            page_title: '{{ _("privacy_policy") }}',
+            page_title: '{{ _("terms_of_service") }}',
             anonymize_ip: true
         });
     </script>
@@ -62,7 +62,7 @@
 
         h1 {
             color: var(--text-color);
-            border-bottom: 3px solid var(--button-bg);
+            border-bottom: 3px solid #e74c3c;
             padding-bottom: 10px;
             margin-top: 0;
         }
@@ -73,11 +73,19 @@
         }
 
         .highlight {
-            background: rgba(58, 123, 253, 0.1);
+            background: rgba(231, 76, 60, 0.1);
             padding: 15px;
-            border-left: 4px solid var(--button-bg);
+            border-left: 4px solid #e74c3c;
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
+        }
+
+        .important {
+            background: rgba(255, 193, 7, 0.1);
+            padding: 15px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 6px;
+            margin: 15px 0;
         }
 
         .contact-info {
@@ -117,99 +125,120 @@
     
     <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>
     
-    <h1>{{ _("privacy_policy") }}</h1>
+    <h1>{{ _("terms_of_service") }}</h1>
     <p><strong>{{ _("effective_date") }}:</strong> June 19, 2025</p>
     <p><strong>{{ _("last_updated") }}:</strong> June 19, 2025</p>
 
     <div class="highlight">
-        <p><strong>IP Checker Service</strong> {{ _("privacy_commitment") }}</p>
+        <p><strong>{{ _("welcome_terms") }}</strong> {{ _("terms_agreement") }}</p>
     </div>
 
-    <h2>1. {{ _("information_we_collect") }}</h2>
+    <h2>1. {{ _("acceptance_of_terms") }}</h2>
+    <p>{{ _("acceptance_desc") }}</p>
+
+    <h2>2. {{ _("service_description") }}</h2>
+    <p>{{ _("service_desc") }}</p>
+    <ul>
+        <li>{{ _("service_ip_display") }}</li>
+        <li>{{ _("service_geolocation") }}</li>
+        <li>{{ _("service_isp") }}</li>
+        <li>{{ _("service_technical") }}</li>
+        <li>{{ _("service_tools") }}</li>
+    </ul>
+
+    <h2>3. {{ _("acceptable_use") }}</h2>
     
-    <h3>1.1 {{ _("automatically_collected") }}</h3>
+    <h3>3.1 {{ _("permitted_uses") }}</h3>
+    <p>{{ _("permitted_desc") }}</p>
     <ul>
-        <li><strong>{{ _("ip_address") }}:</strong> {{ _("ip_address_desc") }}</li>
-        <li><strong>{{ _("location_data") }}:</strong> {{ _("location_data_desc") }}</li>
-        <li><strong>{{ _("device_info") }}:</strong> {{ _("device_info_desc") }}</li>
-        <li><strong>{{ _("usage_data") }}:</strong> {{ _("usage_data_desc") }}</li>
-        <li><strong>{{ _("cookies") }}:</strong> {{ _("cookies_desc") }}</li>
+        <li>{{ _("permitted_check_ip") }}</li>
+        <li>{{ _("permitted_educational") }}</li>
+        <li>{{ _("permitted_troubleshooting") }}</li>
+        <li>{{ _("permitted_security") }}</li>
     </ul>
 
-    <h3>1.2 {{ _("provided_info") }}</h3>
+    <h3>3.2 {{ _("prohibited_uses") }}</h3>
+    <p>{{ _("prohibited_desc") }}</p>
     <ul>
-        <li>{{ _("contact_info_desc") }}</li>
-        <li>{{ _("feedback_desc") }}</li>
+        <li>{{ _("prohibited_illegal") }}</li>
+        <li>{{ _("prohibited_laws") }}</li>
+        <li>{{ _("prohibited_unauthorized") }}</li>
+        <li>{{ _("prohibited_malicious") }}</li>
+        <li>{{ _("prohibited_overload") }}</li>
+        <li>{{ _("prohibited_reverse") }}</li>
+        <li>{{ _("prohibited_automated") }}</li>
     </ul>
 
-    <h2>2. {{ _("how_we_use_info") }}</h2>
+    <h2>4. {{ _("user_responsibilities") }}</h2>
     <ul>
-        <li><strong>{{ _("core_service") }}:</strong> {{ _("core_service_desc") }}</li>
-        <li><strong>{{ _("analytics") }}:</strong> {{ _("analytics_desc") }}</li>
-        <li><strong>{{ _("improvements") }}:</strong> {{ _("improvements_desc") }}</li>
-        <li><strong>{{ _("security") }}:</strong> {{ _("security_desc") }}</li>
-        <li><strong>{{ _("advertising") }}:</strong> {{ _("advertising_desc") }}</li>
+        <li>{{ _("responsibility_use") }}</li>
+        <li>{{ _("responsibility_laws") }}</li>
+        <li>{{ _("responsibility_misuse") }}</li>
+        <li>{{ _("responsibility_consequences") }}</li>
     </ul>
 
-    <h2>3. {{ _("google_services") }}</h2>
+    <h2>5. {{ _("privacy_and_data") }}</h2>
+    <p>{{ _("privacy_important") }} <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}privacy">{{ _("privacy_policy") }}</a> {{ _("privacy_understand") }}</p>
+
+    <div class="important">
+        <p><strong>{{ _("important") }}:</strong> {{ _("ip_collection_notice") }}</p>
+    </div>
+
+    <h2>6. {{ _("third_party_services") }}</h2>
+    <p>{{ _("third_party_notice") }}</p>
+    <ul>
+        <li>{{ _("third_party_affiliate") }}</li>
+        <li>{{ _("third_party_adsense") }}</li>
+        <li>{{ _("third_party_tools") }}</li>
+    </ul>
+    <p>{{ _("third_party_disclaimer") }}</p>
+
+    <h2>7. {{ _("intellectual_property") }}</h2>
+    <p>{{ _("ip_rights") }}</p>
+
+    <h2>8. {{ _("disclaimers") }}</h2>
     
-    <h3>3.1 Google Analytics</h3>
-    <p>{{ _("ga_description") }}</p>
+    <h3>8.1 {{ _("service_availability") }}</h3>
+    <p>{{ _("availability_desc") }}</p>
     <ul>
-        <li>{{ _("ga_usage_patterns") }}</li>
-        <li>{{ _("ga_device_info") }}</li>
-        <li>{{ _("ga_location") }}</li>
-    </ul>
-    <p>{{ _("ga_optout") }} <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out Browser Add-on</a>.</p>
-
-    <h3>3.2 Google AdSense</h3>
-    <p>{{ _("adsense_description") }}</p>
-    <ul>
-        <li>{{ _("adsense_personalized") }}</li>
-        <li>{{ _("adsense_performance") }}</li>
-        <li>{{ _("adsense_fraud") }}</li>
-    </ul>
-    <p>{{ _("adsense_settings") }} <a href="https://adssettings.google.com/" target="_blank">Google Ads Settings</a>.</p>
-
-    <h2>4. {{ _("third_party_services") }}</h2>
-    <p>{{ _("third_party_desc") }}</p>
-
-    <h2>5. {{ _("data_security") }}</h2>
-    <p>{{ _("data_security_desc") }}</p>
-
-    <h2>6. {{ _("data_retention") }}</h2>
-    <ul>
-        <li><strong>{{ _("ip_addresses") }}:</strong> {{ _("ip_retention") }}</li>
-        <li><strong>{{ _("analytics_data") }}:</strong> {{ _("analytics_retention") }}</li>
-        <li><strong>{{ _("cookies") }}:</strong> {{ _("cookies_retention") }}</li>
+        <li>{{ _("availability_always") }}</li>
+        <li>{{ _("availability_errors") }}</li>
+        <li>{{ _("availability_secure") }}</li>
+        <li>{{ _("availability_accurate") }}</li>
     </ul>
 
-    <h2>7. {{ _("your_rights") }}</h2>
-    <p>{{ _("your_rights_desc") }}</p>
+    <h3>8.2 {{ _("information_accuracy") }}</h3>
+    <p>{{ _("accuracy_desc") }}</p>
     <ul>
-        <li>{{ _("right_access") }}</li>
-        <li>{{ _("right_correction") }}</li>
-        <li>{{ _("right_deletion") }}</li>
-        <li>{{ _("right_object") }}</li>
-        <li>{{ _("right_withdraw") }}</li>
+        <li>{{ _("accuracy_geolocation") }}</li>
+        <li>{{ _("accuracy_realtime") }}</li>
+        <li>{{ _("accuracy_completeness") }}</li>
     </ul>
 
-    <h2>8. {{ _("cookies_policy") }}</h2>
-    <p>{{ _("cookies_policy_desc") }}</p>
-    <ul>
-        <li><strong>{{ _("essential_cookies") }}:</strong> {{ _("essential_cookies_desc") }}</li>
-        <li><strong>{{ _("analytics_cookies") }}:</strong> {{ _("analytics_cookies_desc") }}</li>
-        <li><strong>{{ _("advertising_cookies") }}:</strong> {{ _("advertising_cookies_desc") }}</li>
-    </ul>
+    <h2>9. {{ _("limitation_of_liability") }}</h2>
+    <p>{{ _("liability_desc") }}</p>
 
-    <h2>9. {{ _("children_privacy") }}</h2>
-    <p>{{ _("children_privacy_desc") }}</p>
+    <h2>10. {{ _("indemnification") }}</h2>
+    <p>{{ _("indemnification_desc") }}</p>
 
-    <h2>10. {{ _("contact_info") }}</h2>
+    <h2>11. {{ _("termination") }}</h2>
+    <p>{{ _("termination_desc") }}</p>
+
+    <h2>12. {{ _("governing_law") }}</h2>
+    <p>{{ _("governing_law_desc") }}</p>
+
+    <h2>13. {{ _("changes_to_terms") }}</h2>
+    <p>{{ _("changes_desc") }}</p>
+
+    <h2>14. {{ _("contact_info") }}</h2>
     <div class="contact-info">
-        <p>{{ _("contact_privacy_desc") }}</p>
-        <p><strong>Email:</strong> privacy@ip-checker-service.com</p>
+        <p>{{ _("contact_terms_desc") }}</p>
+        <p><strong>Email:</strong> support@ip-checker-service.com</p>
         <p><strong>{{ _("website") }}:</strong> <a href="/">IP Checker Service</a></p>
+    </div>
+
+    <div class="highlight">
+        <p><strong>{{ _("agreement") }}:</strong> {{ _("agreement_desc") }}</p>
     </div>
 
     <script>
