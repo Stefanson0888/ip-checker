@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ _("contact_us") }} - IP Checker</title>
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -18,7 +17,6 @@
         });
     </script>
 
-    <!-- hreflang для SEO -->
     {% for hreflang, url in hreflang_urls.items() %}
     <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
     {% endfor %}
@@ -96,29 +94,15 @@
             padding: 25px;
             border-radius: 10px;
             border-left: 4px solid var(--button-bg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         [data-theme="dark"] .contact-card {
             background: rgba(64, 64, 64, 0.8);
         }
 
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
         .contact-card h3 {
             color: var(--text-color);
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-card p {
-            margin: 8px 0;
-            color: var(--text-color);
         }
 
         .contact-form {
@@ -151,17 +135,9 @@
             border: 2px solid var(--border-color);
             border-radius: 6px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
             box-sizing: border-box;
             background-color: var(--bg-color);
             color: var(--text-color);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--button-bg);
         }
 
         .submit-btn {
@@ -173,20 +149,7 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: linear-gradient(135deg, var(--button-hover), var(--button-bg));
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(58, 123, 253, 0.3);
-        }
-
-        .icon {
-            width: 24px;
-            height: 24px;
-            fill: var(--button-bg);
         }
 
         .faq-section {
@@ -265,27 +228,17 @@
 
         <div class="contact-grid">
             <div class="contact-card">
-                <h3>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                    {{ _("email_support") }}
-                </h3>
+                <h3>📧 {{ _("email_support") }}</h3>
                 <p><strong>{{ _("general_inquiries") }}:</strong><br>support@ip-checker-service.com</p>
                 <p><strong>{{ _("privacy_questions") }}:</strong><br>privacy@ip-checker-service.com</p>
                 <p><strong>{{ _("business_inquiries") }}:</strong><br>business@ip-checker-service.com</p>
             </div>
 
             <div class="contact-card">
-                <h3>
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
-                    {{ _("location") }}
-                </h3>
+                <h3>📍 {{ _("location") }}</h3>
                 <p><strong>{{ _("country") }}:</strong> Ukraine 🇺🇦</p>
                 <p><strong>{{ _("service_area") }}:</strong> {{ _("global") }}</p>
-                <p><strong>{{ _("languages") }}:</strong> English, Ukrainian</p>
+                <p><strong>{{ _("languages") }}:</strong> English, Deutsch, Polski, हिंदी, Українська</p>
             </div>
         </div>
 

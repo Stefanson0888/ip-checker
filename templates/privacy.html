@@ -72,6 +72,11 @@
             margin-top: 30px;
         }
 
+        h3 {
+            color: var(--text-color);
+            margin-top: 20px;
+        }
+
         .highlight {
             background: rgba(58, 123, 253, 0.1);
             padding: 15px;
@@ -118,99 +123,80 @@
     <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>
     
     <h1>{{ _("privacy_policy") }}</h1>
-    <p><strong>{{ _("effective_date") }}:</strong> June 19, 2025</p>
-    <p><strong>{{ _("last_updated") }}:</strong> June 19, 2025</p>
+    <p><strong>{{ _("last_updated") }}:</strong> {{ _("june_2025") }}</p>
 
     <div class="highlight">
-        <p><strong>IP Checker Service</strong> {{ _("privacy_commitment") }}</p>
+        <h3>{{ _("privacy_summary") }}</h3>
+        <p>{{ _("privacy_summary_text") }}</p>
     </div>
 
-    <h2>1. {{ _("information_we_collect") }}</h2>
+    <h2>{{ _("information_we_collect") }}</h2>
+    <p>{{ _("privacy_policy_description") }}</p>
+
+    <h2>{{ _("how_we_use_info") }}</h2>
+    <p>Wir verwenden Ihre Informationen um:</p>
+    <ul>
+        <li>Unseren IP-Checker-Service bereitzustellen</li>
+        <li>Die Website-Performance und Benutzererfahrung zu verbessern</li>
+        <li>Sicherheitsüberwachung und Betrugsprävention</li>
+        <li>Relevante Angebote unserer vertrauenswürdigen Partner zu zeigen</li>
+    </ul>
+
+    <h2>{{ _("data_sharing") }}</h2>
     
-    <h3>1.1 {{ _("automatically_collected") }}</h3>
+    <h3>Drittanbieter-Services, die wir verwenden</h3>
     <ul>
-        <li><strong>{{ _("ip_address") }}:</strong> {{ _("ip_address_desc") }}</li>
-        <li><strong>{{ _("location_data") }}:</strong> {{ _("location_data_desc") }}</li>
-        <li><strong>{{ _("device_info") }}:</strong> {{ _("device_info_desc") }}</li>
-        <li><strong>{{ _("usage_data") }}:</strong> {{ _("usage_data_desc") }}</li>
-        <li><strong>{{ _("cookies") }}:</strong> {{ _("cookies_desc") }}</li>
+        <li><strong>Google Analytics:</strong> Für Website-Analytik und Einblicke in das Nutzerverhalten</li>
+        <li><strong>Hosting-Anbieter:</strong> Infrastruktur-Anbieter für Website-Hosting</li>
+        <li><strong>{{ _("third_party_affiliate") }}:</strong> VPN- und Hosting-Services, die wir empfehlen</li>
     </ul>
 
-    <h3>1.2 {{ _("provided_info") }}</h3>
+    <div class="highlight">
+        <p><strong>{{ _("important") }}:</strong> Wir verkaufen niemals Ihre persönlichen Daten an Dritte für Marketingzwecke.</p>
+    </div>
+
+    <h2>{{ _("your_rights") }}</h2>
+    <p>Sie haben folgende Rechte:</p>
     <ul>
-        <li>{{ _("contact_info_desc") }}</li>
-        <li>{{ _("feedback_desc") }}</li>
+        <li>Recht auf Zugang zu Ihren persönlichen Daten</li>
+        <li>Recht auf Berichtigung unrichtiger Daten</li>
+        <li>Recht auf Löschung Ihrer Daten</li>
+        <li>Recht auf Widerspruch gegen die Verarbeitung Ihrer Daten</li>
+        <li>Recht auf Widerruf der Einwilligung jederzeit</li>
     </ul>
 
-    <h2>2. {{ _("how_we_use_info") }}</h2>
+    <h3>Opt-Out-Optionen</h3>
     <ul>
-        <li><strong>{{ _("core_service") }}:</strong> {{ _("core_service_desc") }}</li>
-        <li><strong>{{ _("analytics") }}:</strong> {{ _("analytics_desc") }}</li>
-        <li><strong>{{ _("improvements") }}:</strong> {{ _("improvements_desc") }}</li>
-        <li><strong>{{ _("security") }}:</strong> {{ _("security_desc") }}</li>
-        <li><strong>{{ _("advertising") }}:</strong> {{ _("advertising_desc") }}</li>
+        <li><strong>Analytics Opt-Out:</strong> Google Analytics-Tracking über Browser-Einstellungen oder Erweiterungen deaktivieren</li>
+        <li><strong>Cookies deaktivieren:</strong> Browser so konfigurieren, dass Cookies abgelehnt werden (kann die Funktionalität beeinträchtigen)</li>
     </ul>
 
-    <h2>3. {{ _("google_services") }}</h2>
-    
-    <h3>3.1 Google Analytics</h3>
-    <p>{{ _("ga_description") }}</p>
-    <ul>
-        <li>{{ _("ga_usage_patterns") }}</li>
-        <li>{{ _("ga_device_info") }}</li>
-        <li>{{ _("ga_location") }}</li>
-    </ul>
-    <p>{{ _("ga_optout") }} <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out Browser Add-on</a>.</p>
+    <h2>{{ _("data_security") }}</h2>
+    <p>Wir implementieren angemessene technische und organisatorische Maßnahmen zum Schutz Ihrer Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung. Jedoch ist keine Internetübertragung 100% sicher.</p>
 
-    <h3>3.2 Google AdSense</h3>
-    <p>{{ _("adsense_description") }}</p>
-    <ul>
-        <li>{{ _("adsense_personalized") }}</li>
-        <li>{{ _("adsense_performance") }}</li>
-        <li>{{ _("adsense_fraud") }}</li>
-    </ul>
-    <p>{{ _("adsense_settings") }} <a href="https://adssettings.google.com/" target="_blank">Google Ads Settings</a>.</p>
+    <h2>Datenaufbewahrung</h2>
+    <p>Wir bewahren Ihre Daten nur so lange auf, wie es für die Bereitstellung unserer Services und die Einhaltung rechtlicher Verpflichtungen erforderlich ist. Analytik-Daten werden automatisch nach 26 Monaten gelöscht.</p>
 
-    <h2>4. {{ _("third_party_services") }}</h2>
-    <p>{{ _("third_party_desc") }}</p>
+    <h2>Internationale Datenübertragungen</h2>
+    <p>Ihre Daten können in Länder außerhalb Ihres Wohnsitzes übertragen und dort verarbeitet werden. Wir gewährleisten durch angemessene Schutzmaßnahmen einen angemessenen Schutz.</p>
 
-    <h2>5. {{ _("data_security") }}</h2>
-    <p>{{ _("data_security_desc") }}</p>
+    <h2>Kinderdatenschutz</h2>
+    <p>Unser Service ist nicht für Kinder unter 13 Jahren gedacht. Wir sammeln wissentlich keine persönlichen Informationen von Kindern unter 13 Jahren.</p>
 
-    <h2>6. {{ _("data_retention") }}</h2>
-    <ul>
-        <li><strong>{{ _("ip_addresses") }}:</strong> {{ _("ip_retention") }}</li>
-        <li><strong>{{ _("analytics_data") }}:</strong> {{ _("analytics_retention") }}</li>
-        <li><strong>{{ _("cookies") }}:</strong> {{ _("cookies_retention") }}</li>
-    </ul>
+    <h2>Änderungen an dieser Richtlinie</h2>
+    <p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir werden Sie über wesentliche Änderungen benachrichtigen, indem wir die neue Richtlinie auf dieser Seite veröffentlichen.</p>
 
-    <h2>7. {{ _("your_rights") }}</h2>
-    <p>{{ _("your_rights_desc") }}</p>
-    <ul>
-        <li>{{ _("right_access") }}</li>
-        <li>{{ _("right_correction") }}</li>
-        <li>{{ _("right_deletion") }}</li>
-        <li>{{ _("right_object") }}</li>
-        <li>{{ _("right_withdraw") }}</li>
-    </ul>
-
-    <h2>8. {{ _("cookies_policy") }}</h2>
-    <p>{{ _("cookies_policy_desc") }}</p>
-    <ul>
-        <li><strong>{{ _("essential_cookies") }}:</strong> {{ _("essential_cookies_desc") }}</li>
-        <li><strong>{{ _("analytics_cookies") }}:</strong> {{ _("analytics_cookies_desc") }}</li>
-        <li><strong>{{ _("advertising_cookies") }}:</strong> {{ _("advertising_cookies_desc") }}</li>
-    </ul>
-
-    <h2>9. {{ _("children_privacy") }}</h2>
-    <p>{{ _("children_privacy_desc") }}</p>
-
-    <h2>10. {{ _("contact_info") }}</h2>
+    <h2>{{ _("contact_us") }}</h2>
     <div class="contact-info">
-        <p>{{ _("contact_privacy_desc") }}</p>
-        <p><strong>Email:</strong> privacy@ip-checker-service.com</p>
-        <p><strong>{{ _("website") }}:</strong> <a href="/">IP Checker Service</a></p>
+        <p>Wenn Sie Fragen zu dieser Datenschutzerklärung oder unseren Datenpraktiken haben:</p>
+        <p><strong>E-Mail:</strong> privacy@ip-checker-service.com</p>
+        <p><strong>Antwortzeit:</strong> Innerhalb von 48 Stunden</p>
+        <p><em>Diese Datenschutzerklärung ist in mehreren Sprachen verfügbar</em></p>
     </div>
+
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); color: #666; font-size: 0.9em;">
+        {{ _("footer_disclaimer") }}
+    </p>
 
     <script>
         function toggleTheme() {

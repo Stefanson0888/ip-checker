@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ _("terms_of_service") }} - IP Checker</title>
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -18,7 +17,6 @@
         });
     </script>
 
-    <!-- hreflang для SEO -->
     {% for hreflang, url in hreflang_urls.items() %}
     <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
     {% endfor %}
@@ -88,13 +86,6 @@
             margin: 15px 0;
         }
 
-        .contact-info {
-            background: rgba(128, 128, 128, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
         ul {
             padding-left: 20px;
         }
@@ -126,8 +117,7 @@
     <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>
     
     <h1>{{ _("terms_of_service") }}</h1>
-    <p><strong>{{ _("effective_date") }}:</strong> June 19, 2025</p>
-    <p><strong>{{ _("last_updated") }}:</strong> June 19, 2025</p>
+    <p><strong>{{ _("effective_date") }}:</strong> 19. Juni 2025</p>
 
     <div class="highlight">
         <p><strong>{{ _("welcome_terms") }}</strong> {{ _("terms_agreement") }}</p>
@@ -184,7 +174,7 @@
         <p><strong>{{ _("important") }}:</strong> {{ _("ip_collection_notice") }}</p>
     </div>
 
-    <h2>6. {{ _("third_party_services") }}</h2>
+    <h2>6. Drittanbieter-Services</h2>
     <p>{{ _("third_party_notice") }}</p>
     <ul>
         <li>{{ _("third_party_affiliate") }}</li>
@@ -230,10 +220,10 @@
     <h2>13. {{ _("changes_to_terms") }}</h2>
     <p>{{ _("changes_desc") }}</p>
 
-    <h2>14. {{ _("contact_info") }}</h2>
-    <div class="contact-info">
+    <h2>14. {{ _("contact_us") }}</h2>
+    <div style="background: rgba(128, 128, 128, 0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
         <p>{{ _("contact_terms_desc") }}</p>
-        <p><strong>Email:</strong> support@ip-checker-service.com</p>
+        <p><strong>E-Mail:</strong> support@ip-checker-service.com</p>
         <p><strong>{{ _("website") }}:</strong> <a href="/">IP Checker Service</a></p>
     </div>
 
