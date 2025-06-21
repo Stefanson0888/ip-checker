@@ -7,13 +7,13 @@
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQVVJP6BZN"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     
-    gtag('config', 'G-CQVVJP6BZN', {
+    gtag('config', '{{ google_analytics_id }}', {
       language: '{{ lang }}',
       page_title: '{{ _("error_api") }}',
       anonymize_ip: true
