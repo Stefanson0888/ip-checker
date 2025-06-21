@@ -65,6 +65,10 @@ async def robots_txt():
 async def sitemap_xml():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
 
+@app.get("/ads.txt", include_in_schema=False)
+async def ads_txt():
+    return FileResponse("static/ads.txt", media_type="text/plain")
+
 # Головна сторінка (англійська за замовчуванням)
 @app.get("/", response_class=HTMLResponse)
 async def get_ip_default(request: Request):
