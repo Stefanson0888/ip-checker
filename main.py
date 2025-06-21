@@ -119,11 +119,6 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     user_agent_str = request.headers.get("user-agent", "")
     user_agent = parse(user_agent_str)
 
-    # ДОДАЙ ЦЕ В render_ip_template функцію
-
-def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
-    user_agent_str = request.headers.get("user-agent", "")
-    user_agent = parse(user_agent_str)
     
     # Детекція типу користувача для персоналізованої реклами
     is_tech_user = False
