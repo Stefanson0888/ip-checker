@@ -9,14 +9,14 @@
   <meta name="keywords" content="{{ _('keywords') }}">
 
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQVVJP6BZN"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     
     // Основна конфігурація
-    gtag('config', 'G-CQVVJP6BZN', {
+    gtag('config', '{{ google_analytics_id }}', {
       // Відстеження мови
       custom_map: {
         'custom_parameter_1': 'language'
