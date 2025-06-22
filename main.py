@@ -160,7 +160,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "_": _,
             "language_urls": get_language_urls(str(request.url.path), lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-            "google_analytics_id": GOOGLE_ANALYTICS_ID,ʼ
+            "google_analytics_id": GOOGLE_ANALYTICS_ID,
             "gtm_id": GTM_ID,
             "is_tech_user": is_tech_user,
             "country_code": ip_data.get("country_code", "Unknown"),
