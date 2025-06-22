@@ -6,6 +6,7 @@ import ipaddress
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 GOOGLE_ANALYTICS_ID = os.getenv("GOOGLE_ANALYTICS_ID", "G-525FX5C7Z8")
+GTM_ID = os.getenv("GTM_ID", "GT-NMLFSZDL")
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
@@ -159,7 +160,8 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "_": _,
             "language_urls": get_language_urls(str(request.url.path), lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-            "google_analytics_id": GOOGLE_ANALYTICS_ID,
+            "google_analytics_id": GOOGLE_ANALYTICS_ID,ʼ
+            "gtm_id": GTM_ID,
             "is_tech_user": is_tech_user,
             "country_code": ip_data.get("country_code", "Unknown"),
             "security": {},  # Порожній для error page
@@ -212,9 +214,10 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         "_": _,
         "language_urls": get_language_urls(str(request.url.path), lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID,
         "is_tech_user": is_tech_user,
         "security": security,  # Для conditional security widgets
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
     }
 
     return templates.TemplateResponse("index.html", context)
@@ -265,7 +268,8 @@ async def privacy_policy_with_language(request: Request, lang: str):
         "_": _,
         "language_urls": get_language_urls("/privacy", lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), "/privacy"),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
     }
     
     return templates.TemplateResponse("privacy.html", context)
@@ -292,7 +296,8 @@ async def terms_of_service_with_language(request: Request, lang: str):
         "_": _,
         "language_urls": get_language_urls("/terms", lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), "/terms"),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
     }
     
     return templates.TemplateResponse("terms.html", context)
@@ -319,7 +324,8 @@ async def contact_with_language(request: Request, lang: str):
         "_": _,
         "language_urls": get_language_urls("/contact", lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), "/contact"),
-        "google_analytics_id": GOOGLE_ANALYTICS_ID
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
     }
     
     return templates.TemplateResponse("contact.html", context)

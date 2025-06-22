@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ _("terms_of_service") }} - IP Checker</title>
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ google_analytics_id }}', {
-            language: '{{ lang }}',
-            page_title: '{{ _("terms_of_service") }}',
-            anonymize_ip: true
-        });
-    </script>
+{% if gtm_id %}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+<!-- End Google Tag Manager -->
+{% endif %}
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
             crossorigin="anonymous"></script>
@@ -115,6 +113,9 @@
     </style>
 </head>
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     
     <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>

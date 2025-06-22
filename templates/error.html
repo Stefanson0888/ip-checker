@@ -6,26 +6,14 @@
   <title>{{ _("error_api") }} - IP Checker</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    
-    gtag('config', '{{ google_analytics_id }}', {
-      language: '{{ lang }}',
-      page_title: '{{ _("error_api") }}',
-      anonymize_ip: true
-    });
-
-    // Track error event
-    gtag('event', 'error_page', {
-      'event_category': 'error',
-      'event_label': '{{ error[:50] }}',
-      'custom_parameter_1': '{{ lang }}'
-    });
-  </script>
+  {% if gtm_id %}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+  {% endif %}
   
   <style>
     body {
@@ -77,7 +65,23 @@
     }
   </style>
 </head>
+
+<script>
+function trackLanguageSwitch(langCode) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'language_switch',
+        'event_category': 'engagement',
+        'event_label': langCode,
+        'language': '{{ lang }}'
+    });
+  }
+  </script>
+
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
   <!-- Перемикач мов -->
   <div class="language-switcher">
     {% for lang_code, lang_url in language_urls.items() %}
@@ -89,8 +93,9 @@
         'uk': '🇺🇦 UK'
       } %}
       <a href="{{ lang_url }}" 
-         onclick="gtag('event', 'language_switch', {'event_category': 'engagement', 'event_label': '{{ lang_code }}'})"
-         class="{% if lang_code == lang %}active{% endif %}">
+         onclick="trackLanguageSwitch('{{ lang_code }}')"
+         class="{% if lang_code == lang %}active{% endif %}"
+         title="{{ lang_names[lang_code] }}">
         {{ lang_names[lang_code] }}
       </a>
     {% endfor %}
@@ -104,7 +109,7 @@
   </div>
   
   <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" 
-     onclick="gtag('event', 'back_to_home', {'event_category': 'navigation', 'event_label': 'from_error'})"
+     onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'back_to_home', 'event_category': 'navigation', 'event_label': 'from_error', 'language': '{{ lang }}'});"
      class="back-button">{{ _("back_to_home") }}</a>
   
   <div style="margin-top: 40px; color: #666;">

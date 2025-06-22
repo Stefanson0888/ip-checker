@@ -8,45 +8,15 @@
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    
-    // Основна конфігурація
-    gtag('config', '{{ google_analytics_id }}', {
-      // Відстеження мови
-      custom_map: {
-        'custom_parameter_1': 'language'
-      },
-      language: '{{ lang }}',
-      page_title: '{{ _("title") }}',
-      // Анонімізація IP (GDPR compliance)
-      anonymize_ip: true,
-      // Додаткові параметри
-      site_speed_sample_rate: 100
-    });
-
-    // Custom event для перемикання мови
-    function trackLanguageSwitch(newLang) {
-      gtag('event', 'language_switch', {
-        'event_category': 'engagement',
-        'event_label': newLang,
-        'value': 1
-      });
-    }
-
-    // Custom event для IP lookup
-    function trackIPLookup(ip) {
-      gtag('event', 'ip_lookup', {
-        'event_category': 'tool_usage',
-        'event_label': 'manual_lookup',
-        'custom_parameter_1': '{{ lang }}'
-      });
-    }
-  </script>
+{% if gtm_id %}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+<!-- End Google Tag Manager -->
+{% endif %}
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
           crossorigin="anonymous"></script>
@@ -272,6 +242,9 @@
 </head>
 
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
   <!-- Перемикач мов -->
@@ -367,10 +340,12 @@
       document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
       
       // Track theme change
-      gtag('event', 'theme_change', {
-        'event_category': 'engagement',
-        'event_label': newTheme,
-        'custom_parameter_1': '{{ lang }}'
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+          'event': 'theme_change',
+          'event_category': 'engagement',
+          'event_label': newTheme,
+          'language': '{{ lang }}'
       });
     }
 
@@ -394,54 +369,79 @@
         .openPopup();
       
       // Track map interaction
-      gtag('event', 'map_view', {
-        'event_category': 'engagement',
-        'event_label': 'map_loaded',
-        'custom_parameter_1': '{{ lang }}'
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+          'event': 'map_view',
+          'event_category': 'engagement',
+          'event_label': 'map_loaded',
+          'language': '{{ lang }}'
       });
       {% endif %}
     });
 
     function toggleDetails() {
-      const details = document.getElementById("additional-info");
-      const button = document.getElementById("details-toggle-button");
+          const details = document.getElementById("additional-info");
+          const button = document.getElementById("details-toggle-button");
   
-      details.classList.toggle("open");
+          details.classList.toggle("open");
       
-      const isOpen = details.classList.contains("open");
+          const isOpen = details.classList.contains("open");
       
-      if (isOpen) {
-        button.textContent = "{{ _('hide_details') }}";
-      } else {
-        button.textContent = "{{ _('show_details') }}";
-      }
+          if (isOpen) {
+            button.textContent = "{{ _('hide_details') }}";
+          } else {
+            button.textContent = "{{ _('show_details') }}";
+          }
       
-      // Track details toggle
-      gtag('event', 'details_toggle', {
-        'event_category': 'engagement',
-        'event_label': isOpen ? 'opened' : 'closed',
-        'custom_parameter_1': '{{ lang }}'
-      });
+          // Track details toggle
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+              'event': 'details_toggle',
+              'event_category': 'engagement',
+              'event_label': isOpen ? 'opened' : 'closed',
+              'language': '{{ lang }}'
+          });
+        }
+
+        // ДОДАНІ ДВІ ФУНКЦІЇ:
+        function trackLanguageSwitch(langCode) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'language_switch',
+                'event_category': 'engagement',
+                'event_label': langCode,
+                'language': '{{ lang }}'
+            });
+        }
+
+    function trackIPLookup(ipAddress) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'ip_lookup',
+            'event_category': 'functionality',
+            'event_label': 'manual_lookup',
+            'language': '{{ lang }}'
+        });
     }
   </script>
-  <footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
-      <div style="margin-bottom: 20px;">
-        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}privacy" 
-           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
-           onclick="gtag('event', 'privacy_policy_click', {'event_category': 'navigation'})">
-          {{ _("privacy_policy") }}
+<footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
+  <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
+    <div style="margin-bottom: 20px;">
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}privacy" 
+         style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+         onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'privacy_policy_click', 'event_category': 'navigation', 'language': '{{ lang }}'});">
+        {{ _("privacy_policy") }}
         </a>
         <span style="margin: 0 15px; color: #dee2e6;">•</span>
         <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}terms" 
            style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
-           onclick="gtag('event', 'terms_click', {'event_category': 'navigation'})">
+           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'terms_click', 'event_category': 'navigation', 'language': '{{ lang }}'});">
           {{ _("terms_of_service") }}
         </a>
         <span style="margin: 0 15px; color: #dee2e6;">•</span>
         <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}contact" 
            style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
-           onclick="gtag('event', 'contact_click', {'event_category': 'engagement'})">
+           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'contact_click', 'event_category': 'engagement', 'language': '{{ lang }}'});">
           {{ _("contact_us") }}
         </a>
         <span style="margin: 0 15px; color: #dee2e6;">•</span>
