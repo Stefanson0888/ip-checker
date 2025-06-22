@@ -6,7 +6,7 @@ import ipaddress
 load_dotenv()
 IPHUB_API_KEY = os.getenv("IPHUB_API_KEY")
 GOOGLE_ANALYTICS_ID = os.getenv("GOOGLE_ANALYTICS_ID", "G-525FX5C7Z8")
-GTM_ID = os.getenv("GTM_ID", "GT-NMLFSZDL")
+GTM_ID = os.getenv("GTM_ID", "GTM-WN4J2JQW")
 IPHUB_ENABLED = bool(IPHUB_API_KEY)
 
 async def fetch_iphub_info(ip: str) -> dict:
