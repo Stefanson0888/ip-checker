@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is My IP Address? - Find Your Public IP Location | IP Checker</title>
+    
+    <meta name="description" content="What is my IP address? Instantly find your public IP, location, ISP, and check if you're using a VPN. Free IP checker tool with geolocation data.">
+    <meta name="keywords" content="what is my ip, my ip address, find my ip, ip address lookup, ip location, check ip, public ip address">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="What Is My IP Address? - Instant IP Checker">
+    <meta property="og:description" content="Instantly find your public IP address, location, and ISP. Check if you're using a VPN or proxy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://checkip.app/what-is-my-ip">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "What Is My IP Address Tool",
+        "description": "Free tool to find your public IP address, location, and network information",
+        "url": "https://checkip.app/what-is-my-ip",
+        "applicationCategory": "NetworkingApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    {% if gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+    {% endif %}
+
+    <script>
+    // Simple DataLayer initialization
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'seo_landing',
+        'event_label': 'what_is_my_ip',
+        'language': 'en'
+    });
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #3a7bfd;
+            --primary-hover: #5c8dfc;
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --border-color: #e9ecef;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1e1e1e;
+            --text-color: #ffffff;
+            --border-color: #404040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .ip-display {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ip-address {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .ip-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .faq-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+
+        [data-theme="dark"] .faq-section {
+            background: #2d3748;
+        }
+
+        .faq-item {
+            background: var(--bg-color);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            display: block;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        /* Pure CSS accordion */
+        .faq-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .faq-item input[type="checkbox"]:checked + .faq-question::after {
+            content: '-';
+        }
+
+        .faq-item input[type="checkbox"]:checked ~ .faq-answer {
+            display: block;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary-color);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(0,0,0,0.9);
+            color: white;
+        }
+
+        /* VPN Status styling */
+        .vpn-detected {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .vpn-safe {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .ip-address {
+                font-size: 2rem;
+            }
+            
+            .ip-display {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% if gtm_id %}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% endif %}
+
+    <a href="/" class="back-link">← Back to Main</a>
+
+    <header>
+        <div class="container">
+            <h1>What Is My IP Address?</h1>
+            <p class="subtitle">Instantly discover your public IP address, location, and network information</p>
+            
+            <div class="ip-display">
+                <div class="ip-address">{{ ip|default("Unable to detect") }}</div>
+                <div class="ip-info">
+                    <div class="info-item">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">{{ city|default("Unknown") }}, {{ country|default("Unknown") }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ISP</div>
+                        <div class="info-value">{{ isp|default("Unknown") }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">VPN Status</div>
+                        <div class="info-value {% if is_vpn %}vpn-detected{% else %}vpn-safe{% endif %}">
+                            {% if is_vpn %}VPN Detected{% else %}Direct Connection{% endif %}
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">IP Type</div>
+                        <div class="info-value">{{ type|default("IPv4") }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="content-section">
+                <h2>Understanding Your IP Address</h2>
+                <p style="font-size: 1.2rem; text-align: center; margin-bottom: 40px;">
+                    Your IP (Internet Protocol) address is your unique identifier on the internet. Think of it as your digital postal address that allows websites and services to communicate with your device.
+                </p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">🌍</span>
+                        <h3>Geolocation</h3>
+                        <p>Your IP reveals your approximate geographic location, including country, region, and city. This information helps websites provide localized content and services.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🏢</span>
+                        <h3>ISP Information</h3>
+                        <p>Discover which Internet Service Provider (ISP) assigned your IP address and learn about your network infrastructure and connection type.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Privacy Check</h3>
+                        <p>Find out if you're using a VPN, proxy, or Tor connection. Essential for understanding your online privacy and security status.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Instant Results</h3>
+                        <p>Get immediate, accurate information about your IP address without any downloads or registrations. Simple, fast, and reliable.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Why Check Your IP Address?</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div>
+                        <h3>🛡️ Security & Privacy</h3>
+                        <p>Monitor if your VPN is working correctly and ensure your real location isn't being exposed to websites you visit.</p>
+                    </div>
+                    <div>
+                        <h3>🌐 Troubleshooting</h3>
+                        <p>Diagnose network issues, verify your connection settings, and provide technical support with accurate network information.</p>
+                    </div>
+                    <div>
+                        <h3>📍 Location Services</h3>
+                        <p>Understand how websites detect your location and why you might see specific regional content or restrictions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="cta-section">
+                <div class="container">
+                    <h2 style="color: white; margin-bottom: 20px;">Need More IP Tools?</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                        Check any IP address, bulk lookup multiple IPs, or use our advanced networking tools
+                    </p>
+                    <a href="/" class="cta-button">Explore All Tools</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <input type="checkbox" id="faq1">
+                <label for="faq1" class="faq-question">What exactly is an IP address?</label>
+                <div class="faq-answer">
+                    An IP address is a unique numerical identifier assigned to every device connected to the internet. It consists of four numbers separated by dots (IPv4) like 192.168.1.1, or a longer format for IPv6. Your IP address allows other computers to find and communicate with your device.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <input type="checkbox" id="faq2">
+                <label for="faq2" class="faq-question">Can I change my IP address?</label>
+                <div class="faq-answer">
+                    Yes, you can change your IP address in several ways: restart your router (for dynamic IPs), use a VPN service, connect through a proxy server, or contact your ISP for a static IP change. VPNs are the most popular method for temporary IP changes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <input type="checkbox" id="faq3">
+                <label for="faq3" class="faq-question">Is my IP address private information?</label>
+                <div class="faq-answer">
+                    Your IP address is semi-public information. Websites you visit can see it, and it reveals your approximate location and ISP. However, it doesn't directly reveal your personal identity, home address, or browsing history without additional investigation.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <input type="checkbox" id="faq4">
+                <label for="faq4" class="faq-question">Why does my IP address change sometimes?</label>
+                <div class="faq-answer">
+                    Most home internet connections use dynamic IP addresses, which your ISP can change periodically. This happens when you restart your router, after power outages, or based on your ISP's policies. Business connections often have static (unchanging) IP addresses.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <input type="checkbox" id="faq5">
+                <label for="faq5" class="faq-question">How accurate is IP geolocation?</label>
+                <div class="faq-answer">
+                    IP geolocation is generally accurate for country and region detection (95%+ accuracy), moderately accurate for cities (60-80% accuracy), but not precise enough for exact addresses. The accuracy depends on your ISP's infrastructure and database quality.
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

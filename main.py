@@ -270,6 +270,57 @@ async def track_custom_event(request: Request):
         print(f"❌ Custom tracking error: {e}")
         return {"status": "error", "message": "Failed to track event"}
 
+# What Is My IP - SEO landing page
+@app.get("/what-is-my-ip", response_class=HTMLResponse)
+async def what_is_my_ip(request: Request):
+    client_ip = await get_client_ip(request)
+    ip_data = await fetch_ip_info(client_ip)
+    
+    if "error" in ip_data:
+        ip_data = {"error": ip_data["error"]}
+    
+    iphub_data = await fetch_iphub_info(client_ip)
+    
+    # Використовуємо ту ж логіку що й у render_ip_template
+    user_agent_str = request.headers.get("user-agent", "")
+    user_agent = parse(user_agent_str)
+    
+    # Детекція tech користувача
+    is_tech_user = False
+    referrer = request.headers.get("referer", "").lower()
+    tech_user_agents = [
+        'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
+        'insomnia', 'httpie', 'python-requests', 'node', 'npm'
+    ]
+    tech_referrers = [
+        'github.com', 'stackoverflow.com', 'aws.amazon.com', 
+        'digitalocean.com', 'hetzner.com', 'cloudflare.com',
+        'netlify.com', 'vercel.com', 'heroku.com'
+    ]
+    
+    is_tech_user = (
+        any(term in user_agent_str.lower() for term in tech_user_agents) or
+        any(term in referrer for term in tech_referrers)
+    )
+    
+    # Обробка даних
+    connection = ip_data.get("connection", {})
+    security = ip_data.get("security", {})
+    
+    context = {
+        "request": request,
+        "ip": client_ip,
+        "city": ip_data.get("city", "Unknown"),
+        "country": ip_data.get("country", "Unknown"),  
+        "isp": connection.get("isp", "Unknown"),
+        "is_vpn": security.get("vpn", False),
+        "type": ip_data.get("type", "IPv4"),
+        "gtm_id": GTM_ID,
+        "is_tech_user": is_tech_user
+    }
+    
+    return templates.TemplateResponse("what-is-my-ip.html", context)
+
 # Privacy Policy - англійська за замовчуванням  
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy_policy_default(request: Request):
