@@ -246,6 +246,30 @@ async def track_event(request: Request):
         print(f"❌ Analytics error: {e}")
         return {"status": "error"}
 
+@app.post("/api/track-event")
+async def track_custom_event(request: Request):
+    """API endpoint для додаткового серверного трекінгу"""
+    try:
+        data = await request.json()
+        client_ip = await get_client_ip(request)
+        
+        # Логування події для аналізу
+        event_info = {
+            'event': data.get('event'),
+            'category': data.get('event_category'),
+            'label': data.get('event_label'),
+            'language': data.get('language'),
+            'ip': client_ip,
+            'timestamp': data.get('timestamp')
+        }
+        
+        print(f"📊 Custom Event: {event_info}")
+        
+        return {"status": "success", "message": "Event tracked successfully"}
+    except Exception as e:
+        print(f"❌ Custom tracking error: {e}")
+        return {"status": "error", "message": "Failed to track event"}
+
 # Privacy Policy - англійська за замовчуванням  
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy_policy_default(request: Request):

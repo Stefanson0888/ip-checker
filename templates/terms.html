@@ -15,6 +15,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 {% endif %}
 
+    <script>
+    // Ініціалізація dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'legal',
+        'event_label': 'terms_of_service',
+        'language': '{{ lang }}'
+    });
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
             crossorigin="anonymous"></script>
 

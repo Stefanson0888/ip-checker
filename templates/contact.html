@@ -14,6 +14,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
 {% endif %}
 
+    <script>
+    // Ініціалізація dataLayer для contact сторінки
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'navigation',
+        'event_label': 'contact_page',
+        'language': '{{ lang }}'
+    });
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
             crossorigin="anonymous"></script>
 
@@ -334,33 +345,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script>
         function handleSubmit(event) {
             event.preventDefault();
-            
+    
             const form = event.target;
             const formData = new FormData(form);
-            
+    
             const name = formData.get('name');
             const email = formData.get('email');
             const subject = formData.get('subject');
             const message = formData.get('message');
-            
-            const mailtoSubject = `[IP Checker] ${subject} - Message from ${name}`;
-            const mailtoBody = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
-            
-            const mailtoLink = `mailto:support@checkip.app?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
-            
-            window.location.href = mailtoLink;
-            
-            alert('{{ _("message_sent_notice") }}');
-            form.reset();
-            
-            // Track form submission
+    
+            // ВІДСТЕЖЕННЯ ФОРМИ (перед відправкою)
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'contact_form_submit',
                 'event_category': 'engagement',
                 'event_label': subject,
-                'language': '{{ lang }}'
+                'language': '{{ lang }}',
+                'form_name': name,
+                'form_subject': subject
             });
+    
+            const mailtoSubject = `[IP Checker] ${subject} - Message from ${name}`;
+            const mailtoBody = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
+    
+            const mailtoLink = `mailto:support@checkip.app?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+            
+            window.location.href = mailtoLink;
+            alert('{{ _("message_sent_notice") }}');
+            form.reset();
+        }
         
         
         // FAQ toggle functionality

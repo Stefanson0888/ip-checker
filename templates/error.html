@@ -67,16 +67,27 @@
 </head>
 
 <script>
+// Ініціалізація dataLayer
+window.dataLayer = window.dataLayer || [];
+  
+// Відстеження помилки при завантаженні
+window.dataLayer.push({
+    'event': 'api_error',
+    'event_category': 'error',
+    'event_label': '{{ error }}',
+    'language': '{{ lang }}',
+    'ip_address': '{{ ip }}'
+});
+  
 function trackLanguageSwitch(langCode) {
-    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
         'event': 'language_switch',
         'event_category': 'engagement',
         'event_label': langCode,
         'language': '{{ lang }}'
     });
-  }
-  </script>
+}
+</script>
 
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"

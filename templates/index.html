@@ -18,6 +18,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 {% endif %}
 
+<script>
+// Глобальна ініціалізація dataLayer
+window.dataLayer = window.dataLayer || [];
+  
+// Відстеження завантаження сторінки з деталями
+window.dataLayer.push({
+    'event': 'page_view_detailed',
+    'event_category': 'navigation',
+    'event_label': 'main_page_load',
+    'page_title': document.title,
+    'language': '{{ lang }}',
+    'ip_address': '{{ ip }}',
+    'country': '{{ country }}',
+    'city': '{{ city }}',
+    'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}'
+});
+</script>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
           crossorigin="anonymous"></script>
 
