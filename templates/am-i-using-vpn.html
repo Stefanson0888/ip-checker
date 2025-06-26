@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('vpn_detection_title') }}</title>
+    <meta name="description" content="{{ _('vpn_detection_description') }}">
+    <meta name="keywords" content="VPN detector, am i using vpn, vpn check, proxy detector, tor detector, vpn test">
+    <meta name="author" content="IP Checker Service">
+    
+    <!-- Canonical and hreflang for SEO -->
+    <link rel="canonical" href="{{ base_url }}{{ current_path }}">
+    {% for hreflang_lang, hreflang_url in hreflang_urls.items() %}
+    <link rel="alternate" hreflang="{{ hreflang_lang }}" href="{{ hreflang_url }}/am-i-using-vpn">
+    {% endfor %}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ _('vpn_detection_title') }}">
+    <meta property="og:description" content="{{ _('vpn_detection_description') }}">
+    <meta property="og:url" content="{{ base_url }}{{ current_path }}">
+    <meta property="og:image" content="{{ base_url }}/static/images/vpn-detection-preview.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ _('vpn_detection_title') }}">
+    <meta name="twitter:description" content="{{ _('vpn_detection_description') }}">
+    <meta name="twitter:image" content="{{ base_url }}/static/images/vpn-detection-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ base_url }}/static/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ base_url }}/static/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <style>
+        body { 
+            background-color: #111827; 
+            color: white; 
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1024px; 
+            margin: 0 auto; 
+            padding: 2rem 1rem; 
+        }
+        .card { 
+            background-color: #1f2937; 
+            border-radius: 0.5rem; 
+            padding: 1.5rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .grid { 
+            display: grid; 
+            gap: 1.5rem; 
+        }
+        @media (min-width: 768px) { 
+            .grid-md-2 { grid-template-columns: 1fr 1fr; } 
+        }
+        .text-center { text-align: center; }
+        .text-blue { color: #60a5fa; }
+        .text-green { color: #34d399; }
+        .text-yellow { color: #fbbf24; }
+        .text-gray { color: #9ca3af; }
+        .bg-blue { background: linear-gradient(135deg, #2563eb, #1e40af); }
+        .bg-green { background: linear-gradient(135deg, #059669, #047857); }
+        .btn { 
+            display: inline-block; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 0.5rem; 
+            text-decoration: none; 
+            font-weight: 600;
+            background: white;
+            color: #1f2937;
+            transition: all 0.2s;
+        }
+        .btn:hover { background: #f3f4f6; }
+        .emoji { font-size: 4rem; margin-bottom: 1rem; }
+        .flex { display: flex; justify-content: space-between; align-items: center; }
+        .space-y > * + * { margin-top: 0.75rem; }
+        h1 { font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; }
+        h2 { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        select { 
+            background: #374151; 
+            color: white; 
+            border: 1px solid #4b5563; 
+            border-radius: 0.25rem; 
+            padding: 0.5rem; 
+        }
+        .back-link { color: #60a5fa; text-decoration: none; }
+        .back-link:hover { color: #93c5fd; }
+        .status-box { 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            margin-top: 1rem; 
+        }
+        .status-secure { background-color: #064e3b; color: #6ee7b7; }
+        .status-exposed { background-color: #92400e; color: #fcd34d; }
+    </style>
+    </style>
+</head>
+<body>
+    <!-- Simple GTM noscript for tracking -->
+    <noscript><iframe src="https://www.googletagmanager.com/gtm.ns.html?id=GTM-WN4J2JQW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <!-- Header with Navigation -->
+        <header class="text-center" style="margin-bottom: 2rem;">
+            <div class="flex" style="margin-bottom: 1.5rem;">
+                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">
+                    ← {{ _('back_to_home') }}
+                </a>
+                
+                <!-- Language Selector -->
+                <form method="get" style="margin: 0;">
+                    <select name="lang" onchange="this.form.submit()">
+                        {% for lang_code in supported_languages %}
+                        <option value="{{ lang_code }}" {% if lang_code == lang %}selected{% endif %}>
+                            {{ lang_code.upper() }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            
+            <h1 class="text-blue">{{ _('vpn_detection_h1') }}</h1>
+            <p class="text-gray">{{ _('vpn_detection_subtitle') }}</p>
+        </header>
+
+        <!-- VPN Detection Results -->
+        <div class="card">
+            <div class="grid grid-md-2">
+                <!-- Main Result -->
+                <div class="text-center">
+                    {% if is_vpn %}
+                    <div class="emoji">🛡️</div>
+                    <h2 class="text-green">{{ _('vpn_detected') }}</h2>
+                    <p class="text-gray">{{ _('connection_secure') }}</p>
+                    <div class="status-box status-secure">
+                        <p>✅ {{ _('your_vpn_working') }}</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">{{ _('consider_upgrade') }}</p>
+                    </div>
+                    {% else %}
+                    <div class="emoji">🌐</div>
+                    <h2 class="text-yellow">{{ _('vpn_not_detected') }}</h2>
+                    <p class="text-gray">{{ _('connection_exposed') }}</p>
+                    <div class="status-box status-exposed">
+                        <p>⚠️ {{ _('recommend_vpn') }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Technical Details -->
+                <div class="space-y">
+                    <h3>Technical Details</h3>
+                    <div class="space-y">
+                        <div class="flex">
+                            <span class="text-gray">{{ _('your_ip') }}:</span>
+                            <span style="font-family: monospace;">{{ user_ip }}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray">{{ _('connection_type') }}:</span>
+                            <span>{% if is_vpn %}VPN/Proxy{% else %}Direct{% endif %}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray">{{ _('location') }}:</span>
+                            <span>{{ user_location }}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray">{{ _('isp') }}:</span>
+                            <span>{{ user_isp }}</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray">{{ _('security_level') }}:</span>
+                            <span class="{% if is_vpn %}text-green{% else %}text-yellow{% endif %}">
+                                {% if is_vpn %}High{% else %}Medium{% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VPN Recommendations Section -->
+        <div class="card">
+            <h2 class="text-center">{{ _('best_vpn_services') }}</h2>
+            
+            <div class="grid grid-md-2">
+                <!-- NordVPN Card -->
+                <div class="text-center bg-blue" style="padding: 1.5rem; border-radius: 0.5rem;">
+                    <div class="emoji">🛡️</div>
+                    <h3>{{ _('nordvpn_title') }}</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 1rem; opacity: 0.9;">{{ _('nordvpn_features') }}</p>
+                    <a href="{{ nordvpn_url }}" 
+                       target="_blank" 
+                       rel="noopener"
+                       class="btn">
+                        {{ _('get_nordvpn') }}
+                    </a>
+                </div>
+                
+                <!-- NordPass Card -->
+                <div class="text-center bg-green" style="padding: 1.5rem; border-radius: 0.5rem;">
+                    <div class="emoji">🔑</div>
+                    <h3>{{ _('nordpass_title') }}</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 1rem; opacity: 0.9;">{{ _('nordpass_features') }}</p>
+                    <a href="{{ nordpass_url }}" 
+                       target="_blank" 
+                       rel="noopener"
+                       class="btn">
+                        {{ _('get_nordpass') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internal Links Section -->
+        <div class="card">
+            <h2>🔧 IP Tools</h2>
+            <div class="grid grid-md-2">
+                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" 
+                   style="display: flex; align-items: center; padding: 1rem; background-color: #374151; border-radius: 0.5rem; text-decoration: none; color: white;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">🌐</span>
+                    <div>
+                        <div style="font-weight: 600;">IP Checker</div>
+                        <div style="font-size: 0.875rem; color: #9ca3af;">Check your IP address</div>
+                    </div>
+                </a>
+                
+                <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/what-is-my-ip" 
+                   style="display: flex; align-items: center; padding: 1rem; background-color: #374151; border-radius: 0.5rem; text-decoration: none; color: white;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">❓</span>
+                    <div>
+                        <div style="font-weight: 600;">What is my IP?</div>
+                        <div style="font-size: 0.875rem; color: #9ca3af;">Learn about IP addresses</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

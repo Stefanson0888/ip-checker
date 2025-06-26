@@ -199,36 +199,5 @@
 
   "email": "ईमेल",
   "response_time": "प्रतिक्रिया समय",
-  "within_48_hours": "48 घंटों के भीतर",
-
-  "vpn_detection_title": "क्या मैं VPN का उपयोग कर रहा हूं? - मुफ्त VPN डिटेक्शन टूल",
-  "vpn_detection_description": "जांचें कि क्या आप VPN, प्रॉक्सी या Tor का उपयोग कर रहे हैं। कनेक्शन प्रकार का पता लगाने का मुफ्त ऑनलाइन टूल।",
-  "vpn_detection_h1": "क्या मैं VPN का उपयोग कर रहा हूं?",
-  "vpn_detection_subtitle": "VPN, प्रॉक्सी या Tor कनेक्शन का पता लगाएं",
-  
-  "checking_connection": "कनेक्शन जांचा जा रहा है...",
-  "vpn_detected": "VPN का पता चला",
-  "vpn_not_detected": "सीधा कनेक्शन",
-  "proxy_detected": "प्रॉक्सी का पता चला",
-  "tor_detected": "Tor का पता चला",
-  "connection_secure": "आपका कनेक्शन सुरक्षित है",
-  "connection_exposed": "आपका कनेक्शन असुरक्षित हो सकता है",
-  
-  "recommend_vpn": "बेहतर गोपनीयता के लिए VPN की सिफारिश करते हैं",
-  "your_vpn_working": "आपका VPN सही तरीके से काम कर रहा है",
-  "consider_upgrade": "प्रीमियम VPN पर विचार करें",
-  
-  "best_vpn_services": "सर्वश्रेष्ठ VPN सेवाएं",
-  "nordvpn_title": "NordVPN - #1 पसंद",
-  "nordvpn_features": "सैन्य-ग्रेड एन्क्रिप्शन, 5000+ सर्वर, 30-दिन की गारंटी",
-  "get_nordvpn": "NordVPN प्राप्त करें",
-  "nordpass_title": "NordPass - सुरक्षित पासवर्ड",
-  "nordpass_features": "उन्नत पासवर्ड मैनेजर, सुरक्षित साझाकरण, बायोमेट्रिक लॉगिन",
-  "get_nordpass": "NordPass प्राप्त करें",
-  
-  "your_ip": "आपका IP पता",
-  "connection_type": "कनेक्शन प्रकार", 
-  "location": "स्थान",
-  "isp": "इंटरनेट प्रदाता",
-  "security_level": "सुरक्षा स्तर"
+  "within_48_hours": "48 घंटों के भीतर"
 }

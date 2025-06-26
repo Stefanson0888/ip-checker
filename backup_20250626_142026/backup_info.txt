@@ -1,0 +1,15 @@
+Backup created: чт 26 чер 2025 14:20:26 EEST
+Purpose: Before NordVPN affiliate integration
+Original structure preserved
+
+Files backed up:
+- main.py
+- templates/ (all HTML files)
+- utils/ (i18n.py, ip.py, etc)
+- static/ (sitemap.xml, robots.txt, etc)
+- locales/ (translation files)
+- requirements.txt
+- render.yaml
+- run.py
+
+Next step: Add NordVPN affiliate configuration

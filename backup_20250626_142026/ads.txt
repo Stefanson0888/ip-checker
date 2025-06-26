@@ -1,0 +1,7 @@
+# ads.txt file for checkip.app
+# Google AdSense
+google.com, pub-1756594867942570, DIRECT, f08c47fec0942fa0
+
+# Optional - additional ad networks (додам пізніше)
+# media.net, 8CU6J5VH2, RESELLER
+# propellerads.com, 191086, RESELLER, c86b0d2cc0413bb0

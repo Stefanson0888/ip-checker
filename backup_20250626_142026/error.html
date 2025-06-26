@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ _("error_api") }} - IP Checker</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  
+  {% if gtm_id %}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+  {% endif %}
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px auto;
+      max-width: 600px;
+      padding: 20px;
+      text-align: center;
+    }
+    .error-container {
+      background: #f8f9fa;
+      border-left: 4px solid #dc3545;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .error-title {
+      color: #dc3545;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .back-button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .language-switcher {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .language-switcher a {
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #007bff;
+      background: rgba(0, 123, 255, 0.1);
+      font-size: 12px;
+    }
+    .language-switcher a.active {
+      background: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+
+<script>
+// Ініціалізація dataLayer
+window.dataLayer = window.dataLayer || [];
+  
+// Відстеження помилки при завантаженні
+window.dataLayer.push({
+    'event': 'api_error',
+    'event_category': 'error',
+    'event_label': '{{ error }}',
+    'language': '{{ lang }}',
+    'ip_address': '{{ ip }}'
+});
+  
+function trackLanguageSwitch(langCode) {
+    window.dataLayer.push({
+        'event': 'language_switch',
+        'event_category': 'engagement',
+        'event_label': langCode,
+        'language': '{{ lang }}'
+    });
+}
+</script>
+
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- Перемикач мов -->
+  <div class="language-switcher">
+    {% for lang_code, lang_url in language_urls.items() %}
+      {% set lang_names = {
+        'en': '🇺🇸 EN',
+        'de': '🇩🇪 DE', 
+        'pl': '🇵🇱 PL',
+        'hi': '🇮🇳 HI',
+        'uk': '🇺🇦 UK'
+      } %}
+      <a href="{{ lang_url }}" 
+         onclick="trackLanguageSwitch('{{ lang_code }}')"
+         class="{% if lang_code == lang %}active{% endif %}"
+         title="{{ lang_names[lang_code] }}">
+        {{ lang_names[lang_code] }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="error-container">
+    <h1 class="error-title">{{ _("error_api") }}</h1>
+    <p><strong>IP:</strong> {{ ip }}</p>
+    <p><strong>{{ _("error_invalid_ip") if "Invalid" in error else _("error_api") }}:</strong> {{ error }}</p>
+    <p>{{ _("error_invalid_ip") }}</p>
+  </div>
+  
+  <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" 
+     onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'back_to_home', 'event_category': 'navigation', 'event_label': 'from_error', 'language': '{{ lang }}'});"
+     class="back-button">{{ _("back_to_home") }}</a>
+  
+  <div style="margin-top: 40px; color: #666;">
+    <p><strong>{{ _("browser") }}:</strong> {{ browser }}</p>
+    <p><strong>{{ _("os") }}:</strong> {{ os }}</p>
+  </div>
+</body>
+</html>

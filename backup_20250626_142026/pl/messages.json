@@ -199,36 +199,5 @@
 
   "email": "E-mail",
   "response_time": "Czas odpowiedzi",
-  "within_48_hours": "W ciągu 48 godzin",
-
-  "vpn_detection_title": "Czy używam VPN? - Darmowe narzędzie wykrywania VPN",
-  "vpn_detection_description": "Sprawdź czy używasz VPN, proxy czy Tor. Darmowe narzędzie online do wykrywania typu połączenia.",
-  "vpn_detection_h1": "Czy używam VPN?",
-  "vpn_detection_subtitle": "Wykryj połączenia VPN, Proxy lub Tor",
-  
-  "checking_connection": "Sprawdzanie połączenia...",
-  "vpn_detected": "Wykryto VPN",
-  "vpn_not_detected": "Bezpośrednie połączenie",
-  "proxy_detected": "Wykryto Proxy",
-  "tor_detected": "Wykryto Tor",
-  "connection_secure": "Twoje połączenie jest zabezpieczone", 
-  "connection_exposed": "Twoje połączenie może być narażone",
-  
-  "recommend_vpn": "Zalecamy VPN dla lepszej prywatności",
-  "your_vpn_working": "Twój VPN działa prawidłowo",
-  "consider_upgrade": "Rozważ premium VPN",
-  
-  "best_vpn_services": "Najlepsze usługi VPN",
-  "nordvpn_title": "NordVPN - #1 Wybór", 
-  "nordvpn_features": "Szyfrowanie wojskowe, 5000+ serwerów, gwarancja 30 dni",
-  "get_nordvpn": "Pobierz NordVPN",
-  "nordpass_title": "NordPass - Bezpieczne hasła",
-  "nordpass_features": "Zaawansowany menedżer haseł, bezpieczne udostępnianie, logowanie biometryczne",
-  "get_nordpass": "Pobierz NordPass",
-  
-  "your_ip": "Twój adres IP",
-  "connection_type": "Typ połączenia", 
-  "location": "Lokalizacja",
-  "isp": "Dostawca internetowy",
-  "security_level": "Poziom bezpieczeństwa"
+  "within_48_hours": "W ciągu 48 godzin"
 }

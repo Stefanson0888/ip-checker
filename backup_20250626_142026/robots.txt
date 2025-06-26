@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /static/
+Disallow: /api/
+Disallow: /iphub-status
+Allow: /
+
+Sitemap: https://checkip.app/sitemap.xml

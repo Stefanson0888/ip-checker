@@ -208,36 +208,5 @@
 
   "email": "Електронна пошта",
   "response_time": "Час відповіді", 
-  "within_48_hours": "Протягом 48 годин",
-
-  "vpn_detection_title": "Чи використовую я VPN? - Безкоштовний інструмент виявлення VPN",
-  "vpn_detection_description": "Перевірте, чи використовуєте ви VPN, проксі або Tor. Безкоштовний онлайн-інструмент для виявлення типу з'єднання.",
-  "vpn_detection_h1": "Чи використовую я VPN?",
-  "vpn_detection_subtitle": "Виявити VPN, проксі або Tor з'єднання",
-  
-  "checking_connection": "Перевіряємо з'єднання...",
-  "vpn_detected": "VPN виявлено",
-  "vpn_not_detected": "Пряме з'єднання",
-  "proxy_detected": "Проксі виявлено",
-  "tor_detected": "Tor виявлено",
-  "connection_secure": "Ваше з'єднання захищено",
-  "connection_exposed": "Ваше з'єднання може бути незахищеним",
-  
-  "recommend_vpn": "Рекомендуємо VPN для кращої приватності",
-  "your_vpn_working": "Ваш VPN працює правильно",
-  "consider_upgrade": "Розгляньте преміум VPN",
-  
-  "best_vpn_services": "Найкращі VPN сервіси",
-  "nordvpn_title": "NordVPN - #1 Вибір",
-  "nordvpn_features": "Військове шифрування, 5000+ серверів, гарантія 30 днів",
-  "get_nordvpn": "Отримати NordVPN",
-  "nordpass_title": "NordPass - Безпечні паролі", 
-  "nordpass_features": "Просунутий менеджер паролів, безпечний обмін, біометричний вхід",
-  "get_nordpass": "Отримати NordPass",
-  
-  "your_ip": "Ваша IP адреса",
-  "connection_type": "Тип з'єднання", 
-  "location": "Місцезнаходження",
-  "isp": "Інтернет провайдер",
-  "security_level": "Рівень безпеки"
+  "within_48_hours": "Протягом 48 годин"
 }

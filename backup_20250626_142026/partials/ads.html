@@ -1,0 +1,119 @@
+<!-- templates/partials/ads.html - Швидке виправлення -->
+
+<!-- Mobile VPN banner -->
+<div class="mobile-priority-banner" style="margin: 15px 0;">
+  {% if country_code in ['US', 'CA', 'GB'] %}
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="font-size: 2.5rem; margin-right: 15px;">🛡️</div>
+        <div style="flex: 1;">
+          <h3 style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700;">{{ _("protect_your_privacy") }}</h3>
+          <p style="margin: 0 0 8px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("hide_ip_with_vpn") }}</p>
+          <span style="background: rgba(255,255,255,0.25); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">68% OFF</span>
+        </div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         style="display: block; width: 100%; background: rgba(255,255,255,0.9); color: #333; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem;"
+         onclick="trackAffiliateClick('nordvpn', 'mobile-top', '{{ country }}')">
+        {{ _("get_nordvpn") }}
+      </a>
+    </div>
+  {% else %}
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="font-size: 2.5rem; margin-right: 15px;">🌍</div>
+        <div style="flex: 1;">
+          <h3 style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 700;">{{ _("protect_your_privacy") }}</h3>
+          <p style="margin: 0 0 8px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("secure_internet_worldwide") }}</p>
+          <span style="background: rgba(255,255,255,0.25); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">68% OFF</span>
+        </div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         style="display: block; width: 100%; background: rgba(255,255,255,0.9); color: #333; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem;"
+         onclick="trackAffiliateClick('nordvpn', 'mobile-top', '{{ country }}')">
+        {{ _("get_vpn_protection") }}
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Sidebar widgets -->
+<div class="sidebar-widgets" style="display: flex; flex-direction: column; gap: 20px;">
+  
+  <!-- VPN Comparison -->
+  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+    <h4 style="margin: 0 0 15px 0; color: var(--text-color); font-size: 1.1rem;">{{ _("top_vpn_services") }}</h4>
+    
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+      <div>
+        <div style="font-weight: 600; margin-bottom: 2px;">NordVPN</div>
+        <div style="font-size: 0.7rem; margin-bottom: 2px;">⭐⭐⭐⭐⭐</div>
+        <div style="font-size: 0.85rem; color: #2ecc71; font-weight: 600;">$3.49/mo</div>
+      </div>
+      <a href="https://affiliate.nordvpn.com/your-link" 
+         style="background: var(--button-bg); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: 600;"
+         onclick="trackAffiliateClick('nordvpn', 'sidebar', '{{ country }}')">
+        {{ _("try_free") }}
+      </a>
+    </div>
+    
+    {% if country_code in ['US', 'CA', 'GB'] %}
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0;">
+      <div>
+        <div style="font-weight: 600; margin-bottom: 2px;">ExpressVPN</div>
+        <div style="font-size: 0.7rem; margin-bottom: 2px;">⭐⭐⭐⭐⭐</div>
+        <div style="font-size: 0.85rem; color: #2ecc71; font-weight: 600;">$6.67/mo</div>
+      </div>
+      <a href="https://affiliate.expressvpn.com/your-link" 
+         style="background: var(--button-bg); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; font-weight: 600;"
+         onclick="trackAffiliateClick('expressvpn', 'sidebar', '{{ country }}')">
+        {{ _("get_deal") }}
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Hosting for tech users -->
+  {% if is_tech_user %}
+  <div style="background: var(--bg-color); border: 1px solid rgba(58, 123, 253, 0.1); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+    <h4 style="margin: 0 0 15px 0; color: var(--text-color); font-size: 1.1rem;">{{ _("web_hosting_deals") }}</h4>
+    <div style="text-align: center; padding: 15px;">
+      <div style="color: #e74c3c; font-weight: bold; font-size: 18px;">75% OFF</div>
+      <div style="margin: 8px 0;">{{ _("starting_at") }} <strong>$2.99/mo</strong></div>
+      <div style="font-size: 14px; color: #7f8c8d;">{{ _("free_domain_ssl") }}</div>
+      <a href="https://affiliate.hostinger.com/your-link" 
+         style="background: #3a7bfd; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; margin-top: 10px; display: inline-block;"
+         onclick="trackAffiliateClick('hostinger', 'sidebar', '{{ country }}')">
+        {{ _("claim_deal") }}
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Bottom CTA -->
+<div style="margin: 30px 0; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border-radius: 12px; padding: 25px 20px; text-align: center;">
+  <h3 style="margin: 0 0 8px 0; font-size: 1.3rem;">🚀 {{ _("ready_to_protect_privacy") }}</h3>
+  <p style="margin: 0 0 20px 0; opacity: 0.9; font-size: 0.95rem;">{{ _("join_millions_users") }}</p>
+  <a href="https://affiliate.nordvpn.com/your-link" 
+     style="background: white; color: #f5576c; padding: 14px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-block;"
+     onclick="trackAffiliateClick('nordvpn', 'bottom-cta', '{{ country }}')">
+    {{ _("get_nordvpn_now") }}
+  </a>
+</div>
+
+<script>
+// Analytics tracking
+function trackAffiliateClick(partner, placement, country) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'affiliate_click', {
+      'event_category': 'monetization',
+      'event_label': partner,
+      'custom_parameter_1': placement,
+      'custom_parameter_2': country,
+      'value': 1
+    });
+  }
+}
+</script>

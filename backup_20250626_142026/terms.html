@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _("terms_of_service") }} - IP Checker</title>
+    
+{% if gtm_id %}
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+<!-- End Google Tag Manager -->
+{% endif %}
+
+    <script>
+    // Ініціалізація dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'legal',
+        'event_label': 'terms_of_service',
+        'language': '{{ lang }}'
+    });
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
+            crossorigin="anonymous"></script>
+
+    {% for hreflang, url in hreflang_urls.items() %}
+    <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
+    {% endfor %}
+    
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --button-bg: #3a7bfd;
+            --border-color: #e9ecef;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1e1e1e;
+            --text-color: #ffffff;
+            --border-color: #404040;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--button-bg);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: var(--text-color);
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+
+        .highlight {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 15px;
+            border-left: 4px solid #e74c3c;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .important {
+            background: rgba(255, 193, 7, 0.1);
+            padding: 15px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        a {
+            color: var(--button-bg);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    
+    <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>
+    
+    <h1>{{ _("terms_of_service") }}</h1>
+    <p><strong>{{ _("effective_date") }}:</strong> June 19, 2025</p>
+
+    <div class="highlight">
+        <p><strong>{{ _("welcome_terms") }}</strong> {{ _("terms_agreement") }}</p>
+    </div>
+
+    <h2>1. {{ _("acceptance_of_terms") }}</h2>
+    <p>{{ _("acceptance_desc") }}</p>
+
+    <h2>2. {{ _("service_description") }}</h2>
+    <p>{{ _("service_desc") }}</p>
+    <ul>
+        <li>{{ _("service_ip_display") }}</li>
+        <li>{{ _("service_geolocation") }}</li>
+        <li>{{ _("service_isp") }}</li>
+        <li>{{ _("service_technical") }}</li>
+        <li>{{ _("service_tools") }}</li>
+    </ul>
+
+    <h2>3. {{ _("acceptable_use") }}</h2>
+    
+    <h3>3.1 {{ _("permitted_uses") }}</h3>
+    <p>{{ _("permitted_desc") }}</p>
+    <ul>
+        <li>{{ _("permitted_check_ip") }}</li>
+        <li>{{ _("permitted_educational") }}</li>
+        <li>{{ _("permitted_troubleshooting") }}</li>
+        <li>{{ _("permitted_security") }}</li>
+    </ul>
+
+    <h3>3.2 {{ _("prohibited_uses") }}</h3>
+    <p>{{ _("prohibited_desc") }}</p>
+    <ul>
+        <li>{{ _("prohibited_illegal") }}</li>
+        <li>{{ _("prohibited_laws") }}</li>
+        <li>{{ _("prohibited_unauthorized") }}</li>
+        <li>{{ _("prohibited_malicious") }}</li>
+        <li>{{ _("prohibited_overload") }}</li>
+        <li>{{ _("prohibited_reverse") }}</li>
+        <li>{{ _("prohibited_automated") }}</li>
+    </ul>
+
+    <h2>4. {{ _("user_responsibilities") }}</h2>
+    <ul>
+        <li>{{ _("responsibility_use") }}</li>
+        <li>{{ _("responsibility_laws") }}</li>
+        <li>{{ _("responsibility_misuse") }}</li>
+        <li>{{ _("responsibility_consequences") }}</li>
+    </ul>
+
+    <h2>5. {{ _("privacy_and_data") }}</h2>
+    <p>{{ _("privacy_important") }} <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}privacy">{{ _("privacy_policy") }}</a> {{ _("privacy_understand") }}</p>
+
+    <div class="important">
+        <p><strong>{{ _("important") }}:</strong> {{ _("ip_collection_notice") }}</p>
+    </div>
+
+    <h2>6. Drittanbieter-Services</h2>
+    <p>{{ _("third_party_notice") }}</p>
+    <ul>
+        <li>{{ _("third_party_affiliate") }}</li>
+        <li>{{ _("third_party_adsense") }}</li>
+        <li>{{ _("third_party_tools") }}</li>
+    </ul>
+    <p>{{ _("third_party_disclaimer") }}</p>
+
+    <h2>7. {{ _("intellectual_property") }}</h2>
+    <p>{{ _("ip_rights") }}</p>
+
+    <h2>8. {{ _("disclaimers") }}</h2>
+    
+    <h3>8.1 {{ _("service_availability") }}</h3>
+    <p>{{ _("availability_desc") }}</p>
+    <ul>
+        <li>{{ _("availability_always") }}</li>
+        <li>{{ _("availability_errors") }}</li>
+        <li>{{ _("availability_secure") }}</li>
+        <li>{{ _("availability_accurate") }}</li>
+    </ul>
+
+    <h3>8.2 {{ _("information_accuracy") }}</h3>
+    <p>{{ _("accuracy_desc") }}</p>
+    <ul>
+        <li>{{ _("accuracy_geolocation") }}</li>
+        <li>{{ _("accuracy_realtime") }}</li>
+        <li>{{ _("accuracy_completeness") }}</li>
+    </ul>
+
+    <h2>9. {{ _("limitation_of_liability") }}</h2>
+    <p>{{ _("liability_desc") }}</p>
+
+    <h2>10. {{ _("indemnification") }}</h2>
+    <p>{{ _("indemnification_desc") }}</p>
+
+    <h2>11. {{ _("termination") }}</h2>
+    <p>{{ _("termination_desc") }}</p>
+
+    <h2>12. {{ _("governing_law") }}</h2>
+    <p>{{ _("governing_law_desc") }}</p>
+
+    <h2>13. {{ _("changes_to_terms") }}</h2>
+    <p>{{ _("changes_desc") }}</p>
+
+    <h2>14. {{ _("contact_us") }}</h2>
+    <div style="background: rgba(128, 128, 128, 0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p>{{ _("contact_terms_desc") }}</p>
+        <p><strong>E-Mail:</strong> support@checkip.app</p>
+        <p><strong>{{ _("website") }}:</strong> <a href="/">IP Checker Service</a></p>
+    </div>
+
+    <div class="highlight">
+        <p><strong>{{ _("agreement") }}:</strong> {{ _("agreement_desc") }}</p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme");
+            const newTheme = current === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const saved = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", saved);
+            document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
+        });
+    </script>
+</body>
+</html>

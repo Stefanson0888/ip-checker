@@ -257,36 +257,5 @@
 
   "email": "Email",
   "response_time": "Response Time",
-  "within_48_hours": "Within 48 hours",
-
-  "vpn_detection_title": "Am I Using VPN? - Free VPN Detection Tool",
-  "vpn_detection_description": "Check if you're using VPN, proxy, or Tor. Free online tool to detect your connection type and protect your privacy.",
-  "vpn_detection_h1": "Am I Using VPN?",
-  "vpn_detection_subtitle": "Detect if you're using VPN, Proxy, or Tor connection",
-  
-  "checking_connection": "Checking your connection...",
-  "vpn_detected": "VPN Detected",
-  "vpn_not_detected": "Direct Connection",
-  "proxy_detected": "Proxy Detected", 
-  "tor_detected": "Tor Detected",
-  "connection_secure": "Your connection is secured",
-  "connection_exposed": "Your connection may be exposed",
-  
-  "recommend_vpn": "We recommend using a VPN for better privacy",
-  "your_vpn_working": "Your VPN is working correctly",
-  "consider_upgrade": "Consider upgrading to a premium VPN",
-  
-  "best_vpn_services": "Best VPN Services",
-  "nordvpn_title": "NordVPN - #1 Choice",
-  "nordvpn_features": "Military-grade encryption, 5,000+ servers, 30-day guarantee",
-  "get_nordvpn": "Get NordVPN",
-  "nordpass_title": "NordPass - Secure Passwords", 
-  "nordpass_features": "Advanced password manager, secure sharing, biometric login",
-  "get_nordpass": "Get NordPass",
-  
-  "your_ip": "Your IP Address",
-  "connection_type": "Connection Type", 
-  "location": "Location",
-  "isp": "Internet Provider",
-  "security_level": "Security Level"
+  "within_48_hours": "Within 48 hours"
 }

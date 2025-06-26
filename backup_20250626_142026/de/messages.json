@@ -199,36 +199,5 @@
 
   "email": "E-Mail",
   "response_time": "Antwortzeit", 
-  "within_48_hours": "Innerhalb von 48 Stunden",
-
-  "vpn_detection_title": "Verwende ich VPN? - Kostenloser VPN-Erkennungsservice",
-  "vpn_detection_description": "Überprüfen Sie, ob Sie VPN, Proxy oder Tor verwenden. Kostenloses Online-Tool zur Erkennung Ihres Verbindungstyps.",
-  "vpn_detection_h1": "Verwende ich VPN?",
-  "vpn_detection_subtitle": "Erkennen Sie VPN-, Proxy- oder Tor-Verbindungen",
-  
-  "checking_connection": "Verbindung wird überprüft...",
-  "vpn_detected": "VPN erkannt",
-  "vpn_not_detected": "Direkte Verbindung",
-  "proxy_detected": "Proxy erkannt",
-  "tor_detected": "Tor erkannt", 
-  "connection_secure": "Ihre Verbindung ist gesichert",
-  "connection_exposed": "Ihre Verbindung könnte gefährdet sein",
-  
-  "recommend_vpn": "Wir empfehlen ein VPN für bessere Privatsphäre",
-  "your_vpn_working": "Ihr VPN funktioniert korrekt",
-  "consider_upgrade": "Erwägen Sie ein Premium-VPN",
-  
-  "best_vpn_services": "Beste VPN-Dienste",
-  "nordvpn_title": "NordVPN - #1 Wahl",
-  "nordvpn_features": "Militärische Verschlüsselung, 5.000+ Server, 30-Tage-Garantie",
-  "get_nordvpn": "NordVPN holen",
-  "nordpass_title": "NordPass - Sichere Passwörter",
-  "nordpass_features": "Erweiterte Passwort-Manager, sicheres Teilen, biometrische Anmeldung",
-  "get_nordpass": "NordPass holen",
-  
-  "your_ip": "Ihre IP-Adresse",
-  "connection_type": "Verbindungstyp", 
-  "location": "Standort",
-  "isp": "Internetanbieter",
-  "security_level": "Sicherheitsstufe"
+  "within_48_hours": "Innerhalb von 48 Stunden"
 }

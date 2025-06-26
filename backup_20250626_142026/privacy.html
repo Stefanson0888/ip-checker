@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _("privacy_policy") }} - IP Checker</title>
+    
+    {% if gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+    {% endif %}
+
+    <script>
+    // Ініціалізація dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'legal',
+        'event_label': 'privacy_policy',
+        'language': '{{ lang }}'
+    });
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1756594867942570"
+            crossorigin="anonymous"></script>
+
+    <!-- hreflang для SEO -->
+    {% for hreflang, url in hreflang_urls.items() %}
+    <link rel="alternate" hreflang="{{ hreflang }}" href="{{ url }}" />
+    {% endfor %}
+    
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --button-bg: #3a7bfd;
+            --border-color: #e9ecef;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1e1e1e;
+            --text-color: #ffffff;
+            --border-color: #404040;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--button-bg);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: var(--text-color);
+            border-bottom: 3px solid var(--button-bg);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin-top: 20px;
+        }
+
+        .highlight {
+            background: rgba(58, 123, 253, 0.1);
+            padding: 15px;
+            border-left: 4px solid var(--button-bg);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .contact-info {
+            background: rgba(128, 128, 128, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        a {
+            color: var(--button-bg);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    {% if gtm_id %}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% endif %}
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    
+    <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" class="back-link">← {{ _("back_to_main") }}</a>
+    
+    <h1>{{ _("privacy_policy") }}</h1>
+    <p><strong>{{ _("last_updated") }}:</strong> {{ _("june_2025") }}</p>
+
+    <div class="highlight">
+        <h3>{{ _("privacy_summary") }}</h3>
+        <p>{{ _("privacy_summary_text") }}</p>
+    </div>
+
+    <h2>{{ _("information_we_collect") }}</h2>
+    <p>{{ _("privacy_policy_description") }}</p>
+
+    <h2>{{ _("how_we_use_info") }}</h2>
+    <p>{{ _("data_sharing") }}</p>
+
+    <h2>{{ _("your_rights") }}</h2>
+    <p>{{ _("data_security") }}</p>
+
+    <h2>{{ _("contact_us") }}</h2>
+    <div class="contact-info">
+        <p><strong>{{_("email")}}:</strong> privacy@checkip.app</p>
+        <p><strong>{{_("response_time")}}:</strong> Within 48 hours</p>
+    </div>
+
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); color: #666; font-size: 0.9em;">
+        {{ _("footer_disclaimer") }}
+    </p>
+
+    <script>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme");
+            const newTheme = current === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", newTheme);
+            localStorage.setItem("theme", newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const saved = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", saved);
+            document.querySelector('.theme-toggle').textContent = saved === "dark" ? "🌞" : "🌙";
+        });
+    </script>
+</body>
+</html>
