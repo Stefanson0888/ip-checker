@@ -255,10 +255,6 @@
   "website": "Website",
   "back_to_main": "Back to Main",
 
-  "email": "Email",
-  "response_time": "Response Time",
-  "within_48_hours": "Within 48 hours",
-
   "vpn_detection_title": "Am I Using VPN? - Free VPN Detection Tool",
   "vpn_detection_description": "Check if you're using VPN, proxy, or Tor. Free online tool to detect your connection type and protect your privacy.",
   "vpn_detection_h1": "Am I Using VPN?",
@@ -279,17 +275,14 @@
   "best_vpn_services": "Best VPN Services",
   "nordvpn_title": "NordVPN - #1 Choice",
   "nordvpn_features": "Military-grade encryption, 5,000+ servers, 30-day guarantee",
-  "get_nordvpn": "Get NordVPN",
   "nordpass_title": "NordPass - Secure Passwords", 
   "nordpass_features": "Advanced password manager, secure sharing, biometric login",
-  "get_nordpass": "Get NordPass",
   
-  "your_ip": "Your IP Address",
   "connection_type": "Connection Type",
   "security_level": "Security Level",
 
   "choice": "Choice",
   "day_guarantee": "day guarantee",
   "no_logs_policy": "No logs policy",
-  "limited_time": "Limited Time",
+  "limited_time": "Limited Time"
 }
