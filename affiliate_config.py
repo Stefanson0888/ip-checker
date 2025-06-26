@@ -1,11 +1,11 @@
-# affiliate_config.py
+
 # NordVPN Real Affiliate Configuration
 
 # NordVPN Affiliate Details (from Tomas email)
 NORDVPN_AFFILIATE_CONFIG = {
     "affiliate_id": "126137",
     "account_manager": "Tomas",
-    "
+    
     # NordVPN Main Product
     "nordvpn": {
         "offer_id": "15",
