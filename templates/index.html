@@ -231,54 +231,110 @@ window.dataLayer.push({
       background: rgba(64, 64, 64, 0.3);
     }
 
-    .tools-grid {
+    /* Improved Tools Grid - ОСНОВНІ СТИЛІ */
+    .tools-grid-improved {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .tool-card {
+    .tool-card-improved {
+      display: flex;
+      align-items: center;
       background: var(--bg-color);
-      border: 2px solid var(--border-color);
-      border-radius: 12px;
-      padding: 25px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .tool-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-
-    .tool-card h3 {
-      color: var(--primary-color);
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-    }
-
-    .tool-card p {
-      color: var(--text-color);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-
-    .tool-link {
-      background: var(--button-bg);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 6px;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 1.5rem;
       text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      transition: background 0.3s;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
     }
 
-    .tool-link:hover {
-      background: var(--button-hover);
-      color: white;
+    .tool-card-improved::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .tool-card-improved:hover::before {
+      opacity: 1;
+    }
+
+    .tool-card-improved:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tool-content {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tool-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .tool-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.2rem;
+      color: rgba(59, 130, 246, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .tool-card-improved:hover .tool-arrow {
+      color: rgba(59, 130, 246, 1);
+      transform: translateX(4px);
+    }
+
+    /* Dark theme adjustments */
+    [data-theme="dark"] .tool-card-improved {
+      background: rgba(55, 65, 81, 0.8);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="dark"] .tool-card-improved:hover {
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+      background: rgba(55, 65, 81, 0.9);
     }
 
     @media (max-width: 768px) {
@@ -301,7 +357,6 @@ window.dataLayer.push({
         margin-top: 20px;
       }
 
-    @media (max-width: 768px) {
       footer {
         margin-top: 30px !important;
         padding: 20px 0 !important;
@@ -314,6 +369,31 @@ window.dataLayer.push({
   
       footer span {
         display: none !important;
+      }
+
+      /* Mobile responsive для improved tools */
+      .tools-grid-improved {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .tool-card-improved {
+        padding: 1.25rem;
+      }
+      
+      .tool-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+      }
+      
+      .tool-content h3 {
+        font-size: 1.1rem;
+      }
+      
+      .tool-content p {
+        font-size: 0.85rem;
       }
     }
   </style>
@@ -398,25 +478,45 @@ window.dataLayer.push({
     <!-- SEO Internal Links Section -->
     <section class="seo-tools-section">
       <div class="container">
-        <h2>🔍 Free IP & Network Tools</h2>
-        <div class="tools-grid">
-          <div class="tool-card">
-            <h3>📍 What Is My IP?</h3>
-            <p>Get detailed information about your public IP address, location, and ISP provider.</p>
-            <a href="/what-is-my-ip" class="tool-link">Check My IP Details →</a>
-          </div>
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem; color: var(--text-color);">
+          🔍 Free IP & Network Tools
+        </h2>
+        <div class="tools-grid-improved">
+          <!-- What Is My IP Card -->
+          <a href="/what-is-my-ip" class="tool-card-improved" onclick="trackToolClick('what_is_my_ip')">
+            <div class="tool-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+              📍
+            </div>
+            <div class="tool-content">
+              <h3>What Is My IP?</h3>
+              <p>Get detailed information about your public IP address, location, and ISP provider.</p>
+              <div class="tool-arrow">→</div>
+            </div>
+          </a>
           
-          <div class="tool-card">
-            <h3>🔒 VPN Detection</h3>
-            <p>Find out if you're using a VPN, proxy, or direct connection. Test your privacy protection.</p>
-            <a href="/am-i-using-vpn" class="tool-link">Check VPN Status →</a>
-          </div>
+          <!-- VPN Detection Card -->
+          <a href="/am-i-using-vpn" class="tool-card-improved" onclick="trackToolClick('vpn_detection')">
+            <div class="tool-icon" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
+              🔒
+            </div>
+            <div class="tool-content">
+              <h3>VPN Detection</h3>
+              <p>Find out if you're using a VPN, proxy, or direct connection. Test your privacy protection.</p>
+              <div class="tool-arrow">→</div>
+            </div>
+          </a>
           
-          <div class="tool-card">
-            <h3>🌐 IP Lookup Tool</h3>
-            <p>Look up any IP address and get geolocation, ISP, and security information.</p>
-            <a href="/lookup" class="tool-link">Lookup Any IP →</a>
-          </div>
+          <!-- IP Lookup Card -->
+          <a href="/lookup" class="tool-card-improved" onclick="trackToolClick('ip_lookup')">
+            <div class="tool-icon" style="background: linear-gradient(135deg, #a8e6cf, #7fcdcd);">
+              🌐
+            </div>
+            <div class="tool-content">
+              <h3>IP Lookup Tool</h3>
+              <p>Look up any IP address and get geolocation, ISP, and security information.</p>
+              <div class="tool-arrow">→</div>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -602,33 +702,6 @@ window.dataLayer.push({
   </div>
   {% endif %}
 </div>
-
-<!-- ДОДАТИ цю функцію в секцію script (після рядка 430) -->
-<script>
-function trackAffiliateClick(partner, campaign, context) {
-    // GTM/GA4 tracking
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-        'event': 'affiliate_click',
-        'event_category': 'monetization',
-        'event_label': partner + '_' + campaign,
-        'partner': partner,
-        'campaign': campaign,
-        'context': context,
-        'language': '{{ lang }}',
-        'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}',
-        'vpn_status': '{{ is_vpn }}',
-        'country': '{{ country_code }}'
-    });
-    
-    // Console log для debugging  
-    console.log('Affiliate click tracked:', {
-        partner: partner,
-        campaign: campaign,
-        context: context
-    });
-}
-</script>
     </div>
   </div>
 
@@ -705,16 +778,25 @@ function trackAffiliateClick(partner, campaign, context) {
           });
         }
 
-        // ДОДАНІ ДВІ ФУНКЦІЇ:
-        function trackLanguageSwitch(langCode) {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'language_switch',
-                'event_category': 'engagement',
-                'event_label': langCode,
-                'language': '{{ lang }}'
-            });
-        }
+    function trackLanguageSwitch(langCode) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'language_switch',
+            'event_category': 'engagement',
+            'event_label': langCode,
+            'language': '{{ lang }}'
+        });
+    }
+
+    function trackToolClick(toolName) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'tool_click',
+            'event_category': 'navigation',
+            'event_label': toolName,
+            'language': '{{ lang }}'
+        });
+    }
 
     function trackIPLookup(ipAddress) {
         window.dataLayer = window.dataLayer || [];
@@ -723,6 +805,30 @@ function trackAffiliateClick(partner, campaign, context) {
             'event_category': 'functionality',
             'event_label': 'manual_lookup',
             'language': '{{ lang }}'
+        });
+    }
+
+    function trackAffiliateClick(partner, campaign, context) {
+        // GTM/GA4 tracking
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'affiliate_click',
+            'event_category': 'monetization',
+            'event_label': partner + '_' + campaign,
+            'partner': partner,
+            'campaign': campaign,
+            'context': context,
+            'language': '{{ lang }}',
+            'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}',
+            'vpn_status': '{{ is_vpn }}',
+            'country': '{{ country_code }}'
+        });
+        
+        // Console log для debugging  
+        console.log('Affiliate click tracked:', {
+            partner: partner,
+            campaign: campaign,
+            context: context
         });
     }
   </script>
