@@ -230,5 +230,10 @@
   "connection_type": "Verbindungstyp", 
   "location": "Standort",
   "isp": "Internetanbieter",
-  "security_level": "Sicherheitsstufe"
+  "security_level": "Sicherheitsstufe",
+
+  "choice": "Wahl",
+  "day_guarantee": "Tage-Garantie", 
+  "no_logs_policy": "Keine-Logs-Richtlinie",
+  "limited_time": "Begrenzte Zeit"
 }

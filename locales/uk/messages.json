@@ -239,5 +239,10 @@
   "connection_type": "Тип з'єднання", 
   "location": "Місцезнаходження",
   "isp": "Інтернет провайдер",
-  "security_level": "Рівень безпеки"
+  "security_level": "Рівень безпеки",
+
+  "choice": "Вибір",
+  "day_guarantee": "днів гарантії",
+  "no_logs_policy": "Політика відсутності логів",
+  "limited_time": "Обмежений час"
 }

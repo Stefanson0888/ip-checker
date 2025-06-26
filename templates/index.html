@@ -428,9 +428,207 @@ window.dataLayer.push({
       </div>
       {% endif %}
 
-      <div id="ads-container" class="ad-column">
-        {% include "partials/ads.html" %}
-      </div>
+      
+<div id="ads-container" class="ad-column">
+  <!-- Real NordVPN Affiliate Integration -->
+  
+  <!-- VPN/Proxy Detection Notice -->
+  {% if is_vpn or is_proxy or iphub_block == 1 %}
+  <div style="background: linear-gradient(135deg, #4ade80, #22c55e); 
+              border-radius: 12px; 
+              padding: 20px; 
+              text-align: center; 
+              margin-bottom: 20px; 
+              color: white;">
+    <div style="font-size: 24px; margin-bottom: 10px;">🛡️</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.1rem;">{{ _("detected_proxy_vpn") }}</h3>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("your_vpn_working") }}</p>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=126137&url_id=902&source=homepage&campaign=vpn_detected" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('nordvpn', 'vpn_detected', '{{ is_vpn }}')"
+       style="background: white; 
+              color: #22c55e; 
+              padding: 10px 20px; 
+              border-radius: 6px; 
+              text-decoration: none; 
+              font-weight: 600; 
+              display: inline-block;">
+      {{ _("consider_upgrade") }}
+    </a>
+  </div>
+  {% else %}
+  <!-- No VPN Detected - Security Recommendation -->
+  <div style="background: linear-gradient(135deg, #f59e0b, #d97706); 
+              border-radius: 12px; 
+              padding: 20px; 
+              text-align: center; 
+              margin-bottom: 20px; 
+              color: white;">
+    <div style="font-size: 24px; margin-bottom: 10px;">⚠️</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.1rem;">{{ _("protect_your_privacy") }}</h3>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("hide_ip_with_vpn") }}</p>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=126137&url_id=902&source=homepage&campaign=no_vpn_detected" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('nordvpn', 'no_vpn_detected', '{{ is_vpn }}')"
+       style="background: white; 
+              color: #d97706; 
+              padding: 10px 20px; 
+              border-radius: 6px; 
+              text-decoration: none; 
+              font-weight: 600; 
+              display: inline-block;">
+      {{ _("get_nordvpn") }}
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Main NordVPN Promotion -->
+  <div style="background: linear-gradient(135deg, #3b82f6, #1e40af); 
+              border-radius: 12px; 
+              padding: 25px; 
+              text-align: center; 
+              margin-bottom: 20px; 
+              color: white; 
+              box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+    <div style="font-size: 30px; margin-bottom: 15px;">🛡️</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.3rem; font-weight: 700;">NordVPN - #1 {{ _("choice") }}</h3>
+    <p style="margin: 0 0 8px 0; font-size: 0.9rem; opacity: 0.9;">✓ {{ _("nordvpn_features") }}</p>
+    <p style="margin: 0 0 8px 0; font-size: 0.9rem; opacity: 0.9;">✓ 30-{{ _("day_guarantee") }}</p>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">✓ {{ _("no_logs_policy") }}</p>
+    <div style="margin-bottom: 15px;">
+      <span style="background: rgba(255,255,255,0.2); 
+                   padding: 4px 12px; 
+                   border-radius: 20px; 
+                   font-size: 0.8rem; 
+                   font-weight: 600;">
+        68% OFF {{ _("limited_time") }}
+      </span>
+    </div>
+    <a href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=126137&url_id=902&source=homepage&campaign=main_promotion" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('nordvpn', 'main_promotion', '{{ country_code }}')"
+       style="background: white; 
+              color: #1e40af; 
+              padding: 12px 24px; 
+              border-radius: 8px; 
+              text-decoration: none; 
+              font-weight: 700; 
+              display: inline-block; 
+              font-size: 1rem;
+              transition: transform 0.2s;">
+      {{ _("get_nordvpn_now") }}
+    </a>
+  </div>
+
+  <!-- Tech Users - Hosting Promotion -->
+  {% if is_tech_user %}
+  <div style="background: linear-gradient(135deg, #10b981, #059669); 
+              border-radius: 12px; 
+              padding: 20px; 
+              text-align: center; 
+              margin-bottom: 20px; 
+              color: white;">
+    <div style="font-size: 24px; margin-bottom: 10px;">💻</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.1rem;">{{ _("web_hosting_deals") }}</h3>
+    <p style="margin: 0 0 8px 0; font-size: 0.9rem; opacity: 0.9;">✓ {{ _("free_domain_ssl") }}</p>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("starting_at") }} $2.99/mo</p>
+    <a href="https://www.hostinger.com?REFERRALCODE=1CLAUDE94" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('hostinger', 'tech_user_promotion', '{{ country_code }}')"
+       style="background: white; 
+              color: #059669; 
+              padding: 10px 20px; 
+              border-radius: 6px; 
+              text-decoration: none; 
+              font-weight: 600; 
+              display: inline-block;">
+      {{ _("claim_deal") }}
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- NordPass Password Manager -->
+  <div style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); 
+              border-radius: 12px; 
+              padding: 20px; 
+              text-align: center; 
+              margin-bottom: 20px; 
+              color: white;">
+    <div style="font-size: 24px; margin-bottom: 10px;">🔑</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.1rem;">{{ _("nordpass_title") }}</h3>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">{{ _("nordpass_features") }}</p>
+    <a href="https://go.nordpass.io/aff_c?offer_id=488&aff_id=126137&url_id=9356&source=homepage&campaign=password_security" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('nordpass', 'password_manager', '{{ country_code }}')"
+       style="background: white; 
+              color: #7c3aed; 
+              padding: 10px 20px; 
+              border-radius: 6px; 
+              text-decoration: none; 
+              font-weight: 600; 
+              display: inline-block;">
+      {{ _("get_nordpass") }}
+    </a>
+  </div>
+
+  <!-- Security Enhancement (if VPN detected) -->
+  {% if is_vpn or is_proxy %}
+  <div style="background: linear-gradient(135deg, #ef4444, #dc2626); 
+              border-radius: 12px; 
+              padding: 20px; 
+              text-align: center; 
+              color: white;">
+    <div style="font-size: 24px; margin-bottom: 10px;">🔐</div>
+    <h3 style="margin: 0 0 10px 0; font-size: 1.1rem;">{{ _("enhance_security_further") }}</h3>
+    <p style="margin: 0 0 15px 0; font-size: 0.9rem; opacity: 0.9;">Premium antivirus protection</p>
+    <a href="https://www.malwarebytes.com" 
+       target="_blank" 
+       rel="noopener sponsored"
+       onclick="trackAffiliateClick('malwarebytes', 'security_enhancement', '{{ is_vpn }}')"
+       style="background: white; 
+              color: #dc2626; 
+              padding: 10px 20px; 
+              border-radius: 6px; 
+              text-decoration: none; 
+              font-weight: 600; 
+              display: inline-block;">
+      {{ _("get_malwarebytes") }}
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ДОДАТИ цю функцію в секцію script (після рядка 430) -->
+<script>
+function trackAffiliateClick(partner, campaign, context) {
+    // GTM/GA4 tracking
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'affiliate_click',
+        'event_category': 'monetization',
+        'event_label': partner + '_' + campaign,
+        'partner': partner,
+        'campaign': campaign,
+        'context': context,
+        'language': '{{ lang }}',
+        'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}',
+        'vpn_status': '{{ is_vpn }}',
+        'country': '{{ country_code }}'
+    });
+    
+    // Console log для debugging  
+    console.log('Affiliate click tracked:', {
+        partner: partner,
+        campaign: campaign,
+        context: context
+    });
+}
+</script>
     </div>
   </div>
 

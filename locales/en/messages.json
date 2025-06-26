@@ -285,8 +285,11 @@
   "get_nordpass": "Get NordPass",
   
   "your_ip": "Your IP Address",
-  "connection_type": "Connection Type", 
-  "location": "Location",
-  "isp": "Internet Provider",
-  "security_level": "Security Level"
+  "connection_type": "Connection Type",
+  "security_level": "Security Level",
+
+  "choice": "Choice",
+  "day_guarantee": "day guarantee",
+  "no_logs_policy": "No logs policy",
+  "limited_time": "Limited Time",
 }

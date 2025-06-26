@@ -230,5 +230,10 @@
   "connection_type": "Typ połączenia", 
   "location": "Lokalizacja",
   "isp": "Dostawca internetowy",
-  "security_level": "Poziom bezpieczeństwa"
+  "security_level": "Poziom bezpieczeństwa",
+
+  "choice": "Wybór",
+  "day_guarantee": "dni gwarancji",
+  "no_logs_policy": "Polityka braku logów",
+  "limited_time": "Ograniczony czas"
 }

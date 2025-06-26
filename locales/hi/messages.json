@@ -230,5 +230,10 @@
   "connection_type": "कनेक्शन प्रकार", 
   "location": "स्थान",
   "isp": "इंटरनेट प्रदाता",
-  "security_level": "सुरक्षा स्तर"
+  "security_level": "सुरक्षा स्तर",
+
+  "choice": "पसंद",
+  "day_guarantee": "दिन की गारंटी",
+  "no_logs_policy": "कोई लॉग नीति नहीं",
+  "limited_time": "सीमित समय"
 }
