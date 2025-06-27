@@ -406,7 +406,35 @@ async def contact_with_language(request: Request, lang: str):
     
     return templates.TemplateResponse("contact.html", context)
 
-# VPN Detection Routes - FIXED VERSION
+
+# IP Lookup Tool - англійська за замовчуванням  
+@app.get("/ip-lookup-tool", response_class=HTMLResponse)
+async def ip_lookup_tool_default(request: Request):
+    return await ip_lookup_tool_page(request, DEFAULT_LANGUAGE)
+
+# IP Lookup Tool - мовні версії
+@app.get("/{lang}/ip-lookup-tool", response_class=HTMLResponse) 
+async def ip_lookup_tool_with_lang(request: Request, lang: str):
+    if lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail="Language not supported")
+    return await ip_lookup_tool_page(request, lang)
+
+async def ip_lookup_tool_page(request: Request, lang: str):
+    """Render IP Lookup Tool page"""
+    _ = Translator(lang)
+
+    context = {
+        "request": request,
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls("/ip-lookup-tool", lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/ip-lookup-tool"),
+        "base_url": str(request.base_url).rstrip('/'),
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
+    }
+
+    return templates.TemplateResponse("ip-lookup-tool.html", context)
 
 
 # VPN Detection - English (default)

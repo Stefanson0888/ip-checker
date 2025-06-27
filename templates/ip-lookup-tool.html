@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('ip_lookup_tool_title') }}</title>
+    <meta name="description" content="{{ _('ip_lookup_tool_description') }}">
+    <meta name="keywords" content="IP lookup, IP address lookup, IP geolocation, IP information, IP checker">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ _('ip_lookup_tool_title') }}">
+    <meta property="og:description" content="{{ _('ip_lookup_tool_description') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ base_url }}/ip-lookup-tool">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IP Lookup Tool",
+        "description": "Free tool to lookup any IP address and get detailed information",
+        "url": "{{ base_url }}/ip-lookup-tool",
+        "applicationCategory": "NetworkingApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    {% if gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+    {% endif %}
+
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'seo_landing',
+        'event_label': 'ip_lookup_tool',
+        'language': '{{ lang }}'
+    });
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #3a7bfd;
+            --primary-hover: #5c8dfc;
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --border-color: #e9ecef;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1e1e1e;
+            --text-color: #ffffff;
+            --border-color: #404040;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .lookup-form {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .lookup-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .lookup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .examples {
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        .examples span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .examples span:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        main {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(0,0,0,0.9);
+            color: white;
+        }
+
+        .use-cases {
+            background: #f8f9fa;
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+
+        [data-theme="dark"] .use-cases {
+            background: #2d3748;
+        }
+
+        .use-case-item {
+            background: var(--bg-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .lookup-form {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% if gtm_id %}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% endif %}
+
+    <a href="/" class="back-link">← {{ _('back_to_home') }}</a>
+
+    <header>
+        <div class="container">
+            <h1>🌐 {{ _('ip_lookup_tool_h1') }}</h1>
+            <p class="subtitle">{{ _('ip_lookup_tool_subtitle') }}</p>
+            
+            <div class="lookup-form">
+                <form action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get" onsubmit="trackIPLookup(this.ip.value)">
+                    <div class="form-group">
+                        <label for="ip">{{ _('enter_ip_address') }}</label>
+                        <input type="text" 
+                               id="ip" 
+                               name="ip" 
+                               placeholder="8.8.8.8" 
+                               pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"
+                               required />
+                    </div>
+                    <button type="submit" class="lookup-button">
+                        🔍 {{ _('lookup_ip_button') }}
+                    </button>
+                </form>
+                
+                <div class="examples">
+                    <p style="margin-bottom: 10px;">{{ _('try_examples') }}:</p>
+                    <span onclick="fillExample('8.8.8.8')">8.8.8.8</span>
+                    <span onclick="fillExample('1.1.1.1')">1.1.1.1</span>
+                    <span onclick="fillExample('208.67.222.222')">208.67.222.222</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2>{{ _('what_you_get') }}</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">📍</span>
+                        <h3>{{ _('geolocation_info') }}</h3>
+                        <p>{{ _('geolocation_description') }}</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🏢</span>
+                        <h3>{{ _('isp_details') }}</h3>
+                        <p>{{ _('isp_description') }}</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🔒</span>
+                        <h3>{{ _('security_analysis') }}</h3>
+                        <p>{{ _('security_description') }}</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3>{{ _('instant_results') }}</h3>
+                        <p>{{ _('instant_description') }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="use-cases">
+        <div class="container">
+            <h2>{{ _('common_use_cases') }}</h2>
+            
+            <div class="use-case-item">
+                <h3>🔍 {{ _('investigate_suspicious_ip') }}</h3>
+                <p>{{ _('investigate_description') }}</p>
+            </div>
+            
+            <div class="use-case-item">
+                <h3>🌐 {{ _('check_website_visitors') }}</h3>
+                <p>{{ _('visitors_description') }}</p>
+            </div>
+            
+            <div class="use-case-item">
+                <h3>🛡️ {{ _('security_monitoring') }}</h3>
+                <p>{{ _('monitoring_description') }}</p>
+            </div>
+            
+            <div class="use-case-item">
+                <h3>📊 {{ _('network_troubleshooting') }}</h3>
+                <p>{{ _('troubleshooting_description') }}</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function fillExample(ip) {
+            document.getElementById('ip').value = ip;
+            
+            // Track example click
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'example_ip_click',
+                'event_category': 'engagement',
+                'event_label': ip,
+                'language': '{{ lang }}'
+            });
+        }
+
+        function trackIPLookup(ipAddress) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'ip_lookup_submit',
+                'event_category': 'functionality',
+                'event_label': 'lookup_tool_page',
+                'ip_submitted': ipAddress,
+                'language': '{{ lang }}'
+            });
+        }
+    </script>
+</body>
+</html>
