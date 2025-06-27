@@ -235,5 +235,32 @@
   "choice": "Wybór",
   "day_guarantee": "dni gwarancji",
   "no_logs_policy": "Polityka braku logów",
-  "limited_time": "Ograniczony czas"
+  "limited_time": "Ograniczony czas",
+
+  "ip_lookup_tool_title": "Narzędzie wyszukiwania IP - Sprawdź dowolny adres IP | Darmowa geolokalizacja IP",
+  "ip_lookup_tool_description": "Profesjonalne narzędzie wyszukiwania IP do sprawdzania dowolnego adresu IP. Uzyskaj natychmiast szczegółowe informacje o geolokalizacji, ISP i bezpieczeństwie.",
+  "ip_lookup_tool_h1": "Narzędzie wyszukiwania IP",
+  "ip_lookup_tool_subtitle": "Wprowadź dowolny adres IP, aby uzyskać szczegółowe informacje o jego lokalizacji, ISP i statusie bezpieczeństwa",
+  "enter_ip_address": "Wprowadź adres IP",
+  "lookup_ip_button": "Wyszukaj adres IP",
+  "try_examples": "Wypróbuj przykłady",
+  "what_you_get": "Co odkryjesz",
+  "geolocation_info": "Informacje o geolokalizacji",
+  "geolocation_description": "Dokładne dane o lokalizacji kraju, regionu i miasta wraz ze współrzędnymi i informacjami o strefie czasowej.",
+  "isp_details": "Szczegóły ISP i sieci",
+  "isp_description": "Dostawca usług internetowych, nazwa organizacji, numer ASN i szczegóły infrastruktury sieciowej.",
+  "security_analysis": "Analiza bezpieczeństwa",
+  "security_description": "Wykrywanie VPN, proxy i Tor z analizą zagrożeń i oceną ryzyka bezpieczeństwa.",
+  "instant_results": "Natychmiastowe wyniki",
+  "instant_description": "Analiza IP w czasie rzeczywistym z kompleksowymi danymi z wielu wiarygodnych źródeł.",
+  "common_use_cases": "Typowe przypadki użycia",
+  "investigate_suspicious_ip": "Badanie podejrzanych adresów IP",
+  "investigate_description": "Badaj potencjalnie złośliwe adresy IP z logów, e-maili lub alertów bezpieczeństwa w celu oceny zagrożeń.",
+  "check_website_visitors": "Analizuj odwiedzających witrynę",
+  "visitors_description": "Zrozum pochodzenie ruchu na swojej stronie i wykryj nietypowe lub podejrzane wzorce odwiedzających.",
+  "security_monitoring": "Monitorowanie bezpieczeństwa",
+  "monitoring_description": "Monitoruj dostęp do sieci, wykrywaj nieautoryzowane połączenia i usprawniaj protokoły bezpieczeństwa.",
+  "network_troubleshooting": "Rozwiązywanie problemów sieciowych",
+  "troubleshooting_description": "Diagnozuj problemy z łącznością, śledź ścieżki sieciowe i rozwiązuj problemy techniczne."
+
 }

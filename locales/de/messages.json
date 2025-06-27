@@ -235,5 +235,32 @@
   "choice": "Wahl",
   "day_guarantee": "Tage-Garantie", 
   "no_logs_policy": "Keine-Logs-Richtlinie",
-  "limited_time": "Begrenzte Zeit"
+  "limited_time": "Begrenzte Zeit",
+
+  "ip_lookup_tool_title": "IP-Lookup-Tool - Jede IP-Adresse überprüfen | Kostenlose IP-Geolokalisierung",
+"ip_lookup_tool_description": "Professionelles IP-Lookup-Tool zur Überprüfung jeder IP-Adresse. Erhalten Sie sofort detaillierte Geolokalisierung, ISP und Sicherheitsinformationen.",
+"ip_lookup_tool_h1": "IP-Lookup-Tool",
+"ip_lookup_tool_subtitle": "Geben Sie eine beliebige IP-Adresse ein, um detaillierte Informationen über Standort, ISP und Sicherheitsstatus zu erhalten",
+"enter_ip_address": "IP-Adresse eingeben",
+"lookup_ip_button": "IP-Adresse nachschlagen",
+"try_examples": "Beispiele ausprobieren",
+"what_you_get": "Was Sie entdecken werden",
+"geolocation_info": "Geolokalisierungsinformationen",
+"geolocation_description": "Genaue Länder-, Regions- und Stadtstandortdaten mit Koordinaten und Zeitzoneninformationen.",
+"isp_details": "ISP & Netzwerkdetails",
+"isp_description": "Internet Service Provider, Organisationsname, ASN-Nummer und Netzwerkinfrastrukturdetails.",
+"security_analysis": "Sicherheitsanalyse",
+"security_description": "VPN-, Proxy- und Tor-Erkennung mit Bedrohungsanalyse und Sicherheitsrisikobewertung.",
+"instant_results": "Sofortige Ergebnisse",
+"instant_description": "Echtzeit-IP-Analyse mit umfassenden Daten aus mehreren zuverlässigen Quellen.",
+"common_use_cases": "Häufige Anwendungsfälle",
+"investigate_suspicious_ip": "Verdächtige IP-Adressen untersuchen",
+"investigate_description": "Recherchieren Sie potenziell schädliche IPs aus Logs, E-Mails oder Sicherheitswarnungen zur Bedrohungsbewertung.",
+"check_website_visitors": "Website-Besucher analysieren",
+"visitors_description": "Verstehen Sie die Herkunft Ihres Website-Traffics und erkennen Sie ungewöhnliche oder verdächtige Besuchermuster.",
+"security_monitoring": "Sicherheitsüberwachung",
+"monitoring_description": "Überwachen Sie Netzwerkzugriffe, erkennen Sie unbefugte Verbindungen und verbessern Sie Sicherheitsprotokolle.",
+"network_troubleshooting": "Netzwerk-Fehlerbehebung",
+"troubleshooting_description": "Diagnostizieren Sie Verbindungsprobleme, verfolgen Sie Netzwerkpfade und lösen Sie technische Probleme."
+
 }

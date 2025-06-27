@@ -285,5 +285,32 @@
   "day_guarantee": "day guarantee",
   "no_logs_policy": "No logs policy",
   "limited_time": "Limited Time",
-  "get_nordpass": "Get NordPass"
+  "get_nordpass": "Get NordPass",
+
+  "ip_lookup_tool_title": "IP Lookup Tool - Check Any IP Address | Free IP Geolocation",
+  "ip_lookup_tool_description": "Professional IP lookup tool to check any IP address. Get detailed geolocation, ISP, and security information instantly.",
+  "ip_lookup_tool_h1": "IP Lookup Tool",
+  "ip_lookup_tool_subtitle": "Enter any IP address to get detailed information about its location, ISP, and security status",
+  "enter_ip_address": "Enter IP Address",
+  "lookup_ip_button": "Lookup IP Address",
+  "try_examples": "Try examples",
+  "what_you_get": "What You'll Discover",
+  "geolocation_info": "Geolocation Information",
+  "geolocation_description": "Accurate country, region, and city location data with coordinates and timezone information.",
+  "isp_details": "ISP & Network Details",
+  "isp_description": "Internet Service Provider, organization name, ASN number, and network infrastructure details.",
+  "security_analysis": "Security Analysis",
+  "security_description": "VPN, proxy, and Tor detection with threat analysis and security risk assessment.",
+  "instant_results": "Instant Results",
+  "instant_description": "Real-time IP analysis with comprehensive data from multiple reliable sources.",
+  "common_use_cases": "Common Use Cases",
+  "investigate_suspicious_ip": "Investigate Suspicious IP Addresses",
+  "investigate_description": "Research potentially malicious IPs from logs, emails, or security alerts to assess threats.",
+  "check_website_visitors": "Analyze Website Visitors",
+  "visitors_description": "Understand your website traffic origins and detect unusual or suspicious visitor patterns.",
+  "security_monitoring": "Security Monitoring",
+  "monitoring_description": "Monitor network access, detect unauthorized connections, and enhance security protocols.",
+  "network_troubleshooting": "Network Troubleshooting",
+  "troubleshooting_description": "Diagnose connectivity issues, trace network paths, and resolve technical problems."
+
 }
