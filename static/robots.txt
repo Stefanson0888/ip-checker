@@ -1,7 +1,52 @@
+# IP Checker Service - Robots.txt
+# Optimized for SEO and crawl efficiency
+
 User-agent: *
+# Allow all pages except technical endpoints
+Allow: /
+
+# Block technical and internal endpoints
 Disallow: /static/
 Disallow: /api/
 Disallow: /iphub-status
+Disallow: /health
+Disallow: /analytics/
+
+# Block duplicate content (lookup without parameters)
+Disallow: /lookup$
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
+
+# Google specific optimizations
+User-agent: Googlebot
+Crawl-delay: 0
 Allow: /
 
+# Bing specific optimizations
+User-agent: Bingbot
+Crawl-delay: 1
+Allow: /
+
+# Block aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Social media crawlers - allow for rich previews
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap location
 Sitemap: https://checkip.app/sitemap.xml

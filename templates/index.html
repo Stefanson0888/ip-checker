@@ -46,6 +46,8 @@ window.dataLayer.push({
   <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls.get('en', '/') }}" />
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  <link rel="preload" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" as="style">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
 
   <style>
@@ -443,7 +445,7 @@ window.dataLayer.push({
 
       {% if flag_url %}
       <div class="flag" aria-label="{{ _('flag_alt', country=country) }}">
-        <img src="{{ flag_url }}" alt="{{ _('flag_alt', country=country) }}" loading="lazy" />
+        <img src="{{ flag_url }}" alt="{{ _('flag_alt', country=country) }}" loading="lazy" width="100" height="auto" />
       </div>
       {% endif %}
 
