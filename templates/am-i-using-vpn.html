@@ -31,6 +31,31 @@
     <link rel="icon" type="image/x-icon" href="{{ base_url }}/static/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ base_url }}/static/apple-touch-icon.png">
     
+    {% if gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
+    <!-- End Google Tag Manager -->
+    {% endif %}
+
+    <script>
+    // Global dataLayer initialization  
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'page_view',
+        'event_category': 'seo_landing',
+        'event_label': 'vpn_detection',
+        'language': '{{ lang }}',
+        'vpn_status': '{% if is_vpn %}detected{% else %}not_detected{% endif %}',
+        'user_ip': '{{ user_ip }}',
+        'user_location': '{{ user_location }}'
+    });
+    </script>
+
+
     <!-- CSS -->
     <style>
         body { 
