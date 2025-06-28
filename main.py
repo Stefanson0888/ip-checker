@@ -63,7 +63,7 @@ templates = Jinja2Templates(directory="templates")
 @app.middleware("http")
 async def redirect_render_domain(request: Request, call_next):
     """Перенаправляє traffic з render домену на основний checkip.app"""
-    host = str(request.url).replace("://", "").split("/")[0]
+    host = request.headers.get("host", "")
     
     if "onrender.com" in host:
         # Створюємо URL з основним доменом
@@ -72,9 +72,6 @@ async def redirect_render_domain(request: Request, call_next):
     
     response = await call_next(request)
     return response
-
-
-@app.get("/robots.txt", include_in_schema=False)
 
 
 @app.get("/robots.txt", include_in_schema=False)
