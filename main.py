@@ -59,6 +59,24 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+# Redirect middleware - з render домену на основний
+@app.middleware("http")
+async def redirect_render_domain(request: Request, call_next):
+    """Перенаправляє traffic з render домену на основний checkip.app"""
+    host = str(request.url).replace("://", "").split("/")[0]
+    
+    if "onrender.com" in host:
+        # Створюємо URL з основним доменом
+        new_url = str(request.url).replace(host, "checkip.app")
+        return RedirectResponse(url=new_url, status_code=301)
+    
+    response = await call_next(request)
+    return response
+
+
+@app.get("/robots.txt", include_in_schema=False)
+
+
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
     return FileResponse("static/robots.txt", media_type="text/plain")
