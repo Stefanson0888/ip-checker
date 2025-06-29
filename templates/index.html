@@ -8,15 +8,69 @@
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
 
-{% if gtm_id %}
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','{{ gtm_id }}');</script>
-<!-- End Google Tag Manager -->
-{% endif %}
+<!-- Critical CSS for fast H1 rendering -->
+<style>
+  /* Critical above-the-fold styles */
+  body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    background: #1e1e1e; 
+    color: #fff; 
+  }
+  h1 { 
+    font-size: 28px; 
+    font-weight: normal; 
+    margin: 60px auto 20px; 
+    max-width: 1200px;
+    padding: 0 15px;
+  }
+  .language-switcher {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  /* Mobile-first */
+  @media (max-width: 768px) {
+    h1 { font-size: 24px; margin: 20px auto; }
+    .language-switcher { position: static; justify-content: center; margin-bottom: 20px; }
+  }
+</style>
+
+<!-- Deferred GTM - loads after user interaction -->
+<script>
+  let gtmLoaded = false;
+  function loadGTM() {
+    if (gtmLoaded) return;
+    gtmLoaded = true;
+    
+    // Load GTM
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','{{ gtm_id }}');
+  }
+  
+  // Load GTM on user interaction
+  ['scroll', 'click', 'touchstart'].forEach(event => {
+    window.addEventListener(event, loadGTM, { once: true, passive: true });
+  });
+  
+  // Fallback: load after 2 seconds
+  setTimeout(loadGTM, 2000);
+</script>
 
 <script>
 // Глобальна ініціалізація dataLayer
@@ -46,9 +100,8 @@ window.dataLayer.push({
   <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls.get('en', '/') }}" />
 
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
-  <link rel="preload" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" as="style">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="preload" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"></noscript>
 
   <style>
     :root {
