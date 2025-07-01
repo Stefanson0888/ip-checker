@@ -4,7 +4,7 @@ from typing import Dict, Optional
 from fastapi import Request
 
 # Підтримувані мови
-SUPPORTED_LANGUAGES = ['en', 'de', 'pl', 'hi', 'uk']
+SUPPORTED_LANGUAGES = ['en', 'de', 'pl', 'hi', 'uk', 'ru']
 DEFAULT_LANGUAGE = 'en'
 
 # Кеш для перекладів

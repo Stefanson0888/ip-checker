@@ -477,6 +477,11 @@ async def vpn_detection_hi(request: Request):
 async def vpn_detection_uk(request: Request):
     return await vpn_detection_page(request, "uk")
 
+# VPN Detection - Russian
+@app.get("/ru/am-i-using-vpn")
+async def vpn_detection_ru(request: Request):
+    return await vpn_detection_page(request, "ru")
+
 # VPN Detection main function
 async def vpn_detection_page(request: Request, lang: str):
     try:
