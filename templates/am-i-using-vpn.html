@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ _('vpn_detection_title') }}</title>
     <meta name="description" content="{{ _('vpn_detection_description') }}">
-    <meta name="keywords" content="VPN detector, am i using vpn, vpn check, proxy detector, tor detector, vpn test">
+    <meta name="keywords" content="am i using vpn, vpn detector, check vpn status, vpn detection tool, proxy checker, tor detector, vpn test, is my vpn working">
     <meta name="author" content="IP Checker Service">
-    
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
     <!-- Canonical and hreflang for SEO -->
     <link rel="canonical" href="{{ base_url }}{{ current_path }}">
     {% for hreflang_lang, hreflang_url in hreflang_urls.items() %}
@@ -40,6 +42,80 @@
     })(window,document,'script','dataLayer','{{ gtm_id }}');</script>
     <!-- End Google Tag Manager -->
     {% endif %}
+
+    <!-- SCHEMA MARKUP -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebApplication",
+              "name": "VPN Detection Tool",
+              "description": "Free online tool to detect if you're using VPN, proxy, or Tor connection with instant results",
+              "url": "{{ base_url }}/am-i-using-vpn",
+              "applicationCategory": "SecurityApplication",
+              "operatingSystem": "Any",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "provider": {
+                "@type": "Organization",
+                "name": "IP Checker Service",
+                "url": "{{ base_url }}"
+              }
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "How does VPN detection work?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "VPN detection analyzes your IP address against known VPN server ranges, checks for proxy headers, and examines network characteristics to determine if you're using a VPN or proxy service."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Can websites always detect VPN usage?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Not always. While many VPNs can be detected, some premium services use techniques to avoid detection. Detection accuracy varies depending on the VPN service and detection methods used."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is using a VPN legal?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "VPN usage is legal in most countries and is commonly used for privacy, security, and accessing geo-restricted content. However, some countries have restrictions on VPN usage."
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "{{ base_url }}"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "VPN Detection",
+                  "item": "{{ base_url }}/am-i-using-vpn"
+                }
+              ]
+            }
+          ]
+        }
+        </script>
+
 
     <script>
     // Global dataLayer initialization  
@@ -157,6 +233,31 @@
             <p class="text-gray">{{ _('vpn_detection_subtitle') }}</p>
         </header>
 
+        <nav style="background: #374151; padding: 15px 0; margin-bottom: 2rem;">
+            <div class="container">
+                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" style="color: #9ca3af; text-decoration: none;">Home</a>
+                <span style="margin: 0 10px; color: #9ca3af;">›</span>
+                <span style="color: #d1d5db; font-weight: 500;">VPN Detection</span>
+            </div>
+        </nav>
+
+        <div style="background: #1f2937; padding: 30px; border-radius: 10px; margin: 2rem 0;">
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 20px; color: #d1d5db;">
+                <strong>Am I using VPN?</strong> Our free VPN detection tool instantly analyzes your connection to determine if you're behind a <strong>VPN, proxy, or Tor network</strong>. Whether you want to <strong>check if your VPN is working</strong> or verify your privacy protection, our tool provides accurate results with detailed analysis of your network connection.
+            </p>
+            
+            <div style="background: #374151; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                <h3 style="color: #60a5fa; margin-bottom: 15px;">🔍 Why Use VPN Detection?</h3>
+                <p style="color: #d1d5db; margin-bottom: 10px;">VPN detection is important for:</p>
+                <ul style="list-style: none; padding: 0; color: #d1d5db;">
+                    <li style="margin: 8px 0;">✓ <strong>Privacy verification</strong> - Confirm your VPN is masking your real IP</li>
+                    <li style="margin: 8px 0;">✓ <strong>Security testing</strong> - Check if your connection is properly encrypted</li>
+                    <li style="margin: 8px 0;">✓ <strong>Access troubleshooting</strong> - Understand why some sites block your connection</li>
+                    <li style="margin: 8px 0;">✓ <strong>Compliance checking</strong> - Verify connection type for specific requirements</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- VPN Detection Results -->
         <div class="card">
             <div class="grid grid-md-2">
@@ -245,28 +346,35 @@
         </div>
 
         <!-- Internal Links Section -->
-        <div class="card">
-            <h2>🔧 IP Tools</h2>
-            <div class="grid grid-md-2">
-                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" 
-                   style="display: flex; align-items: center; padding: 1rem; background-color: #374151; border-radius: 0.5rem; text-decoration: none; color: white;">
+        <section style="background: #1f2937; padding: 2rem; border-radius: 0.5rem; margin-top: 2rem;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Related Privacy Tools</h2>
+            <div class="grid grid-md-2" style="gap: 20px;">
+                <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/what-is-my-ip" 
+                   style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
                     <span style="font-size: 2rem; margin-right: 1rem;">🌐</span>
                     <div>
-                        <div style="font-weight: 600;">IP Checker</div>
-                        <div style="font-size: 0.875rem; color: #9ca3af;">Check your IP address</div>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">What Is My IP</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Find your public IP address and location details</p>
                     </div>
                 </a>
-                
-                <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/what-is-my-ip" 
-                   style="display: flex; align-items: center; padding: 1rem; background-color: #374151; border-radius: 0.5rem; text-decoration: none; color: white;">
-                    <span style="font-size: 2rem; margin-right: 1rem;">❓</span>
+                <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/ip-lookup-tool" 
+                   style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">🔍</span>
                     <div>
-                        <div style="font-weight: 600;">What is my IP?</div>
-                        <div style="font-size: 0.875rem; color: #9ca3af;">Learn about IP addresses</div>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">IP Lookup</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Analyze any IP address for detailed information</p>
+                    </div>
+                </a>
+                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" 
+                   style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">📍</span>
+                    <div>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">IP Tools</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Complete suite of IP analysis tools</p>
                     </div>
                 </a>
             </div>
-        </div>
+        </section>
     </div>
 </body>
 </html>
