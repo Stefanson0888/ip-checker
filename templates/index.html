@@ -24,13 +24,7 @@
     max-width: 1200px;
     padding: 0 15px;
   }
-  .language-switcher {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    display: flex;
-    gap: 10px;
-  }
+
   .theme-toggle {
     position: absolute;
     top: 10px;
@@ -41,11 +35,7 @@
     color: #fff;
     cursor: pointer;
   }
-  /* Mobile-first */
-  @media (max-width: 768px) {
-    h1 { font-size: 24px; margin: 20px auto; }
-    .language-switcher { position: static; justify-content: center; margin-bottom: 20px; }
-  }
+  
 </style>
 
 <script>
@@ -175,32 +165,159 @@ window.dataLayer.push({
       color: var(--text-color);
     }
 
-    .language-switcher {
+    .language-dropdown {
       position: absolute;
       top: 10px;
       left: 20px;
+      display: inline-block;
+      z-index: 1000;
+    }
+
+    .language-btn {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      transition: all 0.2s;
+      backdrop-filter: blur(10px);
     }
 
-    .language-switcher a {
-      padding: 4px 8px;
-      border-radius: 4px;
+    [data-theme="dark"] .language-btn {
+      background: rgba(55, 65, 81, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #d1d5db;
+    }
+
+    .language-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .language-btn:hover {
+      background: rgba(75, 85, 99, 0.9);
+    }
+
+    .dropdown-arrow {
+      font-size: 10px;
+      transition: transform 0.2s;
+    }
+
+    .language-dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .language-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+      min-width: 140px;
+      display: none;
+      z-index: 1001;
+      margin-top: 4px;
+      backdrop-filter: blur(10px);
+    }
+
+    [data-theme="dark"] .language-dropdown-menu {
+      background: #374151;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .language-dropdown.active .language-dropdown-menu {
+      display: block;
+    }
+
+    .language-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
       text-decoration: none;
-      color: var(--text-color);
-      background: rgba(58, 123, 253, 0.1);
-      font-size: 12px;
+      color: #333;
       transition: background 0.2s;
+      font-size: 14px;
     }
 
-    .language-switcher a:hover {
-      background: rgba(58, 123, 253, 0.2);
+    [data-theme="dark"] .language-option {
+      color: #d1d5db;
     }
 
-    .language-switcher a.active {
-      background: var(--button-bg);
-      color: white;
+    .language-option:hover {
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    [data-theme="dark"] .language-option:hover {
+      background: #4b5563;
+      color: #d1d5db;
+    }
+
+    .language-option.active {
+      background: #e7f3ff;
+      color: #3a7bfd;
+      font-weight: 500;
+    }
+
+    [data-theme="dark"] .language-option.active {
+      background: #1e40af;
+      color: #bfdbfe;
+    }
+
+    /* Мобільні стилі */
+    @media (max-width: 768px) {
+      .language-dropdown {
+        position: static;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .language-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* Оновлення для медіа-запиту мобільної версії */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .right-block {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
+
+      footer {
+        margin-top: 30px !important;
+        padding: 20px 0 !important;
+      }
+
+      footer a {
+        display: block !important;
+        margin: 8px 0 !important;
+      }
+
+      footer span {
+        display: none !important;
+      }
     }
 
     h1 {
@@ -426,26 +543,6 @@ window.dataLayer.push({
       background: rgba(55, 65, 81, 0.9);
     }
 
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .right-block {
-        flex-direction: column;
-        gap: 30px;
-      }
-
-      .language-switcher {
-        position: static;
-        margin-bottom: 20px;
-        justify-content: center;
-      }
-
-      h1 {
-        margin-top: 20px;
-      }
-
       footer {
         margin-top: 30px !important;
         padding: 20px 0 !important;
@@ -515,23 +612,29 @@ window.dataLayer.push({
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
   <!-- Перемикач мов -->
-  <div class="language-switcher">
+  <div class="language-dropdown" id="languageDropdown">
+  <button class="language-btn" onclick="toggleLanguageDropdown()">
+    <span class="flag-icon">
+      {% if lang == 'en' %}🇺🇸{% elif lang == 'de' %}🇩🇪{% elif lang == 'pl' %}🇵🇱{% elif lang == 'hi' %}🇮🇳{% elif lang == 'uk' %}🇺🇦{% elif lang == 'ru' %}{% endif %}
+    </span>
+    <span>{{ lang.upper() }}</span>
+    <span class="dropdown-arrow">▼</span>
+  </button>
+  
+  <div class="language-dropdown-menu">
     {% for lang_code, lang_url in language_urls.items() %}
-      {% set lang_names = {
-        'en': '🇺🇸 EN',
-        'de': '🇩🇪 DE', 
-        'pl': '🇵🇱 PL',
-        'hi': '🇮🇳 HI',
-        'uk': '🇺🇦 UK',
-        'ru': 'RU'
-      } %}
-      <a href="{{ lang_url }}" 
-         onclick="trackLanguageSwitch('{{ lang_code }}')"
-         class="{% if lang_code == lang %}active{% endif %}"
-         title="{{ lang_names[lang_code] }}">
-        {{ lang_names[lang_code] }}
-      </a>
+    <a href="{{ lang_url }}" 
+       onclick="trackLanguageSwitch('{{ lang_code }}')"
+       class="language-option {% if lang_code == lang %}active{% endif %}">
+      <span>
+        {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
+      </span>
+      <span>
+        {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
+      </span>
+    </a>
     {% endfor %}
+  </div>
   </div>
 
   <h1>{{ _("your_ip") }}: {{ ip }}</h1>
@@ -1009,5 +1112,28 @@ window.dataLayer.push({
       </div>
     </div>
   </footer>
+
+  function toggleLanguageDropdown() {
+    const dropdown = document.getElementById('languageDropdown');
+    dropdown.classList.toggle('active');
+  }
+
+  // Закриття випадаючого списку при кліку поза ним
+  document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('languageDropdown');
+    if (dropdown && !dropdown.contains(event.target)) {
+      dropdown.classList.remove('active');
+    }
+  });
+
+  // Закриття випадаючого списку при натисканні Escape
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      const dropdown = document.getElementById('languageDropdown');
+      if (dropdown) {
+        dropdown.classList.remove('active');
+      }
+    }
+  });
 </body>
 </html>

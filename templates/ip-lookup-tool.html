@@ -98,7 +98,7 @@
             }
           ]
         }
-        </script>
+    </script>
 
     {% if gtm_id %}
     <!-- Google Tag Manager -->
@@ -508,8 +508,10 @@
         <div class="container">
             <div class="language-dropdown" id="languageDropdown" style="position: relative; display: inline-block;">
                 <button class="language-btn" onclick="toggleLanguageDropdown()">
-                    <span class="flag-icon">🇺🇸</span>
-                    <span>{{ lang.upper() if lang else 'EN' }}</span>
+                    <span class="flag-icon">
+                        {% if (lang or 'en') == 'en' %}🇺🇸{% elif (lang or 'en') == 'de' %}🇩🇪{% elif (lang or 'en') == 'pl' %}🇵🇱{% elif (lang or 'en') == 'hi' %}🇮🇳{% elif (lang or 'en') == 'uk' %}🇺🇦{% elif (lang or 'en') == 'ru' %}{% endif %}
+                    </span>
+                    <span>{{ (lang or 'en').upper() }}</span>
                     <span class="dropdown-arrow">▼</span>
                 </button>
                 
@@ -518,7 +520,7 @@
                     {% for lang_code, url in language_urls.items() %}
                     <a href="{{ url }}" class="language-option {% if lang_code == (lang or 'en') %}active{% endif %}">
                         <span>
-                            {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}🇷🇺{% endif %}
+                            {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
                         </span>
                         <span>
                             {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
