@@ -304,20 +304,6 @@ window.dataLayer.push({
       h1 {
         margin-top: 20px;
       }
-
-      footer {
-        margin-top: 30px !important;
-        padding: 20px 0 !important;
-      }
-
-      footer a {
-        display: block !important;
-        margin: 8px 0 !important;
-      }
-
-      footer span {
-        display: none !important;
-      }
     }
 
     h1 {
@@ -1083,6 +1069,32 @@ window.dataLayer.push({
         });
     }
   </script>
+
+  <script>
+    function toggleLanguageDropdown() {
+      const dropdown = document.getElementById('languageDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Закриття випадаючого списку при кліку поза ним
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('languageDropdown');
+      if (dropdown && !dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Закриття випадаючого списку при натисканні Escape
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const dropdown = document.getElementById('languageDropdown');
+        if (dropdown) {
+          dropdown.classList.remove('active');
+        }
+      }
+    });
+  </script>
+
 <footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
   <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
     <div style="margin-bottom: 20px;">
@@ -1090,50 +1102,28 @@ window.dataLayer.push({
          style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
          onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'privacy_policy_click', 'event_category': 'navigation', 'language': '{{ lang }}'});">
         {{ _("privacy_policy") }}
-        </a>
-        <span style="margin: 0 15px; color: #dee2e6;">•</span>
-        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}terms" 
-           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
-           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'terms_click', 'event_category': 'navigation', 'language': '{{ lang }}'});">
-          {{ _("terms_of_service") }}
-        </a>
-        <span style="margin: 0 15px; color: #dee2e6;">•</span>
-        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}contact" 
-           style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
-           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'contact_click', 'event_category': 'engagement', 'language': '{{ lang }}'});">
-          {{ _("contact_us") }}
-        </a>
-        <span style="margin: 0 15px; color: #dee2e6;">•</span>
-        <span style="font-size: 0.9rem;">© 2025 IP Checker</span>
-      </div>
-      
-      <div style="font-size: 0.8rem; color: #adb5bd; line-height: 1.4;">
-        {{ _("footer_disclaimer") }}
-      </div>
+      </a>
+      <span style="margin: 0 15px; color: #dee2e6;">•</span>
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}terms" 
+         style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+         onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'terms_click', 'event_category': 'navigation', 'language': '{{ lang }}'});">
+        {{ _("terms_of_service") }}
+      </a>
+      <span style="margin: 0 15px; color: #dee2e6;">•</span>
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}contact" 
+         style="color: #6c757d; text-decoration: none; margin: 0 15px; font-size: 0.9rem;"
+         onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'contact_click', 'event_category': 'engagement', 'language': '{{ lang }}'});">
+        {{ _("contact_us") }}
+      </a>
+      <span style="margin: 0 15px; color: #dee2e6;">•</span>
+      <span style="font-size: 0.9rem;">© 2025 IP Checker</span>
     </div>
-  </footer>
+    
+    <div style="font-size: 0.8rem; color: #adb5bd; line-height: 1.4;">
+      {{ _("footer_disclaimer") }}
+    </div>
+  </div>
+</footer>
 
-  function toggleLanguageDropdown() {
-    const dropdown = document.getElementById('languageDropdown');
-    dropdown.classList.toggle('active');
-  }
-
-  // Закриття випадаючого списку при кліку поза ним
-  document.addEventListener('click', function(event) {
-    const dropdown = document.getElementById('languageDropdown');
-    if (dropdown && !dropdown.contains(event.target)) {
-      dropdown.classList.remove('active');
-    }
-  });
-
-  // Закриття випадаючого списку при натисканні Escape
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      const dropdown = document.getElementById('languageDropdown');
-      if (dropdown) {
-        dropdown.classList.remove('active');
-      }
-    }
-  });
 </body>
 </html>

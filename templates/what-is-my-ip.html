@@ -513,7 +513,8 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endif %}
 
-    <a href="/" class="back-link">← Back to Main</a>
+    <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">← {{ _('back_to_home') }}</a>
+
 
     <header>
         <div class="container">
