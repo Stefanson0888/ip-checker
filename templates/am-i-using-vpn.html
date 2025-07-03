@@ -201,6 +201,88 @@
         }
         .status-secure { background-color: #064e3b; color: #6ee7b7; }
         .status-exposed { background-color: #92400e; color: #fcd34d; }
+    
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-btn-dark {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #374151;
+            border: 1px solid #4b5563;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #d1d5db;
+            transition: all 0.2s;
+        }
+
+        .language-btn-dark:hover {
+            background: #4b5563;
+            border-color: #6b7280;
+        }
+
+        .dropdown-arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+
+        .language-dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .language-dropdown-menu-dark {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 8px 0;
+            min-width: 140px;
+            display: none;
+            z-index: 1000;
+            margin-top: 4px;
+        }
+
+        .language-dropdown.active .language-dropdown-menu-dark {
+            display: block;
+        }
+
+        .language-option-dark {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #d1d5db;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+
+        .language-option-dark:hover {
+            background: #374151;
+            color: #d1d5db;
+        }
+
+        .language-option-dark.active {
+            background: #1e40af;
+            color: #bfdbfe;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .language-btn-dark {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
     </style>
     </style>
 </head>
@@ -218,15 +300,28 @@
                 </a>
                 
                 <!-- Language Selector -->
-                <form method="get" style="margin: 0;">
-                    <select name="lang" onchange="this.form.submit()">
-                        {% for lang_code in supported_languages %}
-                        <option value="{{ lang_code }}" {% if lang_code == lang %}selected{% endif %}>
-                            {{ lang_code.upper() }}
-                        </option>
+                <div class="language-dropdown" id="languageDropdown">
+                    <button class="language-btn-dark" onclick="toggleLanguageDropdown()">
+                        <span class="flag-icon">
+                            {% if lang == 'en' %}🇺🇸{% elif lang == 'de' %}🇩🇪{% elif lang == 'pl' %}🇵🇱{% elif lang == 'hi' %}🇮🇳{% elif lang == 'uk' %}🇺🇦{% elif lang == 'ru' %}🇷{% endif %}
+                        </span>
+                        <span>{{ lang.upper() }}</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    
+                    <div class="language-dropdown-menu-dark">
+                        {% for lang_code, url in language_urls.items() %}
+                        <a href="{{ url }}" class="language-option-dark {% if lang_code == lang %}active{% endif %}">
+                            <span>
+                                {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}🇷{% endif %}
+                            </span>
+                            <span>
+                                {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
+                            </span>
+                        </a>
                         {% endfor %}
-                    </select>
-                </form>
+                    </div>
+                </div>
             </div>
             
             <h1 class="text-blue">{{ _('vpn_detection_h1') }}</h1>
@@ -376,5 +471,20 @@
             </div>
         </section>
     </div>
+
+        <script>
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('languageDropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        </script>
+
 </body>
 </html>

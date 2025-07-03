@@ -332,7 +332,12 @@ async def what_is_my_ip(request: Request):
         "is_vpn": security.get("vpn", False),
         "type": ip_data.get("type", "IPv4"),
         "gtm_id": GTM_ID,
-        "is_tech_user": is_tech_user
+        "is_tech_user": is_tech_user,
+        "lang": DEFAULT_LANGUAGE,  # "en"
+        "supported_languages": SUPPORTED_LANGUAGES,
+        "language_urls": get_language_urls("/what-is-my-ip", DEFAULT_LANGUAGE),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/what-is-my-ip"),
+        "base_url": str(request.base_url).rstrip('/')
     }
     
     return templates.TemplateResponse("what-is-my-ip.html", context)
