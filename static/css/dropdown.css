@@ -115,14 +115,15 @@
     }
     
     .language-dropdown-menu {
+        right: -10px;
         min-width: 120px;
-        /* Додаємо стрілку-вказівник */
+        max-width: 140px;
     }
     
     .language-dropdown-menu::before {
         content: '';
         position: absolute;
-        right: 12px;
+        right: 20px;
         top: -6px;
         width: 0;
         height: 0;
@@ -139,12 +140,24 @@
 /* Small screens adjustment */
 @media (max-width: 480px) {
     .language-dropdown-menu {
-        right: -10px;
+        right: -15px;
         min-width: 110px;
+        max-width: 130px;
     }
+    
+    .language-dropdown-menu::before {
+        right: 25px;
+    }
+    
+    /* Автокоригування для переповнення */
     .language-dropdown-menu.adjust-position {
         right: auto;
-        left: -20px;
+        left: -30px;
+    }
+    
+    .language-dropdown-menu.adjust-position::before {
+        right: auto;
+        left: 40px;
     }
 }
 
