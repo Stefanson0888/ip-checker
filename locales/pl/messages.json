@@ -261,6 +261,71 @@
   "security_monitoring": "Monitorowanie bezpieczeństwa",
   "monitoring_description": "Monitoruj dostęp do sieci, wykrywaj nieautoryzowane połączenia i usprawniaj protokoły bezpieczeństwa.",
   "network_troubleshooting": "Rozwiązywanie problemów sieciowych",
-  "troubleshooting_description": "Diagnozuj problemy z łącznością, śledź ścieżki sieciowe i rozwiązuj problemy techniczne."
+  "troubleshooting_description": "Diagnozuj problemy z łącznością, śledź ścieżki sieciowe i rozwiązuj problemy techniczne.",
+
+  "what_is_my_ip_title": "Jaki jest mój adres IP?",
+  "what_is_my_ip_subtitle": "Natychmiast odkryj swój publiczny adres IP, lokalizację i informacje o sieci",
+  
+  "understanding_your_ip": "Zrozumienie Twojego adresu IP",
+  "understanding_ip_desc": "Twój adres IP (Internet Protocol) to Twój unikalny identyfikator w Internecie. Kiedy pytasz \"jaki jest mój adres IP?\", szukasz tego cyfrowego adresu pocztowego, który umożliwia stronom internetowym i usługom komunikację z Twoim urządzeniem. Czy potrzebujesz znaleźć swój publiczny IP do rozwiązywania problemów z siecią, czy chcesz sprawdzić, czy Twój VPN działa, nasze darmowe narzędzie do sprawdzania IP zapewnia natychmiastowe, dokładne wyniki.",
+  
+  "why_use_vpn_detection": "Dlaczego używać wykrywania VPN?",
+  "vpn_detection_important": "Wykrywanie VPN jest ważne dla:",
+  "privacy_verification": "Weryfikacja prywatności",
+  "privacy_verification_desc": "Potwierdź, że Twój VPN maskuje Twój prawdziwy IP",
+  "security_testing": "Testowanie bezpieczeństwa",
+  "security_testing_desc": "Sprawdź, czy Twoje połączenie jest prawidłowo zaszyfrowane",
+  "access_troubleshooting": "Rozwiązywanie problemów z dostępem",
+  "access_troubleshooting_desc": "Zrozum, dlaczego niektóre strony blokują Twoje połączenie",
+  "compliance_checking": "Sprawdzanie zgodności",
+  "compliance_checking_desc": "Weryfikuj typ połączenia dla określonych wymagań",
+  
+  "geolocation": "Geolokalizacja",
+  "geolocation_desc": "Twój IP ujawnia Twoją przybliżoną lokalizację geograficzną, w tym kraj, region i miasto. Te informacje pomagają stronom internetowym dostarczać zlokalizowane treści i usługi.",
+  
+  "isp_information": "Informacje o ISP",
+  "isp_information_desc": "Odkryj, który dostawca usług internetowych (ISP) przypisał Twój adres IP i dowiedz się więcej o infrastrukturze sieciowej i typie połączenia.",
+  
+  "privacy_check": "Kontrola prywatności",
+  "privacy_check_desc": "Dowiedz się, czy używasz połączenia VPN, proxy lub Tor. Niezbędne do zrozumienia statusu prywatności online i bezpieczeństwa.",
+  
+  "instant_results": "Natychmiastowe wyniki",
+  "instant_results_desc": "Uzyskaj natychmiastowe, dokładne informacje o swoim adresie IP bez pobierania ani rejestracji. Proste, szybkie i niezawodne.",
+  
+  "why_check_your_ip": "Dlaczego sprawdzać swój adres IP?",
+  "security_privacy": "Bezpieczeństwo i prywatność",
+  "security_privacy_desc": "Monitoruj, czy Twój VPN działa prawidłowo i upewnij się, że Twoja prawdziwa lokalizacja nie jest ujawniana odwiedzanym stronom.",
+  "troubleshooting": "Rozwiązywanie problemów",
+  "troubleshooting_desc": "Diagnozuj problemy z siecią, weryfikuj ustawienia połączenia i zapewnij wsparcie techniczne z dokładnymi informacjami o sieci.",
+  "location_services": "Usługi lokalizacyjne",
+  "location_services_desc": "Zrozum, jak strony internetowe wykrywają Twoją lokalizację i dlaczego możesz widzieć określone treści regionalne lub ograniczenia.",
+  
+  "need_more_ip_tools": "Potrzebujesz więcej narzędzi IP?",
+  "check_any_ip_bulk": "Sprawdź dowolny adres IP, masowe wyszukiwanie wielu IP lub użyj naszych zaawansowanych narzędzi sieciowych",
+  "explore_all_tools": "Poznaj wszystkie narzędzia",
+  
+  "related_ip_tools": "Powiązane narzędzia IP",
+  "vpn_detection": "Wykrywanie VPN",
+  "vpn_detection_desc": "Sprawdź, czy używasz połączenia VPN, proxy lub Tor",
+  "ip_lookup": "Wyszukiwanie IP",
+  "ip_lookup_desc": "Sprawdź dowolny adres IP dla szczegółowych informacji",
+  "ip_checker": "Sprawdzacz IP",
+  "ip_checker_desc": "Kompletna analiza adresu IP i geolokalizacja",
+  
+  "frequently_asked_questions": "Często zadawane pytania",
+  "faq_what_exactly_ip": "Co dokładnie to jest adres IP?",
+  "faq_what_exactly_ip_answer": "Adres IP to unikalny identyfikator numeryczny przypisany każdemu urządzeniu podłączonemu do Internetu. Składa się z czterech liczb oddzielonych kropkami (IPv4) jak 192.168.1.1, lub dłuższego formatu dla IPv6. Twój adres IP pozwala innym komputerom znaleźć i komunikować się z Twoim urządzeniem.",
+  
+  "faq_can_change_ip": "Czy mogę zmienić swój adres IP?",
+  "faq_can_change_ip_answer": "Tak, możesz zmienić swój adres IP na kilka sposobów: uruchom ponownie router (dla dynamicznych IP), użyj usługi VPN, połącz się przez serwer proxy lub skontaktuj się z ISP w sprawie zmiany statycznego IP. VPN to najpopularniejsza metoda tymczasowych zmian IP.",
+  
+  "faq_ip_private": "Czy mój adres IP to prywatne informacje?",
+  "faq_ip_private_answer": "Twój adres IP to półpubliczne informacje. Strony, które odwiedzasz, mogą go zobaczyć i ujawnia on Twoją przybliżoną lokalizację i ISP. Jednak nie ujawnia bezpośrednio Twojej tożsamości osobistej, adresu domowego ani historii przeglądania bez dodatkowego dochodzenia.",
+  
+  "faq_why_ip_changes": "Dlaczego mój adres IP czasami się zmienia?",
+  "faq_why_ip_changes_answer": "Większość domowych połączeń internetowych używa dynamicznych adresów IP, które Twój ISP może okresowo zmieniać. Dzieje się to po ponownym uruchomieniu routera, po awariach zasilania lub na podstawie polityki ISP. Połączenia biznesowe często mają statyczne (niezmienne) adresy IP.",
+  
+  "faq_how_accurate_geolocation": "Jak dokładna jest geolokalizacja IP?",
+  "faq_how_accurate_geolocation_answer": "Geolokalizacja IP jest ogólnie dokładna dla wykrywania kraju i regionu (95%+ dokładności), umiarkowanie dokładna dla miast (60-80% dokładności), ale niewystarczająco precyzyjna dla dokładnych adresów. Dokładność zależy od infrastruktury Twojego ISP i jakości bazy danych."
 
 }

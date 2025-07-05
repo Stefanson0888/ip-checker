@@ -311,6 +311,69 @@
   "security_monitoring": "Security Monitoring",
   "monitoring_description": "Monitor network access, detect unauthorized connections, and enhance security protocols.",
   "network_troubleshooting": "Network Troubleshooting",
-  "troubleshooting_description": "Diagnose connectivity issues, trace network paths, and resolve technical problems."
+  "troubleshooting_description": "Diagnose connectivity issues, trace network paths, and resolve technical problems.",
 
+  "what_is_my_ip_title": "What Is My IP Address?",
+  "what_is_my_ip_subtitle": "Instantly discover your public IP address, location, and network information",
+  
+  "understanding_your_ip": "Understanding Your IP Address",
+  "understanding_ip_desc": "Your IP (Internet Protocol) address is your unique identifier on the internet. When you ask \"what is my IP address?\", you're looking for this digital postal address that allows websites and services to communicate with your device. Whether you need to find your public IP for network troubleshooting or want to check if your VPN is working, our free IP checker tool provides instant, accurate results.",
+  
+  "why_use_vpn_detection": "Why Use VPN Detection?",
+  "vpn_detection_important": "VPN detection is important for:",
+  "privacy_verification": "Privacy verification",
+  "privacy_verification_desc": "Confirm your VPN is masking your real IP",
+  "security_testing": "Security testing", 
+  "security_testing_desc": "Check if your connection is properly encrypted",
+  "access_troubleshooting": "Access troubleshooting",
+  "access_troubleshooting_desc": "Understand why some sites block your connection",
+  "compliance_checking": "Compliance checking",
+  "compliance_checking_desc": "Verify connection type for specific requirements",
+  
+  "geolocation": "Geolocation",
+  "geolocation_desc": "Your IP reveals your approximate geographic location, including country, region, and city. This information helps websites provide localized content and services.",
+  
+  "isp_information": "ISP Information",
+  "isp_information_desc": "Discover which Internet Service Provider (ISP) assigned your IP address and learn about your network infrastructure and connection type.",
+  
+  "privacy_check": "Privacy Check", 
+  "privacy_check_desc": "Find out if you're using a VPN, proxy, or Tor connection. Essential for understanding your online privacy and security status.",
+  
+  "instant_results_desc": "Get immediate, accurate information about your IP address without any downloads or registrations. Simple, fast, and reliable.",
+  
+  "why_check_your_ip": "Why Check Your IP Address?",
+  "security_privacy": "Security & Privacy",
+  "security_privacy_desc": "Monitor if your VPN is working correctly and ensure your real location isn't being exposed to websites you visit.",
+  "troubleshooting": "Troubleshooting",
+  "troubleshooting_desc": "Diagnose network issues, verify your connection settings, and provide technical support with accurate network information.",
+  "location_services": "Location Services", 
+  "location_services_desc": "Understand how websites detect your location and why you might see specific regional content or restrictions.",
+  
+  "need_more_ip_tools": "Need More IP Tools?",
+  "check_any_ip_bulk": "Check any IP address, bulk lookup multiple IPs, or use our advanced networking tools",
+  "explore_all_tools": "Explore All Tools",
+  
+  "related_ip_tools": "Related IP Tools",
+  "vpn_detection": "VPN Detection",
+  "vpn_detection_desc": "Check if you're using VPN, proxy, or Tor connection",
+  "ip_lookup": "IP Lookup", 
+  "ip_lookup_desc": "Look up any IP address for detailed information",
+  "ip_checker": "IP Checker",
+  "ip_checker_desc": "Complete IP address analysis and geolocation",
+  
+  "frequently_asked_questions": "Frequently Asked Questions",
+  "faq_what_exactly_ip": "What exactly is an IP address?",
+  "faq_what_exactly_ip_answer": "An IP address is a unique numerical identifier assigned to every device connected to the internet. It consists of four numbers separated by dots (IPv4) like 192.168.1.1, or a longer format for IPv6. Your IP address allows other computers to find and communicate with your device.",
+  
+  "faq_can_change_ip": "Can I change my IP address?", 
+  "faq_can_change_ip_answer": "Yes, you can change your IP address in several ways: restart your router (for dynamic IPs), use a VPN service, connect through a proxy server, or contact your ISP for a static IP change. VPNs are the most popular method for temporary IP changes.",
+  
+  "faq_ip_private": "Is my IP address private information?",
+  "faq_ip_private_answer": "Your IP address is semi-public information. Websites you visit can see it, and it reveals your approximate location and ISP. However, it doesn't directly reveal your personal identity, home address, or browsing history without additional investigation.",
+  
+  "faq_why_ip_changes": "Why does my IP address change sometimes?",
+  "faq_why_ip_changes_answer": "Most home internet connections use dynamic IP addresses, which your ISP can change periodically. This happens when you restart your router, after power outages, or based on your ISP's policies. Business connections often have static (unchanging) IP addresses.",
+  
+  "faq_how_accurate_geolocation": "How accurate is IP geolocation?",
+  "faq_how_accurate_geolocation_answer": "IP geolocation is generally accurate for country and region detection (95%+ accuracy), moderately accurate for cities (60-80% accuracy), but not precise enough for exact addresses. The accuracy depends on your ISP's infrastructure and database quality."
 }

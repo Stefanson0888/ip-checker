@@ -261,6 +261,71 @@
 "security_monitoring": "Sicherheitsüberwachung",
 "monitoring_description": "Überwachen Sie Netzwerkzugriffe, erkennen Sie unbefugte Verbindungen und verbessern Sie Sicherheitsprotokolle.",
 "network_troubleshooting": "Netzwerk-Fehlerbehebung",
-"troubleshooting_description": "Diagnostizieren Sie Verbindungsprobleme, verfolgen Sie Netzwerkpfade und lösen Sie technische Probleme."
+"troubleshooting_description": "Diagnostizieren Sie Verbindungsprobleme, verfolgen Sie Netzwerkpfade und lösen Sie technische Probleme.",
+
+"what_is_my_ip_title": "Wie lautet meine IP-Adresse?",
+"what_is_my_ip_subtitle": "Entdecken Sie sofort Ihre öffentliche IP-Adresse, Standort und Netzwerkinformationen",
+
+"understanding_your_ip": "Ihre IP-Adresse verstehen",
+"understanding_ip_desc": "Ihre IP-Adresse (Internet Protocol) ist Ihre eindeutige Kennung im Internet. Wenn Sie fragen \"Wie lautet meine IP-Adresse?\", suchen Sie nach dieser digitalen Postadresse, die es Websites und Diensten ermöglicht, mit Ihrem Gerät zu kommunizieren. Ob Sie Ihre öffentliche IP für die Netzwerk-Fehlerbehebung finden oder prüfen möchten, ob Ihr VPN funktioniert, unser kostenloses IP-Checker-Tool liefert sofortige, genaue Ergebnisse.",
+
+"why_use_vpn_detection": "Warum VPN-Erkennung verwenden?",
+"vpn_detection_important": "VPN-Erkennung ist wichtig für:",
+"privacy_verification": "Datenschutzverifizierung",
+"privacy_verification_desc": "Bestätigen Sie, dass Ihr VPN Ihre echte IP maskiert",
+"security_testing": "Sicherheitstests",
+"security_testing_desc": "Prüfen Sie, ob Ihre Verbindung ordnungsgemäß verschlüsselt ist",
+"access_troubleshooting": "Zugriffs-Fehlerbehebung",
+"access_troubleshooting_desc": "Verstehen Sie, warum manche Seiten Ihre Verbindung blockieren",
+"compliance_checking": "Compliance-Prüfung",
+"compliance_checking_desc": "Verbindungstyp für spezifische Anforderungen verifizieren",
+
+"geolocation": "Geolokalisierung",
+"geolocation_desc": "Ihre IP enthüllt Ihren ungefähren geografischen Standort, einschließlich Land, Region und Stadt. Diese Informationen helfen Websites, lokalisierte Inhalte und Dienste bereitzustellen.",
+
+"isp_information": "ISP-Informationen",
+"isp_information_desc": "Entdecken Sie, welcher Internet Service Provider (ISP) Ihre IP-Adresse zugewiesen hat und erfahren Sie mehr über Ihre Netzwerkinfrastruktur und Verbindungsart.",
+
+"privacy_check": "Datenschutzprüfung",
+"privacy_check_desc": "Finden Sie heraus, ob Sie eine VPN-, Proxy- oder Tor-Verbindung verwenden. Wesentlich für das Verständnis Ihres Online-Datenschutzes und Sicherheitsstatus.",
+
+"instant_results": "Sofortige Ergebnisse",
+"instant_results_desc": "Erhalten Sie sofortige, genaue Informationen über Ihre IP-Adresse ohne Downloads oder Registrierungen. Einfach, schnell und zuverlässig.",
+
+"why_check_your_ip": "Warum Ihre IP-Adresse prüfen?",
+"security_privacy": "Sicherheit & Datenschutz",
+"security_privacy_desc": "Überwachen Sie, ob Ihr VPN korrekt funktioniert und stellen Sie sicher, dass Ihr echter Standort nicht von besuchten Websites preisgegeben wird.",
+"troubleshooting": "Fehlerbehebung",
+"troubleshooting_desc": "Diagnostizieren Sie Netzwerkprobleme, verifizieren Sie Ihre Verbindungseinstellungen und bieten Sie technischen Support mit genauen Netzwerkinformationen.",
+"location_services": "Standortdienste",
+"location_services_desc": "Verstehen Sie, wie Websites Ihren Standort erkennen und warum Sie spezifische regionale Inhalte oder Beschränkungen sehen könnten.",
+
+"need_more_ip_tools": "Brauchen Sie mehr IP-Tools?",
+"check_any_ip_bulk": "Prüfen Sie jede IP-Adresse, Bulk-Lookup mehrerer IPs oder nutzen Sie unsere erweiterten Netzwerk-Tools",
+"explore_all_tools": "Alle Tools erkunden",
+
+"related_ip_tools": "Verwandte IP-Tools",
+"vpn_detection": "VPN-Erkennung",
+"vpn_detection_desc": "Prüfen Sie, ob Sie VPN-, Proxy- oder Tor-Verbindung verwenden",
+"ip_lookup": "IP-Lookup",
+"ip_lookup_desc": "Jede IP-Adresse für detaillierte Informationen nachschlagen",
+"ip_checker": "IP-Checker",
+"ip_checker_desc": "Vollständige IP-Adressanalyse und Geolokalisierung",
+
+"frequently_asked_questions": "Häufig gestellte Fragen",
+"faq_what_exactly_ip": "Was genau ist eine IP-Adresse?",
+"faq_what_exactly_ip_answer": "Eine IP-Adresse ist eine eindeutige numerische Kennung, die jedem mit dem Internet verbundenen Gerät zugewiesen wird. Sie besteht aus vier durch Punkte getrennten Zahlen (IPv4) wie 192.168.1.1 oder einem längeren Format für IPv6. Ihre IP-Adresse ermöglicht es anderen Computern, Ihr Gerät zu finden und damit zu kommunizieren.",
+
+"faq_can_change_ip": "Kann ich meine IP-Adresse ändern?",
+"faq_can_change_ip_answer": "Ja, Sie können Ihre IP-Adresse auf verschiedene Weise ändern: Router neu starten (für dynamische IPs), VPN-Dienst verwenden, über einen Proxy-Server verbinden oder Ihren ISP für eine statische IP-Änderung kontaktieren. VPNs sind die beliebteste Methode für temporäre IP-Änderungen.",
+
+"faq_ip_private": "Sind meine IP-Adressdaten privat?",
+"faq_ip_private_answer": "Ihre IP-Adresse ist halböffentliche Information. Websites, die Sie besuchen, können sie sehen, und sie enthüllt Ihren ungefähren Standort und ISP. Sie enthüllt jedoch nicht direkt Ihre persönliche Identität, Wohnadresse oder Browser-Verlauf ohne zusätzliche Untersuchung.",
+
+"faq_why_ip_changes": "Warum ändert sich meine IP-Adresse manchmal?",
+"faq_why_ip_changes_answer": "Die meisten Heiminternet-Verbindungen verwenden dynamische IP-Adressen, die Ihr ISP periodisch ändern kann. Dies geschieht beim Neustart Ihres Routers, nach Stromausfällen oder basierend auf den Richtlinien Ihres ISPs. Geschäftsverbindungen haben oft statische (unveränderliche) IP-Adressen.",
+
+"faq_how_accurate_geolocation": "Wie genau ist IP-Geolokalisierung?",
+"faq_how_accurate_geolocation_answer": "IP-Geolokalisierung ist im Allgemeinen genau für Land- und Regionserkennung (95%+ Genauigkeit), mäßig genau für Städte (60-80% Genauigkeit), aber nicht präzise genug für genaue Adressen. Die Genauigkeit hängt von der Infrastruktur Ihres ISPs und der Datenbankqualität ab."
 
 }
