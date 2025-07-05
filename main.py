@@ -286,61 +286,111 @@ async def track_custom_event(request: Request):
         print(f"❌ Custom tracking error: {e}")
         return {"status": "error", "message": "Failed to track event"}
 
-# What Is My IP - SEO landing page
+# What Is My IP - English (default)
 @app.get("/what-is-my-ip", response_class=HTMLResponse)
-async def what_is_my_ip(request: Request):
-    client_ip = await get_client_ip(request)
-    ip_data = await fetch_ip_info(client_ip)
+async def what_is_my_ip_en(request: Request):
+    return await what_is_my_ip_page(request, "en")
+
+# What Is My IP - German  
+@app.get("/de/what-is-my-ip", response_class=HTMLResponse)
+async def what_is_my_ip_de(request: Request):
+    return await what_is_my_ip_page(request, "de")
+
+# What Is My IP - Polish
+@app.get("/pl/what-is-my-ip", response_class=HTMLResponse) 
+async def what_is_my_ip_pl(request: Request):
+    return await what_is_my_ip_page(request, "pl")
+
+# What Is My IP - Hindi
+@app.get("/hi/what-is-my-ip", response_class=HTMLResponse)
+async def what_is_my_ip_hi(request: Request):
+    return await what_is_my_ip_page(request, "hi")
+
+# What Is My IP - Ukrainian
+@app.get("/uk/what-is-my-ip", response_class=HTMLResponse)
+async def what_is_my_ip_uk(request: Request):
+    return await what_is_my_ip_page(request, "uk")
+
+# What Is My IP - Russian
+@app.get("/ru/what-is-my-ip", response_class=HTMLResponse)
+async def what_is_my_ip_ru(request: Request):
+    return await what_is_my_ip_page(request, "ru")
+
+# What Is My IP main function
+async def what_is_my_ip_page(request: Request, lang: str):
+    try:
+        client_ip = await get_client_ip(request)
+        ip_data = await fetch_ip_info(client_ip)
+        
+        if "error" in ip_data:
+            ip_data = {"error": ip_data["error"]}
+        
+        iphub_data = await fetch_iphub_info(client_ip)
+        
+        # Використовуємо ту ж логіку що й у render_ip_template
+        user_agent_str = request.headers.get("user-agent", "")
+        user_agent = parse(user_agent_str)
+        
+        # Детекція tech користувача
+        is_tech_user = False
+        referrer = request.headers.get("referer", "").lower()
+        tech_user_agents = [
+            'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
+            'insomnia', 'httpie', 'python-requests', 'node', 'npm'
+        ]
+        tech_referrers = [
+            'github.com', 'stackoverflow.com', 'aws.amazon.com', 
+            'digitalocean.com', 'hetzner.com', 'cloudflare.com',
+            'netlify.com', 'vercel.com', 'heroku.com'
+        ]
+        
+        is_tech_user = (
+            any(term in user_agent_str.lower() for term in tech_user_agents) or
+            any(term in referrer for term in tech_referrers)
+        )
+        
+        # Обробка даних
+        connection = ip_data.get("connection", {})
+        security = ip_data.get("security", {})
+        
+        # Create translator
+        translator = Translator(lang)
+        
+        # Get language URLs for navigation
+        current_path = f"/{lang}/what-is-my-ip" if lang != "en" else "/what-is-my-ip"
+        language_urls = get_language_urls(current_path, lang)
+        
+        # Get hreflang URLs for SEO
+        base_url = str(request.base_url).rstrip('/')
+        hreflang_urls = get_hreflang_urls(base_url, current_path)
+        
+        context = {
+            "request": request,
+            "ip": client_ip,
+            "city": ip_data.get("city", "Unknown"),
+            "country": ip_data.get("country", "Unknown"),  
+            "isp": connection.get("isp", "Unknown"),
+            "is_vpn": security.get("vpn", False),
+            "type": ip_data.get("type", "IPv4"),
+            "gtm_id": GTM_ID,
+            "is_tech_user": is_tech_user,
+            "lang": lang,
+            "supported_languages": SUPPORTED_LANGUAGES,
+            "_": translator,
+            "language_urls": language_urls,
+            "hreflang_urls": hreflang_urls,
+            "base_url": base_url
+        }
+        return templates.TemplateResponse("what-is-my-ip.html", context)  
+        
+    except Exception as e:
+        print(f"Error in What Is My IP page: {e}")
+        # Fallback to error page or redirect to home
+        if lang != "en":
+            return RedirectResponse(url=f"/{lang}/")
+        else:
+            return RedirectResponse(url="/")
     
-    if "error" in ip_data:
-        ip_data = {"error": ip_data["error"]}
-    
-    iphub_data = await fetch_iphub_info(client_ip)
-    
-    # Використовуємо ту ж логіку що й у render_ip_template
-    user_agent_str = request.headers.get("user-agent", "")
-    user_agent = parse(user_agent_str)
-    
-    # Детекція tech користувача
-    is_tech_user = False
-    referrer = request.headers.get("referer", "").lower()
-    tech_user_agents = [
-        'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
-        'insomnia', 'httpie', 'python-requests', 'node', 'npm'
-    ]
-    tech_referrers = [
-        'github.com', 'stackoverflow.com', 'aws.amazon.com', 
-        'digitalocean.com', 'hetzner.com', 'cloudflare.com',
-        'netlify.com', 'vercel.com', 'heroku.com'
-    ]
-    
-    is_tech_user = (
-        any(term in user_agent_str.lower() for term in tech_user_agents) or
-        any(term in referrer for term in tech_referrers)
-    )
-    
-    # Обробка даних
-    connection = ip_data.get("connection", {})
-    security = ip_data.get("security", {})
-    
-    context = {
-        "request": request,
-        "ip": client_ip,
-        "city": ip_data.get("city", "Unknown"),
-        "country": ip_data.get("country", "Unknown"),  
-        "isp": connection.get("isp", "Unknown"),
-        "is_vpn": security.get("vpn", False),
-        "type": ip_data.get("type", "IPv4"),
-        "gtm_id": GTM_ID,
-        "is_tech_user": is_tech_user,
-        "lang": DEFAULT_LANGUAGE,  # "en"
-        "supported_languages": SUPPORTED_LANGUAGES,
-        "language_urls": get_language_urls("/what-is-my-ip", DEFAULT_LANGUAGE),
-        "hreflang_urls": get_hreflang_urls(str(request.base_url), "/what-is-my-ip"),
-        "base_url": str(request.base_url).rstrip('/')
-    }
-    
-    return templates.TemplateResponse("what-is-my-ip.html", context)
 
 # Privacy Policy - англійська за замовчуванням  
 @app.get("/privacy", response_class=HTMLResponse)
