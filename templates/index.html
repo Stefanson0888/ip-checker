@@ -37,6 +37,17 @@
     cursor: pointer;
   }
   
+  /* Custom map marker */
+  .custom-marker {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Map container improvements */
+  #map {
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
 </style>
 
 <script>
@@ -842,13 +853,34 @@ window.dataLayer.push({
     
     function loadMap() {
       {% if latitude and longitude %}
-      const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 10);
+      const map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 12);
+      
+      // Додаємо тайли карти
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
       }).addTo(map);
-      L.marker([{{ latitude }}, {{ longitude }}]).addTo(map)
-        .bindPopup("{{ _('you_are_here') }}")
-        .openPopup();
+      
+      // Створюємо кастомну іконку маркера
+      const customIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<div style="background: #ff4444; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+        iconSize: [26, 26],
+        iconAnchor: [13, 13]
+      });
+      
+      // Додаємо маркер з кастомною іконкою
+      const marker = L.marker([{{ latitude }}, {{ longitude }}], {
+        icon: customIcon
+      }).addTo(map);
+      
+      // Додаємо popup з правильним перекладом
+      marker.bindPopup("{{ _('you_are_here') }}", {
+        offset: L.point(0, -10),
+        closeButton: true,
+        autoClose: false,
+        closeOnClick: false
+      }).openPopup();
       
       // Track map interaction
       window.dataLayer = window.dataLayer || [];

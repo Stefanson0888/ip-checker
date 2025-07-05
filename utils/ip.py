@@ -75,7 +75,7 @@ async def fetch_ip_info_fallback(ip: str) -> dict:
     Fallback API через ip-api.com (безкоштовний з лімітом 1000/хв)
     """
     try:
-        url = f"http://ip-api.com/json/{ip}?fields=status,message,country,regionName,city,lat,lon,timezone,isp,org,as,query,proxy,hosting"
+        url = f"http://ip-api.com/json/{ip}?fields=status,message,country,countryCode,regionName,city,lat,lon,timezone,isp,org,as,query,proxy,hosting"
         
         async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(url)
@@ -92,7 +92,7 @@ async def fetch_ip_info_fallback(ip: str) -> dict:
                         "continent": "Unknown",
                         "continent_code": "Unknown", 
                         "country": data.get("country", "Unknown"),
-                        "country_code": "Unknown",
+                        "country_code": data.get("countryCode", "Unknown"),
                         "region": data.get("regionName", "Unknown"),
                         "region_code": "Unknown",
                         "city": data.get("city", "Unknown"),
