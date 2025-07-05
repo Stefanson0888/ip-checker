@@ -115,7 +115,7 @@
     }
     
     .language-dropdown-menu {
-        right: 0;
+        right: -50;
         min-width: 120px;
         max-width: 140px;
     }
@@ -140,7 +140,7 @@
 /* Small screens adjustment */
 @media (max-width: 480px) {
     .language-dropdown-menu {
-        right: 0;
+        right: -40px;
         min-width: 110px;
         max-width: 130px;
     }
