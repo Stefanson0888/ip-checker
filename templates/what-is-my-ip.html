@@ -361,25 +361,6 @@
             transform: scale(1.05);
         }
 
-        .back-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            z-index: 1000;
-            transition: background 0.3s;
-        }
-
-        .back-link:hover {
-            background: rgba(0,0,0,0.9);
-            color: white;
-        }
-
         /* VPN Status styling */
         .vpn-detected {
             color: #ffc107;
@@ -417,8 +398,6 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endif %}
-
-    <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">{{ _('back_to_main') }}</a>
 
     <header>
         <div class="container">
@@ -460,11 +439,11 @@
 
     <nav class="breadcrumbs" style="background: #f8f9fa; padding: 15px 0;">
         <div class="container">
-            <a href="/" style="color: #6c757d; text-decoration: none;">Home</a>
-            <span style="margin: 0 10px; color: #6c757d;">›</span>
-            <span style="color: #495057; font-weight: 500;">What Is My IP</span>
-        </div>
-    </nav>
+            <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" style="color: #6c757d; text-decoration: none;">{{ _('back_to_main') }}</a>
+        <span style="margin: 0 10px; color: #6c757d;">›</span>
+        <span style="color: #495057; font-weight: 500;">{{ _('what_is_my_ip_title') }}</span>
+    </div>
+</nav>
 
     <main>
         <div class="container">
