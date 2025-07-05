@@ -1,0 +1,156 @@
+/* Language Dropdown Component Styles */
+
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.language-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #374151;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #d1d5db;
+    transition: all 0.2s;
+}
+
+.language-btn:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    transition: transform 0.2s;
+}
+
+.language-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.language-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    padding: 8px 0;
+    min-width: 140px;
+    display: none;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.language-dropdown.active .language-dropdown-menu {
+    display: block;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #d1d5db;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.language-option:hover {
+    background: #374151;
+    color: #d1d5db;
+}
+
+.language-option.active {
+    background: #1e40af;
+    color: #bfdbfe;
+    font-weight: 500;
+}
+
+/* Light Theme Variant */
+.language-dropdown.light .language-btn {
+    background: white;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.language-dropdown.light .language-btn:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.language-dropdown.light .language-dropdown-menu {
+    background: white;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.language-dropdown.light .language-option {
+    color: #495057;
+}
+
+.language-dropdown.light .language-option:hover {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.language-dropdown.light .language-option.active {
+    background: #e7f3ff;
+    color: #3a7bfd;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .language-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    .language-dropdown-menu {
+        min-width: 120px;
+        /* Додаємо стрілку-вказівник */
+    }
+    
+    .language-dropdown-menu::before {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: -6px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #1f2937;
+    }
+    
+    .language-dropdown.light .language-dropdown-menu::before {
+        border-bottom-color: white;
+    }
+}
+
+/* Small screens adjustment */
+@media (max-width: 480px) {
+    .language-dropdown-menu {
+        right: -10px;
+        min-width: 110px;
+    }
+}
+
+/* Auto-adjustment class for JavaScript */
+.language-dropdown-menu.adjust-position {
+    right: auto;
+    left: 0;
+}
+
+.language-dropdown-menu.adjust-position::before {
+    right: auto;
+    left: 12px;
+}

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What Is My IP Address? - Find Your Public IP Location | IP Checker</title>
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+
     <meta name="description" content="What is my IP address? Instantly find your public IP, location, ISP, and check if you're using a VPN. Free IP checker tool with geolocation data.">
     <meta name="keywords" content="what is my ip address, find my public ip address, check my ip location, ip address checker tool, my ip address lookup, ip geolocation free, what's my external ip, ip address finder">
     
@@ -33,7 +34,7 @@
     <meta name="twitter:description" content="Instantly find your public IP, location, ISP info. Check VPN status. Free IP checker with geolocation.">
 
     <!-- Schema.org structured data SCHEMA MARKUP -->
-    <script> type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -406,106 +407,9 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
-
-            /* Language Dropdown Styles - Light Theme */
-            .language-dropdown {
-                position: relative;
-                display: inline-block;
-            }
-
-            .language-btn {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: white;
-                border: 1px solid #dee2e6;
-                border-radius: 8px;
-                padding: 8px 12px;
-                cursor: pointer;
-                font-size: 14px;
-                font-weight: 500;
-                color: #495057;
-                transition: all 0.2s;
-            }
-
-            .language-btn:hover {
-                background: #f8f9fa;
-                border-color: #adb5bd;
-            }
-
-            .dropdown-arrow {
-                font-size: 10px;
-                transition: transform 0.2s;
-            }
-
-            .language-dropdown.active .dropdown-arrow {
-                transform: rotate(180deg);
-            }
-
-            .language-dropdown-menu {
-                position: absolute;
-                top: 100%;
-                right: 0;
-                background: white;
-                border: 1px solid #dee2e6;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                padding: 8px 0;
-                min-width: 140px;
-                display: none;
-                z-index: 1000;
-                margin-top: 4px;
-            }
-
-            .language-dropdown.active .language-dropdown-menu {
-                display: block;
-            }
-
-            .language-option {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                padding: 8px 16px;
-                text-decoration: none;
-                color: #495057;
-                transition: background 0.2s;
-                font-size: 14px;
-            }
-
-            .language-option:hover {
-                background: #f8f9fa;
-                color: #495057;
-            }
-
-            .language-option.active {
-                background: #e7f3ff;
-                color: #3a7bfd;
-                font-weight: 500;
-            }
-
-            @media (max-width: 768px) {
-                .language-btn {
-                    padding: 6px 10px;
-                    font-size: 13px;
-                }
-            }
         }
     </style>
 </head>
-
-<script>
-    function toggleLanguageDropdown() {
-        const dropdown = document.getElementById('languageDropdown');
-        dropdown.classList.toggle('active');
-    }
-    
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('languageDropdown');
-        if (!dropdown.contains(event.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
-    </script>
 
 <body>
     {% if gtm_id %}
@@ -549,29 +453,8 @@
 
     <div style="background: #f8f9fa; padding: 10px 0; display: flex; justify-content: flex-end;">
         <div class="container">
-            <div class="language-dropdown" id="languageDropdown" style="position: relative; display: inline-block;">
-                <button class="language-btn" onclick="toggleLanguageDropdown()">
-                    <span class="flag-icon">
-                        {% if (lang or 'en') == 'en' %}🇺🇸{% elif (lang or 'en') == 'de' %}🇩🇪{% elif (lang or 'en') == 'pl' %}🇵🇱{% elif (lang or 'en') == 'hi' %}🇮🇳{% elif (lang or 'en') == 'uk' %}🇺🇦{% elif (lang or 'en') == 'ru' %}{% endif %}
-                    </span>
-                    <span>{{ (lang or 'en').upper() }}</span>
-                    <span class="dropdown-arrow">▼</span>
-                </button>
-                
-                <div class="language-dropdown-menu">
-                    {% if language_urls %}
-                    {% for lang_code, url in language_urls.items() %}
-                    <a href="{{ url }}" class="language-option {% if lang_code == (lang or 'en') %}active{% endif %}">
-                        <span>
-                            {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
-                        </span>
-                        <span>
-                            {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
-                        </span>
-                    </a>
-                    {% endfor %}
-                    {% endif %}
-                </div>
+            <div class="language-dropdown light" id="languageDropdown">
+                {% include 'partials/language_dropdown.html' %}
             </div>
         </div>
     </div>
@@ -723,6 +606,6 @@
             </div>
         </div>
     </section>
-
+<script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
 </body>
 </html>

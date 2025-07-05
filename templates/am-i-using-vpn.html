@@ -9,7 +9,6 @@
     <meta name="author" content="IP Checker Service">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-
     <!-- Canonical and hreflang for SEO -->
     <link rel="canonical" href="{{ base_url }}{{ current_path }}">
     {% for hreflang_lang, hreflang_url in hreflang_urls.items() %}
@@ -43,79 +42,80 @@
     <!-- End Google Tag Manager -->
     {% endif %}
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+    
     <!-- SCHEMA MARKUP -->
-    <script>
-     type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@graph": [
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
             {
-              "@type": "WebApplication",
-              "name": "VPN Detection Tool",
-              "description": "Free online tool to detect if you're using VPN, proxy, or Tor connection with instant results",
-              "url": "{{ base_url }}/am-i-using-vpn",
-              "applicationCategory": "SecurityApplication",
-              "operatingSystem": "Any",
-              "offers": {
+            "@type": "WebApplication",
+            "name": "VPN Detection Tool",
+            "description": "Free online tool to detect if you're using VPN, proxy, or Tor connection with instant results",
+            "url": "{{ base_url }}/am-i-using-vpn",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Any",
+            "offers": {
                 "@type": "Offer",
                 "price": "0",
                 "priceCurrency": "USD"
-              },
-              "provider": {
+            },
+            "provider": {
                 "@type": "Organization",
                 "name": "IP Checker Service",
                 "url": "{{ base_url }}"
-              }
+            }
             },
             {
-              "@type": "FAQPage",
-              "mainEntity": [
+            "@type": "FAQPage",
+            "mainEntity": [
                 {
-                  "@type": "Question",
-                  "name": "How does VPN detection work?",
-                  "acceptedAnswer": {
+                "@type": "Question",
+                "name": "How does VPN detection work?",
+                "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "VPN detection analyzes your IP address against known VPN server ranges, checks for proxy headers, and examines network characteristics to determine if you're using a VPN or proxy service."
-                  }
+                }
                 },
                 {
-                  "@type": "Question",
-                  "name": "Can websites always detect VPN usage?",
-                  "acceptedAnswer": {
+                "@type": "Question",
+                "name": "Can websites always detect VPN usage?",
+                "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "Not always. While many VPNs can be detected, some premium services use techniques to avoid detection. Detection accuracy varies depending on the VPN service and detection methods used."
-                  }
+                }
                 },
                 {
-                  "@type": "Question",
-                  "name": "Is using a VPN legal?",
-                  "acceptedAnswer": {
+                "@type": "Question",
+                "name": "Is using a VPN legal?",
+                "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "VPN usage is legal in most countries and is commonly used for privacy, security, and accessing geo-restricted content. However, some countries have restrictions on VPN usage."
-                  }
                 }
-              ]
+                }
+            ]
             },
             {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
+            "@type": "BreadcrumbList",
+            "itemListElement": [
                 {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Home",
-                  "item": "{{ base_url }}"
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{{ base_url }}"
                 },
                 {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "VPN Detection",
-                  "item": "{{ base_url }}/am-i-using-vpn"
+                "@type": "ListItem",
+                "position": 2,
+                "name": "VPN Detection",
+                "item": "{{ base_url }}/am-i-using-vpn"
                 }
-              ]
+            ]
             }
-          ]
-        }
-        </script>
+        ]
+    }
+    </script>
 
 
     <script>
@@ -134,7 +134,7 @@
 
 
     <!-- CSS -->
-    <style>
+    <style> 
         body { 
             background-color: #111827; 
             color: white; 
@@ -202,13 +202,13 @@
         }
         .status-secure { background-color: #064e3b; color: #6ee7b7; }
         .status-exposed { background-color: #92400e; color: #fcd34d; }
-    
+     
         .language-dropdown {
             position: relative;
             display: inline-block;
         }
 
-        .language-btn-dark {
+        .language-btn {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -222,72 +222,9 @@
             color: #d1d5db;
             transition: all 0.2s;
         }
-
-        .language-btn-dark:hover {
-            background: #4b5563;
-            border-color: #6b7280;
-        }
-
-        .dropdown-arrow {
-            font-size: 10px;
-            transition: transform 0.2s;
-        }
-
-        .language-dropdown.active .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
-        .language-dropdown-menu-dark {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            padding: 8px 0;
-            min-width: 140px;
-            display: none;
-            z-index: 1000;
-            margin-top: 4px;
-        }
-
-        .language-dropdown.active .language-dropdown-menu-dark {
-            display: block;
-        }
-
-        .language-option-dark {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: #d1d5db;
-            transition: background 0.2s;
-            font-size: 14px;
-        }
-
-        .language-option-dark:hover {
-            background: #374151;
-            color: #d1d5db;
-        }
-
-        .language-option-dark.active {
-            background: #1e40af;
-            color: #bfdbfe;
-            font-weight: 500;
-        }
-
-        @media (max-width: 768px) {
-            .language-btn-dark {
-                padding: 6px 10px;
-                font-size: 13px;
-            }
-        }
-    </style>
     </style>
 </head>
-<body>
+<>
     <!-- Simple GTM noscript for tracking -->
     <noscript><iframe src="https://www.googletagmanager.com/gtm.ns.html?id=GTM-WN4J2JQW"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -302,29 +239,10 @@
                 
                 <!-- Language Selector -->
                 <div class="language-dropdown" id="languageDropdown">
-                    <button class="language-btn-dark" onclick="toggleLanguageDropdown()">
-                        <span class="flag-icon">
-                            {% if lang == 'en' %}🇺🇸{% elif lang == 'de' %}🇩🇪{% elif lang == 'pl' %}🇵🇱{% elif lang == 'hi' %}🇮🇳{% elif lang == 'uk' %}🇺🇦{% elif lang == 'ru' %}{% endif %}
-                        </span>
-                        <span>{{ lang.upper() }}</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    
-                    <div class="language-dropdown-menu-dark">
-                        {% for lang_code, url in language_urls.items() %}
-                        <a href="{{ url }}" class="language-option-dark {% if lang_code == lang %}active{% endif %}">
-                            <span>
-                                {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
-                            </span>
-                            <span>
-                                {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
-                            </span>
-                        </a>
-                        {% endfor %}
-                    </div>
+                    {% include 'partials/language_dropdown.html' %}
                 </div>
             </div>
-            
+
             <h1 class="text-blue">{{ _('vpn_detection_h1') }}</h1>
             <p class="text-gray">{{ _('vpn_detection_subtitle') }}</p>
         </header>
@@ -473,19 +391,6 @@
         </section>
     </div>
 
-        <script>
-        function toggleLanguageDropdown() {
-            const dropdown = document.getElementById('languageDropdown');
-            dropdown.classList.toggle('active');
-        }
-        
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('languageDropdown');
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-        </script>
-
+    <script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
 </body>
 </html>

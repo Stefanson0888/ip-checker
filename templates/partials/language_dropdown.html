@@ -1,0 +1,23 @@
+<!-- Language Dropdown Component -->
+<div class="language-dropdown" id="languageDropdown">
+    <button class="language-btn" onclick="toggleLanguageDropdown()">
+        <span class="flag-icon">
+            {% if lang == 'en' %}🇺🇸{% elif lang == 'de' %}🇩🇪{% elif lang == 'pl' %}🇵🇱{% elif lang == 'hi' %}🇮🇳{% elif lang == 'uk' %}🇺🇦{% elif lang == 'ru' %}{% endif %}
+        </span>
+        <span>{{ lang.upper() }}</span>
+        <span class="dropdown-arrow">▼</span>
+    </button>
+    
+    <div class="language-dropdown-menu">
+        {% for lang_code, url in language_urls.items() %}
+        <a href="{{ url }}" class="language-option {% if lang_code == lang %}active{% endif %}">
+            <span>
+                {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
+            </span>
+            <span>
+                {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>

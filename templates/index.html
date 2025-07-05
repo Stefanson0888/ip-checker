@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ _("title") }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
 
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
@@ -163,131 +164,6 @@ window.dataLayer.push({
       background: none;
       border: none;
       color: var(--text-color);
-    }
-
-    .language-dropdown {
-      position: absolute;
-      top: 10px;
-      left: 20px;
-      display: inline-block;
-      z-index: 1000;
-    }
-
-    .language-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      color: #333;
-      transition: all 0.2s;
-      backdrop-filter: blur(10px);
-    }
-
-    [data-theme="dark"] .language-btn {
-      background: rgba(55, 65, 81, 0.9);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #d1d5db;
-    }
-
-    .language-btn:hover {
-      background: rgba(255, 255, 255, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    [data-theme="dark"] .language-btn:hover {
-      background: rgba(75, 85, 99, 0.9);
-    }
-
-    .dropdown-arrow {
-      font-size: 10px;
-      transition: transform 0.2s;
-    }
-
-    .language-dropdown.active .dropdown-arrow {
-      transform: rotate(180deg);
-    }
-
-    .language-dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      padding: 8px 0;
-      min-width: 140px;
-      display: none;
-      z-index: 1001;
-      margin-top: 4px;
-      backdrop-filter: blur(10px);
-    }
-
-    [data-theme="dark"] .language-dropdown-menu {
-      background: #374151;
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .language-dropdown.active .language-dropdown-menu {
-      display: block;
-    }
-
-    .language-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      text-decoration: none;
-      color: #333;
-      transition: background 0.2s;
-      font-size: 14px;
-    }
-
-    [data-theme="dark"] .language-option {
-      color: #d1d5db;
-    }
-
-    .language-option:hover {
-      background: #f8f9fa;
-      color: #333;
-    }
-
-    [data-theme="dark"] .language-option:hover {
-      background: #4b5563;
-      color: #d1d5db;
-    }
-
-    .language-option.active {
-      background: #e7f3ff;
-      color: #3a7bfd;
-      font-weight: 500;
-    }
-
-    [data-theme="dark"] .language-option.active {
-      background: #1e40af;
-      color: #bfdbfe;
-    }
-
-    /* Мобільні стилі */
-    @media (max-width: 768px) {
-      .language-dropdown {
-        position: static;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-      }
-      
-      .language-btn {
-        padding: 6px 10px;
-        font-size: 13px;
-      }
     }
 
     /* Оновлення для медіа-запиту мобільної версії */
@@ -591,6 +467,7 @@ window.dataLayer.push({
   </style>
 </head>
 
+
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ gtm_id }}"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -598,29 +475,8 @@ window.dataLayer.push({
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
   <!-- Перемикач мов -->
-  <div class="language-dropdown" id="languageDropdown">
-  <button class="language-btn" onclick="toggleLanguageDropdown()">
-    <span class="flag-icon">
-      {% if lang == 'en' %}🇺🇸{% elif lang == 'de' %}🇩🇪{% elif lang == 'pl' %}🇵🇱{% elif lang == 'hi' %}🇮🇳{% elif lang == 'uk' %}🇺🇦{% elif lang == 'ru' %}{% endif %}
-    </span>
-    <span>{{ lang.upper() }}</span>
-    <span class="dropdown-arrow">▼</span>
-  </button>
-  
-  <div class="language-dropdown-menu">
-    {% for lang_code, lang_url in language_urls.items() %}
-    <a href="{{ lang_url }}" 
-       onclick="trackLanguageSwitch('{{ lang_code }}')"
-       class="language-option {% if lang_code == lang %}active{% endif %}">
-      <span>
-        {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
-      </span>
-      <span>
-        {% if lang_code == 'en' %}English{% elif lang_code == 'de' %}Deutsch{% elif lang_code == 'pl' %}Polski{% elif lang_code == 'hi' %}हिंदी{% elif lang_code == 'uk' %}Українська{% elif lang_code == 'ru' %}Русский{% endif %}
-      </span>
-    </a>
-    {% endfor %}
-  </div>
+  <div class="language-dropdown light" id="languageDropdown">
+    {% include 'partials/language_dropdown.html' %}
   </div>
 
   <h1>{{ _("your_ip") }}: {{ ip }}</h1>
@@ -1070,30 +926,6 @@ window.dataLayer.push({
     }
   </script>
 
-  <script>
-    function toggleLanguageDropdown() {
-      const dropdown = document.getElementById('languageDropdown');
-      dropdown.classList.toggle('active');
-    }
-
-    // Закриття випадаючого списку при кліку поза ним
-    document.addEventListener('click', function(event) {
-      const dropdown = document.getElementById('languageDropdown');
-      if (dropdown && !dropdown.contains(event.target)) {
-        dropdown.classList.remove('active');
-      }
-    });
-
-    // Закриття випадаючого списку при натисканні Escape
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        const dropdown = document.getElementById('languageDropdown');
-        if (dropdown) {
-          dropdown.classList.remove('active');
-        }
-      }
-    });
-  </script>
 
 <footer style="margin-top: 50px; padding: 30px 0; border-top: 1px solid var(--border-color, #e9ecef); text-align: center; color: #6c757d;">
   <div style="max-width: 800px; margin: 0 auto; padding: 0 15px;">
@@ -1125,5 +957,6 @@ window.dataLayer.push({
   </div>
 </footer>
 
+<script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
 </body>
 </html>
