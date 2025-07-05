@@ -373,5 +373,8 @@
   "faq_why_ip_changes_answer": "Most home internet connections use dynamic IP addresses, which your ISP can change periodically. This happens when you restart your router, after power outages, or based on your ISP's policies. Business connections often have static (unchanging) IP addresses.",
   
   "faq_how_accurate_geolocation": "How accurate is IP geolocation?",
-  "faq_how_accurate_geolocation_answer": "IP geolocation is generally accurate for country and region detection (95%+ accuracy), moderately accurate for cities (60-80% accuracy), but not precise enough for exact addresses. The accuracy depends on your ISP's infrastructure and database quality."
+  "faq_how_accurate_geolocation_answer": "IP geolocation is generally accurate for country and region detection (95%+ accuracy), moderately accurate for cities (60-80% accuracy), but not precise enough for exact addresses. The accuracy depends on your ISP's infrastructure and database quality.",
+
+  "geolocation_testing": "Geolocation testing",
+  "geolocation_testing_desc": "See how websites detect your location"
 }

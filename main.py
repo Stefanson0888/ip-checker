@@ -189,10 +189,25 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     timezone = ip_data.get("timezone", {})
     currency = ip_data.get("currency", {})
 
-    flag_url = (
-        f"https://flagcdn.com/256x192/{ip_data.get('country_code', '').lower()}.png"
-        if ip_data.get("country_code") else None
-    )
+    country_code = ip_data.get('country_code', '').lower()
+    flag_url = None
+
+    if country_code:
+        # Спробуємо flagcdn.com
+        flag_url = f"https://flagcdn.com/256x192/{country_code}.png"
+    else:
+        # Fallback: спробуємо отримати код країни з назви
+        country_name = ip_data.get('country', '').lower()
+        country_codes = {
+            'ukraine': 'ua',
+            'germany': 'de', 
+            'poland': 'pl',
+            'united states': 'us',
+            'india': 'in',
+            'russia': 'ru'
+        }
+        if country_name in country_codes:
+            flag_url = f"https://flagcdn.com/256x192/{country_codes[country_name]}.png"
 
     languages_raw = ip_data.get("languages", [])
     language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)

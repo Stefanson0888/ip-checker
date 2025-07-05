@@ -320,6 +320,9 @@
   "faq_why_ip_changes_answer": "Większość domowych połączeń internetowych używa dynamicznych adresów IP, które Twój ISP może okresowo zmieniać. Dzieje się to po ponownym uruchomieniu routera, po awariach zasilania lub na podstawie polityki ISP. Połączenia biznesowe często mają statyczne (niezmienne) adresy IP.",
   
   "faq_how_accurate_geolocation": "Jak dokładna jest geolokalizacja IP?",
-  "faq_how_accurate_geolocation_answer": "Geolokalizacja IP jest ogólnie dokładna dla wykrywania kraju i regionu (95%+ dokładności), umiarkowanie dokładna dla miast (60-80% dokładności), ale niewystarczająco precyzyjna dla dokładnych adresów. Dokładność zależy od infrastruktury Twojego ISP i jakości bazy danych."
+  "faq_how_accurate_geolocation_answer": "Geolokalizacja IP jest ogólnie dokładna dla wykrywania kraju i regionu (95%+ dokładności), umiarkowanie dokładna dla miast (60-80% dokładności), ale niewystarczająco precyzyjna dla dokładnych adresów. Dokładność zależy od infrastruktury Twojego ISP i jakości bazy danych.",
+
+  "geolocation_testing": "Testowanie geolokalizacji", 
+  "geolocation_testing_desc": "Zobacz, jak strony internetowe wykrywają Twoją lokalizację"
 
 }

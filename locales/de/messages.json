@@ -320,6 +320,9 @@
   "faq_why_ip_changes_answer": "Die meisten Heiminternet-Verbindungen verwenden dynamische IP-Adressen, die Ihr ISP periodisch ändern kann. Dies geschieht beim Neustart Ihres Routers, nach Stromausfällen oder basierend auf den Richtlinien Ihres ISPs. Geschäftsverbindungen haben oft statische (unveränderliche) IP-Adressen.",
 
   "faq_how_accurate_geolocation": "Wie genau ist IP-Geolokalisierung?",
-  "faq_how_accurate_geolocation_answer": "IP-Geolokalisierung ist im Allgemeinen genau für Land- und Regionserkennung (95%+ Genauigkeit), mäßig genau für Städte (60-80% Genauigkeit), aber nicht präzise genug für genaue Adressen. Die Genauigkeit hängt von der Infrastruktur Ihres ISPs und der Datenbankqualität ab."
+  "faq_how_accurate_geolocation_answer": "IP-Geolokalisierung ist im Allgemeinen genau für Land- und Regionserkennung (95%+ Genauigkeit), mäßig genau für Städte (60-80% Genauigkeit), aber nicht präzise genug für genaue Adressen. Die Genauigkeit hängt von der Infrastruktur Ihres ISPs und der Datenbankqualität ab.",
+
+  "geolocation_testing": "Geolokalisierung testen",
+  "geolocation_testing_desc": "Sehen Sie, wie Websites Ihren Standort erkennen"
 
 }
