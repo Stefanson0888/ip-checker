@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ _("error_api") }} - IP Checker</title>
+  <title>Error - IP Checker</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
   
   {% if gtm_id %}
@@ -113,15 +113,15 @@ function trackLanguageSwitch(langCode) {
   </div>
 
   <div class="error-container">
-    <h1 class="error-title">{{ _("error_api") }}</h1>
+    <h1 class="error-title">Error checking IP</h1>
     <p><strong>IP:</strong> {{ ip }}</p>
-    <p><strong>{{ _("error_invalid_ip") if "Invalid" in error else _("error_api") }}:</strong> {{ error }}</p>
-    <p>{{ _("error_invalid_ip") }}</p>
+    <p><strong>Error checking IP:</strong> {{ error }}</p>
+    <p>Invalid IP address format</p>
   </div>
   
   <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" 
-     onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'back_to_home', 'event_category': 'navigation', 'event_label': 'from_error', 'language': '{{ lang }}'});"
-     class="back-button">{{ _("back_to_home") }}</a>
+     onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'back_to_main', 'event_category': 'navigation', 'event_label': 'from_error', 'language': '{{ lang }}'});"
+     class="back-button">{{ _("back_to_main") }}</a>
   
   <div style="margin-top: 40px; color: #666;">
     <p><strong>{{ _("browser") }}:</strong> {{ browser }}</p>
