@@ -475,7 +475,7 @@ window.dataLayer.push({
   <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
   <!-- Перемикач мов -->
-  <div class="language-dropdown light" id="languageDropdown">
+  <div class="language-dropdown" id="languageDropdown">
     {% include 'partials/language_dropdown.html' %}
   </div>
 
@@ -768,7 +768,15 @@ window.dataLayer.push({
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
       document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
-      
+      const dropdown = document.getElementById('languageDropdown');
+      if (dropdown) {
+        if (newTheme === "light") {
+          dropdown.classList.add('light');
+        } else {
+          dropdown.classList.remove('light');
+        }
+      }
+
       // Track theme change
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
@@ -782,6 +790,19 @@ window.dataLayer.push({
     window.addEventListener("DOMContentLoaded", () => {
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
+    
+      // Initialize dropdown theme
+      const dropdown = document.getElementById('languageDropdown');
+      if (dropdown) {
+        if (savedTheme === "light") {
+          dropdown.classList.add('light');
+        } else {
+          dropdown.classList.remove('light');
+        }
+      }
+
+      // Initialize theme button emoji
+      document.querySelector('.theme-toggle').textContent = savedTheme === "dark" ? "🌞" : "🌙";
     });
 
     // Map loading logic

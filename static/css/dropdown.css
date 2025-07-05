@@ -142,6 +142,10 @@
         right: -10px;
         min-width: 110px;
     }
+    .language-dropdown-menu.adjust-position {
+        right: auto;
+        left: -20px;
+    }
 }
 
 /* Auto-adjustment class for JavaScript */
