@@ -33,7 +33,6 @@
   "flag_alt": "Flaga {country}",
   "error_invalid_ip": "Nieprawidłowy format adresu IP",
   "error_api": "Błąd sprawdzania IP",
-  "back_to_home": "← Powrót do strony głównej",
   "unknown": "Nieznane",
 
   "protect_your_privacy": "Chroń swoją prywatność online",
@@ -195,8 +194,7 @@
   "connect_with_us": "Połącz się z nami",
   "stay_updated": "Bądź na bieżąco z najnowszymi funkcjami!",
   "website": "Strona internetowa",
-  "back_to_main": "Powrót do strony głównej",
-
+  
   "email": "E-mail",
   "response_time": "Czas odpowiedzi",
   "within_48_hours": "W ciągu 48 godzin",
@@ -226,10 +224,7 @@
   "nordpass_features": "Zaawansowany menedżer haseł, bezpieczne udostępnianie, logowanie biometryczne",
   "get_nordpass": "Pobierz NordPass",
   
-  "your_ip": "Twój adres IP",
   "connection_type": "Typ połączenia", 
-  "location": "Lokalizacja",
-  "isp": "Dostawca internetowy",
   "security_level": "Poziom bezpieczeństwa",
 
   "choice": "Wybór",
@@ -289,7 +284,6 @@
   "privacy_check": "Kontrola prywatności",
   "privacy_check_desc": "Dowiedz się, czy używasz połączenia VPN, proxy lub Tor. Niezbędne do zrozumienia statusu prywatności online i bezpieczeństwa.",
   
-  "instant_results": "Natychmiastowe wyniki",
   "instant_results_desc": "Uzyskaj natychmiastowe, dokładne informacje o swoim adresie IP bez pobierania ani rejestracji. Proste, szybkie i niezawodne.",
   
   "why_check_your_ip": "Dlaczego sprawdzać swój adres IP?",

@@ -170,6 +170,7 @@
             color: white;
             padding: 60px 0;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -417,10 +418,15 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endif %}
 
-    <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">{{ _('back_to_home') }}</a>
+    <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">{{ _('back_to_main') }}</a>
 
     <header>
         <div class="container">
+            <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+                <div class="language-dropdown light" id="languageDropdown">
+                    {% include 'partials/language_dropdown.html' %}
+                </div>
+            </div>
             <h1>{{ _('what_is_my_ip_title') }}</h1>
             <p class="subtitle">{{ _('what_is_my_ip_subtitle') }}</p>
             
@@ -428,11 +434,11 @@
                 <div class="ip-address">{{ ip|default("Unable to detect") }}</div>
                 <div class="ip-info">
                     <div class="info-item">
-                        <div class="info-label">Location</div>
+                        <div class="info-label">{{ _('location') }}</div>
                         <div class="info-value">{{ city|default("Unknown") }}, {{ country|default("Unknown") }}</div>
                     </div>
                     <div class="info-item">
-                        <div class="info-label">ISP</div>
+                        <div class="info-label">{{ _('isp') }}</div>
                         <div class="info-value">{{ isp|default("Unknown") }}</div>
                     </div>
                     <div class="info-item">
@@ -442,7 +448,7 @@
                         </div>
                     </div>
                     <div class="info-item">
-                        <div class="info-label">IP Type</div>
+                        <div class="info-label">{{ _('type') }}</div>
                         <div class="info-value">{{ type|default("IPv4") }}</div>
                     </div>
                 </div>
@@ -450,13 +456,7 @@
         </div>
     </header>
 
-    <div style="background: #f8f9fa; padding: 10px 0; display: flex; justify-content: flex-end;">
-        <div class="container">
-            <div class="language-dropdown light" id="languageDropdown">
-                {% include 'partials/language_dropdown.html' %}
-            </div>
-        </div>
-    </div>
+    
 
     <nav class="breadcrumbs" style="background: #f8f9fa; padding: 15px 0;">
         <div class="container">
@@ -477,10 +477,10 @@
                     <h3>🔍 {{ _('why_use_vpn_detection') }}</h3>
                     <p>{{ _('vpn_detection_important') }}</p>
                     <ul style="list-style: none; padding: 0;">
-                        <li style="margin: 10px 0;">✓ <strong>Privacy verification</strong> - Ensure your VPN is masking your real location</li>
-                        <li style="margin: 10px 0;">✓ <strong>Network troubleshooting</strong> - Diagnose connection issues with technical support</li>
-                        <li style="margin: 10px 0;">✓ <strong>Security monitoring</strong> - Check for unauthorized network access</li>
-                        <li style="margin: 10px 0;">✓ <strong>Geolocation testing</strong> - See how websites detect your location</li>
+                        <li style="margin: 10px 0;">✓ <strong>{{ _('privacy_verification') }}</strong> - {{ _('privacy_verification_desc') }}</li>
+                        <li style="margin: 10px 0;">✓ <strong>{{ _('security_testing') }}</strong> - {{ _('security_testing_desc') }}</li>
+                        <li style="margin: 10px 0;">✓ <strong>{{ _('security_monitoring') }}</strong> - {{ _('monitoring_description') }}</li>
+                        <li style="margin: 10px 0;">✓ <strong>{{ _('geolocation_testing') }}</strong> - {{ _('geolocation_testing_desc') }}</li>
                     </ul>
                 </div>
 

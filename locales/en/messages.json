@@ -33,7 +33,6 @@
   "flag_alt": "Flag of {country}",
   "error_invalid_ip": "Invalid IP address format",
   "error_api": "Error checking IP",
-  "back_to_home": "← Back to Home",
   "unknown": "Unknown",
   
   "protect_your_privacy": "Protect Your Online Privacy",
@@ -253,7 +252,6 @@
   "connect_with_us": "Connect With Us",
   "stay_updated": "Stay updated with the latest features and improvements!",
   "website": "Website",
-  "back_to_main": "Back to Main",
 
   "vpn_detection_title": "Am I Using VPN? - Free VPN Detection Tool",
   "vpn_detection_description": "Check if you're using VPN, proxy, or Tor. Free online tool to detect your connection type and protect your privacy.",
