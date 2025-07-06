@@ -4,19 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ _("title") }}</title>
-  <link rel="stylesheet" href="/static/css/dropdown.css">
 
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
 
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      document.documentElement.style.visibility = 'hidden';
+      document.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.style.visibility = 'visible';
+      });
+    })();
+    </script>
+  
+    <link rel="stylesheet" href="/static/css/dropdown.css">
+
 <!-- Critical CSS for fast H1 rendering -->
 <style>
+  html {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --button-bg: #3a7bfd;
+    --button-hover: #5c8dfc;
+    --button-text: #000000;
+  }
+
+  html[data-theme="dark"] {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --button-bg: #3a7bfd;
+    --button-hover: #5c8dfc;
+    --button-text: #ffffff;
+  }
+
   /* Critical above-the-fold styles */
   body { 
     font-family: Arial, sans-serif; 
     margin: 0; 
-    background: #1e1e1e; 
-    color: #fff; 
+    background: var(--bg-color) !important; 
+    color: var(--text-color) !important;
+    transition: none; /* Вимикаємо transition на початку */
   }
   h1 { 
     font-size: 28px; 
@@ -461,6 +490,25 @@ window.dataLayer.push({
         height: auto;
       }
 
+      /* 🔄 Transitions тільки після завантаження сторінки */
+      body.transitions-enabled {
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+      }
+
+      body.transitions-enabled * {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      }
+
+      .theme-toggle {
+        transition: color 0.3s ease;
+      }
+
+      .language-dropdown .language-btn,
+      .language-dropdown .language-dropdown-menu,
+      .language-option {
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+
       /* Map optimization */
       #map {
         width: 100%;
@@ -776,9 +824,14 @@ window.dataLayer.push({
     function toggleTheme() {
       const current = document.documentElement.getAttribute("data-theme");
       const newTheme = current === "dark" ? "light" : "dark";
+      
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
+      
+      // Оновлюємо іконку кнопки
       document.querySelector('.theme-toggle').textContent = newTheme === "dark" ? "🌞" : "🌙";
+      
+      // Оновлюємо dropdown тему
       const dropdown = document.getElementById('languageDropdown');
       if (dropdown) {
         if (newTheme === "light") {
@@ -787,7 +840,12 @@ window.dataLayer.push({
           dropdown.classList.remove('light');
         }
       }
-
+    
+      // Увімкнути transition тільки після першого завантаження
+      if (!document.body.classList.contains('transitions-enabled')) {
+        document.body.classList.add('transitions-enabled');
+      }
+    
       // Track theme change
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
@@ -799,10 +857,9 @@ window.dataLayer.push({
     }
 
     window.addEventListener("DOMContentLoaded", () => {
-      const savedTheme = localStorage.getItem("theme") || "light";
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    
-      // Initialize dropdown theme
+      const savedTheme = document.documentElement.getAttribute("data-theme") || "light";
+      
+      // Ініціалізуємо dropdown тему
       const dropdown = document.getElementById('languageDropdown');
       if (dropdown) {
         if (savedTheme === "light") {
@@ -811,9 +868,14 @@ window.dataLayer.push({
           dropdown.classList.remove('light');
         }
       }
-
-      // Initialize theme button emoji
+    
+      // Ініціалізуємо іконку кнопки теми
       document.querySelector('.theme-toggle').textContent = savedTheme === "dark" ? "🌞" : "🌙";
+      
+      // Увімкнути transitions після завантаження
+      setTimeout(() => {
+        document.body.classList.add('transitions-enabled');
+      }, 100);
     });
 
     // Map loading logic
