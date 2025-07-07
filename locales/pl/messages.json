@@ -323,6 +323,16 @@
   "faq_how_accurate_geolocation_answer": "Geolokalizacja IP jest ogólnie dokładna dla wykrywania kraju i regionu (95%+ dokładności), umiarkowanie dokładna dla miast (60-80% dokładności), ale niewystarczająco precyzyjna dla dokładnych adresów. Dokładność zależy od infrastruktury Twojego ISP i jakości bazy danych.",
 
   "geolocation_testing": "Testowanie geolokalizacji", 
-  "geolocation_testing_desc": "Zobacz, jak strony internetowe wykrywają Twoją lokalizację"
+  "geolocation_testing_desc": "Zobacz, jak strony internetowe wykrywają Twoją lokalizację",
+
+  "vpn_detection_intro_title": "Czy używam VPN?",
+  "vpn_detection_intro_text": "Nasze bezpłatne narzędzie wykrywania VPN natychmiast analizuje Twoje połączenie, aby określić, czy jesteś za VPN, proxy lub siecią Tor. Niezależnie od tego, czy chcesz sprawdzić, czy Twój VPN działa, czy zweryfikować ochronę prywatności, nasze narzędzie zapewnia dokładne wyniki ze szczegółową analizą Twojego połączenia sieciowego.",
+  
+  "technical_details": "Szczegóły techniczne",
+  "related_privacy_tools": "Powiązane narzędzia prywatności",
+  
+  "find_public_ip": "Znajdź swój publiczny adres IP i szczegóły lokalizacji",
+  "analyze_any_ip": "Analizuj dowolny adres IP w celu uzyskania szczegółowych informacji",
+  "complete_suite_tools": "Kompletny zestaw narzędzi analizy IP"
 
 }

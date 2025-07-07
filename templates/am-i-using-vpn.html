@@ -234,7 +234,7 @@
         <header class="text-center" style="margin-bottom: 2rem;">
             <div class="flex" style="margin-bottom: 1.5rem;">
                 <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">
-                    ← {{ _('back_to_home') }}
+                    ← {{ _('back_to_main') }}
                 </a>
                 
                 <!-- Language Selector -->
@@ -257,12 +257,12 @@
 
         <div style="background: #1f2937; padding: 30px; border-radius: 10px; margin: 2rem 0;">
             <p style="font-size: 1.2rem; text-align: center; margin-bottom: 20px; color: #d1d5db;">
-                <strong>Am I using VPN?</strong> Our free VPN detection tool instantly analyzes your connection to determine if you're behind a <strong>VPN, proxy, or Tor network</strong>. Whether you want to <strong>check if your VPN is working</strong> or verify your privacy protection, our tool provides accurate results with detailed analysis of your network connection.
+                <strong>{{ _('vpn_detection_intro_title') }}</strong> {{ _('vpn_detection_intro_text') }}
             </p>
             
             <div style="background: #374151; padding: 20px; border-radius: 8px; margin-top: 20px;">
-                <h3 style="color: #60a5fa; margin-bottom: 15px;">🔍 Why Use VPN Detection?</h3>
-                <p style="color: #d1d5db; margin-bottom: 10px;">VPN detection is important for:</p>
+                <h3 style="color: #60a5fa; margin-bottom: 15px;">🔍 {{ _('why_use_vpn_detection') }}</h3>
+                <p style="color: #d1d5db; margin-bottom: 10px;">{{ _('vpn_detection_important') }}</p>
                 <ul style="list-style: none; padding: 0; color: #d1d5db;">
                     <li style="margin: 8px 0;">✓ <strong>Privacy verification</strong> - Confirm your VPN is masking your real IP</li>
                     <li style="margin: 8px 0;">✓ <strong>Security testing</strong> - Check if your connection is properly encrypted</li>
@@ -297,7 +297,7 @@
                 
                 <!-- Technical Details -->
                 <div class="space-y">
-                    <h3>Technical Details</h3>
+                    <h3>{{ _('technical_details') }}</h3>
                     <div class="space-y">
                         <div class="flex">
                             <span class="text-gray">{{ _('your_ip') }}:</span>
@@ -361,30 +361,30 @@
 
         <!-- Internal Links Section -->
         <section style="background: #1f2937; padding: 2rem; border-radius: 0.5rem; margin-top: 2rem;">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Related Privacy Tools</h2>
+            <h2 style="text-align: center; margin-bottom: 2rem;">{{ _('related_privacy_tools') }}</h2>
             <div class="grid grid-md-2" style="gap: 20px;">
                 <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/what-is-my-ip" 
                    style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
                     <span style="font-size: 2rem; margin-right: 1rem;">🌐</span>
                     <div>
-                        <h3 style="color: #60a5fa; margin-bottom: 5px;">What Is My IP</h3>
-                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Find your public IP address and location details</p>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">{{ _('what_is_my_ip_title') }}</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">{{ _('find_public_ip') }}</p>
                     </div>
                 </a>
                 <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/ip-lookup-tool" 
                    style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
                     <span style="font-size: 2rem; margin-right: 1rem;">🔍</span>
                     <div>
-                        <h3 style="color: #60a5fa; margin-bottom: 5px;">IP Lookup</h3>
-                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Analyze any IP address for detailed information</p>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">{{ _('ip_lookup') }}</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">{{ _('analyze_any_ip') }}</p>
                     </div>
                 </a>
                 <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" 
                    style="background: #374151; padding: 20px; border-radius: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
                     <span style="font-size: 2rem; margin-right: 1rem;">📍</span>
                     <div>
-                        <h3 style="color: #60a5fa; margin-bottom: 5px;">IP Tools</h3>
-                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">Complete suite of IP analysis tools</p>
+                        <h3 style="color: #60a5fa; margin-bottom: 5px;">{{ _('ip_checker') }}</h3>
+                        <p style="font-size: 0.875rem; color: #9ca3af; margin: 0;">{{ _('complete_suite_tools') }}</p>
                     </div>
                 </a>
             </div>

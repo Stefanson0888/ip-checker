@@ -323,6 +323,17 @@
   "faq_how_accurate_geolocation_answer": "IP-Geolokalisierung ist im Allgemeinen genau für Land- und Regionserkennung (95%+ Genauigkeit), mäßig genau für Städte (60-80% Genauigkeit), aber nicht präzise genug für genaue Adressen. Die Genauigkeit hängt von der Infrastruktur Ihres ISPs und der Datenbankqualität ab.",
 
   "geolocation_testing": "Geolokalisierung testen",
-  "geolocation_testing_desc": "Sehen Sie, wie Websites Ihren Standort erkennen"
+  "geolocation_testing_desc": "Sehen Sie, wie Websites Ihren Standort erkennen",
+
+  
+  "vpn_detection_intro_title": "Verwende ich VPN?",
+  "vpn_detection_intro_text": "Unser kostenloses VPN-Erkennungstool analysiert sofort Ihre Verbindung, um festzustellen, ob Sie sich hinter einem VPN, Proxy oder Tor-Netzwerk befinden. Ob Sie prüfen möchten, ob Ihr VPN funktioniert oder Ihren Datenschutz verifizieren möchten, unser Tool liefert genaue Ergebnisse mit detaillierter Analyse Ihrer Netzwerkverbindung.",
+  
+  "technical_details": "Technische Details",
+  "related_privacy_tools": "Verwandte Datenschutz-Tools",
+  
+  "find_public_ip": "Finden Sie Ihre öffentliche IP-Adresse und Standortdetails",
+  "analyze_any_ip": "Analysieren Sie jede IP-Adresse für detaillierte Informationen",
+  "complete_suite_tools": "Vollständige Suite von IP-Analyse-Tools"
 
 }

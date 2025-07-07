@@ -376,5 +376,16 @@
   "faq_how_accurate_geolocation_answer": "IP geolocation is generally accurate for country and region detection (95%+ accuracy), moderately accurate for cities (60-80% accuracy), but not precise enough for exact addresses. The accuracy depends on your ISP's infrastructure and database quality.",
 
   "geolocation_testing": "Geolocation testing",
-  "geolocation_testing_desc": "See how websites detect your location"
+  "geolocation_testing_desc": "See how websites detect your location",
+
+  "vpn_detection_intro_title": "Am I using VPN?",
+  "vpn_detection_intro_text": "Our free VPN detection tool instantly analyzes your connection to determine if you're behind a VPN, proxy, or Tor network. Whether you want to check if your VPN is working or verify your privacy protection, our tool provides accurate results with detailed analysis of your network connection.",
+  
+  "technical_details": "Technical Details",
+  "related_privacy_tools": "Related Privacy Tools",
+  
+  "find_public_ip": "Find your public IP address and location details",
+  "analyze_any_ip": "Analyze any IP address for detailed information", 
+  "complete_suite_tools": "Complete suite of IP analysis tools"
+
 }
