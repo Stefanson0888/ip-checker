@@ -495,8 +495,15 @@ window.dataLayer.push({
         transition: background-color 0.3s ease, color 0.3s ease !important;
       }
 
-      body.transitions-enabled * {
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      body.transitions-enabled,
+      body.transitions-enabled .container,
+      body.transitions-enabled .theme-toggle,
+      body.transitions-enabled .language-dropdown .language-btn,
+      body.transitions-enabled .language-dropdown .language-dropdown-menu,
+      body.transitions-enabled .language-option,
+      body.transitions-enabled .toggle-button,
+      body.transitions-enabled input {
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
       }
 
       .theme-toggle {
