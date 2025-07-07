@@ -361,7 +361,7 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endif %}
 
-    <a href="/" class="back-link">← {{ _('back_to_home') }}</a>
+    <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" class="back-link">← {{ _('back_to_main') }}</a>
 
     <header>
         <div class="container">
@@ -370,17 +370,17 @@
             
             <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 10px; margin: 2rem auto; max-width: 800px;">
                 <p style="font-size: 1.2rem; text-align: center; margin-bottom: 20px; color: white;">
-                    Our professional <strong>IP lookup tool</strong> allows you to <strong>check any IP address</strong> for comprehensive information. Whether you need to <strong>analyze an IP location</strong>, verify ISP details, or perform security analysis, our free tool provides instant, accurate results with detailed geolocation data.
+                    {{ _('ip_lookup_intro_text') }}
                 </p>
                 
                 <div style="background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 8px; margin-top: 20px;">
-                    <h3 style="color: white; margin-bottom: 15px;">🔍 Professional IP Analysis Features</h3>
-                    <p style="color: white; margin-bottom: 10px;">Our IP lookup tool provides:</p>
+                    <h3 style="color: white; margin-bottom: 15px;">🔍 {{ _('professional_ip_features') }}</h3>
+                    <p style="color: white; margin-bottom: 10px;">{{ _('our_tool_provides') }}:</p>
                     <ul style="list-style: none; padding: 0; color: white;">
-                        <li style="margin: 8px 0;">✓ <strong>Geolocation data</strong> - Country, region, city, and coordinates</li>
-                        <li style="margin: 8px 0;">✓ <strong>ISP information</strong> - Provider details and organization data</li>
-                        <li style="margin: 8px 0;">✓ <strong>Security analysis</strong> - VPN, proxy, and threat detection</li>
-                        <li style="margin: 8px 0;">✓ <strong>Network details</strong> - ASN, timezone, and infrastructure info</li>
+                        <li style="margin: 8px 0;">✓ <strong>{{ _('geolocation_data') }}</strong> - {{ _('geolocation_data_desc') }}</li>
+                        <li style="margin: 8px 0;">✓ <strong>{{ _('isp_information') }}</strong> - {{ _('isp_information_desc') }}</li>
+                        <li style="margin: 8px 0;">✓ <strong>{{ _('security_analysis') }}</strong> - {{ _('security_analysis_desc') }}</li>
+                        <li style="margin: 8px 0;">✓ <strong>{{ _('network_details') }}</strong> - {{ _('network_details_desc') }}</li>
                     </ul>
                 </div>
             </div>
@@ -421,9 +421,9 @@
 
     <nav class="breadcrumbs" style="background: #f8f9fa; padding: 15px 0;">
         <div class="container">
-            <a href="/" style="color: #6c757d; text-decoration: none;">Home</a>
+            <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" style="color: #6c757d; text-decoration: none;">{{ _('home') }}</a>
             <span style="margin: 0 10px; color: #6c757d;">›</span>
-            <span style="color: #495057; font-weight: 500;">IP Lookup Tool</span>
+            <span style="color: #495057; font-weight: 500;">{{ _('ip_lookup') }}</span>
         </div>
     </nav>
 
@@ -460,22 +460,22 @@
         </div>
         <section class="related-tools" style="background: #f8f9fa; padding: 60px 0; margin-top: 60px;">
             <div class="container">
-                <h2>Related IP Analysis Tools</h2>
+                <h2>{{ _('related_ip_tools') }}</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
                     <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/what-is-my-ip" 
                        style="background: white; padding: 20px; border-radius: 10px; text-decoration: none; color: #495057; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        <h3 style="color: #3a7bfd; margin-bottom: 10px;">🌐 What Is My IP</h3>
-                        <p>Find your current public IP address and location</p>
+                       <h3 style="color: #3a7bfd; margin-bottom: 10px;">🌐 {{ _('what_is_my_ip_title') }}</h3>
+                       <p>{{ _('find_current_ip_desc') }}</p>
                     </a>
                     <a href="{% if lang != 'en' %}/{{ lang }}{% endif %}/am-i-using-vpn" 
                        style="background: white; padding: 20px; border-radius: 10px; text-decoration: none; color: #495057; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        <h3 style="color: #3a7bfd; margin-bottom: 10px;">🔒 VPN Detection</h3>
-                        <p>Check if an IP address is using VPN or proxy</p>
+                       <h3 style="color: #3a7bfd; margin-bottom: 10px;">🔒 {{ _('vpn_detection') }}</h3>
+                       <p>{{ _('check_vpn_proxy_desc') }}</p>
                     </a>
                     <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" 
                        style="background: white; padding: 20px; border-radius: 10px; text-decoration: none; color: #495057; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        <h3 style="color: #3a7bfd; margin-bottom: 10px;">📍 Full IP Suite</h3>
-                        <p>Complete IP analysis and networking tools</p>
+                       <h3 style="color: #3a7bfd; margin-bottom: 10px;">📍 {{ _('full_ip_suite') }}</h3>
+                       <p>{{ _('complete_ip_tools_desc') }}</p>
                     </a>
                 </div>
             </div>

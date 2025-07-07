@@ -333,6 +333,20 @@
   
   "find_public_ip": "Znajdź swój publiczny adres IP i szczegóły lokalizacji",
   "analyze_any_ip": "Analizuj dowolny adres IP w celu uzyskania szczegółowych informacji",
-  "complete_suite_tools": "Kompletny zestaw narzędzi analizy IP"
+  "complete_suite_tools": "Kompletny zestaw narzędzi analizy IP",
+
+ "ip_lookup_intro_text": "Nasze profesjonalne narzędzie wyszukiwania IP pozwala sprawdzić dowolny adres IP w celu uzyskania wyczerpujących informacji. Niezależnie od tego, czy musisz przeanalizować lokalizację IP, zweryfikować szczegóły ISP, czy przeprowadzić analizę bezpieczeństwa, nasze bezpłatne narzędzie zapewnia natychmiastowe, dokładne wyniki ze szczegółowymi danymi geolokalizacji.",
+  "professional_ip_features": "Profesjonalne funkcje analizy IP",
+  "our_tool_provides": "Nasze narzędzie wyszukiwania IP zapewnia",
+  "geolocation_data": "Dane geolokalizacji",
+  "geolocation_data_desc": "Kraj, region, miasto i współrzędne",
+  "security_analysis_desc": "Wykrywanie VPN, proxy i zagrożeń",
+  "network_details": "Szczegóły sieci",
+  "network_details_desc": "ASN, strefa czasowa i informacje o infrastrukturze",
+  "home": "Strona główna",
+  "find_current_ip_desc": "Znajdź swój obecny publiczny adres IP i lokalizację",
+  "check_vpn_proxy_desc": "Sprawdź, czy adres IP używa VPN lub proxy",
+  "full_ip_suite": "Pełny pakiet IP",
+  "complete_ip_tools_desc": "Kompletna analiza IP i narzędzia sieciowe" 
 
 }

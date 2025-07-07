@@ -386,6 +386,19 @@
   
   "find_public_ip": "Find your public IP address and location details",
   "analyze_any_ip": "Analyze any IP address for detailed information", 
-  "complete_suite_tools": "Complete suite of IP analysis tools"
+  "complete_suite_tools": "Complete suite of IP analysis tools",
 
+  "ip_lookup_intro_text": "Our professional IP lookup tool allows you to check any IP address for comprehensive information. Whether you need to analyze an IP location, verify ISP details, or perform security analysis, our free tool provides instant, accurate results with detailed geolocation data.",
+  "professional_ip_features": "Professional IP Analysis Features",
+  "our_tool_provides": "Our IP lookup tool provides",
+  "geolocation_data": "Geolocation data",
+  "geolocation_data_desc": "Country, region, city, and coordinates",
+  "security_analysis_desc": "VPN, proxy, and threat detection",
+  "network_details": "Network details",
+  "network_details_desc": "ASN, timezone, and infrastructure info",
+  "home": "Home",
+  "find_current_ip_desc": "Find your current public IP address and location",
+  "check_vpn_proxy_desc": "Check if an IP address is using VPN or proxy",
+  "full_ip_suite": "Full IP Suite",
+  "complete_ip_tools_desc": "Complete IP analysis and networking tools"
 }
