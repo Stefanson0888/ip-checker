@@ -233,7 +233,7 @@
         <!-- Header with Navigation -->
         <header class="text-center" style="margin-bottom: 2rem;">
             <div class="flex" style="margin-bottom: 1.5rem;">
-                <a href="{{ language_urls[lang] if lang != 'en' else '/' }}" class="back-link">
+                <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" class="back-link">
                     ← {{ _('back_to_main') }}
                 </a>
                 
