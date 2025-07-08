@@ -173,6 +173,43 @@
             position: relative;
         }
 
+        /* Стилізація language dropdown для header */
+        header .language-dropdown .language-btn {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            color: white !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .language-dropdown .language-btn:hover {
+            background: rgba(255, 255, 255, 0.3) !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            transform: translateY(-1px);
+        }
+
+        header .language-dropdown .language-dropdown-menu {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+
+        header .language-dropdown .language-option {
+            color: #333 !important;
+        }
+
+        header .language-dropdown .language-option:hover {
+            background: rgba(103, 126, 234, 0.1) !important;
+            color: #333 !important;
+        }
+
+        header .language-dropdown .language-option.active {
+            background: rgba(103, 126, 234, 0.2) !important;
+            color: #667eea !important;
+            font-weight: 600;
+        }
+
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
