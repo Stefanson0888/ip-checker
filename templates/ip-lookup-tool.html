@@ -163,6 +163,7 @@
             color: white;
             padding: 80px 0;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -316,25 +317,6 @@
                 font-size: 1.4rem;
             }
 
-        .back-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            z-index: 1000;
-            transition: background 0.3s;
-        }
-
-        .back-link:hover {
-            background: rgba(0,0,0,0.9);
-            color: white;
-        }
-
         .use-cases {
             background: #f8f9fa;
             padding: 60px 0;
@@ -378,10 +360,23 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% endif %}
 
-    <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" class="back-link">← {{ _('back_to_main') }}</a>
-
     <header>
         <div class="container">
+            <!-- Навігація в правому верхньому куті -->
+            <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+                <div class="language-dropdown light" id="languageDropdown">
+                    {% include 'partials/language_dropdown.html' %}
+                </div>
+            </div>
+    
+            <!-- Кнопка повернення в лівому верхньому куті -->
+            <nav style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
+                <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" 
+                   style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; backdrop-filter: blur(10px);">
+                   ← {{ _('back_to_main') }}
+                </a>
+            </nav>
+
             <h1>🌐 {{ _('ip_lookup_tool_h1') }}</h1>
             <p class="subtitle">{{ _('ip_lookup_tool_subtitle') }}</p>
             
@@ -428,21 +423,6 @@
         </div>
     </header>
 
-    <div style="background: #f8f9fa; padding: 10px 0; display: flex; justify-content: flex-end;">
-        <div class="container">
-            <div class="language-dropdown light" id="languageDropdown">
-                {% include 'partials/language_dropdown.html' %}
-            </div>
-        </div>
-    </div>
-
-    <nav class="breadcrumbs" style="background: #f8f9fa; padding: 15px 0;">
-        <div class="container">
-            <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" style="color: #6c757d; text-decoration: none;">{{ _('home') }}</a>
-            <span style="margin: 0 10px; color: #6c757d;">›</span>
-            <span style="color: #495057; font-weight: 500;">{{ _('ip_lookup') }}</span>
-        </div>
-    </nav>
 
     <main>
         <div class="container">
