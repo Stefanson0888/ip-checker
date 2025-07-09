@@ -348,5 +348,114 @@
   "find_current_ip_desc": "Finden Sie Ihre aktuelle öffentliche IP-Adresse und Ihren Standort",
   "check_vpn_proxy_desc": "Überprüfen Sie, ob eine IP-Adresse VPN oder Proxy verwendet",
   "full_ip_suite": "Vollständige IP-Suite",
-  "complete_ip_tools_desc": "Vollständige IP-Analyse- und Netzwerk-Tools"
+  "complete_ip_tools_desc": "Vollständige IP-Analyse- und Netzwerk-Tools",
+
+  "understanding_ip_addresses": "IP-Adressen verstehen",
+  "what_is_ip_address": "Was ist eine IP-Adresse?",
+  "ip_address_explanation": "Eine IP (Internet Protocol) Adresse ist die eindeutige Kennung Ihres Geräts im Internet. Stellen Sie sie sich als Ihre digitale Postadresse vor, die es anderen Computern ermöglicht, Ihr Gerät zu finden und mit ihm zu kommunizieren. Jedes Mal, wenn Sie im Web surfen, E-Mails abrufen oder Online-Dienste nutzen, teilt Ihre IP-Adresse der Welt mit, wohin die Daten zurückgesendet werden sollen.",
+  
+  "types_of_ip": "Arten von IP-Adressen",
+  "ipv4_vs_ipv6": "IPv4 vs IPv6",
+  "ipv4_description": "IPv4-Adressen verwenden vier durch Punkte getrennte Zahlen (wie 192.168.1.1). Dies ist das gebräuchlichste Format, das Sie sehen werden, aber verfügbare IPv4-Adressen werden knapp.",
+  "ipv6_description": "IPv6-Adressen sind länger und verwenden Buchstaben und Zahlen (wie 2001:0db8:85a3::8a2e:0370:7334). Dieses neuere Format bietet praktisch unbegrenzte Adressen für das zukünftige Internetwachstum.",
+  
+  "dynamic_vs_static": "Dynamische vs. Statische IP-Adressen",
+  "dynamic_ip_description": "Dynamische IPs ändern sich jedes Mal, wenn Sie sich mit dem Internet verbinden. Die meisten Heimnutzer haben dynamische IPs, die von ihrem Internetanbieter zugewiesen werden.",
+  "static_ip_description": "Statische IPs ändern sich nie und werden typischerweise von Unternehmen verwendet, die konsistenten Remote-Zugang benötigen oder Websites und Server hosten.",
+  
+  "comprehensive_faq": "Umfassende FAQ",
+  "faq_subtitle": "Alles, was Sie über IP-Adressen, Datenschutz und Online-Sicherheit wissen müssen",
+  
+  "faq_what_can_websites_see": "Was können Websites von meiner IP-Adresse sehen?",
+  "faq_websites_see_answer": "Websites können Ihren ungefähren Standort (Land, Region, Stadt), Ihren Internetanbieter, die Art Ihrer Verbindung und ob Sie wahrscheinlich ein VPN oder einen Proxy verwenden, sehen. Sie können nicht Ihre genaue Hausadresse, persönliche Informationen oder Ihre Browsing-Historie auf anderen Seiten sehen.",
+  
+  "faq_hide_ip_address": "Wie kann ich meine IP-Adresse verbergen?",
+  "faq_hide_ip_answer": "Die effektivsten Wege, Ihre IP-Adresse zu verbergen: VPN-Dienst verwenden (verschlüsselt Verkehr und ändert Ihren scheinbaren Standort), über einen Proxy-Server verbinden (grundlegende IP-Maskierung), Tor-Browser verwenden (mehrere Verschlüsselungsschichten) oder über öffentliches WLAN verbinden (obwohl dies Sicherheitsrisiken hat).",
+  
+  "faq_track_real_location": "Kann jemand meinen echten Standort über meine IP verfolgen?",
+  "faq_track_location_answer": "IP-Adressen zeigen Ihren ungefähren Standort basierend auf der Infrastruktur Ihres Internetanbieters, nicht Ihre genaue physische Adresse. Jedoch könnten Strafverfolgungsbehörden oder erfahrene Angreifer mit zusätzlichen Informationen Sie über Ihren ISP zurückverfolgen.",
+  
+  "faq_same_ip_multiple_devices": "Haben alle Geräte in meinem Zuhause dieselbe IP-Adresse?",
+  "faq_same_ip_answer": "Ja, alle Geräte, die mit demselben Heimnetzwerk verbunden sind, teilen sich dieselbe öffentliche IP-Adresse bei der Kommunikation mit dem Internet. Ihr Router verwendet Network Address Translation (NAT), um den Verkehr zwischen Ihren Geräten und dem Internet zu verwalten.",
+  
+  "faq_ip_address_illegal": "Ist es illegal, jemandes IP-Adresse nachzuschlagen?",
+  "faq_ip_illegal_answer": "Das Nachschlagen öffentlich verfügbarer IP-Informationen ist im Allgemeinen legal, da IP-Adressen nicht als private Informationen gelten. Jedoch ist die Verwendung von IP-Adressen für Stalking, Belästigung oder unbefugten Systemzugang illegal. Respektieren Sie immer die Privatsphäre und verwenden Sie IP-Tools ethisch.",
+  
+  "faq_vpn_change_ip": "Wird die Verwendung eines VPNs meine IP-Adresse ändern?",
+  "faq_vpn_change_answer": "Ja, ein VPN (Virtual Private Network) leitet Ihren Internetverkehr über VPN-Server um, sodass es erscheint, als würden Sie vom Standort des VPN-Servers statt von Ihrem echten Standort aus surfen. Dies ändert effektiv Ihre sichtbare IP-Adresse.",
+  
+  "faq_isp_track_activity": "Kann mein ISP meine Online-Aktivitäten verfolgen?",
+  "faq_isp_track_answer": "Ja, Ihr Internetanbieter kann sehen, welche Websites Sie besuchen, wann Sie sie besuchen und wie viele Daten Sie übertragen. Sie können nicht den spezifischen Inhalt verschlüsselter Websites (HTTPS) sehen, aber sie können die Domain-Namen sehen. Die Verwendung eines VPNs verhindert, dass Ihr ISP Ihre Browsing-Aktivitäten sieht.",
+  
+  "faq_ip_address_change_location": "Ändert sich meine IP-Adresse, wenn ich reise?",
+  "faq_ip_change_travel_answer": "Ja, wenn Sie sich während des Reisens mit verschiedenen Netzwerken verbinden, erhalten Sie verschiedene IP-Adressen, die mit diesen Standorten verbunden sind. Hotel-WLAN, mobile Daten in verschiedenen Ländern und öffentliche Netzwerke zeigen alle verschiedene IP-Adressen und Standorte.",
+  
+  "faq_multiple_ip_addresses": "Kann ich mehrere IP-Adressen haben?",
+  "faq_multiple_ip_answer": "Ja, Sie können mehrere IP-Adressen über verschiedene Methoden haben: verschiedene Internetverbindungen verwenden (Heim-WLAN, mobile Daten), sich mit VPN-Servern an verschiedenen Standorten verbinden, Proxy-Dienste verwenden oder mehrere Internetanbieter haben.",
+  
+  "faq_ip_address_expire": "Laufen IP-Adressen ab?",
+  "faq_ip_expire_answer": "Dynamische IP-Adressen können sich basierend auf den Richtlinien Ihres ISPs ändern - typischerweise wenn Sie Ihren Router neu starten oder nach einer bestimmten Zeit. Statische IP-Adressen bleiben gleich, bis Sie spezifisch eine Änderung von Ihrem ISP anfordern. Die IP-Adresse selbst 'läuft nicht ab', aber Ihre Zuweisung dazu könnte sich ändern.",
+  
+  "faq_dangerous_share_ip": "Ist es gefährlich, meine IP-Adresse zu teilen?",
+  "faq_dangerous_share_answer": "Das Teilen Ihrer IP-Adresse ist nicht unmittelbar gefährlich, aber es wird nicht empfohlen. Jemand mit Ihrer IP-Adresse könnte potenziell gezielte Angriffe starten, versuchen, auf Ihr Netzwerk zuzugreifen, wenn es nicht ordnungsgemäß gesichert ist, oder es für Social Engineering verwenden. Es ist besser, diese Informationen privat zu halten, wenn möglich.",
+  
+  "faq_school_work_track": "Können meine Schule oder mein Arbeitsplatz meine IP-Adresse verfolgen?",
+  "faq_school_work_track_answer": "Ja, Schulen und Arbeitsplätze können die Internetnutzung in ihren Netzwerken überwachen, einschließlich der Verfolgung, welche Websites Mitarbeiter oder Studenten besuchen. Sie können auch die Geräte sehen, die mit ihrem Netzwerk verbunden sind, und deren zugewiesene interne IP-Adressen. Die Verwendung persönlicher mobiler Daten anstelle ihres WLANs bietet mehr Privatsphäre.",
+  
+  "common_use_cases": "Wann müssen Sie IP-Adressen überprüfen?",
+  "use_cases_subtitle": "Reale Szenarien, in denen IP-Überprüfung unerlässlich wird",
+  
+  "network_troubleshooting_title": "Netzwerk-Fehlerbehebung",
+  "network_troubleshooting_desc": "Wenn Ihr Internet nicht ordnungsgemäß funktioniert, hilft die Überprüfung Ihrer IP-Adresse, Verbindungsprobleme zu identifizieren. IT-Support fragt oft nach Ihrer IP-Adresse, um Probleme mit Ihrem Internetanbieter oder der Netzwerkkonfiguration zu diagnostizieren.",
+  
+  "security_monitoring_title": "Sicherheitsüberwachung",
+  "security_monitoring_desc": "Unternehmen und sicherheitsbewusste Personen überwachen IP-Adressen in ihren Logs, um unbefugte Zugangsversuche, verdächtige Anmeldestandorte oder potenzielle Cyberangriffe auf ihre Systeme zu erkennen.",
+  
+  "vpn_verification_title": "VPN-Verifizierung",
+  "vpn_verification_desc": "Nach der Verbindung zu einem VPN-Dienst bestätigt die Überprüfung Ihrer IP-Adresse, ob das VPN ordnungsgemäß funktioniert und Ihr echter Standort ordnungsgemäß vor Websites und Online-Diensten verborgen ist.",
+  
+  "remote_access_title": "Remote-Zugang einrichten",
+  "remote_access_desc": "Das Einrichten des Remote-Zugangs zu Ihrem Heimcomputer, Sicherheitskameras oder Geschäftssystemen erfordert das Wissen Ihrer öffentlichen IP-Adresse, um die Verbindung ordnungsgemäß zu konfigurieren.",
+  
+  "website_administration_title": "Website-Administration",
+  "website_administration_desc": "Website-Besitzer überprüfen Besucher-IP-Adressen, um die Demografie ihrer Zielgruppe zu verstehen, Geo-Blocking für Compliance zu implementieren oder verdächtige Verkehrsmuster zu untersuchen.",
+  
+  "legal_compliance_title": "Rechtliche und Compliance-Anforderungen",
+  "legal_compliance_desc": "Einige Online-Dienste sind geografisch aufgrund von Lizenz- oder rechtlichen Anforderungen eingeschränkt. Die Überprüfung Ihrer IP-Adresse hilft zu verstehen, warum bestimmte Inhalte in Ihrer Region blockiert sein könnten.",
+  
+  "ip_security_privacy": "IP-Adresse Sicherheit & Datenschutz",
+  "security_subtitle": "Schützen Sie sich online mit ordnungsgemäßem IP-Adressen-Management",
+  
+  "privacy_risks_title": "Datenschutzrisiken",
+  "location_tracking_risk": "Standortverfolgung",
+  "location_tracking_desc": "Ihre IP-Adresse enthüllt Ihren ungefähren geografischen Standort für jede Website, die Sie besuchen, und baut potenziell ein Profil Ihrer Bewegungen und Gewohnheiten auf.",
+  
+  "behavioral_profiling_risk": "Verhaltensprofilierung",
+  "behavioral_profiling_desc": "Werbetreibende und Datenmakler können Ihre IP-Adresse verwenden, um Ihre Browsing-Muster über verschiedene Websites zu verfolgen und detaillierte Profile für zielgerichtete Werbung zu erstellen.",
+  
+  "targeted_attacks_risk": "Gezielte Angriffe",
+  "targeted_attacks_desc": "Cyberkriminelle können Ihre IP-Adresse verwenden, um gezielte Angriffe gegen Ihr Netzwerk zu starten, Schwachstellen auszunutzen oder Social-Engineering-Angriffe durchzuführen.",
+  
+  "protection_methods_title": "Schutzmethoden",
+  "use_vpn_protection": "VPN-Dienst verwenden",
+  "use_vpn_desc": "Ein Virtual Private Network verschlüsselt Ihren Internetverkehr und maskiert Ihre echte IP-Adresse und bietet den stärksten Schutz für Online-Privatsphäre.",
+  
+  "proxy_services_protection": "Proxy-Dienste",
+  "proxy_services_desc": "Proxy-Server fungieren als Vermittler zwischen Ihnen und dem Internet und verbergen Ihre IP-Adresse, allerdings mit weniger Sicherheit als VPNs.",
+  
+  "tor_browser_protection": "Tor-Browser",
+  "tor_browser_desc": "Das Tor-Netzwerk leitet Ihren Verkehr durch mehrere verschlüsselte Schichten und bietet starke Anonymität, aber mit langsameren Browsing-Geschwindigkeiten.",
+  
+  "router_security_protection": "Router-Sicherheit",
+  "router_security_desc": "Halten Sie die Firmware Ihres Heimrouters aktuell, verwenden Sie starke Passwörter und deaktivieren Sie unnötige Dienste, um unbefugten Zugang zu Ihrem Netzwerk zu verhindern.",
+  
+  "best_practices_title": "Beste Praktiken",
+  "regular_ip_checks": "Regelmäßige IP-Überprüfungen",
+  "regular_checks_desc": "Überprüfen Sie regelmäßig Ihre IP-Adresse und Ihren Standort, besonders bei der Verwendung von Datenschutz-Tools, um sicherzustellen, dass sie ordnungsgemäß funktionieren.",
+  
+  "avoid_public_wifi": "Sicheres öffentliches WLAN",
+  "avoid_public_wifi_desc": "Verwenden Sie VPN-Schutz beim Verbinden mit öffentlichen WLAN-Netzwerken, da diese oft ungesichert und überwacht sind.",
+  
+  "update_security_tools": "Sicherheits-Tools aktualisieren",
+  "update_security_desc": "Halten Sie Ihre VPN-Software, Antivirus und andere Sicherheits-Tools aktuell, um sich vor den neuesten Bedrohungen und Schwachstellen zu schützen."
 }

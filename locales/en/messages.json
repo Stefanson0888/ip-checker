@@ -400,5 +400,115 @@
   "find_current_ip_desc": "Find your current public IP address and location",
   "check_vpn_proxy_desc": "Check if an IP address is using VPN or proxy",
   "full_ip_suite": "Full IP Suite",
-  "complete_ip_tools_desc": "Complete IP analysis and networking tools"
+  "complete_ip_tools_desc": "Complete IP analysis and networking tools",
+
+  "understanding_ip_addresses": "Understanding IP Addresses",
+  "what_is_ip_address": "What is an IP Address?",
+  "ip_address_explanation": "An IP (Internet Protocol) address is your device's unique identifier on the internet. Think of it as your digital postal address that allows other computers to find and communicate with your device. Every time you browse the web, check email, or use online services, your IP address tells the world where to send the data back to you.",
+  
+  "types_of_ip": "Types of IP Addresses",
+  "ipv4_vs_ipv6": "IPv4 vs IPv6",
+  "ipv4_description": "IPv4 addresses use four numbers separated by dots (like 192.168.1.1). This is the most common format you'll see, but we're running out of available IPv4 addresses.",
+  "ipv6_description": "IPv6 addresses are longer and use letters and numbers (like 2001:0db8:85a3::8a2e:0370:7334). This newer format provides virtually unlimited addresses for future internet growth.",
+  
+  "dynamic_vs_static": "Dynamic vs Static IP Addresses",
+  "dynamic_ip_description": "Dynamic IPs change each time you connect to the internet. Most home users have dynamic IPs assigned by their internet provider.",
+  "static_ip_description": "Static IPs never change and are typically used by businesses that need consistent remote access or host websites and servers.",
+  
+  "comprehensive_faq": "Comprehensive FAQ",
+  "faq_subtitle": "Everything you need to know about IP addresses, privacy, and online security",
+  
+  "faq_what_can_websites_see": "What can websites see from my IP address?",
+  "faq_websites_see_answer": "Websites can see your approximate location (country, region, city), your internet service provider, the type of connection you're using, and whether you're likely using a VPN or proxy. They cannot see your exact home address, personal information, or browsing history on other sites.",
+  
+  "faq_hide_ip_address": "How can I hide my IP address?",
+  "faq_hide_ip_answer": "The most effective ways to hide your IP address are: using a VPN service (encrypts traffic and changes your apparent location), connecting through a proxy server (basic IP masking), using Tor browser (multiple layers of encryption), or connecting through public Wi-Fi (though this has security risks).",
+  
+  "faq_track_real_location": "Can someone track my real location from my IP?",
+  "faq_track_location_answer": "IP addresses show your approximate location based on your internet provider's infrastructure, not your exact physical address. However, law enforcement or sophisticated attackers with additional information might be able to trace it back to you through your ISP.",
+  
+  "faq_same_ip_multiple_devices": "Do all devices in my home have the same IP address?",
+  "faq_same_ip_answer": "Yes, all devices connected to the same home network share the same public IP address when communicating with the internet. Your router uses Network Address Translation (NAT) to manage traffic between your devices and the internet.",
+  
+  "faq_ip_address_illegal": "Is it illegal to look up someone's IP address?",
+  "faq_ip_illegal_answer": "Looking up publicly available IP information is generally legal, as IP addresses are not considered private information. However, using IP addresses for stalking, harassment, or unauthorized access to systems is illegal. Always respect privacy and use IP tools ethically.",
+  
+  "faq_vpn_change_ip": "Will using a VPN change my IP address?",
+  "faq_vpn_change_answer": "Yes, a VPN (Virtual Private Network) routes your internet traffic through VPN servers, making it appear as if you're browsing from the VPN server's location instead of your real location. This effectively changes your visible IP address.",
+  
+  "faq_isp_track_activity": "Can my ISP track my online activity?",
+  "faq_isp_track_answer": "Yes, your Internet Service Provider can see which websites you visit, when you visit them, and how much data you transfer. They cannot see the specific content of encrypted websites (HTTPS), but they can see the domain names. Using a VPN prevents your ISP from seeing your browsing activity.",
+  
+  "faq_ip_address_change_location": "Does my IP address change when I travel?",
+  "faq_ip_change_travel_answer": "Yes, when you connect to different networks while traveling, you'll get different IP addresses associated with those locations. Hotel Wi-Fi, mobile data in different countries, and public networks will all show different IP addresses and locations.",
+  
+  "faq_multiple_ip_addresses": "Can I have multiple IP addresses?",
+  "faq_multiple_ip_answer": "Yes, you can have multiple IP addresses through various methods: using different internet connections (home Wi-Fi, mobile data), connecting to VPN servers in different locations, using proxy services, or having multiple internet service providers.",
+  
+  "faq_ip_address_expire": "Do IP addresses expire?",
+  "faq_ip_expire_answer": "Dynamic IP addresses can change based on your ISP's policies - typically when you restart your router or after a certain period. Static IP addresses remain the same until you specifically request a change from your ISP. The IP address itself doesn't 'expire' but your assignment to it might change.",
+  
+  "faq_dangerous_share_ip": "Is it dangerous to share my IP address?",
+  "faq_dangerous_share_answer": "Sharing your IP address isn't immediately dangerous, but it's not recommended. Someone with your IP address could potentially launch targeted attacks, attempt to access your network if it's not properly secured, or use it for social engineering. It's better to keep this information private when possible.",
+  
+  "faq_school_work_track": "Can my school or workplace track my IP address?",
+  "faq_school_work_track_answer": "Yes, schools and workplaces can monitor internet usage on their networks, including tracking which websites employees or students visit. They can also see the devices connected to their network and their assigned internal IP addresses. Using personal mobile data instead of their Wi-Fi provides more privacy.",
+  
+  "common_use_cases": "When Do You Need to Check IP Addresses?",
+  "use_cases_subtitle": "Real-world scenarios where IP checking becomes essential",
+  
+  "network_troubleshooting_title": "Network Troubleshooting",
+  "network_troubleshooting_desc": "When your internet isn't working properly, checking your IP address helps identify connection issues. IT support often asks for your IP address to diagnose problems with your internet service provider or network configuration.",
+  
+  "security_monitoring_title": "Security Monitoring", 
+  "security_monitoring_desc": "Businesses and security-conscious individuals monitor IP addresses in their logs to detect unauthorized access attempts, suspicious login locations, or potential cyber attacks on their systems.",
+  
+  "vpn_verification_title": "VPN Verification",
+  "vpn_verification_desc": "After connecting to a VPN service, checking your IP address confirms whether the VPN is working correctly and your real location is properly hidden from websites and online services.",
+  
+  "remote_access_title": "Remote Access Setup",
+  "remote_access_desc": "Setting up remote access to your home computer, security cameras, or business systems requires knowing your public IP address to configure the connection properly.",
+  
+  "website_administration_title": "Website Administration",
+  "website_administration_desc": "Website owners check visitor IP addresses to understand their audience demographics, implement geo-blocking for compliance, or investigate suspicious traffic patterns.",
+  
+  "legal_compliance_title": "Legal & Compliance",
+  "legal_compliance_desc": "Some online services are restricted by geography due to licensing or legal requirements. Checking your IP address helps understand why certain content might be blocked in your region.",
+  
+  "ip_security_privacy": "IP Address Security & Privacy",
+  "security_subtitle": "Protect yourself online with proper IP address management",
+  
+  "privacy_risks_title": "Privacy Risks",
+  "location_tracking_risk": "Location Tracking",
+  "location_tracking_desc": "Your IP address reveals your approximate geographic location to every website you visit, potentially building a profile of your movements and habits.",
+  
+  "behavioral_profiling_risk": "Behavioral Profiling", 
+  "behavioral_profiling_desc": "Advertisers and data brokers can use your IP address to track your browsing patterns across different websites and build detailed profiles for targeted advertising.",
+  
+  "targeted_attacks_risk": "Targeted Attacks",
+  "targeted_attacks_desc": "Cybercriminals can use your IP address to launch targeted attacks against your network, attempt to exploit vulnerabilities, or conduct social engineering attacks.",
+  
+  "protection_methods_title": "Protection Methods",
+  "use_vpn_protection": "Use a VPN Service",
+  "use_vpn_desc": "A Virtual Private Network encrypts your internet traffic and masks your real IP address, providing the strongest protection for online privacy.",
+  
+  "proxy_services_protection": "Proxy Services",
+  "proxy_services_desc": "Proxy servers act as intermediaries between you and the internet, hiding your IP address though with less security than VPNs.",
+  
+  "tor_browser_protection": "Tor Browser",
+  "tor_browser_desc": "The Tor network routes your traffic through multiple encrypted layers, providing strong anonymity but with slower browsing speeds.",
+  
+  "router_security_protection": "Router Security",
+  "router_security_desc": "Keep your home router firmware updated, use strong passwords, and disable unnecessary services to prevent unauthorized access to your network.",
+  
+  "best_practices_title": "Best Practices",
+  "regular_ip_checks": "Regular IP Checks",
+  "regular_checks_desc": "Periodically verify your IP address and location, especially when using privacy tools, to ensure they're working correctly.",
+  
+  "avoid_public_wifi": "Secure Public Wi-Fi",
+  "avoid_public_wifi_desc": "Use VPN protection when connecting to public Wi-Fi networks, as these are often unsecured and monitored.",
+  
+  "update_security_tools": "Update Security Tools",
+  "update_security_desc": "Keep your VPN software, antivirus, and other security tools updated to protect against the latest threats and vulnerabilities."
+
 }

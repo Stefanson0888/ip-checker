@@ -530,6 +530,436 @@ window.dataLayer.push({
           height: 300px;
         }
       }
+
+      /* 📚 Understanding IP Addresses Section */
+      .understanding-ip-section {
+        margin: 80px 0;
+        padding: 60px 0;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
+        border-radius: 20px;
+      }
+
+      .understanding-ip-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--text-color);
+        font-weight: 700;
+      }
+
+      .ip-explanation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
+        margin-top: 2rem;
+      }
+
+      .explanation-card {
+        background: var(--bg-color);
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .explanation-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(59, 130, 246, 0.15);
+      }
+
+      .explanation-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .explanation-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .explanation-card p {
+        line-height: 1.7;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 1.5rem;
+      }
+
+      .ip-types {
+        margin-top: 1rem;
+      }
+
+      .ip-type {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: rgba(59, 130, 246, 0.05);
+        border-radius: 8px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .ip-type h4 {
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .ip-type p {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      /* ❓ Comprehensive FAQ Section */
+      .comprehensive-faq-section {
+        margin: 80px 0;
+        padding: 60px 0;
+      }
+
+      .comprehensive-faq-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-weight: 700;
+      }
+
+      .faq-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 3rem;
+      }
+
+      .faq-grid {
+        display: grid;
+        gap: 1.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .faq-item {
+        background: var(--bg-color);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        background: var(--bg-color);
+        transition: background-color 0.3s ease;
+      }
+
+      .faq-question:hover {
+        background: rgba(59, 130, 246, 0.05);
+      }
+
+      .faq-question h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-color);
+        flex: 1;
+      }
+
+      .faq-toggle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: #3b82f6;
+        transition: transform 0.3s ease;
+        margin-left: 1rem;
+      }
+
+      .faq-item.active .faq-toggle {
+        transform: rotate(45deg);
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        background: rgba(59, 130, 246, 0.02);
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 0 2rem 1.5rem 2rem;
+      }
+
+      .faq-answer p {
+        margin: 1rem 0 0 0;
+        line-height: 1.7;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      /* 🔧 Common Use Cases Section */
+      .use-cases-section {
+        margin: 80px 0;
+        padding: 60px 0;
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(34, 197, 94, 0.05));
+        border-radius: 20px;
+      }
+
+      .use-cases-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-weight: 700;
+      }
+
+      .use-cases-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 3rem;
+      }
+
+      .use-cases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .use-case-card {
+        background: var(--bg-color);
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        border: 1px solid rgba(16, 185, 129, 0.1);
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+
+      .use-case-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(16, 185, 129, 0.15);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .use-case-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .use-case-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .use-case-card p {
+        line-height: 1.7;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      /* 🛡️ IP Security & Privacy Section */
+      .security-privacy-section {
+        margin: 80px 0;
+        padding: 60px 0;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(220, 38, 38, 0.05));
+        border-radius: 20px;
+      }
+
+      .security-privacy-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        font-weight: 700;
+      }
+
+      .security-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 3rem;
+      }
+
+      .security-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .security-column h3 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .risk-list, .protection-list {
+        space-y: 1.5rem;
+      }
+
+      .risk-item, .protection-item {
+        display: flex;
+        align-items: flex-start;
+        background: var(--bg-color);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .risk-item:hover, .protection-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+
+      .risk-icon, .protection-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+      }
+
+      .risk-content h4, .protection-content h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .risk-content p, .protection-content p {
+        margin: 0;
+        line-height: 1.6;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      .best-practices {
+        margin-top: 3rem;
+        padding-top: 3rem;
+        border-top: 2px solid rgba(59, 130, 246, 0.1);
+      }
+
+      .best-practices h3 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        font-weight: 600;
+      }
+
+      .practices-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .practice-item {
+        background: var(--bg-color);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .practice-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+      }
+
+      .practice-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .practice-item h4 {
+        margin: 0 0 1rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .practice-item p {
+        margin: 0;
+        line-height: 1.6;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+
+      /* 📱 Mobile Responsive Styles */
+      @media (max-width: 768px) {
+        .understanding-ip-section,
+        .comprehensive-faq-section,
+        .use-cases-section,
+        .security-privacy-section {
+          margin: 40px 0;
+          padding: 40px 15px;
+        }
+
+        .understanding-ip-section h2,
+        .comprehensive-faq-section h2,
+        .use-cases-section h2,
+        .security-privacy-section h2 {
+          font-size: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .ip-explanation-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .explanation-card,
+        .use-case-card {
+          padding: 1.5rem;
+        }
+
+        .use-cases-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .security-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .practices-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .faq-question {
+          padding: 1rem 1.5rem;
+        }
+
+        .faq-question h3 {
+          font-size: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+          padding: 0 1.5rem 1rem 1.5rem;
+        }
+      }
   </style>
 </head>
 
@@ -638,6 +1068,313 @@ window.dataLayer.push({
               <div class="tool-arrow">→</div>
             </div>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📚 Understanding IP Addresses Section -->
+    <section class="understanding-ip-section">
+      <div class="container">
+        <h2>{{ _("understanding_ip_addresses") }}</h2>
+        
+        <div class="ip-explanation-grid">
+          <div class="explanation-card">
+            <div class="explanation-icon">🌐</div>
+            <h3>{{ _("what_is_ip_address") }}</h3>
+            <p>{{ _("ip_address_explanation") }}</p>
+          </div>
+          
+          <div class="explanation-card">
+            <div class="explanation-icon">🔢</div>
+            <h3>{{ _("types_of_ip") }}</h3>
+            <div class="ip-types">
+              <div class="ip-type">
+                <h4>{{ _("ipv4_vs_ipv6") }}</h4>
+                <p><strong>IPv4:</strong> {{ _("ipv4_description") }}</p>
+                <p><strong>IPv6:</strong> {{ _("ipv6_description") }}</p>
+              </div>
+              <div class="ip-type">
+                <h4>{{ _("dynamic_vs_static") }}</h4>
+                <p><strong>Dynamic:</strong> {{ _("dynamic_ip_description") }}</p>
+                <p><strong>Static:</strong> {{ _("static_ip_description") }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ❓ Comprehensive FAQ Section -->
+    <section class="comprehensive-faq-section">
+      <div class="container">
+        <h2>{{ _("comprehensive_faq") }}</h2>
+        <p class="faq-subtitle">{{ _("faq_subtitle") }}</p>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_what_can_websites_see") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_websites_see_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_hide_ip_address") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_hide_ip_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_track_real_location") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_track_location_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_same_ip_multiple_devices") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_same_ip_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_ip_address_illegal") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_ip_illegal_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_vpn_change_ip") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_vpn_change_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_isp_track_activity") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_isp_track_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_ip_address_change_location") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_ip_change_travel_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_multiple_ip_addresses") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_multiple_ip_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_ip_address_expire") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_ip_expire_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_dangerous_share_ip") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_dangerous_share_answer") }}</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+              <h3>{{ _("faq_school_work_track") }}</h3>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>{{ _("faq_school_work_track_answer") }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔧 Common Use Cases Section -->
+    <section class="use-cases-section">
+      <div class="container">
+        <h2>{{ _("common_use_cases") }}</h2>
+        <p class="use-cases-subtitle">{{ _("use_cases_subtitle") }}</p>
+        
+        <div class="use-cases-grid">
+          <div class="use-case-card">
+            <div class="use-case-icon">🔧</div>
+            <h3>{{ _("network_troubleshooting_title") }}</h3>
+            <p>{{ _("network_troubleshooting_desc") }}</p>
+          </div>
+
+          <div class="use-case-card">
+            <div class="use-case-icon">🛡️</div>
+            <h3>{{ _("security_monitoring_title") }}</h3>
+            <p>{{ _("security_monitoring_desc") }}</p>
+          </div>
+
+          <div class="use-case-card">
+            <div class="use-case-icon">🔒</div>
+            <h3>{{ _("vpn_verification_title") }}</h3>
+            <p>{{ _("vpn_verification_desc") }}</p>
+          </div>
+
+          <div class="use-case-card">
+            <div class="use-case-icon">🏠</div>
+            <h3>{{ _("remote_access_title") }}</h3>
+            <p>{{ _("remote_access_desc") }}</p>
+          </div>
+
+          <div class="use-case-card">
+            <div class="use-case-icon">🌐</div>
+            <h3>{{ _("website_administration_title") }}</h3>
+            <p>{{ _("website_administration_desc") }}</p>
+          </div>
+
+          <div class="use-case-card">
+            <div class="use-case-icon">⚖️</div>
+            <h3>{{ _("legal_compliance_title") }}</h3>
+            <p>{{ _("legal_compliance_desc") }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🛡️ IP Security & Privacy Section -->
+    <section class="security-privacy-section">
+      <div class="container">
+        <h2>{{ _("ip_security_privacy") }}</h2>
+        <p class="security-subtitle">{{ _("security_subtitle") }}</p>
+        
+        <div class="security-content">
+          <div class="security-column">
+            <h3>{{ _("privacy_risks_title") }}</h3>
+            <div class="risk-list">
+              <div class="risk-item">
+                <div class="risk-icon">📍</div>
+                <div class="risk-content">
+                  <h4>{{ _("location_tracking_risk") }}</h4>
+                  <p>{{ _("location_tracking_desc") }}</p>
+                </div>
+              </div>
+
+              <div class="risk-item">
+                <div class="risk-icon">👁️</div>
+                <div class="risk-content">
+                  <h4>{{ _("behavioral_profiling_risk") }}</h4>
+                  <p>{{ _("behavioral_profiling_desc") }}</p>
+                </div>
+              </div>
+
+              <div class="risk-item">
+                <div class="risk-icon">🎯</div>
+                <div class="risk-content">
+                  <h4>{{ _("targeted_attacks_risk") }}</h4>
+                  <p>{{ _("targeted_attacks_desc") }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="security-column">
+            <h3>{{ _("protection_methods_title") }}</h3>
+            <div class="protection-list">
+              <div class="protection-item">
+                <div class="protection-icon">🔐</div>
+                <div class="protection-content">
+                  <h4>{{ _("use_vpn_protection") }}</h4>
+                  <p>{{ _("use_vpn_desc") }}</p>
+                </div>
+              </div>
+
+              <div class="protection-item">
+                <div class="protection-icon">🌐</div>
+                <div class="protection-content">
+                  <h4>{{ _("proxy_services_protection") }}</h4>
+                  <p>{{ _("proxy_services_desc") }}</p>
+                </div>
+              </div>
+
+              <div class="protection-item">
+                <div class="protection-icon">🧅</div>
+                <div class="protection-content">
+                  <h4>{{ _("tor_browser_protection") }}</h4>
+                  <p>{{ _("tor_browser_desc") }}</p>
+                </div>
+              </div>
+
+              <div class="protection-item">
+                <div class="protection-icon">🏠</div>
+                <div class="protection-content">
+                  <h4>{{ _("router_security_protection") }}</h4>
+                  <p>{{ _("router_security_desc") }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="best-practices">
+          <h3>{{ _("best_practices_title") }}</h3>
+          <div class="practices-grid">
+            <div class="practice-item">
+              <div class="practice-icon">✅</div>
+              <h4>{{ _("regular_ip_checks") }}</h4>
+              <p>{{ _("regular_checks_desc") }}</p>
+            </div>
+
+            <div class="practice-item">
+              <div class="practice-icon">📶</div>
+              <h4>{{ _("avoid_public_wifi") }}</h4>
+              <p>{{ _("avoid_public_wifi_desc") }}</p>
+            </div>
+
+            <div class="practice-item">
+              <div class="practice-icon">🔄</div>
+              <h4>{{ _("update_security_tools") }}</h4>
+              <p>{{ _("update_security_desc") }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1024,28 +1761,78 @@ window.dataLayer.push({
     }
 
     function trackAffiliateClick(partner, campaign, context) {
-        // GTM/GA4 tracking
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'event': 'affiliate_click',
-            'event_category': 'monetization',
-            'event_label': partner + '_' + campaign,
-            'partner': partner,
-            'campaign': campaign,
-            'context': context,
-            'language': '{{ lang }}',
-            'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}',
-            'vpn_status': '{{ is_vpn }}',
-            'country': '{{ country_code }}'
-        });
-        
-        // Console log для debugging  
-        console.log('Affiliate click tracked:', {
-            partner: partner,
-            campaign: campaign,
-            context: context
-        });
-    }
+      // GTM/GA4 tracking
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+          'event': 'affiliate_click',
+          'event_category': 'monetization',
+          'event_label': partner + '_' + campaign,
+          'partner': partner,
+          'campaign': campaign,
+          'context': context,
+          'language': '{{ lang }}',
+          'user_type': '{% if is_tech_user %}tech_user{% else %}regular_user{% endif %}',
+          'vpn_status': '{{ is_vpn }}',
+          'country': '{{ country_code }}'
+      });
+      
+      // Console log для debugging  
+      console.log('Affiliate click tracked:', {
+          partner: partner,
+          campaign: campaign,
+          context: context
+      });
+  }
+
+  function toggleFAQ(element) {
+      const faqItem = element.parentElement;
+      const isActive = faqItem.classList.contains('active');
+      
+      // Закриваємо всі інші FAQ
+      document.querySelectorAll('.faq-item.active').forEach(item => {
+          if (item !== faqItem) {
+              item.classList.remove('active');
+          }
+      });
+      
+      // Перемикаємо поточний FAQ
+      if (isActive) {
+          faqItem.classList.remove('active');
+      } else {
+          faqItem.classList.add('active');
+          
+          // Плавний скрол до FAQ якщо потрібно
+          setTimeout(() => {
+              const rect = faqItem.getBoundingClientRect();
+              if (rect.bottom > window.innerHeight) {
+                  faqItem.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center' 
+                  });
+              }
+          }, 300);
+      }
+      
+      // Track FAQ interaction
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+          'event': 'faq_toggle',
+          'event_category': 'engagement',
+          'event_label': element.querySelector('h3').textContent,
+          'language': '{{ lang }}',
+          'action': isActive ? 'closed' : 'opened'
+      });
+  }
+          
+          // Track FAQ interaction
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+              'event': 'faq_toggle',
+              'event_category': 'engagement',
+              'event_label': element.querySelector('h3').textContent,
+              'language': '{{ lang }}',
+              'action': isActive ? 'closed' : 'opened'
+          });
   </script>
 
 

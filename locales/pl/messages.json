@@ -347,6 +347,115 @@
   "find_current_ip_desc": "Znajdź swój obecny publiczny adres IP i lokalizację",
   "check_vpn_proxy_desc": "Sprawdź, czy adres IP używa VPN lub proxy",
   "full_ip_suite": "Pełny pakiet IP",
-  "complete_ip_tools_desc": "Kompletna analiza IP i narzędzia sieciowe" 
+  "complete_ip_tools_desc": "Kompletna analiza IP i narzędzia sieciowe",
+
+  "understanding_ip_addresses": "Zrozumienie adresów IP",
+  "what_is_ip_address": "Co to jest adres IP?",
+  "ip_address_explanation": "Adres IP (Internet Protocol) to unikalny identyfikator twojego urządzenia w internecie. Myśl o nim jak o cyfrowym adresie pocztowym, który pozwala innym komputerom znaleźć twoje urządzenie i komunikować się z nim. Za każdym razem, gdy przeglądasz strony internetowe, sprawdzasz e-maile lub korzystasz z usług online, twój adres IP informuje świat, gdzie odsyłać dane z powrotem.",
+  
+  "types_of_ip": "Rodzaje adresów IP",
+  "ipv4_vs_ipv6": "IPv4 vs IPv6",
+  "ipv4_description": "Adresy IPv4 używają czterech liczb oddzielonych kropkami (jak 192.168.1.1). To najczęstszy format, który zobaczysz, ale dostępne adresy IPv4 się kończą.",
+  "ipv6_description": "Adresy IPv6 są dłuższe i używają liter i cyfr (jak 2001:0db8:85a3::8a2e:0370:7334). Ten nowszy format zapewnia praktycznie nieograniczoną liczbę adresów dla przyszłego rozwoju internetu.",
+  
+  "dynamic_vs_static": "Dynamiczne vs statyczne adresy IP",
+  "dynamic_ip_description": "Dynamiczne IP zmieniają się za każdym razem, gdy łączysz się z internetem. Większość użytkowników domowych ma dynamiczne IP przypisane przez ich dostawcę internetu.",
+  "static_ip_description": "Statyczne IP nigdy się nie zmieniają i są zazwyczaj używane przez firmy, które potrzebują spójnego dostępu zdalnego lub hostują strony internetowe i serwery.",
+  
+  "comprehensive_faq": "Kompleksowe FAQ",
+  "faq_subtitle": "Wszystko, co musisz wiedzieć o adresach IP, prywatności i bezpieczeństwie online",
+  
+  "faq_what_can_websites_see": "Co mogą zobaczyć strony internetowe z mojego adresu IP?",
+  "faq_websites_see_answer": "Strony internetowe mogą zobaczyć twoją przybliżoną lokalizację (kraj, region, miasto), twojego dostawcę internetu, rodzaj połączenia i czy prawdopodobnie używasz VPN lub proxy. Nie mogą zobaczyć twojego dokładnego adresu domowego, informacji osobistych lub historii przeglądania na innych stronach.",
+  
+  "faq_hide_ip_address": "Jak mogę ukryć swój adres IP?",
+  "faq_hide_ip_answer": "Najskuteczniejsze sposoby ukrycia adresu IP to: korzystanie z usługi VPN (szyfruje ruch i zmienia twoją widoczną lokalizację), łączenie przez serwer proxy (podstawowe maskowanie IP), używanie przeglądarki Tor (wielopoziomowe szyfrowanie) lub łączenie przez publiczne Wi-Fi (choć ma to ryzyko bezpieczeństwa).",
+  
+  "faq_track_real_location": "Czy ktoś może śledzić moją prawdziwą lokalizację po IP?",
+  "faq_track_location_answer": "Adresy IP pokazują twoją przybliżoną lokalizację opartą na infrastrukturze twojego dostawcy internetu, a nie dokładny adres fizyczny. Jednak organy ścigania lub wyrafinowani atakujący z dodatkowymi informacjami mogą cię wyśledzić przez twojego ISP.",
+  
+  "faq_same_ip_multiple_devices": "Czy wszystkie urządzenia w moim domu mają ten sam adres IP?",
+  "faq_same_ip_answer": "Tak, wszystkie urządzenia podłączone do tej samej sieci domowej dzielą ten sam publiczny adres IP podczas komunikacji z internetem. Twój router używa Network Address Translation (NAT) do zarządzania ruchem między twoimi urządzeniami a internetem.",
+  
+  "faq_ip_address_illegal": "Czy sprawdzanie czyjegoś adresu IP jest nielegalne?",
+  "faq_ip_illegal_answer": "Sprawdzanie publicznie dostępnych informacji IP jest generalnie legalne, ponieważ adresy IP nie są uważane za informacje prywatne. Jednak używanie adresów IP do nękania, molestowania lub nieautoryzowanego dostępu do systemów jest nielegalne. Zawsze szanuj prywatność i używaj narzędzi IP etycznie.",
+  
+  "faq_vpn_change_ip": "Czy używanie VPN zmieni mój adres IP?",
+  "faq_vpn_change_answer": "Tak, VPN (Virtual Private Network) kieruje twój ruch internetowy przez serwery VPN, sprawiając, że wydaje się, jakbyś przeglądał z lokalizacji serwera VPN zamiast z twojej prawdziwej lokalizacji. To skutecznie zmienia twój widoczny adres IP.",
+  
+  "faq_isp_track_activity": "Czy mój ISP może śledzić moją aktywność online?",
+  "faq_isp_track_answer": "Tak, twój dostawca internetu może zobaczyć, które strony odwiedzasz, kiedy je odwiedzasz i ile danych przesyłasz. Nie mogą zobaczyć konkretnej zawartości zaszyfrowanych stron (HTTPS), ale mogą zobaczyć nazwy domen. Używanie VPN zapobiega podglądaniu twojej aktywności przez ISP.",
+  
+  "faq_ip_address_change_location": "Czy mój adres IP zmienia się, gdy podróżuję?",
+  "faq_ip_change_travel_answer": "Tak, gdy łączysz się z różnymi sieciami podczas podróży, otrzymujesz różne adresy IP powiązane z tymi lokalizacjami. Wi-Fi hotelowe, dane mobilne w różnych krajach i sieci publiczne pokażą wszystkie różne adresy IP i lokalizacje.",
+  
+  "faq_multiple_ip_addresses": "Czy mogę mieć wiele adresów IP?",
+  "faq_multiple_ip_answer": "Tak, możesz mieć wiele adresów IP różnymi metodami: używając różnych połączeń internetowych (domowe Wi-Fi, dane mobilne), łącząc się z serwerami VPN w różnych lokalizacjach, używając usług proxy lub mając wielu dostawców internetu.",
+  
+  "faq_ip_address_expire": "Czy adresy IP wygasają?",
+  "faq_ip_expire_answer": "Dynamiczne adresy IP mogą się zmieniać w oparciu o polityki twojego ISP - zazwyczaj gdy restartujesz router lub po określonym czasie. Statyczne adresy IP pozostają takie same, dopóki nie poprosisz konkretnie o zmianę u swojego ISP. Sam adres IP nie 'wygasa', ale twoje przypisanie do niego może się zmienić.",
+  
+  "faq_dangerous_share_ip": "Czy dzielenie się moim adresem IP jest niebezpieczne?",
+  "faq_dangerous_share_answer": "Dzielenie się twoim adresem IP nie jest bezpośrednio niebezpieczne, ale nie jest zalecane. Ktoś z twoim adresem IP może potencjalnie przeprowadzić ukierunkowane ataki, próbować uzyskać dostęp do twojej sieci, jeśli nie jest odpowiednio zabezpieczona, lub użyć go do inżynierii społecznej. Lepiej jest trzymać te informacje w tajemnicy, gdy to możliwe.",
+  
+  "faq_school_work_track": "Czy moja szkoła lub miejsce pracy może śledzić mój adres IP?",
+  "faq_school_work_track_answer": "Tak, szkoły i miejsca pracy mogą monitorować użycie internetu w swoich sieciach, w tym śledzić, które strony odwiedzają pracownicy lub studenci. Mogą też zobaczyć urządzenia podłączone do ich sieci i ich przypisane wewnętrzne adresy IP. Używanie osobistych danych mobilnych zamiast ich Wi-Fi zapewnia większą prywatność.",
+  
+  "common_use_cases": "Kiedy musisz sprawdzać adresy IP?",
+  "use_cases_subtitle": "Rzeczywiste scenariusze, gdy sprawdzanie IP staje się niezbędne",
+  
+  "network_troubleshooting_title": "Rozwiązywanie problemów z siecią",
+  "network_troubleshooting_desc": "Gdy twój internet nie działa prawidłowo, sprawdzenie adresu IP pomaga zidentyfikować problemy z połączeniem. Wsparcie IT często pyta o twój adres IP, aby zdiagnozować problemy z twoim dostawcą internetu lub konfiguracją sieci.",
+  
+  "security_monitoring_title": "Monitorowanie bezpieczeństwa",
+  "security_monitoring_desc": "Firmy i osoby świadome bezpieczeństwa monitorują adresy IP w swoich logach, aby wykryć nieautoryzowane próby dostępu, podejrzane lokalizacje logowania lub potencjalne cyberataki na swoje systemy.",
+  
+  "vpn_verification_title": "Weryfikacja VPN",
+  "vpn_verification_desc": "Po połączeniu z usługą VPN sprawdzenie twojego adresu IP potwierdza, czy VPN działa prawidłowo i czy twoja prawdziwa lokalizacja jest odpowiednio ukryta przed stronami internetowymi i usługami online.",
+  
+  "remote_access_title": "Konfiguracja dostępu zdalnego",
+  "remote_access_desc": "Konfiguracja dostępu zdalnego do twojego domowego komputera, kamer bezpieczeństwa lub systemów biznesowych wymaga znajomości twojego publicznego adresu IP, aby prawidłowo skonfigurować połączenie.",
+  
+  "website_administration_title": "Administracja strony internetowej",
+  "website_administration_desc": "Właściciele stron internetowych sprawdzają adresy IP odwiedzających, aby zrozumieć demografię swojej publiczności, wdrożyć geo-blokowanie dla zgodności lub zbadać podejrzane wzorce ruchu.",
+  
+  "legal_compliance_title": "Wymogi prawne i zgodności",
+  "legal_compliance_desc": "Niektóre usługi online są ograniczone geograficznie ze względu na wymagania licencyjne lub prawne. Sprawdzenie twojego adresu IP pomaga zrozumieć, dlaczego określona zawartość może być zablokowana w twoim regionie.",
+  
+  "ip_security_privacy": "Bezpieczeństwo i prywatność adresu IP",
+  "security_subtitle": "Chroń się online dzięki odpowiedniemu zarządzaniu adresem IP",
+  
+  "privacy_risks_title": "Ryzyko prywatności",
+  "location_tracking_risk": "Śledzenie lokalizacji",
+  "location_tracking_desc": "Twój adres IP ujawnia twoją przybliżoną lokalizację geograficzną każdej stronie internetowej, którą odwiedzasz, potencjalnie budując profil twoich ruchów i nawyków.",
+  
+  "behavioral_profiling_risk": "Profilowanie behawioralne",
+  "behavioral_profiling_desc": "Reklamodawcy i brokerzy danych mogą używać twojego adresu IP do śledzenia twoich wzorców przeglądania na różnych stronach internetowych i budowania szczegółowych profili do reklamy ukierunkowanej.",
+  
+  "targeted_attacks_risk": "Ukierunkowane ataki",
+  "targeted_attacks_desc": "Cyberprzestępcy mogą używać twojego adresu IP do przeprowadzania ukierunkowanych ataków przeciwko twojej sieci, próbować wykorzystać podatności lub prowadzić ataki inżynierii społecznej.",
+  
+  "protection_methods_title": "Metody ochrony",
+  "use_vpn_protection": "Używaj usługi VPN",
+  "use_vpn_desc": "Wirtualna sieć prywatna szyfruje twój ruch internetowy i maskuje twój prawdziwy adres IP, zapewniając najsilniejszą ochronę prywatności online.",
+  
+  "proxy_services_protection": "Usługi proxy",
+  "proxy_services_desc": "Serwery proxy działają jako pośrednicy między tobą a internetem, ukrywając twój adres IP, choć z mniejszym bezpieczeństwem niż VPN.",
+  
+  "tor_browser_protection": "Przeglądarka Tor",
+  "tor_browser_desc": "Sieć Tor kieruje twój ruch przez wiele zaszyfrowanych warstw, zapewniając silną anonimowość, ale z wolniejszą prędkością przeglądania.",
+  
+  "router_security_protection": "Bezpieczeństwo routera",
+  "router_security_desc": "Utrzymuj oprogramowanie układowe domowego routera na bieżąco, używaj silnych haseł i wyłącz niepotrzebne usługi, aby zapobiec nieautoryzowanemu dostępowi do twojej sieci.",
+  
+  "best_practices_title": "Najlepsze praktyki",
+  "regular_ip_checks": "Regularne sprawdzanie IP",
+  "regular_checks_desc": "Okresowo weryfikuj swój adres IP i lokalizację, szczególnie podczas używania narzędzi prywatności, aby upewnić się, że działają prawidłowo.",
+  
+  "avoid_public_wifi": "Bezpieczne publiczne Wi-Fi",
+  "avoid_public_wifi_desc": "Używaj ochrony VPN podczas łączenia się z publicznymi sieciami Wi-Fi, ponieważ są one często niezabezpieczone i monitorowane.",
+  
+  "update_security_tools": "Aktualizuj narzędzia bezpieczeństwa",
+  "update_security_desc": "Utrzymuj swoje oprogramowanie VPN, antywirus i inne narzędzia bezpieczeństwa na bieżąco, aby chronić się przed najnowszymi zagrożeniami i podatnościami."
 
 }
