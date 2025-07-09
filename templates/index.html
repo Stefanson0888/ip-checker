@@ -1030,41 +1030,41 @@ window.dataLayer.push({
     <section class="seo-tools-section">
       <div class="container">
         <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem; color: var(--text-color);">
-          🔍 Free IP & Network Tools
+          🔍 {{ _("free_ip_network_tools") }}
         </h2>
         <div class="tools-grid-improved">
           <!-- What Is My IP Card -->
-          <a href="/what-is-my-ip" class="tool-card-improved" onclick="trackToolClick('what_is_my_ip')">
+          <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}what-is-my-ip" class="tool-card-improved" onclick="trackToolClick('what_is_my_ip')">
             <div class="tool-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
               📍
             </div>
             <div class="tool-content">
-              <h3>What Is My IP?</h3>
-              <p>Get detailed information about your public IP address, location, and ISP provider.</p>
+              <h3>{{ _("what_is_my_ip_title") }}</h3>
+              <p>{{ _("what_is_my_ip_description") }}</p>
               <div class="tool-arrow">→</div>
             </div>
           </a>
           
           <!-- VPN Detection Card -->
-          <a href="/am-i-using-vpn" class="tool-card-improved" onclick="trackToolClick('vpn_detection')">
+          <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}am-i-using-vpn" class="tool-card-improved" onclick="trackToolClick('vpn_detection')">
             <div class="tool-icon" style="background: linear-gradient(135deg, #4ecdc4, #44a08d);">
               🔒
             </div>
             <div class="tool-content">
-              <h3>VPN Detection</h3>
-              <p>Find out if you're using a VPN, proxy, or direct connection. Test your privacy protection.</p>
+              <h3>{{ _("vpn_detection_title") }}</h3>
+              <p>{{ _("vpn_detection_description") }}</p>
               <div class="tool-arrow">→</div>
             </div>
           </a>
           
           <!-- IP Lookup Card -->
-          <a href="/ip-lookup-tool" class="tool-card-improved" onclick="trackToolClick('ip_lookup')">
+          <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}ip-lookup-tool" class="tool-card-improved" onclick="trackToolClick('ip_lookup')">
             <div class="tool-icon" style="background: linear-gradient(135deg, #a8e6cf, #7fcdcd);">
               🌐
             </div>
             <div class="tool-content">
-              <h3>IP Lookup Tool</h3>
-              <p>Look up any IP address and get geolocation, ISP, and security information.</p>
+              <h3>{{ _("ip_lookup_tool_title") }}</h3>
+              <p>{{ _("ip_lookup_tool_description") }}</p>
               <div class="tool-arrow">→</div>
             </div>
           </a>
