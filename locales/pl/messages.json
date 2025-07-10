@@ -248,7 +248,6 @@
   "security_description": "Wykrywanie VPN, proxy i Tor z analizą zagrożeń i oceną ryzyka bezpieczeństwa.",
   "instant_results": "Natychmiastowe wyniki",
   "instant_description": "Analiza IP w czasie rzeczywistym z kompleksowymi danymi z wielu wiarygodnych źródeł.",
-  "common_use_cases": "Typowe przypadki użycia",
   "investigate_suspicious_ip": "Badanie podejrzanych adresów IP",
   "investigate_description": "Badaj potencjalnie złośliwe adresy IP z logów, e-maili lub alertów bezpieczeństwa w celu oceny zagrożeń.",
   "check_website_visitors": "Analizuj odwiedzających witrynę",
@@ -286,7 +285,8 @@
   "privacy_check_desc": "Dowiedz się, czy używasz połączenia VPN, proxy lub Tor. Niezbędne do zrozumienia statusu prywatności online i bezpieczeństwa.",
   
   "instant_results_desc": "Uzyskaj natychmiastowe, dokładne informacje o swoim adresie IP bez pobierania ani rejestracji. Proste, szybkie i niezawodne.",
-  
+  "free_ip_network_tools": "🔍 Darmowe narzędzia IP i sieci",
+
   "why_check_your_ip": "Dlaczego sprawdzać swój adres IP?",
   "security_privacy": "Bezpieczeństwo i prywatność",
   "security_privacy_desc": "Monitoruj, czy Twój VPN działa prawidłowo i upewnij się, że Twoja prawdziwa lokalizacja nie jest ujawniana odwiedzanym stronom.",

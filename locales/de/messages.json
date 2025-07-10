@@ -236,6 +236,8 @@
   "ip_lookup_tool_description": "Professionelles IP-Lookup-Tool zur Überprüfung jeder IP-Adresse. Erhalten Sie sofort detaillierte Geolokalisierung, ISP und Sicherheitsinformationen.",
   "ip_lookup_tool_h1": "IP-Lookup-Tool",
   "ip_lookup_tool_subtitle": "Geben Sie eine beliebige IP-Adresse ein, um detaillierte Informationen über Standort, ISP und Sicherheitsstatus zu erhalten",
+  "free_ip_network_tools": "🔍 Kostenlose IP- & Netzwerk-Tools",
+  
   "enter_ip_address": "IP-Adresse eingeben",
   "lookup_ip_button": "IP-Adresse nachschlagen",
   "try_examples": "Beispiele ausprobieren",

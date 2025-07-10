@@ -359,7 +359,8 @@
   "ip_lookup_desc": "Look up any IP address for detailed information",
   "ip_checker": "IP Checker",
   "ip_checker_desc": "Complete IP address analysis and geolocation",
-  
+  "free_ip_network_tools": "🔍 Free IP & Network Tools",
+
   "frequently_asked_questions": "Frequently Asked Questions",
   "faq_what_exactly_ip": "What exactly is an IP address?",
   "faq_what_exactly_ip_answer": "An IP address is a unique numerical identifier assigned to every device connected to the internet. It consists of four numbers separated by dots (IPv4) like 192.168.1.1, or a longer format for IPv6. Your IP address allows other computers to find and communicate with your device.",
