@@ -1,0 +1,1310 @@
+/* Critical CSS for fast H1 rendering */
+  
+    /* Critical above-the-fold styles */
+    
+    /* Custom map marker */
+    .custom-marker {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    /* Фіксована висота для ad блоків */
+    .ad-column > div {
+      min-height: 120px; /* Базова висота реклами */
+    }
+
+    /* Резервуємо місце для tool cards */
+    .tool-card-improved {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* FAQ items - фіксована мінімальна висота */
+    .faq-question {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ⚡ LCP оптимізації */
+
+    /* Пріоритизуємо завантаження критичного контенту */
+    h1 {
+      font-display: swap; /* Швидше показати текст */
+    }
+
+    /* Оптимізація шрифтів */
+    body {
+      font-display: swap;
+    }
+
+    .tool-content,
+    .explanation-card,
+    .use-case-card,
+    .faq-item {
+      contain: layout; /* Оптимізація layout */
+    }
+
+    /* 📱 Mobile CLS фікси */
+    @media (max-width: 768px) {
+      #map {
+        height: 250px;
+        min-height: 250px;
+      }
+      
+      .flag {
+        width: 60px;
+        height: 45px;
+      }
+    }
+
+    /* 🔄 Animation performance */
+    .faq-item.active .faq-answer,
+    .details.open,
+    .tool-card-improved:hover {
+      will-change: auto; /* Оптимізація анімацій */
+    }
+
+    /* GPU acceleration для smooth animations */
+    .tool-card-improved,
+    .explanation-card:hover,
+    .use-case-card:hover {
+      transform: translateZ(0); /* Hardware acceleration */
+    }
+
+    /* 🎨 Reduce paint complexity */
+    .tool-card-improved::before {
+      will-change: opacity;
+    }
+
+    /* 📐 Layout stability */
+    .tools-grid-improved,
+    .ip-explanation-grid,
+    .use-cases-grid,
+    .practices-grid {
+      grid-template-rows: masonry; /* Стабільний grid */
+    }
+
+    /* Lazy loading placeholder */
+    img[loading="lazy"] {
+      background: #f0f0f0;
+      min-height: 67px; /* Прапор */
+    }
+
+    /* 🚀 Critical CSS isolation */
+    .above-the-fold {
+      contain: layout style paint;
+    }
+
+    /* 🗺️ MAP - фіксований розмір для запобігання CLS */
+    #map {
+      width: 100%;
+      height: 400px;
+      min-height: 400px; /* Гарантуємо висоту */
+      margin-top: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+      /* CLS prevention */
+      contain: layout style size;
+    }
+
+    /* 🏳️ FLAG - фіксований розмір контейнера */
+    .flag {
+      width: 80px;
+      height: 60px;
+      display: block;
+      margin: 10px 0;
+      border-radius: 0;
+      overflow: hidden;
+      background: transparent;
+      border: none;
+      contain: layout style size;
+      flex-shrink: 0;
+    }
+
+    .flag img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      /* Performance */
+      image-rendering: optimizeQuality;
+      transform: translateZ(0); /* GPU acceleration */
+    }
+
+    @media (max-width: 768px) {
+      .flag {
+        width: 60px;
+        height: 45px;
+      }
+    }
+
+    /* 📊 AD BLOCKS - фіксовані розміри */
+    .ad-column {
+      min-width: 300px;
+      flex-shrink: 0;
+    }
+
+    .ad-column > div {
+      min-height: 120px; /* Базова висота реклами */
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      /* CLS prevention */
+      contain: layout style;
+    }
+
+    /* 🔧 TOOL CARDS - стабільна висота */
+    .tool-card-improved {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      /* CLS prevention */
+      contain: layout style;
+    }
+
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+      /* Performance */
+      transform: translateZ(0);
+    }
+
+    .tool-content {
+      flex: 1;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ❓ FAQ - стабільні висоти */
+    .faq-question {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      /* CLS prevention */
+      contain: layout;
+    }
+
+    .faq-answer {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      /* Prevent layout shift during animation */
+      will-change: max-height;
+    }
+
+    /* 📚 EXPLANATION CARDS - рівна висота */
+    .ip-explanation-grid,
+    .use-cases-grid,
+    .practices-grid {
+      display: grid;
+      align-items: stretch; /* Всі карточки однакової висоти */
+      /* CLS prevention */
+      contain: layout;
+    }
+
+    .explanation-card,
+    .use-case-card,
+    .practice-item {
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      /* CLS prevention */
+      contain: layout style;
+    }
+
+    .info-block {
+      flex: 2;
+      min-width: 300px;
+      /* CLS prevention */
+      contain: layout;
+    }
+
+    .right-block {
+      flex: 1.2;
+      min-width: 300px;
+      /* CLS prevention */
+      contain: layout;
+    }
+
+    /* 📱 MOBILE CLS фікси */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .right-block {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .tool-card-improved {
+        min-height: 100px;
+        padding: 1.25rem;
+      }
+      
+      .tool-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+      }
+      
+      .ad-column > div {
+        min-height: 100px;
+      }
+    }
+
+    /* ⚡ PERFORMANCE оптимізації */
+
+    /* GPU acceleration для анімацій */
+    .tool-card-improved:hover,
+    .explanation-card:hover,
+    .use-case-card:hover,
+    .faq-item:hover {
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
+    }
+
+    /* Оптимізація шрифтів */
+    body, h1, h2, h3, h4, h5, h6 {
+      font-display: swap; /* Швидше показати текст */
+    }
+
+    /* Layout containment для великих секцій */
+    .understanding-ip-section,
+    .comprehensive-faq-section,
+    .use-cases-section,
+    .security-privacy-section,
+    .seo-tools-section {
+      contain: layout style;
+    }
+
+    /* 🖼️ IMAGE оптимізації */
+    img {
+      max-width: 100%;
+      height: auto;
+      /* Performance */
+      image-rendering: optimizeQuality;
+      transform: translateZ(0);
+    }
+
+    /* Lazy loading placeholder */
+    img[loading="lazy"] {
+      background: #f1f5f9;
+      background-image: 
+        linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+        linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+    }
+
+    /* 🚀 Critical CSS isolation */
+    .above-the-fold {
+      contain: layout style paint;
+    }
+
+    /* Footer стабільність */
+    footer {
+      contain: layout style;
+      margin-top: 50px;
+      padding: 30px 0;
+    }
+
+    /* Dark theme optimizations */
+    [data-theme="dark"] .flag {
+      background: transparent;
+      border: none;
+    }
+
+    [data-theme="dark"] #map {
+      background: #1f2937;
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    /* 🎭 Animation performance */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* 🔄 Transition optimization */
+    .tool-card-improved,
+    .explanation-card,
+    .use-case-card,
+    .faq-item {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Відключаємо transition під час завантаження */
+    }
+
+    body:not(.transitions-enabled) * {
+      transition: none !important;
+    }
+
+    /* 📐 Flexbox stability */
+    .tools-grid-improved {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      /* Prevent layout shifts */
+      contain: layout;
+    }
+
+    @media (max-width: 768px) {
+      .tools-grid-improved {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* Main styles */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #000000;
+      --button-bg: #3a7bfd;
+      --button-hover: #5c8dfc;
+      --button-text: #000000;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #ffffff;
+      --button-bg: #3a7bfd;
+      --button-hover: #5c8dfc;
+      --button-text: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      margin: 30px auto;
+      max-width: 1200px;
+      padding: 0 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-color);
+    }
+
+    /* Оновлення для медіа-запиту мобільної версії */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .right-block {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      margin-top: 60px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .info-block {
+      flex: 2;
+      min-width: 300px;
+    }
+
+    .map-block {
+      width: 100%;
+    }
+
+    .toggle-button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      color: var(--button-text);
+    }
+
+    .toggle-button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .details {
+      overflow: hidden;
+      max-height: 0;
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      transition: all 0.15s ease-out; 
+    }
+
+    .details.open {
+      max-height: 800px;
+      margin-top: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .right-block {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 300px;
+    }
+
+    .ad-column a img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: block;
+    }
+
+    form.ip-lookup {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    form.ip-lookup input {
+      padding: 8px;
+      font-size: 14px;
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    form.ip-lookup button {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: var(--button-bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--button-text);
+    }
+
+    .seo-tools-section {
+      margin: 60px 0;
+      padding: 40px 0;
+      background: rgba(248, 249, 250, 0.5);
+    }
+
+    [data-theme="dark"] .seo-tools-section {
+      background: rgba(64, 64, 64, 0.3);
+    }
+
+    /* Improved Tools Grid - ОСНОВНІ СТИЛІ */
+    .tools-grid-improved {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tool-card-improved {
+      display: flex;
+      align-items: center;
+      background: var(--bg-color);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card-improved::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .tool-card-improved:hover::before {
+      opacity: 1;
+    }
+
+    .tool-card-improved:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tool-content {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tool-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .tool-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.2rem;
+      color: rgba(59, 130, 246, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .tool-card-improved:hover .tool-arrow {
+      color: rgba(59, 130, 246, 1);
+      transform: translateX(4px);
+    }
+
+    /* Dark theme adjustments */
+    [data-theme="dark"] .tool-card-improved {
+      background: rgba(55, 65, 81, 0.8);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="dark"] .tool-card-improved:hover {
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+      background: rgba(55, 65, 81, 0.9);
+    }
+
+    footer {
+      margin-top: 30px !important;
+      padding: 20px 0 !important;
+    }
+
+    footer a {
+      display: block !important;
+      margin: 8px 0 !important;
+    }
+
+    footer span {
+      display: none !important;
+    }
+
+    /* Mobile responsive для improved tools */
+    .tools-grid-improved {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .tool-card-improved {
+      padding: 1.25rem;
+    }
+    
+    .tool-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+    
+    .tool-content h3 {
+      font-size: 1.1rem;
+    }
+    
+    .tool-content p {
+      font-size: 0.85rem;
+    }
+
+    /* 🔄 Transitions тільки після завантаження сторінки */
+    body.transitions-enabled {
+      transition: background-color 0.3s ease, color 0.3s ease !important;
+    }
+
+    body.transitions-enabled,
+    body.transitions-enabled .container,
+    body.transitions-enabled .theme-toggle,
+    body.transitions-enabled .language-dropdown .language-btn,
+    body.transitions-enabled .language-dropdown .language-dropdown-menu,
+    body.transitions-enabled .language-option,
+    body.transitions-enabled .toggle-button,
+    body.transitions-enabled input {
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .theme-toggle {
+      transition: color 0.3s ease;
+    }
+
+    .language-dropdown .language-btn,
+    .language-dropdown .language-dropdown-menu,
+    .language-option {
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+
+    /* 📚 Understanding IP Addresses Section */
+    .understanding-ip-section {
+      margin: 80px 0;
+      padding: 60px 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
+      border-radius: 20px;
+    }
+
+    .understanding-ip-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--text-color);
+      font-weight: 700;
+    }
+
+    .ip-explanation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .explanation-card {
+      background: var(--bg-color);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .explanation-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.15);
+    }
+
+    .explanation-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .explanation-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .explanation-card p {
+      line-height: 1.7;
+      color: var(--text-color);
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .ip-types {
+      margin-top: 1rem;
+    }
+
+    .ip-type {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(59, 130, 246, 0.05);
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .ip-type h4 {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .ip-type p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ❓ Comprehensive FAQ Section */
+    .comprehensive-faq-section {
+      margin: 80px 0;
+      padding: 60px 0;
+    }
+
+    .comprehensive-faq-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      font-weight: 700;
+    }
+
+    .faq-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 3rem;
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-color);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      cursor: pointer;
+      background: var(--bg-color);
+      transition: background-color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .faq-question h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      flex: 1;
+    }
+
+    .faq-toggle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #3b82f6;
+      transition: transform 0.3s ease;
+      margin-left: 1rem;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: rgba(59, 130, 246, 0.02);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 0 2rem 1.5rem 2rem;
+    }
+
+    .faq-answer p {
+      margin: 1rem 0 0 0;
+      line-height: 1.7;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* 🔧 Common Use Cases Section */
+    .use-cases-section {
+      margin: 80px 0;
+      padding: 60px 0;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(34, 197, 94, 0.05));
+      border-radius: 20px;
+    }
+
+    .use-cases-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      font-weight: 700;
+    }
+
+    .use-cases-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 3rem;
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .use-case-card {
+      background: var(--bg-color);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(16, 185, 129, 0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .use-case-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .use-case-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .use-case-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .use-case-card p {
+      line-height: 1.7;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* 🛡️ IP Security & Privacy Section */
+    .security-privacy-section {
+      margin: 80px 0;
+      padding: 60px 0;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(220, 38, 38, 0.05));
+      border-radius: 20px;
+    }
+
+    .security-privacy-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      font-weight: 700;
+    }
+
+    .security-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 3rem;
+    }
+
+    .security-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .security-column h3 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .risk-list, .protection-list {
+      space-y: 1.5rem;
+    }
+
+    .risk-item, .protection-item {
+      display: flex;
+      align-items: flex-start;
+      background: var(--bg-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .risk-item:hover, .protection-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .risk-icon, .protection-icon {
+      font-size: 2rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .risk-content h4, .protection-content h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .risk-content p, .protection-content p {
+      margin: 0;
+      line-height: 1.6;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    .best-practices {
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 2px solid rgba(59, 130, 246, 0.1);
+    }
+
+    .best-practices h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .practices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .practice-item {
+      background: var(--bg-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .practice-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.15);
+    }
+
+    .practice-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .practice-item h4 {
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .practice-item p {
+      margin: 0;
+      line-height: 1.6;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* 📱 Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      .understanding-ip-section,
+      .comprehensive-faq-section,
+      .use-cases-section,
+      .security-privacy-section {
+        margin: 40px 0;
+        padding: 40px 15px;
+      }
+
+      .understanding-ip-section h2,
+      .comprehensive-faq-section h2,
+      .use-cases-section h2,
+      .security-privacy-section h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .ip-explanation-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .explanation-card,
+      .use-case-card {
+        padding: 1.5rem;
+      }
+
+      .use-cases-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .security-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .practices-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .faq-question {
+        padding: 1rem 1.5rem;
+      }
+
+      .faq-question h3 {
+        font-size: 1rem;
+      }
+
+      .faq-item.active .faq-answer {
+        padding: 0 1.5rem 1rem 1.5rem;
+      }
+    }
+
+    /* Базові налаштування для довгого тексту */
+    body {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    /* FAQ секція - адаптивні заголовки */
+    .faq-question h3 {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      line-height: 1.4;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* Tool cards - гнучкі розміри */
+    .tool-content h3 {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.3;
+      min-height: 2.6em; /* 2 рядки мінімум */
+    }
+
+    .tool-content p {
+      font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+      line-height: 1.5;
+      min-height: 3em; /* 2-3 рядки для опису */
+    }
+
+    /* Секційні заголовки - адаптивні розміри */
+    .understanding-ip-section h2,
+    .comprehensive-faq-section h2,
+    .use-cases-section h2,
+    .security-privacy-section h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    /* Explanation cards - гнучкі контейнери */
+    .explanation-card h3 {
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+      line-height: 1.3;
+      min-height: 1.6em;
+    }
+
+    .explanation-card p {
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      line-height: 1.6;
+    }
+
+    /* Use case cards */
+    .use-case-card h3 {
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      line-height: 1.3;
+      min-height: 2.6em; /* Місце для довгих назв */
+    }
+
+    .use-case-card p {
+      font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+      line-height: 1.6;
+    }
+
+    /* Security section - риски та захист */
+    .risk-content h4,
+    .protection-content h4 {
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .risk-content p,
+    .protection-content p {
+      font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+      line-height: 1.5;
+    }
+
+    /* Practice items */
+    .practice-item h4 {
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      line-height: 1.3;
+      min-height: 2.6em;
+    }
+
+    .practice-item p {
+      font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+      line-height: 1.5;
+    }
+
+    /* IP types - вкладені елементи */
+    .ip-type h4 {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      line-height: 1.3;
+    }
+
+    .ip-type p {
+      font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+      line-height: 1.5;
+    }
+
+    /* Загальні правила для довгих слів */
+    h1, h2, h3, h4, h5, h6 {
+      word-break: break-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+
+    /* Спеціальні правила для німецької мови */
+    html[lang="de"] .tool-content h3,
+    html[lang="de"] .faq-question h3,
+    html[lang="de"] .use-case-card h3 {
+      font-size: clamp(0.85rem, 2.2vw, 1rem);
+      line-height: 1.4;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* Мобільні фікси для всіх мов */
+    @media (max-width: 768px) {
+      .tool-content h3 {
+        font-size: 1rem;
+        line-height: 1.4;
+        min-height: auto;
+      }
+      
+      .tool-content p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        min-height: auto;
+      }
+      
+      .faq-question h3 {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      
+      .use-case-card h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
+      
+      /* Збільшуємо padding для читабельності */
+      .explanation-card,
+      .use-case-card,
+      .risk-item,
+      .protection-item,
+      .practice-item {
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* Спеціальний фікс для довгих URL в лінках */
+    .tool-card-improved {
+      overflow: hidden;
+    }
+
+    /* Grid адаптація для довгого тексту */
+    .tools-grid-improved,
+    .ip-explanation-grid,
+    .use-cases-grid {
+      align-items: stretch; /* Всі карточки однакової висоти */
+    }
+
+    /* FAQ анімація - фікс для довгого тексту */
+    .faq-item.active .faq-answer {
+      max-height: 1000px; /* Збільшено для довгого тексту */
+    }
+
+    /* Покращена читабельність для всіх мов */
+    .faq-answer p,
+    .explanation-card p,
+    .use-case-card p,
+    .risk-content p,
+    .protection-content p,
+    .practice-item p {
+      text-align: left;
+      word-spacing: normal;
+      letter-spacing: normal;
+    }
+
