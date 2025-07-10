@@ -260,7 +260,8 @@
 
   "what_is_my_ip_title": "Jaki jest mój adres IP?",
   "what_is_my_ip_subtitle": "Natychmiast odkryj swój publiczny adres IP, lokalizację i informacje o sieci",
-  
+  "what_is_my_ip_description": "Sprawdź swój publiczny adres IP i lokalizację geograficzną. Darmowe narzędzie do identyfikacji adresu IP z mapą i szczegółowymi informacjami o sieci.",
+
   "understanding_your_ip": "Zrozumienie Twojego adresu IP",
   "understanding_ip_desc": "Twój adres IP (Internet Protocol) to Twój unikalny identyfikator w Internecie. Kiedy pytasz \"jaki jest mój adres IP?\", szukasz tego cyfrowego adresu pocztowego, który umożliwia stronom internetowym i usługom komunikację z Twoim urządzeniem. Czy potrzebujesz znaleźć swój publiczny IP do rozwiązywania problemów z siecią, czy chcesz sprawdzić, czy Twój VPN działa, nasze darmowe narzędzie do sprawdzania IP zapewnia natychmiastowe, dokładne wyniki.",
   

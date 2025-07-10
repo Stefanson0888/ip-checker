@@ -313,7 +313,8 @@
 
   "what_is_my_ip_title": "What Is My IP Address?",
   "what_is_my_ip_subtitle": "Instantly discover your public IP address, location, and network information",
-  
+  "what_is_my_ip_description": "Check your public IP address and geographic location. Free IP identification tool with map and detailed network information.",
+
   "understanding_your_ip": "Understanding Your IP Address",
   "understanding_ip_desc": "Your IP (Internet Protocol) address is your unique identifier on the internet. When you ask \"what is my IP address?\", you're looking for this digital postal address that allows websites and services to communicate with your device. Whether you need to find your public IP for network troubleshooting or want to check if your VPN is working, our free IP checker tool provides instant, accurate results.",
   
