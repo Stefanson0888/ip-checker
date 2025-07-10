@@ -43,9 +43,24 @@ async def fetch_iphub_info(ip: str) -> dict:
         return {}
 
 from fastapi import FastAPI, Request, Query, HTTPException
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+import htmlmin
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from starlette.responses import Response
+
+# ⚡ Кешовані статичні файли для performance
+class CachedStaticFiles(StaticFiles):
+    def file_response(self, *args, **kwargs):
+        resp = super().file_response(*args, **kwargs)
+        # Кешування на 1 день для CSS/JS, 1 тиждень для зображень
+        if resp.media_type in ["text/css", "application/javascript"]:
+            resp.headers["Cache-Control"] = "public, max-age=86400"  # 1 день
+        elif resp.media_type.startswith("image/"):
+            resp.headers["Cache-Control"] = "public, max-age=604800"  # 1 тиждень
+        return resp
+
 from utils.ip import get_client_ip, fetch_ip_info, validate_ip_address
 from utils.i18n import (
     get_language_from_request, get_language_from_path, 
@@ -56,8 +71,33 @@ from user_agents import parse
 from affiliate_config import AFFILIATE_URLS, get_nordvpn_url, get_nordpass_url
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.add_middleware(
+    GZipMiddleware, 
+    minimum_size=1000,  # Компресує файли більше 1KB
+    compresslevel=6     # Баланс між швидкістю та розміром
+)
+app.mount("/static", CachedStaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
+
+# ⚡ Performance headers middleware
+@app.middleware("http")
+async def add_performance_headers(request, call_next):
+    response = await call_next(request)
+    
+    # Performance headers
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    
+    # Preload критичних ресурсів тільки для головної сторінки
+    if request.url.path in ["/", "/en/", "/de/", "/pl/", "/hi/", "/uk/", "/ru/"]:
+        response.headers["Link"] = (
+            '</static/css/main.css>; rel=preload; as=style, '
+            '</static/css/dropdown.css>; rel=preload; as=style, '
+            '</static/js/dropdown.js>; rel=preload; as=script'
+        )
+    
+    return response
 
 # Redirect middleware - з render домену на основний
 @app.middleware("http")
@@ -73,7 +113,152 @@ async def redirect_render_domain(request: Request, call_next):
     response = await call_next(request)
     return response
 
+# Helper functions
+def detect_tech_user(request: Request) -> bool:
+    """Детекція tech користувача для персоналізованої реклами"""
+    user_agent_str = request.headers.get("user-agent", "").lower()
+    referrer = request.headers.get("referer", "").lower()
+    
+    tech_user_agents = [
+        'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
+        'insomnia', 'httpie', 'python-requests', 'node', 'npm'
+    ]
+    
+    tech_referrers = [
+        'github.com', 'stackoverflow.com', 'aws.amazon.com', 
+        'digitalocean.com', 'hetzner.com', 'cloudflare.com',
+        'netlify.com', 'vercel.com', 'heroku.com'
+    ]
+    
+    return (
+        any(term in user_agent_str for term in tech_user_agents) or
+        any(term in referrer for term in tech_referrers)
+    )
 
+def get_flag_url(ip_data: dict) -> str:
+    """Отримання URL прапора країни"""
+    country_code = ip_data.get('country_code', '').lower()
+    
+    if country_code:
+        return f"https://flagcdn.com/80x60/{country_code}.png"
+    
+    # Fallback: спробуємо отримати код країни з назви
+    country_name = ip_data.get('country', '').lower()
+    country_codes = {
+        'ukraine': 'ua',
+        'germany': 'de', 
+        'poland': 'pl',
+        'united states': 'us',
+        'india': 'in',
+        'russia': 'ru'
+    }
+    
+    if country_name in country_codes:
+        return f"https://flagcdn.com/256x192/{country_codes[country_name]}.png"
+    
+    return None
+
+def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
+    """Рендер шаблону з IP інформацією"""
+    user_agent_str = request.headers.get("user-agent", "")
+    user_agent = parse(user_agent_str)
+    is_tech_user = detect_tech_user(request)
+    
+    # Створюємо об'єкт для перекладів
+    _ = Translator(lang)
+
+    # Обробка помилок API
+    if "error" in ip_data:
+        context = {
+            "request": request,
+            "ip": ip,
+            "error": ip_data["error"],
+            "user_agent": user_agent_str,
+            "browser": user_agent.browser.family,
+            "os": user_agent.os.family,
+            "lang": lang,
+            "_": _,
+            "language_urls": get_language_urls(str(request.url.path), lang),
+            "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
+            "google_analytics_id": GOOGLE_ANALYTICS_ID,
+            "gtm_id": GTM_ID,
+            "is_tech_user": is_tech_user,
+            "country_code": ip_data.get("country_code", "Unknown"),
+            "security": {},  # Порожній для error page
+        }
+        return templates.TemplateResponse("error.html", context)
+
+    connection = ip_data.get("connection", {})
+    security = ip_data.get("security", {})
+    timezone = ip_data.get("timezone", {})
+    currency = ip_data.get("currency", {})
+
+    flag_url = get_flag_url(ip_data)
+
+    languages_raw = ip_data.get("languages", [])
+    language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
+
+    context = {
+        "request": request,
+        "ip": ip,
+        "type": ip_data.get("type", _("unknown")),
+        "isp": connection.get("isp", _("unknown")),
+        "asn": connection.get("asn", _("unknown")),
+        "hostname": connection.get("domain", _("unknown")),
+        "is_proxy": security.get("proxy", False),
+        "is_vpn": security.get("vpn", False),
+        "is_tor": security.get("tor", False),
+        "user_agent": user_agent_str,
+        "browser": user_agent.browser.family,
+        "os": user_agent.os.family,
+        "city": ip_data.get("city", _("unknown")),
+        "region": ip_data.get("region", _("unknown")),
+        "country": ip_data.get("country", _("unknown")),
+        "country_code": ip_data.get("country_code", _("unknown")),
+        "postal": ip_data.get("postal", _("unknown")),
+        "calling_code": ip_data.get("calling_code", _("unknown")),
+        "latitude": ip_data.get("latitude"),
+        "longitude": ip_data.get("longitude"),
+        "timezone": timezone.get("id", _("unknown")),
+        "currency": currency.get("code", _("unknown")),
+        "language": language,
+        "flag_url": flag_url,
+        "iphub_block": iphub_data.get("block") if iphub_data else None,
+        "iphub_isp": iphub_data.get("isp") if iphub_data else None,
+        "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
+        # i18n контекст
+        "lang": lang,
+        "_": _,
+        "language_urls": get_language_urls(str(request.url.path), lang),
+        "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
+        "is_tech_user": is_tech_user,
+        "security": security,  # Для conditional security widgets
+        "google_analytics_id": GOOGLE_ANALYTICS_ID,
+        "gtm_id": GTM_ID
+    }
+
+    # ⚡ Render template з HTML мінімізацією
+    response = templates.TemplateResponse("index.html", context)
+
+    # Мінімізація HTML для performance
+    if hasattr(response, 'body') and response.body:
+        try:
+            minified_html = htmlmin.minify(
+                response.body.decode('utf-8'),
+                remove_comments=True,           # Видаляє <!-- коментарі -->
+                remove_empty_space=True,        # Видаляє зайві пробіли
+                remove_all_empty_space=False,   # Зберігає критичні пробіли
+                reduce_empty_attributes=True,   # Мінімізує атрибути
+                reduce_boolean_attributes=True, # checked="checked" -> checked
+                remove_optional_attribute_quotes=False # Зберігає лапки
+            )
+            response.body = minified_html.encode('utf-8')
+        except Exception as e:
+            print(f"⚠️ HTML minification failed: {e}")
+
+    return response
+
+# Static files routes
 @app.get("/robots.txt", include_in_schema=False)
 async def robots_txt():
     return FileResponse("static/robots.txt", media_type="text/plain")
@@ -131,127 +316,6 @@ async def lookup_ip_with_language(request: Request, ip: str, lang: str):
     
     iphub_data = await fetch_iphub_info(ip)
     return render_ip_template(request, ip_data, ip, iphub_data, lang)
-
-def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dict = None, lang: str = DEFAULT_LANGUAGE):
-    user_agent_str = request.headers.get("user-agent", "")
-    user_agent = parse(user_agent_str)
-
-    
-    # Детекція типу користувача для персоналізованої реклами
-    is_tech_user = False
-    referrer = request.headers.get("referer", "").lower()
-    
-    # Перевіряємо User-Agent на ознаки розробника
-    tech_user_agents = [
-        'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
-        'insomnia', 'httpie', 'python-requests', 'node', 'npm'
-    ]
-    
-    # Перевіряємо Referer на tech сайти
-    tech_referrers = [
-        'github.com', 'stackoverflow.com', 'aws.amazon.com', 
-        'digitalocean.com', 'hetzner.com', 'cloudflare.com',
-        'netlify.com', 'vercel.com', 'heroku.com'
-    ]
-    
-    # Детекція tech користувача
-    is_tech_user = (
-        any(term in user_agent_str.lower() for term in tech_user_agents) or
-        any(term in referrer for term in tech_referrers)
-    )
-    
-    # Створюємо об'єкт для перекладів
-    _ = Translator(lang)
-
-    # Обробка помилок API
-    if "error" in ip_data:
-        context = {
-            "request": request,
-            "ip": ip,
-            "error": ip_data["error"],
-            "user_agent": user_agent_str,
-            "browser": user_agent.browser.family,
-            "os": user_agent.os.family,
-            "lang": lang,
-            "_": _,
-            "language_urls": get_language_urls(str(request.url.path), lang),
-            "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-            "google_analytics_id": GOOGLE_ANALYTICS_ID,
-            "gtm_id": GTM_ID,
-            "is_tech_user": is_tech_user,
-            "country_code": ip_data.get("country_code", "Unknown"),
-            "security": {},  # Порожній для error page
-        }
-        return templates.TemplateResponse("error.html", context)
-
-    connection = ip_data.get("connection", {})
-    security = ip_data.get("security", {})
-    timezone = ip_data.get("timezone", {})
-    currency = ip_data.get("currency", {})
-
-    country_code = ip_data.get('country_code', '').lower()
-    flag_url = None
-
-    if country_code:
-        # Спробуємо flagcdn.com
-        flag_url = f"https://flagcdn.com/80x60/{country_code}.png"
-    else:
-        # Fallback: спробуємо отримати код країни з назви
-        country_name = ip_data.get('country', '').lower()
-        country_codes = {
-            'ukraine': 'ua',
-            'germany': 'de', 
-            'poland': 'pl',
-            'united states': 'us',
-            'india': 'in',
-            'russia': 'ru'
-        }
-        if country_name in country_codes:
-            flag_url = f"https://flagcdn.com/256x192/{country_codes[country_name]}.png"
-
-    languages_raw = ip_data.get("languages", [])
-    language = ", ".join(languages_raw) if isinstance(languages_raw, list) else str(languages_raw)
-
-    context = {
-        "request": request,
-        "ip": ip,
-        "type": ip_data.get("type", _("unknown")),
-        "isp": connection.get("isp", _("unknown")),
-        "asn": connection.get("asn", _("unknown")),
-        "hostname": connection.get("domain", _("unknown")),
-        "is_proxy": security.get("proxy", False),
-        "is_vpn": security.get("vpn", False),
-        "is_tor": security.get("tor", False),
-        "user_agent": user_agent_str,
-        "browser": user_agent.browser.family,
-        "os": user_agent.os.family,
-        "city": ip_data.get("city", _("unknown")),
-        "region": ip_data.get("region", _("unknown")),
-        "country": ip_data.get("country", _("unknown")),
-        "country_code": ip_data.get("country_code", _("unknown")),
-        "postal": ip_data.get("postal", _("unknown")),
-        "calling_code": ip_data.get("calling_code", _("unknown")),
-        "latitude": ip_data.get("latitude"),
-        "longitude": ip_data.get("longitude"),
-        "timezone": timezone.get("id", _("unknown")),
-        "currency": currency.get("code", _("unknown")),
-        "language": language,
-        "flag_url": flag_url,
-        "iphub_block": iphub_data.get("block") if iphub_data else None,
-        "iphub_isp": iphub_data.get("isp") if iphub_data else None,
-        "iphub_hostname": iphub_data.get("hostname") if iphub_data else None,
-        # i18n контекст
-        "lang": lang,
-        "_": _,
-        "language_urls": get_language_urls(str(request.url.path), lang),
-        "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
-        "is_tech_user": is_tech_user,
-        "security": security,  # Для conditional security widgets
-        "google_analytics_id": GOOGLE_ANALYTICS_ID,
-        "gtm_id": GTM_ID
-    }
-
-    return templates.TemplateResponse("index.html", context)
 
 @app.get("/iphub-status")
 async def iphub_status():
@@ -341,28 +405,7 @@ async def what_is_my_ip_page(request: Request, lang: str):
             ip_data = {"error": ip_data["error"]}
         
         iphub_data = await fetch_iphub_info(client_ip)
-        
-        # Використовуємо ту ж логіку що й у render_ip_template
-        user_agent_str = request.headers.get("user-agent", "")
-        user_agent = parse(user_agent_str)
-        
-        # Детекція tech користувача
-        is_tech_user = False
-        referrer = request.headers.get("referer", "").lower()
-        tech_user_agents = [
-            'developer', 'github', 'vscode', 'postman', 'curl', 'wget', 
-            'insomnia', 'httpie', 'python-requests', 'node', 'npm'
-        ]
-        tech_referrers = [
-            'github.com', 'stackoverflow.com', 'aws.amazon.com', 
-            'digitalocean.com', 'hetzner.com', 'cloudflare.com',
-            'netlify.com', 'vercel.com', 'heroku.com'
-        ]
-        
-        is_tech_user = (
-            any(term in user_agent_str.lower() for term in tech_user_agents) or
-            any(term in referrer for term in tech_referrers)
-        )
+        is_tech_user = detect_tech_user(request)
         
         # Обробка даних
         connection = ip_data.get("connection", {})
@@ -405,7 +448,6 @@ async def what_is_my_ip_page(request: Request, lang: str):
             return RedirectResponse(url=f"/{lang}/")
         else:
             return RedirectResponse(url="/")
-    
 
 # Privacy Policy - англійська за замовчуванням  
 @app.get("/privacy", response_class=HTMLResponse)
@@ -491,7 +533,6 @@ async def contact_with_language(request: Request, lang: str):
     
     return templates.TemplateResponse("contact.html", context)
 
-
 # IP Lookup Tool - англійська за замовчуванням  
 @app.get("/ip-lookup-tool", response_class=HTMLResponse)
 async def ip_lookup_tool_default(request: Request):
@@ -520,7 +561,6 @@ async def ip_lookup_tool_page(request: Request, lang: str):
     }
 
     return templates.TemplateResponse("ip-lookup-tool.html", context)
-
 
 # VPN Detection - English (default)
 @app.get("/am-i-using-vpn")
@@ -565,7 +605,7 @@ async def vpn_detection_page(request: Request, lang: str):
         is_vpn = False
         iphub_data = {}
         
-        #  перевіряємо security з основного API
+        # перевіряємо security з основного API
         if not ("error" in ip_data):
             security = ip_data.get('security', {})
             is_vpn = security.get('vpn', False) or security.get('proxy', False)
