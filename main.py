@@ -194,7 +194,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
 
     if country_code:
         # Спробуємо flagcdn.com
-        flag_url = f"https://flagcdn.com/256x192/{country_code}.png"
+        flag_url = f"https://flagcdn.com/80x60/{country_code}.png"
     else:
         # Fallback: спробуємо отримати код країни з назви
         country_name = ip_data.get('country', '').lower()
