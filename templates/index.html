@@ -710,14 +710,8 @@
       margin: 10px 0;
       border-radius: 4px;
       overflow: hidden;
-      background: 
-        linear-gradient(45deg, #f1f5f9 25%, transparent 25%), 
-        linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #f1f5f9 75%), 
-        linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
-      background-size: 8px 8px;
-      background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
-      /* CLS prevention */
+      background: #f8f9fa;
+      border: 1px solid rgba(0,0,0,0.1);
       contain: layout style size;
       flex-shrink: 0;
     }
@@ -917,13 +911,8 @@
 
     /* Dark theme optimizations */
     [data-theme="dark"] .flag {
-      background: 
-        linear-gradient(45deg, #374151 25%, transparent 25%), 
-        linear-gradient(-45deg, #374151 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #374151 75%), 
-        linear-gradient(-45deg, transparent 75%, #374151 75%);
-      background-size: 8px 8px;
-      background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+      background: #374151;
+      border-color: rgba(255,255,255,0.1);
     }
 
     [data-theme="dark"] #map {
@@ -2006,6 +1995,13 @@
         {% endif %}
         <p><strong>{{ _("user_agent") }}:</strong> {{ user_agent }}</p>
       </div>
+
+      <div class="right-block">
+        {% if latitude and longitude %}
+        <div class="map-block">
+        <div id="map" style="width: 100%; height: 400px;"></div>
+      </div>
+      {% endif %}
     </div>
 
     <!-- SEO Internal Links Section -->
@@ -2360,13 +2356,6 @@
         </div>
       </div>
     </section>
-
-    <div class="right-block">
-      {% if latitude and longitude %}
-      <div class="map-block">
-        <div id="map" style="width: 100%; height: 400px;"></div>
-      </div>
-      {% endif %}
 
       <div id="ads-container" class="ad-column">
         <!-- Real NordVPN Affiliate Integration -->
