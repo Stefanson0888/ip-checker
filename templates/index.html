@@ -1946,10 +1946,8 @@
         <img 
           src="{{ flag_url }}" 
           alt="{{ _('flag_alt', country=country) }}" 
-          loading="lazy"
-          fetchpriority="low"
-          width="80" 
-          height="60"
+          loading="eager"
+          fetchpriority="high"
           decoding="async"
           onerror="this.style.display='none'" />
       </div>
