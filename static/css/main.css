@@ -368,43 +368,6 @@
     }
 
     /* Main styles */
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --button-bg: #3a7bfd;
-      --button-hover: #5c8dfc;
-      --button-text: #000000;
-    }
-
-    [data-theme="dark"] {
-      --bg-color: #1e1e1e;
-      --text-color: #ffffff;
-      --button-bg: #3a7bfd;
-      --button-hover: #5c8dfc;
-      --button-text: #ffffff;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: Arial, sans-serif;
-      margin: 30px auto;
-      max-width: 1200px;
-      padding: 0 15px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 20px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--text-color);
-    }
-
     /* Оновлення для медіа-запиту мобільної версії */
     @media (max-width: 768px) {
       .container {
@@ -421,37 +384,8 @@
       }
     }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      margin-top: 60px;
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-
-    .info-block {
-      flex: 2;
-      min-width: 300px;
-    }
-
     .map-block {
       width: 100%;
-    }
-
-    .toggle-button {
-      margin-top: 20px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background-color: var(--button-bg);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      color: var(--button-text);
     }
 
     .toggle-button:hover {

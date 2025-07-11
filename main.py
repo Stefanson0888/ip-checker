@@ -240,22 +240,6 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     # ⚡ Render template з HTML мінімізацією
     response = templates.TemplateResponse("index.html", context)
 
-    # Мінімізація HTML для performance
-    if hasattr(response, 'body') and response.body:
-        try:
-            minified_html = htmlmin.minify(
-                response.body.decode('utf-8'),
-                remove_comments=True,           # Видаляє <!-- коментарі -->
-                remove_empty_space=True,        # Видаляє зайві пробіли
-                remove_all_empty_space=False,   # Зберігає критичні пробіли
-                reduce_empty_attributes=True,   # Мінімізує атрибути
-                reduce_boolean_attributes=True, # checked="checked" -> checked
-                remove_optional_attribute_quotes=False # Зберігає лапки
-            )
-            response.body = minified_html.encode('utf-8')
-        except Exception as e:
-            print(f"⚠️ HTML minification failed: {e}")
-
     return response
 
 # Static files routes

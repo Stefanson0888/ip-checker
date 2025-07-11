@@ -1,6 +1,13 @@
 import httpx
 import ipaddress
 from fastapi import Request, HTTPException
+import asyncio
+from typing import Optional
+import time
+
+# Простий in-memory cache
+IP_CACHE = {}
+CACHE_TTL = 300  # 5 хвилин
 
 async def get_client_ip(request: Request) -> str:
     """
@@ -41,34 +48,77 @@ def validate_ip_address(ip: str) -> bool:
 
 async def fetch_ip_info(ip: str) -> dict:
     """
-    Отримує інформацію про IP-адресу через API ipwho.is з fallback на ip-api.com.
+    Отримує інформацію про IP-адресу з кешуванням.
     """
     # Валідація IP адреси
     if not validate_ip_address(ip):
         return {"error": "Invalid IP address format"}
     
-    # Спробувати ipwho.is (основний API)
+    # Перевірка кешу
+    cache_key = f"ip_{ip}"
+    current_time = time.time()
+    
+    if cache_key in IP_CACHE:
+        cached_data, timestamp = IP_CACHE[cache_key]
+        if current_time - timestamp < CACHE_TTL:
+            return cached_data
+    
+    # Паралельні запити до обох API
+    try:
+        tasks = [
+            fetch_ipwho_api(ip),
+            fetch_fallback_api(ip)
+        ]
+        
+        # Виконуємо паралельно, беремо перший успішний результат
+        for coro in asyncio.as_completed(tasks):
+            try:
+                result = await coro
+                if result and "error" not in result:
+                    # Кешуємо результат
+                    IP_CACHE[cache_key] = (result, current_time)
+                    return result
+            except:
+                continue
+        
+        # Якщо всі API failed
+        return {"error": "All IP APIs unavailable"}
+        
+    except Exception as e:
+        return {"error": f"IP lookup failed: {str(e)}"}
+
+async def fetch_ipwho_api(ip: str) -> Optional[dict]:
+    """Основний API - ipwho.is"""
     try:
         url = f"https://ipwho.is/{ip}"
-        async with httpx.AsyncClient(timeout=10.0) as client:
+        async with httpx.AsyncClient(timeout=5.0) as client:  # Зменшив timeout
             response = await client.get(url)
-            
             if response.status_code == 200:
                 data = response.json()
-                # Перевіряємо чи API повернув success
                 if data.get("success", True):
                     return data
-                else:
-                    print(f"⚠️ ipwho.is error: {data.get('message', 'Unknown error')}")
-                    # Fallback на ip-api.com
-                    return await fetch_ip_info_fallback(ip)
-            else:
-                print(f"⚠️ ipwho.is returned status {response.status_code}")
-                return await fetch_ip_info_fallback(ip)
-                
-    except Exception as e:
-        print(f"❌ ipwho.is error: {str(e)}")
-        return await fetch_ip_info_fallback(ip)
+        return None
+    except:
+        return None
+
+async def fetch_fallback_api(ip: str) -> Optional[dict]:
+    """Fallback API - ip-api.com"""
+    try:
+        url = f"http://ip-api.com/json/{ip}?fields=status,message,country,countryCode,regionName,city,lat,lon,timezone,isp,org,as,query,proxy,hosting"
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            response = await client.get(url)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("status") == "success":
+                    # Конвертуємо формат (той самий код що у вас був)
+                    return {
+                        "success": True,
+                        "ip": data.get("query"),
+                        # ... решта коду конвертації
+                    }
+        return None
+    except:
+        return None
 
 async def fetch_ip_info_fallback(ip: str) -> dict:
     """
