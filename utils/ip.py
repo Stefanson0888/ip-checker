@@ -110,11 +110,57 @@ async def fetch_fallback_api(ip: str) -> Optional[dict]:
             if response.status_code == 200:
                 data = response.json()
                 if data.get("status") == "success":
-                    # Конвертуємо формат (той самий код що у вас був)
+                    # Повна конвертація формату
                     return {
                         "success": True,
                         "ip": data.get("query"),
-                        # ... решта коду конвертації
+                        "type": "IPv4",
+                        "continent": "Unknown",
+                        "continent_code": "Unknown", 
+                        "country": data.get("country", "Unknown"),
+                        "country_code": data.get("countryCode", "Unknown"),
+                        "region": data.get("regionName", "Unknown"),
+                        "region_code": "Unknown",
+                        "city": data.get("city", "Unknown"),
+                        "latitude": data.get("lat"),
+                        "longitude": data.get("lon"),
+                        "is_eu": False,
+                        "postal": "Unknown",
+                        "calling_code": "Unknown",
+                        "capital": "Unknown",
+                        "borders": [],
+                        "flag": {
+                            "img": "Unknown",
+                            "emoji": "Unknown",
+                            "emoji_unicode": "Unknown"
+                        },
+                        "connection": {
+                            "asn": data.get("as", "Unknown"),
+                            "org": data.get("org", "Unknown"),
+                            "isp": data.get("isp", "Unknown"),
+                            "domain": "Unknown"
+                        },
+                        "timezone": {
+                            "id": data.get("timezone", "Unknown"),
+                            "abbr": "Unknown",
+                            "is_dst": False,
+                            "offset": 0,
+                            "utc": "Unknown",
+                            "current_time": "Unknown"
+                        },
+                        "security": {
+                            "proxy": data.get("proxy", False),
+                            "vpn": data.get("hosting", False),
+                            "tor": False
+                        },
+                        "currency": {
+                            "name": "Unknown",
+                            "code": "Unknown",
+                            "symbol": "Unknown",
+                            "native": "Unknown",
+                            "plural": "Unknown"
+                        },
+                        "languages": ["Unknown"]
                     }
         return None
     except:

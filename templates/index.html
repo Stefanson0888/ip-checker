@@ -74,21 +74,28 @@
   </script>
 
   <script>
-    // 🎯 Глобальні змінні для карти
-    window.mapConfig = {
-      hasCoordinates: {% if latitude and longitude %}true{% else %}false{% endif %},
-      {% if latitude and longitude %}
-      coords: [{{ latitude }}, {{ longitude }}],
-      zoom: 12,
-      city: "{{ city }}",
-      country: "{{ country }}",
-      {% endif %}
-      lang: "{{ lang }}"
-    };
-    </script>
+  // 🎯 Глобальні змінні для карти з debug
+  window.mapConfig = {
+    hasCoordinates: {% if latitude and longitude %}true{% else %}false{% endif %},
+    {% if latitude and longitude %}
+    coords: [{{ latitude }}, {{ longitude }}],
+    zoom: 12,
+    city: "{{ city }}",
+    country: "{{ country }}",
+    {% endif %}
+    lang: "{{ lang }}"
+  };
+
+  // Debug інформація
+  console.log('🗺️ Map config:', window.mapConfig);
+  console.log('📍 Has coordinates:', window.mapConfig.hasCoordinates);
+  {% if latitude and longitude %}
+  console.log('📍 Coords:', [{{ latitude }}, {{ longitude }}]);
+  {% endif %}
+  </script>
     
-    <!-- Завантажуємо оптимізовану карту -->
-    <script src="/static/js/map-optimized.js" defer></script>
+  <!-- Завантажуємо оптимізовану карту -->
+  <script src="/static/js/map-optimized.js" defer></script>
 
   <!-- 🎭 CSS анімації -->
   <style id="map-optimized-animations">
