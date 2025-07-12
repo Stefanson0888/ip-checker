@@ -500,22 +500,8 @@
   </div>
 
   <!-- Breadcrumb Navigation -->
-  <nav aria-label="breadcrumb" style="margin: 15px 0;">
-    <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="display: flex; list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #6c757d;">
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="display: flex; align-items: center;">
-        <a itemprop="item" href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" style="color: #6c757d; text-decoration: none;">
-          <span itemprop="name">🏠 {{ _("home") }}</span>
-        </a>
-        <meta itemprop="position" content="1" />
-        <span style="margin: 0 8px; color: #dee2e6;">›</span>
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <span itemprop="name" style="color: #495057;">{{ _("ip_checker") }}</span>
-        <meta itemprop="position" content="2" />
-      </li>
-    </ol>
-  </nav>
-
+  <!-- when  блог з категоріями, детальні гайди, Коли буде база знань з підрозділами -->
+  
   <h1>{{ _("seo_h1_title") }} - {{ ip }}</h1>
 
   <form class="ip-lookup" action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get" onsubmit="trackIPLookup(this.ip.value)">
