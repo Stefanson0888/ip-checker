@@ -8,7 +8,27 @@
   <meta name="description" content="{{ _('description') }}">
   <meta name="keywords" content="{{ _('keywords') }}">
 
-<!-- ⚡ PERFORMANCE OPTIMIZATIONS -->
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ _('og_title') }}">
+  <meta property="og:description" content="{{ _('og_description') }}">
+  <meta property="og:url" content="{{ request.url }}">
+  {% set og_image_url = url_for('static', path='images/og-image.jpg') %}
+  <meta property="og:image" content="{{ og_image_url }}">
+  <meta property="og:image:secure_url" content="{{ og_image_url }}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="CheckIP">
+  <meta property="og:locale" content="{{ lang }}_{{ country_code }}">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ _('twitter_title') }}">
+  <meta name="twitter:description" content="{{ _('twitter_description') }}">
+  <meta name="twitter:image" content="{{ url_for('static', path='images/twitter-card.jpg') }}">
+
+  <!-- ⚡ PERFORMANCE OPTIMIZATIONS -->
   
   <!-- 🎯 Resource hints для performance -->
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -285,7 +305,21 @@
   {% endfor %}
   <link rel="alternate" hreflang="x-default" href="{{ hreflang_urls.get('en', '/') }}" />
 
-  <link rel="icon" type="image/png" href="{{ url_for('static', path='favicon.png') }}" />
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ request.url }}">
+
+  <!-- DNS prefetch для SEO покращень -->
+  <link rel="dns-prefetch" href="//schema.org">
+  <link rel="dns-prefetch" href="//www.google.com">
+
+  <!-- Preconnect для швидшого індексування -->
+  <link rel="preconnect" href="//www.google.com" crossorigin>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', path='favicon.png') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', path='images/apple-touch-icon.png') }}">
+  <link rel="manifest" href="{{ url_for('static', path='site.webmanifest') }}">
+  <meta name="theme-color" content="#3b82f6">
   <link rel="preload" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"></noscript>
 
@@ -375,6 +409,83 @@
     }
   </style>
 
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CheckIP - {{ _('title') }}",
+      "description": "{{ _('description') }}",
+      "url": "{{ request.url }}",
+      "applicationCategory": "NetworkingApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization", 
+        "name": "CheckIP"
+      },
+      "inLanguage": "{{ lang }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ request.base_url }}lookup?ip={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "{{ _('faq_what_can_websites_see') }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ _('faq_websites_see_answer') }}"
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "{{ _('faq_hide_ip_address') }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ _('faq_hide_ip_answer') }}"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "{{ _('faq_vpn_change_ip') }}",
+          "acceptedAnswer": {
+            "@type": "Answer", 
+            "text": "{{ _('faq_vpn_change_answer') }}"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- PWA та Mobile оптимізація -->
+    <meta name="application-name" content="CheckIP">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CheckIP">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://checkip.app" crossorigin>
+    <link rel="dns-prefetch" href="//checkip.app">
+
 </head>
 
 <body>
@@ -388,7 +499,24 @@
     {% include 'partials/language_dropdown.html' %}
   </div>
 
-  <h1>{{ _("your_ip") }}: {{ ip }}</h1>
+  <!-- Breadcrumb Navigation -->
+  <nav aria-label="breadcrumb" style="margin: 15px 0;">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="display: flex; list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #6c757d;">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" style="display: flex; align-items: center;">
+        <a itemprop="item" href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" style="color: #6c757d; text-decoration: none;">
+          <span itemprop="name">🏠 {{ _("home") }}</span>
+        </a>
+        <meta itemprop="position" content="1" />
+        <span style="margin: 0 8px; color: #dee2e6;">›</span>
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name" style="color: #495057;">{{ _("ip_checker") }}</span>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </nav>
+
+  <h1>{{ _("seo_h1_title") }} - {{ ip }}</h1>
 
   <form class="ip-lookup" action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get" onsubmit="trackIPLookup(this.ip.value)">
     <input type="text" name="ip" placeholder="{{ _('check_ip_placeholder') }}" required />
@@ -410,10 +538,13 @@
         <img 
           src="{{ flag_url }}" 
           alt="{{ _('flag_alt', country=country) }}" 
+          width="32"
+          height="24"
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          onerror="this.style.display='none'" />
+          onerror="this.style.display='none'"
+          style="border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" />
       </div>
       {% endif %}
 
@@ -658,6 +789,33 @@
           </div>
         </div>
       </div>
+
+    <!-- Enhanced Internal Links in FAQ -->
+    <div class="faq-internal-links" style="margin-top: 2rem; padding: 20px; background: var(--bg-color); border-radius: 8px; border: 1px solid rgba(0,0,0,0.1);">
+      <h3 style="margin-bottom: 1rem; color: var(--text-color);">{{ _("related_tools_faq") }}</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}what-is-my-ip" 
+          style="padding: 15px; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; text-decoration: none; border-radius: 6px; display: block;"
+          onclick="trackToolClick('what_is_my_ip_faq')">
+          <strong>📍 {{ _("discover_your_ip") }}</strong><br>
+          <small style="opacity: 0.9;">{{ _("complete_ip_analysis") }}</small>
+        </a>
+        
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}am-i-using-vpn" 
+          style="padding: 15px; background: linear-gradient(135deg, #059669, #0d9488); color: white; text-decoration: none; border-radius: 6px; display: block;"
+          onclick="trackToolClick('vpn_detection_faq')">
+          <strong>🔒 {{ _("check_vpn_status") }}</strong><br>
+          <small style="opacity: 0.9;">{{ _("verify_privacy_protection") }}</small>
+        </a>
+        
+        <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}ip-lookup-tool" 
+          style="padding: 15px; background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; text-decoration: none; border-radius: 6px; display: block;"
+          onclick="trackToolClick('ip_lookup_faq')">
+          <strong>🌐 {{ _("lookup_any_ip") }}</strong><br>
+          <small style="opacity: 0.9;">{{ _("professional_ip_analysis") }}</small>
+        </a>
+      </div>
+    </div>
     </section>
 
     <!-- 🔧 Common Use Cases Section -->

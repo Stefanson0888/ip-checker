@@ -457,5 +457,29 @@
   "avoid_public_wifi_desc": "सार्वजनिक Wi-Fi नेटवर्क से जुड़ते समय VPN सुरक्षा का उपयोग करें, क्योंकि ये अक्सर असुरक्षित और निगरानी में होते हैं।",
   
   "update_security_tools": "सुरक्षा उपकरण अपडेट करें",
-  "update_security_desc": "नवीनतम खतरों और कमजोरियों से बचाव के लिए अपने VPN सॉफ्टवेयर, एंटीवायरस और अन्य सुरक्षा उपकरणों को अपडेट रखें।"
+  "update_security_desc": "नवीनतम खतरों और कमजोरियों से बचाव के लिए अपने VPN सॉफ्टवेयर, एंटीवायरस और अन्य सुरक्षा उपकरणों को अपडेट रखें।",
+
+  "seo_h1_title": "मुफ्त IP पता चेकर और जियोलोकेशन टूल",
+  "og_title": "IP चेकर - अपना IP पता, स्थान और ISP खोजें | मुफ्त टूल",
+  "og_description": "तुरंत अपना IP पता, सटीक स्थान, ISP विवरण और सुरक्षा स्थिति खोजें। VPN डिटेक्शन, जियोलोकेशन मैप और प्राइवेसी टूल्स के साथ मुफ्त IP चेकर।",
+  "twitter_title": "मुफ्त IP पता चेकर - स्थान और सुरक्षा टूल",
+  "twitter_description": "अपना IP पता, स्थान, ISP चेक करें और VPN/प्रॉक्सी कनेक्शन का पता लगाएं। तेज़, सटीक और पूरी तरह से मुफ्त IP जियोलोकेशन टूल।",
+  
+  "meta_canonical_description": "आधिकारिक IP चेकर टूल पेज",
+  "breadcrumb_home": "होम",
+  "breadcrumb_ip_checker": "IP पता चेकर",
+  
+  "structured_data_name": "मुफ्त IP पता चेकर टूल",
+  "structured_data_description": "VPN डिटेक्शन, ISP जानकारी और प्राइवेसी एनालिसिस टूल्स के साथ प्रोफेशनल IP पता लुकअप और जियोलोकेशन सेवा।",
+  
+  "homepage_canonical": "https://checkip.app",
+  "site_name": "CheckIP - IP पता टूल्स",
+
+  "related_tools_faq": "संबंधित टूल्स और संसाधन",
+  "discover_your_ip": "अपने IP विवरण खोजें",
+  "complete_ip_analysis": "जियोलोकेशन मैप के साथ पूरा IP विश्लेषण",
+  "check_vpn_status": "अपनी VPN स्थिति जांचें", 
+  "verify_privacy_protection": "सत्यापित करें कि आपकी गोपनीयता सुरक्षा काम कर रही है",
+  "lookup_any_ip": "कोई भी IP पता देखें",
+  "professional_ip_analysis": "किसी भी पते के लिए पेशेवर IP विश्लेषण"
 }

@@ -1,34 +1,56 @@
 # IP Checker Service - Robots.txt
-# Optimized for SEO and crawl efficiency
+# Optimized for SEO and multilingual crawling
 
 User-agent: *
-# Allow all pages except technical endpoints
+# Allow all pages and content
 Allow: /
 
-# Block technical and internal endpoints
-Disallow: /static/
-Disallow: /api/
-Disallow: /iphub-status
+# Block only sensitive endpoints and admin areas
+Disallow: /api/internal/
 Disallow: /health
 Disallow: /analytics/
+Disallow: /admin/
+Disallow: /_internal/
 
-# Block duplicate content (lookup without parameters)
-Disallow: /lookup$
+# Allow critical static resources for proper page rendering
+Allow: /static/css/
+Allow: /static/js/
+Allow: /static/images/
+Allow: /static/favicon.ico
+Allow: /static/favicon.png
 
-# Crawl-delay to prevent server overload
+# Block non-essential static files to save crawl budget
+Disallow: /static/ads/
+Disallow: /static/*.zip
+Disallow: /static/*.tar.gz
+
+# Allow lookup functionality (important for SEO)
+Allow: /lookup
+Allow: /*/lookup
+
+# Prevent crawling of infinite parameter combinations
+Disallow: /lookup?*&*
+Disallow: /*/lookup?*&*
+
+# Standard crawl-delay to prevent server overload
 Crawl-delay: 1
 
 # Google specific optimizations
 User-agent: Googlebot
 Crawl-delay: 0
 Allow: /
+# Allow Google to access CSS/JS for proper rendering
+Allow: /static/css/
+Allow: /static/js/
 
-# Bing specific optimizations
+# Bing specific optimizations  
 User-agent: Bingbot
 Crawl-delay: 1
 Allow: /
+Allow: /static/css/
+Allow: /static/js/
 
-# Block aggressive crawlers
+# Block aggressive SEO crawlers that don't add value
 User-agent: AhrefsBot
 Disallow: /
 
@@ -38,15 +60,41 @@ Disallow: /
 User-agent: SemrushBot
 Disallow: /
 
-# Social media crawlers - allow for rich previews
+User-agent: MegaIndex
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Allow social media crawlers for rich previews
 User-agent: facebookexternalhit
 Allow: /
+Crawl-delay: 0
 
 User-agent: Twitterbot
 Allow: /
+Crawl-delay: 0
 
 User-agent: LinkedInBot
 Allow: /
+Crawl-delay: 0
+
+User-agent: WhatsApp
+Allow: /
+Crawl-delay: 0
+
+User-agent: TelegramBot
+Allow: /
+Crawl-delay: 0
+
+# Allow other useful bots
+User-agent: ia_archiver
+Allow: /
+Crawl-delay: 5
 
 # Sitemap location
 Sitemap: https://checkip.app/sitemap.xml
+
+# Additional SEO directives
+# Specify host preference
+Host: checkip.app

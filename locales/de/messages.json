@@ -460,5 +460,29 @@
   "avoid_public_wifi_desc": "Verwenden Sie VPN-Schutz beim Verbinden mit öffentlichen WLAN-Netzwerken, da diese oft ungesichert und überwacht sind.",
   
   "update_security_tools": "Sicherheits-Tools aktualisieren",
-  "update_security_desc": "Halten Sie Ihre VPN-Software, Antivirus und andere Sicherheits-Tools aktuell, um sich vor den neuesten Bedrohungen und Schwachstellen zu schützen."
+  "update_security_desc": "Halten Sie Ihre VPN-Software, Antivirus und andere Sicherheits-Tools aktuell, um sich vor den neuesten Bedrohungen und Schwachstellen zu schützen.",
+
+  "seo_h1_title": "Kostenloser IP-Adress-Checker & Geolocation-Tool",
+  "og_title": "IP-Checker - Finden Sie Ihre IP-Adresse, Standort & ISP | Kostenloses Tool",
+  "og_description": "Entdecken Sie sofort Ihre IP-Adresse, genauen Standort, ISP-Details und Sicherheitsstatus. Kostenloser IP-Checker mit VPN-Erkennung, Geolokalisierungskarte und Datenschutz-Tools.",
+  "twitter_title": "Kostenloser IP-Adress-Checker - Standort & Sicherheits-Tool",
+  "twitter_description": "Überprüfen Sie Ihre IP-Adresse, Standort, ISP und erkennen Sie VPN/Proxy-Verbindungen. Schnell, genau und völlig kostenloses IP-Geolokalisierungs-Tool.",
+  
+  "meta_canonical_description": "Offizielle IP-Checker-Tool-Seite",
+  "breadcrumb_home": "Startseite",
+  "breadcrumb_ip_checker": "IP-Adress-Checker",
+  
+  "structured_data_name": "Kostenloses IP-Adress-Checker-Tool",
+  "structured_data_description": "Professioneller IP-Adress-Lookup und Geolokalisierungsdienst mit VPN-Erkennung, ISP-Informationen und Datenschutz-Analyse-Tools.",
+  
+  "homepage_canonical": "https://checkip.app",
+  "site_name": "CheckIP - IP-Adress-Tools",
+
+  "related_tools_faq": "Verwandte Tools und Ressourcen",
+  "discover_your_ip": "Entdecken Sie Ihre IP-Details",
+  "complete_ip_analysis": "Vollständige IP-Analyse mit Geolokalisierungskarte",
+  "check_vpn_status": "Überprüfen Sie Ihren VPN-Status", 
+  "verify_privacy_protection": "Überprüfen Sie, ob Ihr Datenschutz funktioniert",
+  "lookup_any_ip": "Beliebige IP-Adresse nachschlagen",
+  "professional_ip_analysis": "Professionelle IP-Analyse für jede Adresse"
 }

@@ -511,6 +511,30 @@
   "avoid_public_wifi_desc": "Use VPN protection when connecting to public Wi-Fi networks, as these are often unsecured and monitored.",
   
   "update_security_tools": "Update Security Tools",
-  "update_security_desc": "Keep your VPN software, antivirus, and other security tools updated to protect against the latest threats and vulnerabilities."
+  "update_security_desc": "Keep your VPN software, antivirus, and other security tools updated to protect against the latest threats and vulnerabilities.",
+
+  "seo_h1_title": "Free IP Address Checker & Geolocation Tool",
+  "og_title": "IP Checker - Find Your IP Address, Location & ISP | Free Tool",
+  "og_description": "Instantly discover your IP address, exact location, ISP details, and security status. Free IP checker with VPN detection, geolocation map, and privacy tools.",
+  "twitter_title": "Free IP Address Checker - Location & Security Tool",
+  "twitter_description": "Check your IP address, location, ISP, and detect VPN/proxy connections. Fast, accurate, and completely free IP geolocation tool.",
+  
+  "meta_canonical_description": "Official IP checker tool page",
+  "breadcrumb_home": "Home",
+  "breadcrumb_ip_checker": "IP Address Checker",
+  
+  "structured_data_name": "Free IP Address Checker Tool",
+  "structured_data_description": "Professional IP address lookup and geolocation service with VPN detection, ISP information, and privacy analysis tools.",
+  
+  "homepage_canonical": "https://checkip.app",
+  "site_name": "CheckIP - IP Address Tools",
+
+  "related_tools_faq": "Related Tools & Resources",
+  "discover_your_ip": "Discover Your IP Details",
+  "complete_ip_analysis": "Complete IP analysis with geolocation map",
+  "check_vpn_status": "Check Your VPN Status", 
+  "verify_privacy_protection": "Verify your privacy protection is working",
+  "lookup_any_ip": "Lookup Any IP Address",
+  "professional_ip_analysis": "Professional IP analysis for any address"
 
 }

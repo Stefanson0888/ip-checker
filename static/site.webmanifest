@@ -1,0 +1,26 @@
+{
+    "name": "CheckIP - IP Address Checker & Geolocation Tool",
+    "short_name": "CheckIP",
+    "description": "Find your IP address, location, ISP and detect VPN/proxy connections instantly",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6",
+    "orientation": "portrait-primary",
+    "categories": ["utilities", "productivity"],
+    "lang": "en",
+    "icons": [
+      {
+        "src": "/static/favicon.png",
+        "sizes": "32x32",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "/static/images/apple-touch-icon.png", 
+        "sizes": "180x180",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ]
+  }

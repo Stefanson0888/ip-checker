@@ -457,6 +457,30 @@
   "avoid_public_wifi_desc": "Używaj ochrony VPN podczas łączenia się z publicznymi sieciami Wi-Fi, ponieważ są one często niezabezpieczone i monitorowane.",
   
   "update_security_tools": "Aktualizuj narzędzia bezpieczeństwa",
-  "update_security_desc": "Utrzymuj swoje oprogramowanie VPN, antywirus i inne narzędzia bezpieczeństwa na bieżąco, aby chronić się przed najnowszymi zagrożeniami i podatnościami."
+  "update_security_desc": "Utrzymuj swoje oprogramowanie VPN, antywirus i inne narzędzia bezpieczeństwa na bieżąco, aby chronić się przed najnowszymi zagrożeniami i podatnościami.",
+
+  "seo_h1_title": "Darmowy Checker Adresów IP i Narzędzie Geolokalizacji",
+  "og_title": "IP Checker - Znajdź Swój Adres IP, Lokalizację i ISP | Darmowe Narzędzie",
+  "og_description": "Natychmiast odkryj swój adres IP, dokładną lokalizację, szczegóły ISP i status bezpieczeństwa. Darmowy checker IP z wykrywaniem VPN, mapą geolokalizacji i narzędziami prywatności.",
+  "twitter_title": "Darmowy Checker Adresów IP - Narzędzie Lokalizacji i Bezpieczeństwa",
+  "twitter_description": "Sprawdź swój adres IP, lokalizację, ISP i wykryj połączenia VPN/proxy. Szybkie, dokładne i całkowicie darmowe narzędzie geolokalizacji IP.",
+  
+  "meta_canonical_description": "Oficjalna strona narzędzia IP checker",
+  "breadcrumb_home": "Strona główna",
+  "breadcrumb_ip_checker": "Checker Adresów IP",
+  
+  "structured_data_name": "Darmowe Narzędzie Checker Adresów IP",
+  "structured_data_description": "Profesjonalna usługa wyszukiwania adresów IP i geolokalizacji z wykrywaniem VPN, informacjami ISP i narzędziami analizy prywatności.",
+  
+  "homepage_canonical": "https://checkip.app",
+  "site_name": "CheckIP - Narzędzia Adresów IP",
+
+  "related_tools_faq": "Powiązane Narzędzia i Zasoby",
+  "discover_your_ip": "Odkryj Szczegóły Swojego IP",
+  "complete_ip_analysis": "Kompletna analiza IP z mapą geolokalizacji",
+  "check_vpn_status": "Sprawdź Status Swojego VPN", 
+  "verify_privacy_protection": "Sprawdź czy ochrona prywatności działa",
+  "lookup_any_ip": "Sprawdź Dowolny Adres IP",
+  "professional_ip_analysis": "Profesjonalna analiza IP dla każdego adresu"
 
 }
