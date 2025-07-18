@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ _("ip_lookup_tool_title") }}</title>
+  <meta name="description" content="{{ _("ip_lookup_tool_description") }}">
+  
+  <!-- Всі ті ж мета-теги що в index.html -->
+  <meta property="og:title" content="{{ _('ip_lookup_tool_title') }}">
+  <meta property="og:description" content="{{ _('ip_lookup_tool_description') }}">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta property="og:image" content="{{ url_for('static', path='images/og-image.jpg') }}">
+  <meta property="og:type" content="website">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ request.url }}">
+  
+  <!-- Тi ж стилі що в index.html -->
+  <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+</head>
+
+<body>
+  <!-- Копіюй header з index.html (theme toggle, language dropdown) -->
+  
+  <h1>{{ _("ip_lookup_tool_h1") }}</h1>
+  
+  <div class="container">
+    <div class="lookup-form">
+      <form action="/{% if lang != 'en' %}{{ lang }}/{% endif %}lookup" method="get">
+        <input type="text" 
+               name="ip" 
+               placeholder="{{ _('enter_ip_address') }}" 
+               value="{{ lookup_ip if lookup_ip else '' }}"
+               required 
+               pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$">
+        <button type="submit">{{ _("lookup_ip_button") }}</button>
+      </form>
+    </div>
+    
+    {% if lookup_ip %}
+    <div class="lookup-results">
+      <h2>{{ _("results_for") }}: {{ lookup_ip }}</h2>
+      
+      <!-- Показ результатів lookup (використай ту ж структуру що в index.html) -->
+      <div class="info-block">
+        <p><strong>{{ _("city") }}:</strong> {{ city or _("unknown") }}</p>
+        <p><strong>{{ _("region") }}:</strong> {{ region or _("unknown") }}</p>
+        <p><strong>{{ _("country") }}:</strong> {{ country or _("unknown") }}</p>
+        <p><strong>{{ _("isp") }}:</strong> {{ isp or _("unknown") }}</p>
+        <!-- Додай інші поля -->
+      </div>
+    </div>
+    {% endif %}
+    
+    <!-- Додай internal links назад -->
+    <div class="related-tools">
+      <h3>{{ _("related_tools") }}</h3>
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}">{{ _("check_your_ip") }}</a>
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}what-is-my-ip">{{ _("what_is_my_ip_title") }}</a>
+      <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}am-i-using-vpn">{{ _("vpn_detection_title") }}</a>
+    </div>
+  </div>
+  
+  <!-- Footer як в index.html -->
+</body>
+</html>

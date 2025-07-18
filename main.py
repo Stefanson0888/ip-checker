@@ -279,14 +279,18 @@ async def get_ip_with_language(request: Request, lang: str):
 
 # Lookup (англійська за замовчуванням)
 @app.get("/lookup", response_class=HTMLResponse)
-async def lookup_ip_default(request: Request, ip: str = Query(...)):
+async def lookup_ip_default(request: Request, ip: str = Query(None)):
+    if ip is None:
+        return RedirectResponse(url="/ip-lookup-tool", status_code=301)
     return await lookup_ip_with_language(request, ip, DEFAULT_LANGUAGE)
 
 # Мовні версії lookup
 @app.get("/{lang}/lookup", response_class=HTMLResponse)
-async def lookup_ip_with_lang(request: Request, lang: str, ip: str = Query(...)):
+async def lookup_ip_with_lang(request: Request, lang: str, ip: str = Query(None)):
     if lang not in SUPPORTED_LANGUAGES:
         raise HTTPException(status_code=404, detail="Language not supported")
+    if ip is None:
+        return RedirectResponse(url=f"/{lang}/ip-lookup-tool", status_code=301)
     return await lookup_ip_with_language(request, ip, lang)
 
 async def lookup_ip_with_language(request: Request, ip: str, lang: str):
