@@ -98,3 +98,6 @@ Sitemap: https://checkip.app/sitemap.xml
 # Additional SEO directives
 # Specify host preference
 Host: checkip.app
+
+Disallow: */am-i-using-vpn/am-i-using-vpn
+Disallow: */ip-lookup-tool/ip-lookup-tool

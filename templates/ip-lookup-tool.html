@@ -408,7 +408,7 @@
     
             <!-- Кнопка повернення в лівому верхньому куті -->
             <nav style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
-                <a href="{% if lang != 'en' %}/{{ lang }}/{% else %}/{% endif %}" 
+                <a href="/{% if lang != 'en' %}{{ lang }}/{% endif %}" 
                    style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; backdrop-filter: blur(10px);">
                    ← {{ _('back_to_main') }}
                 </a>
