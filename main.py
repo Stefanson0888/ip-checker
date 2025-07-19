@@ -113,6 +113,26 @@ async def redirect_render_domain(request: Request, call_next):
     response = await call_next(request)
     return response
 
+# Middleware для обробки подвійних slug'ів
+@app.middleware("http")
+async def handle_duplicate_slugs(request: Request, call_next):
+    """Перенаправляє подвійні slug'и на правильні URL"""
+    path = str(request.url.path)
+    
+    # Обробка подвійних slug'ів
+    if '/am-i-using-vpn/am-i-using-vpn' in path:
+        new_path = path.replace('/am-i-using-vpn/am-i-using-vpn', '/am-i-using-vpn')
+        new_url = str(request.url).replace(path, new_path)
+        return RedirectResponse(url=new_url, status_code=301)
+    
+    if '/ip-lookup-tool/ip-lookup-tool' in path:
+        new_path = path.replace('/ip-lookup-tool/ip-lookup-tool', '/ip-lookup-tool')
+        new_url = str(request.url).replace(path, new_path)
+        return RedirectResponse(url=new_url, status_code=301)
+    
+    response = await call_next(request)
+    return response
+
 # Helper functions
 def detect_tech_user(request: Request) -> bool:
     """Детекція tech користувача для персоналізованої реклами"""

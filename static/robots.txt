@@ -101,3 +101,5 @@ Host: checkip.app
 
 Disallow: */am-i-using-vpn/am-i-using-vpn
 Disallow: */ip-lookup-tool/ip-lookup-tool
+Disallow: /*/am-i-using-vpn/am-i-using-vpn
+Disallow: /*/ip-lookup-tool/ip-lookup-tool
