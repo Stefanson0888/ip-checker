@@ -103,3 +103,6 @@ Disallow: */am-i-using-vpn/am-i-using-vpn
 Disallow: */ip-lookup-tool/ip-lookup-tool
 Disallow: /*/am-i-using-vpn/am-i-using-vpn
 Disallow: /*/ip-lookup-tool/ip-lookup-tool
+
+Disallow: /lookup?ip={search_term_string}
+Disallow: /lookup?ip=%7Bsearch_term_string%7D

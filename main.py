@@ -113,6 +113,20 @@ async def redirect_render_domain(request: Request, call_next):
     response = await call_next(request)
     return response
 
+# Middleware для обробки проблематичних URL з SearchAction
+@app.middleware("http")
+async def handle_search_action_urls(request: Request, call_next):
+    """Перенаправляє проблематичні URL з SearchAction на правильні сторінки"""
+    path = str(request.url.path)
+    query = str(request.url.query)
+    
+    # Обробка URL з search_term_string
+    if 'search_term_string' in query or 'search_term_string' in path:
+        return RedirectResponse(url="/ip-lookup-tool", status_code=301)
+    
+    response = await call_next(request)
+    return response
+
 # Middleware для обробки подвійних slug'ів
 @app.middleware("http")
 async def handle_duplicate_slugs(request: Request, call_next):
