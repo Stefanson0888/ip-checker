@@ -225,7 +225,6 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     _ = Translator(lang)
 
     # Обробка помилок API
-    clean_path = str(request.url.path)
     if "error" in ip_data:
         context = {
             "request": request,
@@ -236,7 +235,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "os": user_agent.os.family,
             "lang": lang,
             "_": _,
-            "language_urls": get_language_urls(clean_path, lang),
+            "language_urls": get_language_urls(str(request.url.path), lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
             "google_analytics_id": GOOGLE_ANALYTICS_ID,
             "gtm_id": GTM_ID,
@@ -287,8 +286,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         # i18n контекст
         "lang": lang,
         "_": _,
-        clean_path = str(request.url.path)
-        "language_urls": get_language_urls(clean_path, lang),
+        "language_urls": get_language_urls(str(request.url.path), lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
         "is_tech_user": is_tech_user,
         "security": security,  # Для conditional security widgets
