@@ -147,6 +147,29 @@ async def handle_duplicate_slugs(request: Request, call_next):
     response = await call_next(request)
     return response
 
+# Middleware для redirect'а query параметрів lang на правильні URL'и
+@app.middleware("http")
+async def handle_lang_query_params(request: Request, call_next):
+    """Перенаправляє URL'и з ?lang= на правильні мовні префікси"""
+    if request.method == "GET":
+        lang_param = request.query_params.get("lang")
+        if lang_param and lang_param in SUPPORTED_LANGUAGES:
+            path = str(request.url.path)
+            
+            # Видаляємо query параметри
+            clean_path = path.rstrip('/')
+            
+            # Створюємо правильний URL
+            if lang_param == "en":
+                new_url = f"{request.url.scheme}://{request.url.netloc}{clean_path}"
+            else:
+                new_url = f"{request.url.scheme}://{request.url.netloc}/{lang_param}{clean_path}"
+            
+            return RedirectResponse(url=new_url, status_code=301)
+    
+    response = await call_next(request)
+    return response
+
 # Helper functions
 def detect_tech_user(request: Request) -> bool:
     """Детекція tech користувача для персоналізованої реклами"""
@@ -202,6 +225,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
     _ = Translator(lang)
 
     # Обробка помилок API
+    clean_path = str(request.url.path)
     if "error" in ip_data:
         context = {
             "request": request,
@@ -212,7 +236,7 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
             "os": user_agent.os.family,
             "lang": lang,
             "_": _,
-            "language_urls": get_language_urls(str(request.url.path), lang),
+            "language_urls": get_language_urls(clean_path, lang),
             "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
             "google_analytics_id": GOOGLE_ANALYTICS_ID,
             "gtm_id": GTM_ID,
@@ -263,7 +287,8 @@ def render_ip_template(request: Request, ip_data: dict, ip: str, iphub_data: dic
         # i18n контекст
         "lang": lang,
         "_": _,
-        "language_urls": get_language_urls(str(request.url.path), lang),
+        clean_path = str(request.url.path)
+        "language_urls": get_language_urls(clean_path, lang),
         "hreflang_urls": get_hreflang_urls(str(request.base_url), str(request.url.path)),
         "is_tech_user": is_tech_user,
         "security": security,  # Для conditional security widgets
