@@ -24,6 +24,9 @@ Disallow: /static/ads/
 Disallow: /static/*.zip
 Disallow: /static/*.tar.gz
 
+Disallow: /search/portal.php
+Disallow: /search/*php*
+
 # Allow lookup functionality (important for SEO)
 Allow: /lookup
 Allow: /*/lookup
@@ -106,3 +109,7 @@ Disallow: /*/ip-lookup-tool/ip-lookup-tool
 
 Disallow: /lookup?ip={search_term_string}
 Disallow: /lookup?ip=%7Bsearch_term_string%7D
+
+Disallow: *.php$
+Disallow: /search/cc.php  
+Disallow: /search/tsc.php

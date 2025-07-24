@@ -143,6 +143,12 @@ async def handle_duplicate_slugs(request: Request, call_next):
         new_path = path.replace('/ip-lookup-tool/ip-lookup-tool', '/ip-lookup-tool')
         new_url = str(request.url).replace(path, new_path)
         return RedirectResponse(url=new_url, status_code=301)
+
+    # видалити trailing слеші з мовних версій
+    if path.endswith('/am-i-using-vpn/'):
+        new_path = path.rstrip('/')
+        new_url = str(request.url).replace(path, new_path)
+        return RedirectResponse(url=new_url, status_code=301)
     
     response = await call_next(request)
     return response
@@ -166,6 +172,22 @@ async def handle_lang_query_params(request: Request, call_next):
                 new_url = f"{request.url.scheme}://{request.url.netloc}/{lang_param}{clean_path}"
             
             return RedirectResponse(url=new_url, status_code=301)
+    
+    response = await call_next(request)
+    return response
+
+@app.middleware("http")
+async def block_problematic_urls(request: Request, call_next):
+    """Блокує проблемні URL що потрапляють в індекс"""
+    path = str(request.url.path).lower()
+    
+    # Блокуємо PHP файли
+    if path.endswith('.php') or '/search/' in path:
+        return Response(status_code=404)
+    
+    # Блокуємо довгі query параметри
+    if len(str(request.url.query)) > 100:
+        return Response(status_code=404)
     
     response = await call_next(request)
     return response
