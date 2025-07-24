@@ -99,95 +99,59 @@ async def add_performance_headers(request, call_next):
     
     return response
 
-# Redirect middleware - з render домену на основний
 @app.middleware("http")
-async def redirect_render_domain(request: Request, call_next):
-    """Перенаправляє traffic з render домену на основний checkip.app"""
+async def unified_redirect_middleware(request: Request, call_next):
+    """Єдиний middleware для всіх редиректів - запобігає ланцюжкам"""
     host = request.headers.get("host", "")
-    
-    if "onrender.com" in host:
-        # Створюємо URL з основним доменом
-        new_url = str(request.url).replace(host, "checkip.app")
-        return RedirectResponse(url=new_url, status_code=301)
-    
-    response = await call_next(request)
-    return response
-
-# Middleware для обробки проблематичних URL з SearchAction
-@app.middleware("http")
-async def handle_search_action_urls(request: Request, call_next):
-    """Перенаправляє проблематичні URL з SearchAction на правильні сторінки"""
     path = str(request.url.path)
     query = str(request.url.query)
     
-    # Обробка URL з search_term_string
-    if 'search_term_string' in query or 'search_term_string' in path:
+    # 1. Render domain redirect
+    if "onrender.com" in host:
+        new_url = str(request.url).replace(host, "checkip.app")
+        return RedirectResponse(url=new_url, status_code=301)
+    
+    # 2. Block PHP files (404 instead of redirect to avoid index)
+    if path.endswith('.php') or '/search/' in path:
+        return Response(status_code=404)
+    
+    # 3. Block long query params
+    if len(query) > 100:
+        return Response(status_code=404)
+    
+    # 4. 🔥 Handle search_term_string
+    if ('search_term_string' in query or 
+        'search_term_string' in path or
+        '%7Bsearch_term_string%7D' in query or
+        '{search_term_string}' in query):
         return RedirectResponse(url="/ip-lookup-tool", status_code=301)
     
-    response = await call_next(request)
-    return response
-
-# Middleware для обробки подвійних slug'ів
-@app.middleware("http")
-async def handle_duplicate_slugs(request: Request, call_next):
-    """Перенаправляє подвійні slug'и на правильні URL"""
-    path = str(request.url.path)
-    
-    # Обробка подвійних slug'ів
+    # 5. 🔥 Handle duplicate slugs
     if '/am-i-using-vpn/am-i-using-vpn' in path:
         new_path = path.replace('/am-i-using-vpn/am-i-using-vpn', '/am-i-using-vpn')
-        new_url = str(request.url).replace(path, new_path)
+        new_url = f"{request.url.scheme}://{request.url.netloc}{new_path}"
         return RedirectResponse(url=new_url, status_code=301)
     
     if '/ip-lookup-tool/ip-lookup-tool' in path:
         new_path = path.replace('/ip-lookup-tool/ip-lookup-tool', '/ip-lookup-tool')
-        new_url = str(request.url).replace(path, new_path)
+        new_url = f"{request.url.scheme}://{request.url.netloc}{new_path}"
         return RedirectResponse(url=new_url, status_code=301)
-
-    # видалити trailing слеші з мовних версій
+    
+    # 6. Handle trailing slashes
     if path.endswith('/am-i-using-vpn/'):
         new_path = path.rstrip('/')
-        new_url = str(request.url).replace(path, new_path)
+        new_url = f"{request.url.scheme}://{request.url.netloc}{new_path}"
         return RedirectResponse(url=new_url, status_code=301)
     
-    response = await call_next(request)
-    return response
-
-# Middleware для redirect'а query параметрів lang на правильні URL'и
-@app.middleware("http")
-async def handle_lang_query_params(request: Request, call_next):
-    """Перенаправляє URL'и з ?lang= на правильні мовні префікси"""
-    if request.method == "GET":
-        lang_param = request.query_params.get("lang")
-        if lang_param and lang_param in SUPPORTED_LANGUAGES:
-            path = str(request.url.path)
-            
-            # Видаляємо query параметри
-            clean_path = path.rstrip('/')
-            
-            # Створюємо правильний URL
-            if lang_param == "en":
-                new_url = f"{request.url.scheme}://{request.url.netloc}{clean_path}"
-            else:
-                new_url = f"{request.url.scheme}://{request.url.netloc}/{lang_param}{clean_path}"
-            
-            return RedirectResponse(url=new_url, status_code=301)
-    
-    response = await call_next(request)
-    return response
-
-@app.middleware("http")
-async def block_problematic_urls(request: Request, call_next):
-    """Блокує проблемні URL що потрапляють в індекс"""
-    path = str(request.url.path).lower()
-    
-    # Блокуємо PHP файли
-    if path.endswith('.php') or '/search/' in path:
-        return Response(status_code=404)
-    
-    # Блокуємо довгі query параметри
-    if len(str(request.url.query)) > 100:
-        return Response(status_code=404)
+    # 7. Lang query params
+    lang_param = request.query_params.get("lang")
+    if request.method == "GET" and lang_param and lang_param in SUPPORTED_LANGUAGES:
+        clean_path = path.rstrip('/')
+        if lang_param == "en":
+            new_url = f"{request.url.scheme}://{request.url.netloc}{clean_path}"
+        else:
+            new_url = f"{request.url.scheme}://{request.url.netloc}/{lang_param}{clean_path}"
+        return RedirectResponse(url=new_url, status_code=301)
     
     response = await call_next(request)
     return response
