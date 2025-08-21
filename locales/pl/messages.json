@@ -481,6 +481,9 @@
   "check_vpn_status": "Sprawdź Status Swojego VPN", 
   "verify_privacy_protection": "Sprawdź czy ochrona prywatności działa",
   "lookup_any_ip": "Sprawdź Dowolny Adres IP",
-  "professional_ip_analysis": "Profesjonalna analiza IP dla każdego adresu"
+  "professional_ip_analysis": "Profesjonalna analiza IP dla każdego adresu",
+
+  "contact_page_description": "Skontaktuj się z zespołem IP Checker Service. Wsparcie email, pomoc techniczna i zapytania biznesowe. Odpowiadamy w ciągu 24-48 godzin.",
+  "terms_page_description": "Regulamin serwisu IP Checker Service. Przeczytaj nasze zasady dotyczące akceptowalnego użytkowania, prywatności i zastrzeżeń serwisu."
 
 }

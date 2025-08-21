@@ -484,5 +484,9 @@
   "check_vpn_status": "Überprüfen Sie Ihren VPN-Status", 
   "verify_privacy_protection": "Überprüfen Sie, ob Ihr Datenschutz funktioniert",
   "lookup_any_ip": "Beliebige IP-Adresse nachschlagen",
-  "professional_ip_analysis": "Professionelle IP-Analyse für jede Adresse"
+  "professional_ip_analysis": "Professionelle IP-Analyse für jede Adresse",
+
+  "contact_page_description": "Kontaktieren Sie das IP Checker Service Team. E-Mail-Support, technische Hilfe und Geschäftsanfragen. Wir antworten innerhalb von 24-48 Stunden.",
+  "terms_page_description": "Nutzungsbedingungen für IP Checker Service. Lesen Sie unsere Richtlinien für akzeptable Nutzung, Datenschutz und Service-Haftungsausschlüsse."
+
 }

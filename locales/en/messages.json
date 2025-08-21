@@ -535,6 +535,9 @@
   "check_vpn_status": "Check Your VPN Status", 
   "verify_privacy_protection": "Verify your privacy protection is working",
   "lookup_any_ip": "Lookup Any IP Address",
-  "professional_ip_analysis": "Professional IP analysis for any address"
+  "professional_ip_analysis": "Professional IP analysis for any address",
+
+  "contact_page_description": "Contact the IP Checker Service team. Email support, technical help, and business inquiries. We respond within 24-48 hours.",
+  "terms_page_description": "Terms of Service for IP Checker Service. Read our policies on acceptable use, privacy, and service disclaimers."
 
 }

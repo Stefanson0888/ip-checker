@@ -10,7 +10,11 @@
     
     <div class="language-dropdown-menu">
         {% for lang_code, url in language_urls.items() %}
-        <a href="{{ url }}" class="language-option {% if lang_code == lang %}active{% endif %}">
+        <a href="{{ url }}" 
+            class="language-option {% if lang_code == lang %}active{% endif %}"
+            lang="{{ lang_code }}"
+            hreflang="{{ lang_code }}"
+            onclick="trackLanguageSwitch('{{ lang_code }}')">
             <span>
                 {% if lang_code == 'en' %}🇺🇸{% elif lang_code == 'de' %}🇩🇪{% elif lang_code == 'pl' %}🇵🇱{% elif lang_code == 'hi' %}🇮🇳{% elif lang_code == 'uk' %}🇺🇦{% elif lang_code == 'ru' %}{% endif %}
             </span>

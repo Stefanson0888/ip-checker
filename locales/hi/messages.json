@@ -481,5 +481,8 @@
   "check_vpn_status": "अपनी VPN स्थिति जांचें", 
   "verify_privacy_protection": "सत्यापित करें कि आपकी गोपनीयता सुरक्षा काम कर रही है",
   "lookup_any_ip": "कोई भी IP पता देखें",
-  "professional_ip_analysis": "किसी भी पते के लिए पेशेवर IP विश्लेषण"
+  "professional_ip_analysis": "किसी भी पते के लिए पेशेवर IP विश्लेषण",
+
+  "contact_page_description": "IP Checker Service टीम से संपर्क करें। ईमेल सहायता, तकनीकी सहायता और व्यावसायिक पूछताछ। हम 24-48 घंटों के भीतर उत्तर देते हैं।",
+  "terms_page_description": "IP Checker Service की सेवा की शर्तें। स्वीकार्य उपयोग, गोपनीयता और सेवा अस्वीकरण पर हमारी नीतियां पढ़ें।"
 }
